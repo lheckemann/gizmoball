@@ -13,7 +13,7 @@ public class GizmoBallPrototype extends JPanel {
     public static void main(String[] args) {
         JFrame window = new JFrame();
         window.add(new GizmoBallPrototype());
-        // window.pack();
+        window.pack();
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -42,6 +42,7 @@ public class GizmoBallPrototype extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        g2.translate(200, 0);
         // draw flipper
         flipperView.paint(g2, flipper);
     }
