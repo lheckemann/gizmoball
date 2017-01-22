@@ -22,6 +22,7 @@ public class FlipperModel extends Gizmo {
 	}
 
 	public FlipperModel(boolean isLeft) {
+		super();
 		active = false;
 		position = 0;
 		isLeftFlipper = isLeft;
