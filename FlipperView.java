@@ -1,40 +1,43 @@
 import java.awt.Color;
-import javax.swing.Graphics2D;
+import java.awt.Graphics2D;
 public class FlipperView {
 	public void paint(Graphics2D graphics, FlipperModel flipper) {
 		graphics.setColor(Color.ORANGE);
-		int x, y, width, height;
+		int x = 0,
+			y = 0,
+			width = 0,
+			height = 0;
 		graphics.rotate(Math.toRadians(flipper.getPosition()));
 		if (!flipper.isLeft()) {
 			graphics.scale(-1, 1);
 		}
 		switch (flipper.getRotation()) {
-			case Rotation.NORTH:
+			case NORTH:
 				x = 0;
 				y = 0;
-				width = 0.5 * L_TO_PIXELS;
-				height = 2 * L_TO_PIXELS;
+				width = Model.L_TO_PIXELS / 2;
+				height = Model.L_TO_PIXELS * 2;
 				break;
 
-			case Rotation.EAST:
+			case EAST:
 				x = 0;
 				y = 0;
-				width = 2 * L_TO_PIXELS;
-				height = 0.5 * L_TO_PIXELS;
+				width = Model.L_TO_PIXELS * 2;
+				height = Model.L_TO_PIXELS / 2;
 				break;
 
-			case Rotation.SOUTH:
-				x = 1.5 * L_TO_PIXELS;
+			case SOUTH:
+				x = Model.L_TO_PIXELS * 3 / 2;
 				y = 0;
-				width = 0.5 * L_TO_PIXELS;
-				height = 2 * L_TO_PIXELS;
+				width = Model.L_TO_PIXELS / 2;
+				height = Model.L_TO_PIXELS * 2;
 				break;
 
-			case Rotation.WEST:
+			case WEST:
 				x = 0;
-				y = 1.5 * L_TO_PIXELS;
-				width = 2 * L_TO_PIXELS;
-				height = 0.5 * L_TO_PIXELS;
+				y = Model.L_TO_PIXELS * 3 / 2;
+				width = Model.L_TO_PIXELS * 2;
+				height = Model.L_TO_PIXELS / 2;
 				break;
 		}
 
