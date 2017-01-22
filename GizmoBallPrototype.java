@@ -12,10 +12,26 @@ public class GizmoBallPrototype extends JPanel {
     private FlipperView flipperView;
     public static void main(String[] args) {
         JFrame window = new JFrame();
-        window.add(new GizmoBallPrototype());
-        window.pack();
+        GizmoBallPrototype p = new GizmoBallPrototype();
+        window.add(p);
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // TODO: work out how to get the key events forwarded to the GizmoBallPrototype properly
+        window.addKeyListener(
+                new KeyAdapter() {
+                    public void keyPressed(KeyEvent e) {
+                        if (e.getKeyCode() == e.VK_SPACE) {
+                            p.flipper.trigger();
+                        }
+                    }
+                    public void keyReleased(KeyEvent e) {
+                        if (e.getKeyCode() == e.VK_SPACE) {
+                            p.flipper.untrigger();
+                        }
+                    }
+                }
+        );
     }
 
     public GizmoBallPrototype() {
@@ -23,26 +39,13 @@ public class GizmoBallPrototype extends JPanel {
         flipperView = new FlipperView();
 
         new Timer(1000/Model.TICKS_PER_SECOND, e -> {flipper.tick(); repaint();}).start();
-
-        this.addKeyListener(
-            new KeyAdapter() {
-                public void keyPressed(KeyEvent e) {
-                    if (e.getKeyCode() == e.VK_SPACE) {
-                        flipper.trigger();
-                    }
-                }
-                public void keyReleased(KeyEvent e) {
-                    if (e.getKeyCode() == e.VK_SPACE) {
-                        flipper.untrigger();
-                    }
-                }
-            }
-        );
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.translate(200, 0);
+        g2.setColor(Color.black);
+        g2.fillRect(0, 0, getWidth(), getHeight());
+        g2.translate(64, 64);
         // draw flipper
         flipperView.paint(g2, flipper);
     }
