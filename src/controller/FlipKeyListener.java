@@ -1,6 +1,6 @@
-package src.controller;
+package controller;
 
-import src.model.FlipperModel;
+import model.FlipperModel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

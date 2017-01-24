@@ -1,7 +1,7 @@
-package src.view;
+package view;
 
-import src.model.Model;
-import src.model.FlipperModel;
+import model.Model;
+import model.FlipperModel;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

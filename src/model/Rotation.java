@@ -1,4 +1,4 @@
-package src.model;
+package model;
 
 public enum Rotation {
     NORTH, EAST, SOUTH, WEST;

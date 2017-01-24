@@ -1,8 +1,8 @@
-package src.view;
+package view;
 
-import src.controller.FlipKeyListener;
-import src.model.Model;
-import src.model.FlipperModel;
+import controller.FlipKeyListener;
+import model.Model;
+import model.FlipperModel;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
