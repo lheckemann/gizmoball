@@ -44,13 +44,15 @@ public class FlipperModel extends Gizmo {
         active = false;
     }
 
+    private static final int ROTATION_SPEED = 90; // Degrees per second
     @Override
     public void tick() {
-        // 1080 degrees per second
         if (active && position < 90) {
-            position += (1080 / Model.TICKS_PER_SECOND);
+            position += (ROTATION_SPEED / Model.TICKS_PER_SECOND);
+            position = Math.min(90, position);
         } else if (!active && position > 0) {
-            position -= (1080 / Model.TICKS_PER_SECOND);
+            position -= (ROTATION_SPEED/ Model.TICKS_PER_SECOND);
+            position = Math.max(0, position);
         }
     }
 

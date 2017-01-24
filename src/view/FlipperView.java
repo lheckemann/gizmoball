@@ -5,49 +5,41 @@ import model.FlipperModel;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 
 public class FlipperView {
     public void paint(Graphics2D graphics, FlipperModel flipper) {
         graphics.setColor(Color.ORANGE);
-        int x = 0,
-                y = 0,
-                width = 0,
-                height = 0;
-        graphics.rotate(Math.toRadians(flipper.getPosition()));
+        AffineTransform saved = graphics.getTransform();
+
+        graphics.translate(Model.L_TO_PIXELS, Model.L_TO_PIXELS);
         if (!flipper.isLeft()) {
             graphics.scale(-1, 1);
         }
         switch (flipper.getRotation()) {
             case NORTH:
-                x = 0;
-                y = 0;
-                width = Model.L_TO_PIXELS / 2;
-                height = Model.L_TO_PIXELS * 2;
                 break;
 
             case EAST:
-                x = 0;
-                y = 0;
-                width = Model.L_TO_PIXELS * 2;
-                height = Model.L_TO_PIXELS / 2;
+                graphics.rotate(Math.toRadians(90));
                 break;
 
             case SOUTH:
-                x = Model.L_TO_PIXELS * 3 / 2;
-                y = 0;
-                width = Model.L_TO_PIXELS / 2;
-                height = Model.L_TO_PIXELS * 2;
+                graphics.rotate(Math.toRadians(180));
                 break;
 
             case WEST:
-                x = 0;
-                y = Model.L_TO_PIXELS * 3 / 2;
-                width = Model.L_TO_PIXELS * 2;
-                height = Model.L_TO_PIXELS / 2;
+                graphics.rotate(Math.toRadians(270));
                 break;
         }
+        graphics.translate(-Model.L_TO_PIXELS, -Model.L_TO_PIXELS);
 
-        graphics.fillRect(x, y, width, height);
+        graphics.translate(Model.L_TO_PIXELS * 0.25, Model.L_TO_PIXELS * 0.25);
+        graphics.rotate(-Math.toRadians(flipper.getPosition()));
+        graphics.translate(-Model.L_TO_PIXELS * 0.25, -Model.L_TO_PIXELS * 0.25);
+
+        graphics.fillRect(0, 0, Model.L_TO_PIXELS / 2, Model.L_TO_PIXELS * 2);
+        graphics.setTransform(saved);
     }
 }
 

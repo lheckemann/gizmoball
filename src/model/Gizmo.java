@@ -41,4 +41,8 @@ public abstract class Gizmo {
                 break;
         }
     }
+
+    public void setRotation(Rotation rot) {
+        rotation = rot;
+    }
 }
