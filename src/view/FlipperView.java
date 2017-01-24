@@ -38,7 +38,9 @@ public class FlipperView {
         graphics.rotate(-Math.toRadians(flipper.getPosition()));
         graphics.translate(-Model.L_TO_PIXELS * 0.25, -Model.L_TO_PIXELS * 0.25);
 
-        graphics.fillRect(0, 0, Model.L_TO_PIXELS / 2, Model.L_TO_PIXELS * 2);
+        graphics.fillRect(0, Model.L_TO_PIXELS / 4, Model.L_TO_PIXELS / 2, Model.L_TO_PIXELS * 6 / 4);
+        graphics.fillOval(0, 0, Model.L_TO_PIXELS / 2, Model.L_TO_PIXELS / 2);
+        graphics.fillOval(0, Model.L_TO_PIXELS * 6 / 4, Model.L_TO_PIXELS / 2, Model.L_TO_PIXELS / 2);
         graphics.setTransform(saved);
     }
 }
