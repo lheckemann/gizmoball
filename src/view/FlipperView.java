@@ -39,6 +39,8 @@ public class FlipperView {
         graphics.translate(-Model.L_TO_PIXELS * 0.25, -Model.L_TO_PIXELS * 0.25);
 
         graphics.fillRoundRect(0, 0, Model.L_TO_PIXELS / 2, Model.L_TO_PIXELS * 2, Model.L_TO_PIXELS / 2, Model.L_TO_PIXELS / 2);
+        graphics.setColor(Color.RED);
+        graphics.fillOval(Model.L_TO_PIXELS / 8, Model.L_TO_PIXELS / 8, Model.L_TO_PIXELS / 4, Model.L_TO_PIXELS / 4);
         graphics.setTransform(saved);
     }
 }
