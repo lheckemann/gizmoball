@@ -29,7 +29,7 @@ overlap with each other. The balls are located anywhere inside the continuum of
 the arena.
 
 An instruction with a reference to a gizmo that is defined at a later
-instruction if not considered invalid.
+instruction is not considered invalid.
 
 ## Elements
 
