@@ -3,7 +3,7 @@
 A game can be set up either by using the GUI's build mode or by loading a file
 describing the game in a standard format. Once the game is set up, it can be
 ran through the physics engine. It can be paused at any time, and saved into the
-standard format.
+standard format. The user can quit the program at any time.
 
 # Game description
 
