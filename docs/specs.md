@@ -12,7 +12,7 @@ analogous to executing a series of build actions using the GUI's build mode. The
 allowed operations are:
 
 - Create and place a (gizmo | ball).
-- Rotate a (bumper | flipper).
+- Rotate a (bumper | flipper) 90 degrees clockwise.
 - Move a (gizmo | ball).
 - Delete a (gizmo | ball).
 - Connect a (gizmo | outer wall) to a gizmo.
