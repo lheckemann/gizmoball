@@ -1,5 +1,10 @@
 package model;
 
+import physics.Circle;
+import physics.LineSegment;
+
+import java.util.Set;
+
 public abstract class Gizmo {
     public void keyPressed() {
     }
@@ -10,4 +15,6 @@ public abstract class Gizmo {
         keyPressed();
     }
 
+    public abstract Set<LineSegment> getLineSegments();
+    public abstract Set<Circle> getCircles();
 }
