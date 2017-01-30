@@ -101,13 +101,23 @@ User must be in build mode
 #### Triggers:
 User selects rotate option
 #### Basic course of events:
-1. User chooses the gizmo they would like to rotate
-2. Gizmo is rotated successfully
+1. User chooses the gizmo they would like to rotate 
+2. User chooses a flipper or bumper
+3. Gizmo is rotated successfuly
 
 ### Alternate path(s)
-1. User chooses a ball or absorber
-2. System informs user that balls and absorbers cannot be rotated
-3. Go to step 1 (Main path)
+2. User chooses a ball 
+3. System informs user that balls cannot be rotated
+4. Go to step 1 (Main path)
+
+2. User chooses absorber
+3. Absorbers new orientation moves it into unoccupied spaces
+4. Absorber is rotated successfully
+
+2. User chooses absorber
+3. Absorbers new orientation moves it into occupied spaces
+4. System informs user that the absorber cannot be rotated into occupied spaces
+5. Go to step 1 (Main path)
 
 #### Use Case Name:
 Modify gravity
@@ -219,6 +229,30 @@ User must be in run mode
 1. User presses key to active flipper
 2. User hits ball with flipper
 3. Ball's velocity changes
+
+### Use Case Name:
+Press pause button
+### Preconditions:
+User must be in run mode and currently have the game running
+### Basic course of events:
+1. User presses pause button
+2. Game pauses (i.e. ball(s) stops moving)
+
+### Use Case Name:
+Press play button
+### Preconditions:
+User must be in run mode and currently have the game paused
+### Basic course of events:
+1. User presses play button
+2. Game starts running (i.e. ball(s) start moving)
+
+### Use Case Name:
+Press tick button
+### Preconditions:
+User must be in run mode and currently have the game paused
+### Basic course of events:
+1. User presses tick button
+2. Ball(s) moves for the duration of one tick
 
 ### Use Case Name:
 Load game board from file
