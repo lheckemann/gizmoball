@@ -1,6 +1,6 @@
-## Use Cases
+# Use Cases
 
-### Add gizmo (bumper or flipper)
+## Add gizmo (bumper or flipper)
 
 - Preconditions: User must be in build mode
 - Triggers: User selects add gizmo option
@@ -14,7 +14,7 @@
     4. System informs user to choose an unoccupied space
     5. Go to step 2 (Main path)
 
-### Add ball
+## Add ball
 
 - Preconditions: User must be in build mode
 - Triggers: User selects add gizmo option & chose ball
@@ -27,7 +27,7 @@
     3. System informs user to choose an unoccupied space
     4. Go to step 1 (Main path)
 
-### Add absorber
+## Add absorber
 
 - Preconditions: User must be in build mode
 - Triggers: User selects add gizmo option & chose absorber
@@ -49,7 +49,7 @@
     6. System informs user that the absorber must not go over any occupied spaces
     7. Go to step 1 (Main path)
 
-### Delete gizmo (Bumper, Flipper, Ball, Absorber)
+## Delete gizmo (Bumper, Flipper, Ball, Absorber)
 
 - Preconditions: User must be in build mode
 - Triggers: User selects delete option
@@ -63,7 +63,7 @@
     3. User declines their decision to delete the gizmo
     4. Go to step 1 (Main path)
 
-### Move gizmo (bumper, flipper, ball, absorber)
+## Move gizmo (bumper, flipper, ball, absorber)
 
 - Preconditions: User must be in build mode
 - Triggers: User selects move option
@@ -76,7 +76,7 @@
     3. System informs user that a gizmo cannot be moved into an occupied space, prompting them to move the gizmo again
     4. Go to step 1 (Main path)
 
-### Rotate gizmo
+## Rotate gizmo
 
 - Preconditions: User must be in build mode
 - Triggers: User selects rotate option
@@ -96,7 +96,7 @@
     4. System informs user that the absorber cannot be rotated into occupied spaces
     5. Go to step 1 (Main path)
 
-### Modify gravity
+## Modify gravity
 
 - Preconditions: User must be in build mode
 - Triggers: User clicks on gravity parameter field
@@ -112,7 +112,7 @@
     3. System informs user that gravity must be within a specific range
     4. Go to step 1 (Main path)
 
-### Modify friction
+## Modify friction
 
 - Preconditions: User must be in build mode
 - Triggers: User clicks on friction parameter field
@@ -128,7 +128,7 @@
     3. System informs user that friction must be within a specific range
     4. Go to step 1 (Main path)
 
-### Connect key press to gizmo action
+## Connect key press to gizmo action
 
 - Preconditions: User must be in build mode
 - Triggers: User chooses connect option
@@ -140,7 +140,7 @@
     5. User selects "Done" button to choose they are finished adding connections
     6. Connections are successfully added
 
-### Connect gizmo to gizmo action
+## Connect gizmo to gizmo action
 
 - Preconditions: User must be in build mode
 - Triggers: User chooses connect option
@@ -152,7 +152,7 @@
     5. User selects "Done" button to choose they are finished adding connections
     6. Connections are successfully added
 
-### Remove connection
+## Remove connection
 
 - Preconditions: User must be in build mode
 - Triggers: User chooses connect option
@@ -167,21 +167,21 @@
     5. User declines their choice
     6. Go to step 1 (Main path)
 
-### Switch to run mode
+## Switch to run mode
 
 - Preconditions: User must be in build mode
 - Basic course of events:
     1. User selects "Run" mode button
     2. System switches from "Build" mode to "Run" mode
 
-### Press key to active gizmo
+## Press key to active gizmo
 
 - Preconditions: User must be in run mode
 - Basic course of events:
     1. User presses their chosen key
     2. Any gizmos connected to the key are activated
 
-### Hit ball with flipper
+## Hit ball with flipper
 
 - Preconditions: User must be in run mode
 - Basic course of events:
@@ -189,28 +189,28 @@
     2. User hits ball with flipper
     3. Ball's velocity changes
 
-### Press pause button
+## Press pause button
 
 - Preconditions: User must be in run mode and currently have the game running
 - Basic course of events:
     1. User presses pause button
     2. Game pauses (i.e. ball(s) stops moving)
 
-### Press play button
+## Press play button
 
 - Preconditions: User must be in run mode and currently have the game paused
 - Basic course of events:
     1. User presses play button
     2. Game starts running (i.e. ball(s) start moving)
 
-### Press tick button
+## Press tick button
 
 - Preconditions: User must be in run mode and currently have the game paused
 - Basic course of events:
     1. User presses tick button
     2. Ball(s) moves for the duration of one tick
 
-### Load game board from file
+## Load game board from file
 
 - Triggers: User chooses load option
 - Basic course of events:
@@ -222,14 +222,14 @@
     3. System informs user the chosen file was invalid
     4. Go to step 1 (Main path)
 
-### Save game board to file
+## Save game board to file
 
 - Triggers: User chooses save option
 - Basic course of events:
     1. User chooses location to save game
     2. Game board is saved successfully
 
-### Quit system
+## Quit system
 
 - Triggers: User chooses quit option
 - Basic course of events:

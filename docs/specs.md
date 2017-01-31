@@ -1,3 +1,5 @@
+# Specification
+
 ## General
 
 A game can be set up either by using the GUI's build mode or by loading a file
