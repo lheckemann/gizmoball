@@ -1,11 +1,11 @@
-# General
+## General
 
 A game can be set up either by using the GUI's build mode or by loading a file
 describing the game in a standard format. Once the game is set up, it can be
 ran through the physics engine. It can be paused at any time, and saved into the
 standard format. The user can quit the program at any time.
 
-# Game description
+## Game description
 
 The standard format defines a series of sequential instructions which are
 analogous to executing a series of build actions using the GUI's build mode. The
@@ -31,7 +31,7 @@ the arena.
 An instruction with a reference to a gizmo that is defined at a later
 instruction is not considered invalid.
 
-## Elements
+### Elements
 
 - Gizmos (*discrete* position)
     - Bumpers
@@ -50,7 +50,7 @@ instruction is not considered invalid.
     - Fixed size
     - Fixed position
 
-# Game execution
+## Game execution
 
 Once the game is running, the user interacts with it through the defined key
 triggers. The user might pause the game at any time or go into build mode.
@@ -58,7 +58,7 @@ triggers. The user might pause the game at any time or go into build mode.
 The velocity of the balls is affected by friction, gravity, and interactions
 with gizmos.
 
-## Triggering
+### Triggering
 
 The OuterWalls and all the gizmos generate a trigger event when hit by a ball.
 Keys might generate trigger events when pressed or released.
