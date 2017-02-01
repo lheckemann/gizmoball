@@ -16,7 +16,7 @@
     - Finalize requirements and documents for Preliminary Release submission.
       *All*
 - Week 7-8:
-    - Start merging prototypes in a single implementation.
+    - Start working on a single implementations.
       *Initially within the two sub-groups. Near the end, all together*
 - Week 9:
     - Finalize JUnit tests, if needed.
