@@ -81,10 +81,11 @@ public class Model implements BuildModel {
     }
 
     public OutputStream save() {
+        return null;  // TODO
     }
 
     public Set<Gizmo> getGizmos() {
-        return this.gizmos.values();
+        return new HashSet<>(this.gizmos.values());
     }
 
     public Set<Vect> getBallPositions() { // FIXME: we don't want to use vect here

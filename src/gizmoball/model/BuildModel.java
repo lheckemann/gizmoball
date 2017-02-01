@@ -31,7 +31,7 @@ public interface BuildModel extends ReadModel {
      * If there is no selection or the selected location is already occupied by
      * some other item, this will effectively be a noop.
      */
-    public void addGizmo(GizmoType type);
+    public void addGizmo(ReadGizmo.GizmoType type);
 
     /**
      * Rotates the gizmo at the selected location clockwise.
