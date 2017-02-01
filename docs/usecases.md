@@ -9,7 +9,7 @@
     2. User chooses a place on the board to place the gizmo
     3. The place the user chose was unoccupied
     4. The chosen gizmo is placed at the chosen location
-- Alternate path(s):
+- Alternate path:
     3. The place the user chose was occupied by another gizmo
     4. System informs user to choose an unoccupied space
     5. Go to step 2 (Main path)
@@ -22,7 +22,7 @@
     1. User chooses a place on the board to place the ball
     2. The place the user chose was unoccupied
     3. Ball is placed at the chosen location
-- Alternate path(s):
+- Alternate path:
     2. The place the user chose was occupied
     3. System informs user to choose an unoccupied space
     4. Go to step 1 (Main path)
@@ -38,16 +38,19 @@
     4. User releases mouse in an unoccupied space
     5. Absorber does not go over any occupied spaces
     6. Absorber is placed in places chosen by the user
-- Alternate path(s):
-    2. The starting place the user chose was occupied
-    3. System informs user to choose an unoccupied space
-    4. Go to step 1 (Main path)
-    4. User releases mouse in an occupied space
-    5. System informs user to choose an unoccupied space
-    6. Go to step 1 (Main path)
-    5. Absorber goes over occupied spaces
-    6. System informs user that the absorber must not go over any occupied spaces
-    7. Go to step 1 (Main path)
+- Alternate paths:
+    a)
+        2. The starting place the user chose was occupied
+        3. System informs user to choose an unoccupied space
+        4. Go to step 1 (Main path)
+    b)
+        4. User releases mouse in an occupied space
+        5. System informs user to choose an unoccupied space
+        6. Go to step 1 (Main path)
+    c)
+        5. Absorber goes over occupied spaces
+        6. System informs user that the absorber must not go over any occupied spaces
+        7. Go to step 1 (Main path)
 
 ## Delete gizmo (Bumper, Flipper, Ball, Absorber)
 
@@ -59,7 +62,7 @@
     3. User confirms their decisions to delete the gizmo
     4. The selected gizmo is removed from the board
     5. If the gizmo is a bumper, flipper or absorber, all connections involving that gizmo are removed as well
-- Alternate path(s):
+- Alternate path:
     3. User declines their decision to delete the gizmo
     4. Go to step 1 (Main path)
 
@@ -81,20 +84,23 @@
 - Preconditions: User must be in build mode
 - Triggers: User selects rotate option
 - Basic course of events:
-    1. User chooses the gizmo they would like to rotate 
+    1. User chooses the gizmo they would like to rotate
     2. User chooses a flipper or bumper
     3. Gizmo is rotated successfuly
-- Alternate path(s):
-    2. User chooses a ball 
-    3. System informs user that balls cannot be rotated
-    4. Go to step 1 (Main path)
-    2. User chooses absorber
-    3. Absorbers new orientation moves it into unoccupied spaces
-    4. Absorber is rotated successfully
-    2. User chooses absorber
-    3. Absorbers new orientation moves it into occupied spaces
-    4. System informs user that the absorber cannot be rotated into occupied spaces
-    5. Go to step 1 (Main path)
+- Alternate paths:
+     a)
+        2. User chooses a ball
+        3. System informs user that balls cannot be rotated
+        4. Go to step 1 (Main path)
+     b)
+        2. User chooses absorber
+        3. Absorbers new orientation moves it into unoccupied spaces
+        4. Absorber is rotated successfully
+     c)
+        2. User chooses absorber
+        3. Absorbers new orientation moves it into occupied spaces
+        4. System informs user that the absorber cannot be rotated into occupied spaces
+        5. Go to step 1 (Main path)
 
 ## Modify gravity
 
@@ -104,13 +110,15 @@
     1. User enters a value for gravity
     2. Value user entered is valid
     3. Gravity is successfully modified
-- Alternate path(s):
-    2. Value user entered is non numeric
-    3. System informs user that gravity must be a numeric value
-    4. Go to step 1 (Main path)
-    2. Value user entered is out of range
-    3. System informs user that gravity must be within a specific range
-    4. Go to step 1 (Main path)
+- Alternate paths:
+     a)
+        2. Value user entered is non numeric
+        3. System informs user that gravity must be a numeric value
+        4. Go to step 1 (Main path)
+     b)
+        2. Value user entered is out of range
+        3. System informs user that gravity must be within a specific range
+        4. Go to step 1 (Main path)
 
 ## Modify friction
 
@@ -120,13 +128,15 @@
     1. User enters a value for friction
     2. Value user entered is valid
     3. Friction is successfully modified
-- Alternate path(s):
-    2. Value user entered is non numeric
-    3. System informs user that friction must be a numeric value
-    4. Go to step 1 (Main path)
-    2. Value user entered is out of range
-    3. System informs user that friction must be within a specific range
-    4. Go to step 1 (Main path)
+- Alternate paths:
+    a)
+        2. Value user entered is non numeric
+        3. System informs user that friction must be a numeric value
+        4. Go to step 1 (Main path)
+    b)
+        2. Value user entered is out of range
+        3. System informs user that friction must be within a specific range
+        4. Go to step 1 (Main path)
 
 ## Connect key press to gizmo action
 
@@ -163,7 +173,7 @@
     4. System prompts user to confirm that they wish to proceed with the removal of the connection
     5. User confirms their choice
     6. Connection is removed
-- Alternate paths(s):
+- Alternate path:
     5. User declines their choice
     6. Go to step 1 (Main path)
 
@@ -238,8 +248,11 @@
     3. User confirms quit
     4. System is terminated
 - Alternate paths:
-    1. User is in build mode
-    2. System prompts user to save their game board
-    3. User chooses location to save game board
-    4. Go to step 2 (Main path)
-    3. User declines quit
+    a)
+        1. User is in build mode
+        2. System prompts user to save their game board
+        3. User chooses location to save game board
+        4. Go to step 2 (Main path)
+    b)
+        3. User declines quit
+
