@@ -18,9 +18,9 @@ docs: docs/report.pdf
 docs/report.pdf: docs/report.md
 	pandoc -f markdown -t latex docs/report.md -o docs/report.pdf
 
-docs/report.md: docs/specs.md docs/usecases.md docs/physics.md docs/design.png docs/triggering.md docs/design.md
+docs/report.md: docs/specs.md docs/usecases.md docs/physics.md docs/design.png docs/triggering.md docs/design.md docs/projectplan.md
 	printf "%% Preliminary design\n%% Group JS8\n" > docs/report.md
-	cat docs/specs.md docs/usecases.md docs/physics.md docs/triggering.md docs/design.md >> docs/report.md
+	cat docs/specs.md docs/usecases.md docs/physics.md docs/triggering.md docs/design.md docs/projectplan.md >> docs/report.md
 	printf "%s" "$$images" >> docs/report.md
 
 docs/design.png: docs/design.dia
