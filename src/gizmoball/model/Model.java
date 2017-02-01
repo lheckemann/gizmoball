@@ -1,0 +1,83 @@
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Observer;
+import java.util.Set;
+
+public class Model implements BuildModel {
+    private Map<String, Gizmo> gizmos;
+    private Set<Ball> balls;
+    private Map<Integer, Set<Gizmo>> keyPressMap;
+    private Map<Integer, Set<Gizmo>> keyReleaseMap;
+    private Map<Gizmo, Set<Gizmo>> gizmoMap;
+    private Set<Gizmo> wallTriggers;
+    private Set<Observer> observers;
+
+    public Model() { // FIXME: accept board size?
+        this.reset();
+        this.observers = new HashSet<>();
+    }
+
+    public void reset() {
+        this.gizmos = new HashMap<>();
+        this.balls = new HashSet<>();
+        this.keyPressMap = new HashMap<>();
+        this.keyReleaseMap = new HashMap<>();
+        this.gizmoMap = new HashMap<>();
+        this.wallTriggers = new HashSet<>();
+    }
+
+    public void select(double x, double y) {
+    }
+
+    public void move(double dX, double dY) {
+    }
+
+    public void delete() {
+    }
+
+    public void addGizmo(Gizmo.GizmoType type) {
+    }
+
+    public void rotateGizmo() {
+    }
+
+    public void addBall() {
+    }
+
+    public void setBallVelocity(double vX, double vY) {
+    }
+
+    public void getGravity() {
+    }
+
+    public void setGravity(double gravity) {
+    }
+
+    public void getFrictionMu() {
+    }
+
+    public void getFrictionMu2() {
+    }
+
+    public void setFriction(double mu, double mu2) {
+    }
+
+    public void connectKeyPress(int key) {
+    }
+
+    public void connectKeyRelease(int key) {
+    }
+
+    public void connectItems(double dX, double dY) {
+    }
+
+    public void load(InputStream input) {
+    }
+
+    public OutputStream save() {
+    }
+
+}
