@@ -27,8 +27,8 @@ The game might have a variable size, but it has to be at least 20x20.
 Multiple balls might exist.
 
 Gizmos are located on a discrete grid. The bounding boxes of gizmos cannot
-overlap with each other. The balls are located anywhere inside the continuum of
-the arena.
+overlap with each other. Balls cannot overlap with the outer walls, gizmos, or
+other balls.
 
 An instruction with a reference to a gizmo that is defined at a later
 instruction is not considered invalid.
