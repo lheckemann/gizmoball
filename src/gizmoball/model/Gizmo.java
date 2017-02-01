@@ -1,11 +1,4 @@
-public abstract class Gizmo {
-    public static enum Rotation {
-        N, E, S, W;
-    }
-    public static enum GizmoType {
-        ABSORBER, SQUARE, CIRCLE, TRIANGLE, RIGHT_FLIPPER, LEFT_FLIPPER;
-    }
-
+public abstract class Gizmo implements ReadGizmo {
     private GizmoType type;
     private Rotation rotation;
     private int x;

@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Observer;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import physics.Vect;
 
 public class Model implements BuildModel {
     private Map<String, Gizmo> gizmos;
@@ -80,4 +83,21 @@ public class Model implements BuildModel {
     public OutputStream save() {
     }
 
+    public Set<Gizmo> getGizmos() {
+        return this.gizmos.values();
+    }
+
+    public Set<Vect> getBallPositions() { // FIXME: we don't want to use vect here
+        return this.balls.stream()
+                         .map(b -> new Vect(b.getX(), b.getY()))
+                         .collect(Collectors.toSet());
+    }
+
+    public void addObserver(Observer observer) {
+        this.observers.add(observer);
+    }
+
+    public void deleteObserver(Observer observer) {
+        this.observers.remove(observer);
+    }
 }

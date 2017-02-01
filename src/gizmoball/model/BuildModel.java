@@ -1,7 +1,7 @@
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public interface BuildModel {
+public interface BuildModel extends ReadModel {
     /**
      * Seleects the ball or gizmo at the provided location as an operand in
      * future operations. Gizmos are selected by their bounding boxes.
