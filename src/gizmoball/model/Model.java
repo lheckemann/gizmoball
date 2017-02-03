@@ -40,15 +40,15 @@ public class Model implements BuildModel {
         this.wallTriggers = new HashSet<>();
     }
 
-    private Map.Entry<String,Gizmo> getSelectedGizmo() {
-        return this.gizmos.entrySet().stream()
-                          .filter(e -> e.getValue().contains(this.selX, this.selY))
+    private Gizmo getSelectedGizmo() {
+        return this.gizmos.values().stream()
+                          .filter(g -> g.contains(this.selX, this.selY))
                           .findFirst().orElse(null);
     }
 
-    private Map.Entry<String,Ball> getSelectedBall() {
-        return this.balls.entrySet().stream()
-                         .filter(e -> e.getValue().contains(this.selX, this.selY))
+    private Ball getSelectedBall() {
+        return this.balls.values().stream()
+                         .filter(b -> b.contains(this.selX, this.selY))
                          .findFirst().orElse(null);
     }
 
@@ -58,14 +58,14 @@ public class Model implements BuildModel {
     }
 
     public void move(double dX, double dY) {
-        Map.Entry<String,Gizmo> gizmo = this.getSelectedGizmo();
+        Gizmo gizmo = this.getSelectedGizmo();
         if (gizmo != null) {
-            gizmo.getValue().setPosition((int) dX, (int) dY);
+            gizmo.setPosition((int) dX, (int) dY);
             return;
         }
-        Map.Entry<String,Ball> ball = this.getSelectedBall();
+        Ball ball = this.getSelectedBall();
         if (ball != null) {
-            ball.getValue().setPosition(dX, dY);
+            ball.setPosition(dX, dY);
         }
     }
 
