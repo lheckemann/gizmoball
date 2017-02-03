@@ -96,6 +96,10 @@ public class Model implements BuildModel {
     }
 
     public void setBallVelocity(double vX, double vY) {
+        Ball ball = this.getSelectedBall();
+        if (ball != null) {
+            ball.setVelocity(new Vect(vX, vY));
+        }
     }
 
     public double getGravity() {
