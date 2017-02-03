@@ -124,9 +124,17 @@ public class Model implements BuildModel {
     }
 
     public void connectKeyPress(int key) {
+        Gizmo gizmo = this.getSelectedGizmo();
+        if (gizmo != null) {
+            this.keyPressMap.computeIfAbsent(key, k -> new HashSet<>()).add(gizmo);
+        }
     }
 
     public void connectKeyRelease(int key) {
+        Gizmo gizmo = this.getSelectedGizmo();
+        if (gizmo != null) {
+            this.keyReleaseMap.computeIfAbsent(key, k -> new HashSet<>()).add(gizmo);
+        }
     }
 
     public void connectItems(double dX, double dY) {
