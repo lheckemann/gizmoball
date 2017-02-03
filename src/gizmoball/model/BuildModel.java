@@ -61,7 +61,7 @@ public interface BuildModel extends ReadModel {
      * Gets the global gravity constant.
      * If not set, the default global gravity is 25L/s.
      */
-    public void getGravity();
+    public double getGravity();
 
     /**
      * Sets the global gravity constant.
@@ -74,14 +74,14 @@ public interface BuildModel extends ReadModel {
      * v_new = v_old * (1 - μ*Δt - μ₂*Δt*|v_old|)
      * If not set, the default value for μ is 0.025/s.
      */
-    public void getFrictionMu();
+    public double getFrictionMu();
 
     /**
      * Gets the global frictional constant μ₂ (mu2).
      * v_new = v_old * (1 - μ*Δt - μ₂*Δt*|v_old|)
      * If not set, the default value for μ₂ is 0.025/L.
      */
-    public void getFrictionMu2();
+    public double getFrictionMu2();
 
     /**
      * Sets the global frictional constants μ (mu) and μ₂ (mu2).

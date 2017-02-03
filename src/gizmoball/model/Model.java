@@ -16,6 +16,10 @@ public class Model implements BuildModel {
     private final double height;
     private double selX;
     private double selY;
+    private double gravity = 25;
+    private double mu = 0.025;
+    private double mu2 = 0.025;
+
     private Map<String, Gizmo> gizmos;
     private Map<String, Ball> balls;
     private Map<Integer, Set<Gizmo>> keyPressMap;
@@ -90,19 +94,25 @@ public class Model implements BuildModel {
     public void setBallVelocity(double vX, double vY) {
     }
 
-    public void getGravity() {
+    public double getGravity() {
+        return this.gravity;
     }
 
     public void setGravity(double gravity) {
+        this.gravity = gravity;
     }
 
-    public void getFrictionMu() {
+    public double getFrictionMu() {
+        return this.mu;
     }
 
-    public void getFrictionMu2() {
+    public double getFrictionMu2() {
+        return this.mu2;
     }
 
     public void setFriction(double mu, double mu2) {
+        this.mu = mu;
+        this.mu2 = mu2;
     }
 
     public void connectKeyPress(int key) {
