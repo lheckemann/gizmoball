@@ -82,13 +82,13 @@ public class Model implements BuildModel {
                                .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
     }
 
-    public void addGizmo(Gizmo.GizmoType type) {
+    public void addGizmo(Gizmo.GizmoType type) { // FIXME Needs an identifier
     }
 
     public void rotateGizmo() {
     }
 
-    public void addBall() {
+    public void addBall() { // FIXME: needs identifier
     }
 
     public void setBallVelocity(double vX, double vY) {
