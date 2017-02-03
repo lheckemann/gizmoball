@@ -42,14 +42,14 @@ public class Model implements BuildModel {
 
     private Map.Entry<String,Gizmo> getSelectedGizmo() {
         return this.gizmos.entrySet().stream()
-                                     .filter(e -> e.getValue().contains(x, y))
-                                     .findFirst().orElse(null);
+                          .filter(e -> e.getValue().contains(this.selX, this.selY))
+                          .findFirst().orElse(null);
     }
 
     private Map.Entry<String,Ball> getSelectedBall() {
         return this.balls.entrySet().stream()
-                                    .filter(e -> e.getValue().contains(x, y))
-                                    .findFirst().orElse(null);
+                         .filter(e -> e.getValue().contains(this.selX, this.selY))
+                         .findFirst().orElse(null);
     }
 
     public void select(double x, double y) {
@@ -58,6 +58,15 @@ public class Model implements BuildModel {
     }
 
     public void move(double dX, double dY) {
+        Map.Entry<String,Gizmo> gizmo = this.getSelectedGizmo();
+        if (gizmo != null) {
+            gizmo.getValue().setPosition((int) dX, (int) dY);
+            return;
+        }
+        Map.Entry<String,Ball> ball = this.getSelectedBall();
+        if (ball != null) {
+            ball.getValue().setPosition(dX, dY);
+        }
     }
 
     public void delete() {
