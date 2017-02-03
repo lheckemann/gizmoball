@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 import physics.Vect;
 
 public class Model implements BuildModel {
+    private final double width;
+    private final double height;
     private Map<String, Gizmo> gizmos;
     private Map<String, Ball> balls;
     private Map<Integer, Set<Gizmo>> keyPressMap;
@@ -20,7 +22,9 @@ public class Model implements BuildModel {
     private Set<Gizmo> wallTriggers;
     private Set<Observer> observers;
 
-    public Model() { // FIXME: accept board size?
+    public Model(double width, double height) {
+        this.width = width;
+        this.height = height;
         this.reset();
         this.observers = new HashSet<>();
     }
