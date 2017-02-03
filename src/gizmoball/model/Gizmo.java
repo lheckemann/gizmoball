@@ -48,6 +48,11 @@ public abstract class Gizmo implements ReadGizmo {
         this.y = y;
     }
 
+    public boolean contains(double x, double y) {
+        return (this.x <= x && x < this.x + this.getWidth() &&
+                this.y <= y && y < this.y + this.getHeight());
+    }
+
     public abstract int getWidth();
     public abstract int getHeight();
 }

@@ -3,6 +3,7 @@ package gizmoball.model;
 import physics.Vect;
 
 public class Ball {
+    private final static double RADIUS = 0.5;
     private double x;
     private double y;
     private Vect velocity;
@@ -28,5 +29,9 @@ public class Ball {
 
     public void setVelocity(Vect velocity) {
         this.velocity = velocity;
+    }
+
+    public boolean contains(double x, double y) {
+        return RADIUS > Math.sqrt(Math.pow(x - this.x, 2.0) + Math.pow(y - this.y, 2.0));
     }
 }

@@ -14,6 +14,8 @@ import physics.Vect;
 public class Model implements BuildModel {
     private final double width;
     private final double height;
+    private Gizmo selectedGizmo;
+    private Ball selectedBall;
     private Map<String, Gizmo> gizmos;
     private Map<String, Ball> balls;
     private Map<Integer, Set<Gizmo>> keyPressMap;
@@ -39,6 +41,8 @@ public class Model implements BuildModel {
     }
 
     public void select(double x, double y) {
+        this.selectedGizmo = this.gizmos.values().stream().filter(g -> g.contains(x, y)).findFirst().orElse(null);
+        this.selectedBall = this.balls.values().stream().filter(b -> b.contains(x, y)).findFirst().orElse(null);
     }
 
     public void move(double dX, double dY) {
