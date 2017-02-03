@@ -1,3 +1,5 @@
+package gizmoball.model;
+
 public interface ReadGizmo {
     public static enum Rotation {
         N, E, S, W;

@@ -1,3 +1,5 @@
+package gizmoball.model;
+
 import physics.Vect;
 
 public class Ball {

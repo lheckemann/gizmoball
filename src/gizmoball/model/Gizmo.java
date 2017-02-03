@@ -1,3 +1,5 @@
+package gizmoball.model;
+
 public abstract class Gizmo implements ReadGizmo {
     private GizmoType type;
     private Rotation rotation;
