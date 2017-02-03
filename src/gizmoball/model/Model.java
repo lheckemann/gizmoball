@@ -70,6 +70,12 @@ public class Model implements BuildModel {
     }
 
     public void delete() {
+        this.gizmos = this.gizmos.entrySet().stream()
+                                 .filter(e -> !e.getValue().contains(this.selX, this.selY))
+                                 .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
+        this.balls = this.balls.entrySet().stream()
+                               .filter(e -> !e.getValue().contains(this.selX, this.selY))
+                               .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
     }
 
     public void addGizmo(Gizmo.GizmoType type) {
