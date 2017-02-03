@@ -86,6 +86,10 @@ public class Model implements BuildModel {
     }
 
     public void rotateGizmo() {
+        Gizmo gizmo = this.getSelectedGizmo();
+        if (gizmo != null) {
+            gizmo.rotate();
+        }
     }
 
     public void addBall() { // FIXME: needs identifier
