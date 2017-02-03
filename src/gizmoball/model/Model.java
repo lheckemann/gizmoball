@@ -13,7 +13,7 @@ import physics.Vect;
 
 public class Model implements BuildModel {
     private Map<String, Gizmo> gizmos;
-    private Set<Ball> balls;
+    private Map<String, Ball> balls;
     private Map<Integer, Set<Gizmo>> keyPressMap;
     private Map<Integer, Set<Gizmo>> keyReleaseMap;
     private Map<Gizmo, Set<Gizmo>> gizmoMap;
@@ -27,7 +27,7 @@ public class Model implements BuildModel {
 
     public void reset() {
         this.gizmos = new HashMap<>();
-        this.balls = new HashSet<>();
+        this.balls = new HashMap<>();
         this.keyPressMap = new HashMap<>();
         this.keyReleaseMap = new HashMap<>();
         this.gizmoMap = new HashMap<>();
@@ -91,7 +91,8 @@ public class Model implements BuildModel {
     }
 
     public Set<Vect> getBallPositions() { // FIXME: we don't want to use vect here
-        return this.balls.stream()
+        return this.balls.values()
+                         .stream()
                          .map(b -> new Vect(b.getX(), b.getY()))
                          .collect(Collectors.toSet());
     }
