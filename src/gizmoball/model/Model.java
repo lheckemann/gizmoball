@@ -14,7 +14,7 @@ import physics.Vect;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
 
-public class Model implements BuildModel {
+public class Model implements BuildModel, RunModel {
     private final double width;
     private final double height;
     private double selX;
@@ -183,5 +183,17 @@ public class Model implements BuildModel {
 
     public void deleteObserver(Observer observer) {
         this.observers.remove(observer);
+    }
+
+    public void tick() {
+        // TODO
+    }
+
+    public void keyPressed(int keyCode) {
+        this.keyPressMap.getOrDefault(keyCode, new HashSet<>()).stream().forEach(Gizmo::trigger);
+    }
+
+    public void keyReleased(int keyCode) {
+        this.keyReleaseMap.getOrDefault(keyCode, new HashSet<>()).stream().forEach(Gizmo::trigger);
     }
 }

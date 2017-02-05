@@ -50,4 +50,7 @@ public abstract class Gizmo implements ReadGizmo {
     public abstract GizmoType getType();
     public abstract int getWidth();
     public abstract int getHeight();
+
+    public void tick() {};
+    public void trigger() {};
 }
