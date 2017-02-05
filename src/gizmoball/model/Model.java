@@ -11,6 +11,9 @@ import java.util.stream.Collectors;
 
 import physics.Vect;
 
+import gizmoball.model.gizmos.Gizmo;
+import gizmoball.model.gizmos.ReadGizmo;
+
 public class Model implements BuildModel {
     private final double width;
     private final double height;
@@ -147,7 +150,7 @@ public class Model implements BuildModel {
         return null;  // TODO
     }
 
-    public Set<Gizmo> getGizmos() {
+    public Set<ReadGizmo> getGizmos() {
         return new HashSet<>(this.gizmos.values());
     }
 

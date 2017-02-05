@@ -1,4 +1,4 @@
-package gizmoball.model;
+package gizmoball.model.gizmos;
 
 public interface ReadGizmo {
     public static enum Rotation {

@@ -1,18 +1,12 @@
-package gizmoball.model;
+package gizmoball.model.gizmos;
 
 public abstract class Gizmo implements ReadGizmo {
-    private GizmoType type;
     private Rotation rotation;
     private int x;
     private int y;
 
-    public Gizmo(GizmoType type) {
-        this.type = type;
+    public Gizmo() {
         this.rotation = Rotation.N;
-    }
-
-    public GizmoType getType() {
-        return this.type;
     }
 
     public Rotation getRotation() {
@@ -53,6 +47,7 @@ public abstract class Gizmo implements ReadGizmo {
                 this.y <= y && y < this.y + this.getHeight());
     }
 
+    public abstract GizmoType getType();
     public abstract int getWidth();
     public abstract int getHeight();
 }
