@@ -95,7 +95,11 @@ public class Model implements BuildModel {
         }
     }
 
-    public void addBall() { // FIXME: needs identifier
+    public void addBall(String identifier) {
+        Ball ball = new Ball();
+        ball.setPosition(this.selX, this.selY);
+        // TODO: manage conflicting identifiers?
+        this.balls.put(identifier, ball);
     }
 
     public void setBallVelocity(double vX, double vY) {

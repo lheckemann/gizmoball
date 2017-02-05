@@ -49,7 +49,7 @@ public interface BuildModel extends ReadModel {
      * If there is no selection or the selected location is already occupied by
      * some other item, this will effectively be a noop.
      */
-    public void addBall();
+    public void addBall(String identifier);
 
     /**
      * Sets the velocity of the ball at the selected location.
