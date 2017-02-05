@@ -98,7 +98,7 @@ public interface BuildModel extends ReadModel {
      * If there is no selection or the selected location is not a gizmo, this
      * will effectively be a noop.
      */
-    public void connectKeyPress(int key);
+    public void triggerOnKeyPress(int key);
 
     /**
      * Connects key releases of the given key to the triggering of the currently
@@ -106,10 +106,13 @@ public interface BuildModel extends ReadModel {
      * If there is no selection or the selected location is not a gizmo, this
      * will effectively be a noop.
      */
-    public void connectKeyRelease(int key);
+    public void triggerOnKeyRelease(int key);
 
-    // TODO: Discussion on telegram
-    public void connectItems(double dX, double dY);
+    // TODO
+    public void triggerOnOuterWalls();
+
+    // TODO
+    public void triggerOnGizmo(double sX, double sY);
 
     /**
      * Resets all the state related to a particular game.

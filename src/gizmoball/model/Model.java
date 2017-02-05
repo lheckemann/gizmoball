@@ -47,15 +47,15 @@ public class Model implements BuildModel {
         this.wallTriggers = new HashSet<>();
     }
 
-    private Gizmo getSelectedGizmo() {
+    private Gizmo getGizmoAt(double x, double y) {
         return this.gizmos.values().stream()
-                          .filter(g -> g.contains(this.selX, this.selY))
+                          .filter(g -> g.contains(x, y))
                           .findFirst().orElse(null);
     }
 
-    private Ball getSelectedBall() {
+    private Ball getBallAt(double x, double y) {
         return this.balls.values().stream()
-                         .filter(b -> b.contains(this.selX, this.selY))
+                         .filter(b -> b.contains(x, y))
                          .findFirst().orElse(null);
     }
 
@@ -65,12 +65,12 @@ public class Model implements BuildModel {
     }
 
     public void move(double dX, double dY) {
-        Gizmo gizmo = this.getSelectedGizmo();
+        Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
         if (gizmo != null) {
             gizmo.setPosition((int) dX, (int) dY);
             return;
         }
-        Ball ball = this.getSelectedBall();
+        Ball ball = this.getBallAt(this.selX, this.selY);
         if (ball != null) {
             ball.setPosition(dX, dY);
         }
@@ -89,7 +89,7 @@ public class Model implements BuildModel {
     }
 
     public void rotateGizmo() {
-        Gizmo gizmo = this.getSelectedGizmo();
+        Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
         if (gizmo != null) {
             gizmo.rotate();
         }
@@ -103,7 +103,7 @@ public class Model implements BuildModel {
     }
 
     public void setBallVelocity(double vX, double vY) {
-        Ball ball = this.getSelectedBall();
+        Ball ball = this.getBallAt(this.selX, this.selY);
         if (ball != null) {
             ball.setVelocity(new Vect(vX, vY));
         }
@@ -130,21 +130,33 @@ public class Model implements BuildModel {
         this.mu2 = mu2;
     }
 
-    public void connectKeyPress(int key) {
-        Gizmo gizmo = this.getSelectedGizmo();
+    public void triggerOnKeyPress(int key) {
+        Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
         if (gizmo != null) {
             this.keyPressMap.computeIfAbsent(key, k -> new HashSet<>()).add(gizmo);
         }
     }
 
-    public void connectKeyRelease(int key) {
-        Gizmo gizmo = this.getSelectedGizmo();
+    public void triggerOnKeyRelease(int key) {
+        Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
         if (gizmo != null) {
             this.keyReleaseMap.computeIfAbsent(key, k -> new HashSet<>()).add(gizmo);
         }
     }
 
-    public void connectItems(double dX, double dY) {
+    public void triggerOnOuterWalls() {
+        Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
+        if (gizmo != null) {
+            this.wallTriggers.add(gizmo);
+        }
+    }
+
+    public void triggerOnGizmo(double sX, double sY) {
+        Gizmo source = this.getGizmoAt(sX, sY);
+        Gizmo destination = this.getGizmoAt(this.selX, this.selY);
+        if (source != null && destination != null) {
+            this.gizmoMap.computeIfAbsent(source, s -> new HashSet<>()).add(destination);
+        }
     }
 
     public void load(InputStream input) {
