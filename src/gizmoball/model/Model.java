@@ -209,32 +209,37 @@ public class Model implements BuildModel, RunModel {
     private void loadCommand(List<String> tokens) throws SyntaxError {
         Gizmo gizmo;
         Ball ball;
+        String SYNTAX_ERROR = "Invalid command.";
         try {
             switch (tokens.get(0)) {
                 case "Gravity":
+                    SYNTAX_ERROR = "Gravity <float>";
                     if (tokens.size() != 2) {
-                        throw new SyntaxError("Gravity <float>");
+                        throw new SyntaxError(SYNTAX_ERROR);
                     }
                     this.setGravity(Double.parseDouble(tokens.get(1)));
                     break;
                 case "Friction":
+                    SYNTAX_ERROR = "Friction <float> <float>";
                     if (tokens.size() != 3) {
-                        throw new SyntaxError("Friction <float> <float>");
+                        throw new SyntaxError(SYNTAX_ERROR);
                     }
                     this.setFriction(Double.parseDouble(tokens.get(1)),
                                      Double.parseDouble(tokens.get(2)));
                     break;
                 case "Ball":
+                    SYNTAX_ERROR = "Ball <identifier> <float> <float>";
                     if (tokens.size() != 3) {
-                        throw new SyntaxError("Ball <identifier> <float> <float>");
+                        throw new SyntaxError(SYNTAX_ERROR);
                     }
                     this.select(Double.parseDouble(tokens.get(2)),
                                 Double.parseDouble(tokens.get(3)));
                     this.addBall(tokens.get(1));
                     break;
                 case "Move":
+                    SYNTAX_ERROR = "Move <identifier> <number> <number>";
                     if (tokens.size() != 4) {
-                        throw new SyntaxError("Move <identifier> <number> <number>");
+                        throw new SyntaxError(SYNTAX_ERROR);
                     }
                     ball = this.balls.get(tokens.get(1));
                     if (ball != null) {
@@ -252,8 +257,9 @@ public class Model implements BuildModel, RunModel {
                     }
                     throw new SyntaxError(tokens.get(1) + " does not refer to an existing object.");
                 case "Rotate":
+                    SYNTAX_ERROR = "Rotate <identifier>";
                     if (tokens.size() != 2) {
-                        throw new SyntaxError("Rotate <identifier>");
+                        throw new SyntaxError(SYNTAX_ERROR);
                     }
                     gizmo = this.gizmos.get(tokens.get(1));
                     if (gizmo != null) {
@@ -263,8 +269,9 @@ public class Model implements BuildModel, RunModel {
                     }
                     throw new SyntaxError(tokens.get(1) + " does not refer to an existing gizmo.");
                 case "Delete":
+                    SYNTAX_ERROR = "Delete <identifier>";
                     if (tokens.size() != 2) {
-                        throw new SyntaxError("Delete <identifier>");
+                        throw new SyntaxError(SYNTAX_ERROR);
                     }
                     ball = this.balls.get(tokens.get(1));
                     if (ball != null) {
@@ -280,8 +287,9 @@ public class Model implements BuildModel, RunModel {
                     }
                     throw new SyntaxError(tokens.get(1) + " does not refer to an existing object.");
                 case "Connect":
+                    SYNTAX_ERROR = "Connect <identifier> <identifier>";
                     if (tokens.size() != 3) {
-                        throw new SyntaxError("Connect <identifier> <identifier>");
+                        throw new SyntaxError(SYNTAX_ERROR);
                     }
                     Gizmo destination = this.gizmos.get(tokens.get(2));
                     if (destination == null) {
@@ -299,8 +307,9 @@ public class Model implements BuildModel, RunModel {
                     this.triggerOnGizmo(source.getX(), source.getY());
                     break;
                 case "KeyConnect":
+                    SYNTAX_ERROR = "KeyConnect key <keynum> <up-or-down> <identifier>";
                     if (tokens.size() != 5 || !tokens.get(1).equals("key")) {
-                        throw new SyntaxError("KeyConnect key <keynum> <up-or-down> <identifier>");
+                        throw new SyntaxError(SYNTAX_ERROR);
                     }
                     gizmo = this.gizmos.get(tokens.get(4));
                     if (gizmo == null) {
@@ -322,49 +331,55 @@ public class Model implements BuildModel, RunModel {
                     this.select(x, y);
                     switch (tokens.get(0)) {
                         case "Circle":
+                            SYNTAX_ERROR = "Circle <identifier> <int> <int>";
                             if (tokens.size() != 4) {
-                                throw new SyntaxError("Circle expects an identifier followed by two integers.");
+                                throw new SyntaxError(SYNTAX_ERROR);
                             }
                             this.addCircle(tokens.get(1));
                             break;
                         case "Triangle":
+                            SYNTAX_ERROR = "Triangle <identifier> <int> <int>";
                             if (tokens.size() != 4) {
-                                throw new SyntaxError("Triangle expects an identifier followed by two integers.");
+                                throw new SyntaxError(SYNTAX_ERROR);
                             }
                             this.addTriangle(tokens.get(1));
                             break;
                         case "Square":
+                            SYNTAX_ERROR = "Square <identifier> <int> <int>";
                             if (tokens.size() != 4) {
-                                throw new SyntaxError("Square expects an identifier followed by two integers.");
+                                throw new SyntaxError(SYNTAX_ERROR);
                             }
                             this.addSquare(tokens.get(1));
                             break;
                         case "LeftFlipper":
+                            SYNTAX_ERROR = "LeftFlipper <identifier> <int> <int>";
                             if (tokens.size() != 4) {
-                                throw new SyntaxError("LeftFlipper expects an identifier followed by two integers.");
+                                throw new SyntaxError(SYNTAX_ERROR);
                             }
                             this.addLeftFlipper(tokens.get(1));
                             break;
                         case "RightFlipper":
+                            SYNTAX_ERROR = "RightFlipper <identifier> <int> <int>";
                             if (tokens.size() != 4) {
-                                throw new SyntaxError("RightFlipper expects an identifier followed by two integers.");
+                                throw new SyntaxError(SYNTAX_ERROR);
                             }
                             this.addRightFlipper(tokens.get(1));
                             break;
                         case "Absorber":
+                            SYNTAX_ERROR = "Absorber <identifier> <int> <int> <int> <int>";
                             if (tokens.size() != 6) {
-                                throw new SyntaxError("Absorber expects an identifier followed by four integers.");
+                                throw new SyntaxError(SYNTAX_ERROR);
                             }
                             Integer x1 = Integer.parseInt(tokens.get(4));
                             Integer y1 = Integer.parseInt(tokens.get(5));
                             this.addAbsorber(tokens.get(1), x1 - x, y1 - y);
                             break;
                         default:
-                            throw new SyntaxError("Invalid command.");
+                            throw new SyntaxError(SYNTAX_ERROR);
                     }
             }
         } catch (NumberFormatException|IndexOutOfBoundsException e) {
-            throw new SyntaxError(e.toString());  // FIXME: Should be nested
+            throw new SyntaxError(SYNTAX_ERROR);
         }
     }
 
