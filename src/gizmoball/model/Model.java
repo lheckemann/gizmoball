@@ -2,10 +2,14 @@ package gizmoball.model;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Observer;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,6 +25,9 @@ import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
 
 public class Model implements BuildModel, RunModel {
+    private static final Set<String> DEPENDENT = new HashSet<>(Arrays.asList(
+                "Rotate", "Delete", "Move", "Connect", "KeyConnect"));
+
     private final double width;
     private final double height;
     private double selX;
@@ -199,7 +206,184 @@ public class Model implements BuildModel, RunModel {
         }
     }
 
-    public void load(InputStream input) {
+    private void loadCommand(List<String> tokens) throws SyntaxError {
+        Gizmo gizmo;
+        Ball ball;
+        try {
+            switch (tokens.get(0)) {
+                case "Gravity":
+                    if (tokens.size() != 2) {
+                        throw new SyntaxError("Gravity <float>");
+                    }
+                    this.setGravity(Double.parseDouble(tokens.get(1)));
+                    break;
+                case "Friction":
+                    if (tokens.size() != 3) {
+                        throw new SyntaxError("Friction <float> <float>");
+                    }
+                    this.setFriction(Double.parseDouble(tokens.get(1)),
+                                     Double.parseDouble(tokens.get(2)));
+                    break;
+                case "Ball":
+                    if (tokens.size() != 3) {
+                        throw new SyntaxError("Ball <identifier> <float> <float>");
+                    }
+                    this.select(Double.parseDouble(tokens.get(2)),
+                                Double.parseDouble(tokens.get(3)));
+                    this.addBall(tokens.get(1));
+                    break;
+                case "Move":
+                    if (tokens.size() != 4) {
+                        throw new SyntaxError("Move <identifier> <number> <number>");
+                    }
+                    ball = this.balls.get(tokens.get(1));
+                    if (ball != null) {
+                        this.select(ball.getX(), ball.getY());
+                        this.move(Double.parseDouble(tokens.get(2)),
+                                  Double.parseDouble(tokens.get(3)));
+                        break;
+                    }
+                    gizmo = this.gizmos.get(tokens.get(1));
+                    if (gizmo != null) {
+                        this.select(gizmo.getX(), gizmo.getY());
+                        this.move(Integer.parseInt(tokens.get(2)),
+                                  Integer.parseInt(tokens.get(3)));
+                        break;
+                    }
+                    throw new SyntaxError(tokens.get(1) + " does not refer to an existing object.");
+                case "Rotate":
+                    if (tokens.size() != 2) {
+                        throw new SyntaxError("Rotate <identifier>");
+                    }
+                    gizmo = this.gizmos.get(tokens.get(1));
+                    if (gizmo != null) {
+                        this.select(gizmo.getX(), gizmo.getY());
+                        this.rotateGizmo();
+                        break;
+                    }
+                    throw new SyntaxError(tokens.get(1) + " does not refer to an existing gizmo.");
+                case "Delete":
+                    if (tokens.size() != 2) {
+                        throw new SyntaxError("Delete <identifier>");
+                    }
+                    ball = this.balls.get(tokens.get(1));
+                    if (ball != null) {
+                        this.select(ball.getX(), ball.getY());
+                        this.delete();
+                        break;
+                    }
+                    gizmo = this.gizmos.get(tokens.get(1));
+                    if (gizmo != null) {
+                        this.select(gizmo.getX(), gizmo.getY());
+                        this.delete();
+                        break;
+                    }
+                    throw new SyntaxError(tokens.get(1) + " does not refer to an existing object.");
+                case "Connect":
+                    if (tokens.size() != 3) {
+                        throw new SyntaxError("Connect <identifier> <identifier>");
+                    }
+                    Gizmo destination = this.gizmos.get(tokens.get(2));
+                    if (destination == null) {
+                        throw new SyntaxError(tokens.get(2) + " is not an existing gizmo.");
+                    }
+                    this.select(destination.getX(), destination.getY());
+                    if (tokens.get(1).equals("OuterWalls")) {
+                        this.triggerOnOuterWalls();
+                        break;
+                    }
+                    Gizmo source = this.gizmos.get(tokens.get(1));
+                    if (source == null) {
+                        throw new SyntaxError(tokens.get(1) + " is not an existing gizmo.");
+                    }
+                    this.triggerOnGizmo(source.getX(), source.getY());
+                    break;
+                case "KeyConnect":
+                    if (tokens.size() != 5 || !tokens.get(1).equals("key")) {
+                        throw new SyntaxError("KeyConnect key <keynum> <up-or-down> <identifier>");
+                    }
+                    gizmo = this.gizmos.get(tokens.get(4));
+                    if (gizmo == null) {
+                        throw new SyntaxError(tokens.get(4) + " is not an existing gizmo.");
+                    }
+                    this.select(gizmo.getX(), gizmo.getY());
+                    Integer keyCode = Integer.parseInt(tokens.get(2));
+                    if (tokens.get(3).equals("up")) {
+                        this.triggerOnKeyRelease(keyCode);
+                    } else if (tokens.get(3).equals("down")) {
+                        this.triggerOnKeyPress(keyCode);
+                    } else {
+                        throw new SyntaxError("KeyConnect key <keynum> <up-or-down> <identifier>");
+                    }
+                    break;
+                default:
+                    Integer x = Integer.parseInt(tokens.get(2));
+                    Integer y = Integer.parseInt(tokens.get(3));
+                    this.select(x, y);
+                    switch (tokens.get(0)) {
+                        case "Circle":
+                            if (tokens.size() != 4) {
+                                throw new SyntaxError("Circle expects an identifier followed by two integers.");
+                            }
+                            this.addCircle(tokens.get(1));
+                            break;
+                        case "Triangle":
+                            if (tokens.size() != 4) {
+                                throw new SyntaxError("Triangle expects an identifier followed by two integers.");
+                            }
+                            this.addTriangle(tokens.get(1));
+                            break;
+                        case "Square":
+                            if (tokens.size() != 4) {
+                                throw new SyntaxError("Square expects an identifier followed by two integers.");
+                            }
+                            this.addSquare(tokens.get(1));
+                            break;
+                        case "LeftFlipper":
+                            if (tokens.size() != 4) {
+                                throw new SyntaxError("LeftFlipper expects an identifier followed by two integers.");
+                            }
+                            this.addLeftFlipper(tokens.get(1));
+                            break;
+                        case "RightFlipper":
+                            if (tokens.size() != 4) {
+                                throw new SyntaxError("RightFlipper expects an identifier followed by two integers.");
+                            }
+                            this.addRightFlipper(tokens.get(1));
+                            break;
+                        case "Absorber":
+                            if (tokens.size() != 6) {
+                                throw new SyntaxError("Absorber expects an identifier followed by four integers.");
+                            }
+                            Integer x1 = Integer.parseInt(tokens.get(4));
+                            Integer y1 = Integer.parseInt(tokens.get(5));
+                            this.addAbsorber(tokens.get(1), x1 - x, y1 - y);
+                            break;
+                        default:
+                            throw new SyntaxError("Invalid command.");
+                    }
+            }
+        } catch (NumberFormatException|IndexOutOfBoundsException e) {
+            throw new SyntaxError(e.toString());  // FIXME: Should be nested
+        }
+    }
+
+    public void load(InputStream input) throws SyntaxError {
+        List<List<String>> dependent = new LinkedList<>();
+        Scanner scanner = new Scanner(input);
+        while (scanner.hasNextLine()) {
+            List<String> tokens = Arrays.asList(scanner.nextLine().split("\\s+"));
+            if (!tokens.isEmpty()) {
+                if (Model.DEPENDENT.contains(tokens.get(0))) {
+                    dependent.add(tokens);
+                } else {
+                    this.loadCommand(tokens);
+                }
+            }
+        }
+        for (List<String> tokens : dependent) {
+            this.loadCommand(tokens);
+        }
     }
 
     public OutputStream save() {

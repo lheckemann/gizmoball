@@ -133,7 +133,7 @@ public interface BuildModel extends ReadModel {
     public void reset();
 
     // TODO: Decide whether the board has to be resetted before loading.
-    public void load(InputStream input);
+    public void load(InputStream input) throws SyntaxError;
 
     /**
      * Returns a representation of the game in the standard format.
