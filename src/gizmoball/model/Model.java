@@ -83,6 +83,7 @@ public class Model implements BuildModel, RunModel {
     }
 
     public void delete() {
+        // TODO: we still have to remove gizmos from the trigger mappings
         this.gizmos = this.gizmos.entrySet().stream()
                                  .filter(e -> !e.getValue().contains(this.selX, this.selY))
                                  .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
@@ -90,7 +91,6 @@ public class Model implements BuildModel, RunModel {
                                .filter(e -> !e.getValue().contains(this.selX, this.selY))
                                .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
     }
-
 
     public void addAbsorber(String identifier, int width, int height) {
         Gizmo gizmo = new Absorber(width, height);
