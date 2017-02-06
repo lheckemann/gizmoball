@@ -11,6 +11,12 @@ import java.util.stream.Collectors;
 
 import physics.Vect;
 
+import gizmoball.model.gizmos.Absorber;
+import gizmoball.model.gizmos.Square;
+import gizmoball.model.gizmos.Circle;
+import gizmoball.model.gizmos.Triangle;
+import gizmoball.model.gizmos.RightFlipper;
+import gizmoball.model.gizmos.LeftFlipper;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
 
@@ -85,7 +91,41 @@ public class Model implements BuildModel, RunModel {
                                .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
     }
 
-    public void addGizmo(Gizmo.GizmoType type) { // FIXME Needs an identifier
+
+    public void addAbsorber(String identifier, int width, int height) {
+        Gizmo gizmo = new Absorber(width, height);
+        gizmo.setPosition((int) this.selX, (int) this.selY);
+        this.gizmos.put(identifier, gizmo);
+    }
+
+    public void addSquare(String identifier) {
+        Gizmo gizmo = new Square();
+        gizmo.setPosition((int) this.selX, (int) this.selY);
+        this.gizmos.put(identifier, gizmo);
+    }
+
+    public void addCircle(String identifier) {
+        Gizmo gizmo = new Circle();
+        gizmo.setPosition((int) this.selX, (int) this.selY);
+        this.gizmos.put(identifier, gizmo);
+    }
+
+    public void addTriangle(String identifier) {
+        Gizmo gizmo = new Triangle();
+        gizmo.setPosition((int) this.selX, (int) this.selY);
+        this.gizmos.put(identifier, gizmo);
+    }
+
+    public void addRightFlipper(String identifier) {
+        Gizmo gizmo = new RightFlipper();
+        gizmo.setPosition((int) this.selX, (int) this.selY);
+        this.gizmos.put(identifier, gizmo);
+    }
+
+    public void addLeftFlipper(String identifier) {
+        Gizmo gizmo = new LeftFlipper();
+        gizmo.setPosition((int) this.selX, (int) this.selY);
+        this.gizmos.put(identifier, gizmo);
     }
 
     public void rotateGizmo() {

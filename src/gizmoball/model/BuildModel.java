@@ -30,12 +30,23 @@ public interface BuildModel extends ReadModel {
      */
     public void delete();
 
-    /**
-     * Creates a new gizmo at the selected location.
-     * If there is no selection or the selected location is already occupied by
-     * some other item, this will effectively be a noop.
-     */
-    public void addGizmo(ReadGizmo.GizmoType type);
+    // TODO
+    public void addAbsorber(String identifier, int width, int height);
+
+    // TODO
+    public void addSquare(String identifier);
+
+    // TODO
+    public void addCircle(String identifier);
+
+    // TODO
+    public void addTriangle(String identifier);
+
+    // TODO
+    public void addRightFlipper(String identifier);
+
+    // TODO
+    public void addLeftFlipper(String identifier);
 
     /**
      * Rotates the gizmo at the selected location clockwise.
