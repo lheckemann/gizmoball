@@ -220,31 +220,86 @@ public class Model implements BuildModel, RunModel {
             this.gizmoMap.computeIfAbsent(source, s -> new HashSet<>()).add(destination);
         }
     }
-    
+
     public void load(InputStream input) throws SyntaxError {
         List<List<String>> dependent = new LinkedList<>();
-        Scanner scanner = new Scanner(input);
-        
-        while (scanner.hasNextLine()) {
-            List<String> tokens = Arrays.asList(scanner.nextLine().split("\\s+"));
-            
-            if (!tokens.isEmpty()) {
-                if (Model.DEPENDENT.contains(tokens.get(0))) {
-                    dependent.add(tokens);
-                } else {
-                    this.loadCommand(tokens);
+        try (Scanner scanner = new Scanner(input)) {
+            while (scanner.hasNextLine()) {
+                List<String> tokens = Arrays.asList(scanner.nextLine().split("\\s+"));
+                if (!tokens.isEmpty()) {
+                    if (Model.DEPENDENT.contains(tokens.get(0))) {
+                        dependent.add(tokens);
+                    } else {
+                        this.creationCommand(tokens);
+                    }
                 }
             }
         }
-        
-        scanner.close();
-        
         for (List<String> tokens : dependent) {
-            this.loadCommand(tokens);
+            this.dependentCommand(tokens);
         }
     }
 
-    private void loadCommand(List<String> tokens) throws SyntaxError {
+    private void creationCommand(List<String> tokens) throws SyntaxError {
+        String SYNTAX_ERROR = "Invalid command.";
+        try {
+            Integer x = Integer.parseInt(tokens.get(2));
+            Integer y = Integer.parseInt(tokens.get(3));
+            this.select(x, y);
+            switch (tokens.get(0)) {
+                case "Circle":
+                    SYNTAX_ERROR = "Circle <identifier> <int> <int>";
+                    if (tokens.size() != 4) {
+                        throw new SyntaxError(SYNTAX_ERROR);
+                    }
+                    this.addCircle(tokens.get(1));
+                    break;
+                case "Triangle":
+                    SYNTAX_ERROR = "Triangle <identifier> <int> <int>";
+                    if (tokens.size() != 4) {
+                        throw new SyntaxError(SYNTAX_ERROR);
+                    }
+                    this.addTriangle(tokens.get(1));
+                    break;
+                case "Square":
+                    SYNTAX_ERROR = "Square <identifier> <int> <int>";
+                    if (tokens.size() != 4) {
+                        throw new SyntaxError(SYNTAX_ERROR);
+                    }
+                    this.addSquare(tokens.get(1));
+                    break;
+                case "LeftFlipper":
+                    SYNTAX_ERROR = "LeftFlipper <identifier> <int> <int>";
+                    if (tokens.size() != 4) {
+                        throw new SyntaxError(SYNTAX_ERROR);
+                    }
+                    this.addLeftFlipper(tokens.get(1));
+                    break;
+                case "RightFlipper":
+                    SYNTAX_ERROR = "RightFlipper <identifier> <int> <int>";
+                    if (tokens.size() != 4) {
+                        throw new SyntaxError(SYNTAX_ERROR);
+                    }
+                    this.addRightFlipper(tokens.get(1));
+                    break;
+                case "Absorber":
+                    SYNTAX_ERROR = "Absorber <identifier> <int> <int> <int> <int>";
+                    if (tokens.size() != 6) {
+                        throw new SyntaxError(SYNTAX_ERROR);
+                    }
+                    Integer x1 = Integer.parseInt(tokens.get(4));
+                    Integer y1 = Integer.parseInt(tokens.get(5));
+                    this.addAbsorber(tokens.get(1), x1 - x, y1 - y);
+                    break;
+                default:
+                    throw new SyntaxError(SYNTAX_ERROR);
+            }
+        } catch (NumberFormatException|IndexOutOfBoundsException e) {
+            throw new SyntaxError(SYNTAX_ERROR);
+        }
+    }
+
+    private void dependentCommand(List<String> tokens) throws SyntaxError {
         Gizmo gizmo;
         Ball ball;
         String SYNTAX_ERROR = "Invalid command.";
@@ -365,57 +420,7 @@ public class Model implements BuildModel, RunModel {
                     }
                     break;
                 default:
-                    Integer x = Integer.parseInt(tokens.get(2));
-                    Integer y = Integer.parseInt(tokens.get(3));
-                    this.select(x, y);
-                    switch (tokens.get(0)) {
-                        case "Circle":
-                            SYNTAX_ERROR = "Circle <identifier> <int> <int>";
-                            if (tokens.size() != 4) {
-                                throw new SyntaxError(SYNTAX_ERROR);
-                            }
-                            this.addCircle(tokens.get(1));
-                            break;
-                        case "Triangle":
-                            SYNTAX_ERROR = "Triangle <identifier> <int> <int>";
-                            if (tokens.size() != 4) {
-                                throw new SyntaxError(SYNTAX_ERROR);
-                            }
-                            this.addTriangle(tokens.get(1));
-                            break;
-                        case "Square":
-                            SYNTAX_ERROR = "Square <identifier> <int> <int>";
-                            if (tokens.size() != 4) {
-                                throw new SyntaxError(SYNTAX_ERROR);
-                            }
-                            this.addSquare(tokens.get(1));
-                            break;
-                        case "LeftFlipper":
-                            SYNTAX_ERROR = "LeftFlipper <identifier> <int> <int>";
-                            if (tokens.size() != 4) {
-                                throw new SyntaxError(SYNTAX_ERROR);
-                            }
-                            this.addLeftFlipper(tokens.get(1));
-                            break;
-                        case "RightFlipper":
-                            SYNTAX_ERROR = "RightFlipper <identifier> <int> <int>";
-                            if (tokens.size() != 4) {
-                                throw new SyntaxError(SYNTAX_ERROR);
-                            }
-                            this.addRightFlipper(tokens.get(1));
-                            break;
-                        case "Absorber":
-                            SYNTAX_ERROR = "Absorber <identifier> <int> <int> <int> <int>";
-                            if (tokens.size() != 6) {
-                                throw new SyntaxError(SYNTAX_ERROR);
-                            }
-                            Integer x1 = Integer.parseInt(tokens.get(4));
-                            Integer y1 = Integer.parseInt(tokens.get(5));
-                            this.addAbsorber(tokens.get(1), x1 - x, y1 - y);
-                            break;
-                        default:
-                            throw new SyntaxError(SYNTAX_ERROR);
-                    }
+                    throw new SyntaxError(SYNTAX_ERROR);
             }
         } catch (NumberFormatException|IndexOutOfBoundsException e) {
             throw new SyntaxError(SYNTAX_ERROR);
