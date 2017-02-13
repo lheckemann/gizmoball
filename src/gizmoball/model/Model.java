@@ -33,12 +33,6 @@ public class Model implements BuildModel, RunModel {
     private static final Set<String> DEPENDENT = new HashSet<>(Arrays.asList(
                 "Rotate", "Delete", "Move", "Connect", "KeyConnect"));
 
-    //At the moment there is only one non rotating gizmo but since we might want to add more
-    //in the future, decided to add a Set to declare which Gizmo cannot be rotated
-    //via a Rotate command.
-    private static final Set<GizmoType> NON_ROTATING_GIZMOS = new HashSet<>(Arrays.asList(
-                 GizmoType.ABSORBER));
-
     private final double width;
     private final double height;
     private double selX;
@@ -527,18 +521,13 @@ public class Model implements BuildModel, RunModel {
         for(Map.Entry<String, Gizmo> currEntry: this.gizmos.entrySet()) {
             String gizmoId = currEntry.getKey();
             Gizmo currGizmo = currEntry.getValue();
-
-            //If the current gizmo can be rotated
-            if(false == NON_ROTATING_GIZMOS.contains(currGizmo.getType())) {
-                //Get the number of rotation commands required
-                int numberOfRotations = convertRotationToNumOfRotations(currGizmo.getRotation());
-                //Create all of the necessary rotate commands
-                for(int i=0; i < numberOfRotations; i++) {
-                    rotateCommands += String.format("Rotate %s\n", gizmoId);
-                }
+            //Get the number of rotation commands required
+            int numberOfRotations = convertRotationToNumOfRotations(currGizmo.getRotation());
+            //Create all of the necessary rotate commands
+            for(int i=0; i < numberOfRotations; i++) {
+                rotateCommands += String.format("Rotate %s\n", gizmoId);
             }
         }
-
         return rotateCommands;
     }
 
