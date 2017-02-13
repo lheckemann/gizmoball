@@ -562,45 +562,28 @@ public class Model implements BuildModel, RunModel {
 
     private String dumpConnectCommands() {
         String connectCommands = "";
-        for(Map.Entry<Gizmo, Set<Gizmo>> currConnection: this.gizmoMap.entrySet()) {
-            String fromGizmoId = this.getGizmoId(currConnection.getKey());
-            Set<String> toGizmoIdCollection = this.getGizmoIdSet(currConnection.getValue());
-
-            for(String toGizmoId: toGizmoIdCollection) {
-                connectCommands += String.format("Connect %s %s\n", fromGizmoId, toGizmoId);
+        for (Gizmo from : this.gizmoMap.keySet()) {
+            String fromId = this.getGizmoId(from);
+            for (Gizmo to : this.gizmoMap.get(from)) {
+                String toId = this.getGizmoId(to);
+                connectCommands += String.format("Connect %s %s\n", fromId, toId);
             }
         }
-
         return connectCommands;
     }
 
     private String dumpKeyConnectCommands() {
         String keyConnectCommands = "";
-
-        //Add down commands
-        for(Map.Entry<Integer, Set<Gizmo>> currKeyConnection: this.keyPressMap.entrySet()) {
-            Integer fromKeyId = currKeyConnection.getKey();
-            Set<String> toGizmoIdCollection = this.getGizmoIdSet(currKeyConnection.getValue());
-
-            for(String toGizmoId: toGizmoIdCollection) {
-                keyConnectCommands += String.format("KeyConnect key %d down %s\n",
-                                      fromKeyId,
-                                      toGizmoId);
+        for (Integer key : this.keyPressMap.keySet()) {
+            for (Gizmo to : this.keyPressMap.get(key)) {
+                keyConnectCommands += String.format("KeyConnect key %d down %s\n", key, this.getGizmoId(to));
             }
         }
-
-        //Add up commands
-        for(Map.Entry<Integer, Set<Gizmo>> currKeyConnection: this.keyPressMap.entrySet()) {
-            Integer fromKeyId = currKeyConnection.getKey();
-            Set<String> toGizmoIdCollection = this.getGizmoIdSet(currKeyConnection.getValue());
-
-            for(String toGizmoId: toGizmoIdCollection) {
-                keyConnectCommands += String.format("KeyConnect key %d up %s\n",
-                                      fromKeyId,
-                                      toGizmoId);
+        for (Integer key : this.keyReleaseMap.keySet()) {
+            for (Gizmo to : this.keyReleaseMap.get(key)) {
+                keyConnectCommands += String.format("KeyConnect key %d up %s\n", key, this.getGizmoId(to));
             }
         }
-
         return keyConnectCommands;
     }
 
@@ -619,15 +602,6 @@ public class Model implements BuildModel, RunModel {
         String frictionDeclaration = String.format("Friction %f %f\n", this.getFrictionMu(), this.getFrictionMu2());
 
         return gravityDeclaration + frictionDeclaration;
-    }
-
-    private Set<String> getGizmoIdSet(Set<Gizmo> gizmoSet) {
-        Set<String> gizmoIdSet = new HashSet<>();
-        for(Gizmo gizmo: gizmoSet) {
-            gizmoIdSet.add(getGizmoId(gizmo));
-        }
-
-        return gizmoIdSet;
     }
 
     public Set<ReadGizmo> getGizmos() {
