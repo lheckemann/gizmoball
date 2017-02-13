@@ -139,5 +139,5 @@ public interface BuildModel extends ReadModel {
      * Returns a representation of the game in the standard format.
      * https://personal.cis.strath.ac.uk/murray.wood/Gizmoball/Gizmoball_spec.htm#file-format
      */
-    public OutputStream save();
+    public void save(OutputStream output);
 }
