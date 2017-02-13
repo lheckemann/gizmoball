@@ -307,7 +307,7 @@ public class Model implements BuildModel, RunModel {
                     break;
 
                 default:
-                    throw new SyntaxError(SYNTAX_ERROR);
+                    throw new SyntaxError(String.format("Invalid command %s.", tokens.get(0)));
             }
         } catch (NumberFormatException|IndexOutOfBoundsException e) {
             throw new SyntaxError(SYNTAX_ERROR);
@@ -444,7 +444,7 @@ public class Model implements BuildModel, RunModel {
                     break;
 
                 default:
-                    throw new SyntaxError(SYNTAX_ERROR);
+                    throw new SyntaxError(String.format("Invalid command %s.", tokens.get(0)));
             }
         } catch (NumberFormatException|IndexOutOfBoundsException e) {
             throw new SyntaxError(SYNTAX_ERROR);
