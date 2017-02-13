@@ -242,6 +242,7 @@ public class Model implements BuildModel, RunModel {
             Integer y = Integer.parseInt(tokens.get(3));
             this.select(x, y);
             switch (tokens.get(0)) {
+
                 case "Circle":
                     SYNTAX_ERROR = "Circle <identifier> <int> <int>";
                     if (tokens.size() != 4) {
@@ -249,6 +250,7 @@ public class Model implements BuildModel, RunModel {
                     }
                     this.addCircle(tokens.get(1));
                     break;
+
                 case "Triangle":
                     SYNTAX_ERROR = "Triangle <identifier> <int> <int>";
                     if (tokens.size() != 4) {
@@ -256,6 +258,7 @@ public class Model implements BuildModel, RunModel {
                     }
                     this.addTriangle(tokens.get(1));
                     break;
+
                 case "Square":
                     SYNTAX_ERROR = "Square <identifier> <int> <int>";
                     if (tokens.size() != 4) {
@@ -263,6 +266,7 @@ public class Model implements BuildModel, RunModel {
                     }
                     this.addSquare(tokens.get(1));
                     break;
+
                 case "LeftFlipper":
                     SYNTAX_ERROR = "LeftFlipper <identifier> <int> <int>";
                     if (tokens.size() != 4) {
@@ -270,6 +274,7 @@ public class Model implements BuildModel, RunModel {
                     }
                     this.addLeftFlipper(tokens.get(1));
                     break;
+
                 case "RightFlipper":
                     SYNTAX_ERROR = "RightFlipper <identifier> <int> <int>";
                     if (tokens.size() != 4) {
@@ -277,6 +282,7 @@ public class Model implements BuildModel, RunModel {
                     }
                     this.addRightFlipper(tokens.get(1));
                     break;
+
                 case "Absorber":
                     SYNTAX_ERROR = "Absorber <identifier> <int> <int> <int> <int>";
                     if (tokens.size() != 6) {
@@ -286,6 +292,7 @@ public class Model implements BuildModel, RunModel {
                     Integer y1 = Integer.parseInt(tokens.get(5));
                     this.addAbsorber(tokens.get(1), x1 - x, y1 - y);
                     break;
+
                 default:
                     throw new SyntaxError(SYNTAX_ERROR);
             }
@@ -300,6 +307,7 @@ public class Model implements BuildModel, RunModel {
         String SYNTAX_ERROR = "Invalid command.";
         try {
             switch (tokens.get(0)) {
+
                 case "Gravity":
                     SYNTAX_ERROR = "Gravity <float>";
                     if (tokens.size() != 2) {
@@ -307,6 +315,7 @@ public class Model implements BuildModel, RunModel {
                     }
                     this.setGravity(Double.parseDouble(tokens.get(1)));
                     break;
+
                 case "Friction":
                     SYNTAX_ERROR = "Friction <float> <float>";
                     if (tokens.size() != 3) {
@@ -315,6 +324,7 @@ public class Model implements BuildModel, RunModel {
                     this.setFriction(Double.parseDouble(tokens.get(1)),
                                      Double.parseDouble(tokens.get(2)));
                     break;
+
                 case "Ball":
                     //TODO: Need to add in parsing for Ball Velocity
                     SYNTAX_ERROR = "Ball <identifier> <float> <float>";
@@ -325,6 +335,7 @@ public class Model implements BuildModel, RunModel {
                                 Double.parseDouble(tokens.get(3)));
                     this.addBall(tokens.get(1));
                     break;
+
                 case "Move":
                     SYNTAX_ERROR = "Move <identifier> <number> <number>";
                     if (tokens.size() != 4) {
@@ -345,6 +356,7 @@ public class Model implements BuildModel, RunModel {
                         break;
                     }
                     throw new SyntaxError(tokens.get(1) + " does not refer to an existing object.");
+
                 case "Rotate":
                     SYNTAX_ERROR = "Rotate <identifier>";
                     if (tokens.size() != 2) {
@@ -357,6 +369,7 @@ public class Model implements BuildModel, RunModel {
                         break;
                     }
                     throw new SyntaxError(tokens.get(1) + " does not refer to an existing gizmo.");
+
                 case "Delete":
                     SYNTAX_ERROR = "Delete <identifier>";
                     if (tokens.size() != 2) {
@@ -375,6 +388,7 @@ public class Model implements BuildModel, RunModel {
                         break;
                     }
                     throw new SyntaxError(tokens.get(1) + " does not refer to an existing object.");
+
                 case "Connect":
                     SYNTAX_ERROR = "Connect <identifier> <identifier>";
                     if (tokens.size() != 3) {
@@ -395,6 +409,7 @@ public class Model implements BuildModel, RunModel {
                     }
                     this.triggerOnGizmo(source.getX(), source.getY());
                     break;
+
                 case "KeyConnect":
                     SYNTAX_ERROR = "KeyConnect key <keynum> <up-or-down> <identifier>";
                     if (tokens.size() != 5 || !tokens.get(1).equals("key")) {
@@ -414,6 +429,7 @@ public class Model implements BuildModel, RunModel {
                         throw new SyntaxError("KeyConnect key <keynum> <up-or-down> <identifier>");
                     }
                     break;
+
                 default:
                     throw new SyntaxError(SYNTAX_ERROR);
             }
