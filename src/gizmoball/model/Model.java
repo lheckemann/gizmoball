@@ -36,13 +36,11 @@ public class Model implements BuildModel, RunModel {
     private Map<Integer, Set<Gizmo>> keyReleaseMap = new HashMap<>();
     private Map<Gizmo, Set<Gizmo>> gizmoMap;
     private Set<Gizmo> wallTriggers;
-    private Set<Observer> observers;
 
     public Model(double width, double height) {
         this.width = width;
         this.height = height;
         this.reset();
-        this.observers = new HashSet<>();
     }
 
     public void reset() {
