@@ -521,32 +521,12 @@ public class Model implements BuildModel, RunModel {
         for(Map.Entry<String, Gizmo> currEntry: this.gizmos.entrySet()) {
             String gizmoId = currEntry.getKey();
             Gizmo currGizmo = currEntry.getValue();
-            //Get the number of rotation commands required
-            int numberOfRotations = convertRotationToNumOfRotations(currGizmo.getRotation());
             //Create all of the necessary rotate commands
-            for(int i=0; i < numberOfRotations; i++) {
+            for (int i=0; i < currGizmo.getRotation().getTurns(); i++) {
                 rotateCommands += String.format("Rotate %s\n", gizmoId);
             }
         }
         return rotateCommands;
-    }
-
-    //Used to convert a Rotation (North, East, South West)
-    //to the number of 90 degree rotations needed to get from
-    //North to the given Rotation
-    private int convertRotationToNumOfRotations(Rotation rotation) {
-        switch(rotation) {
-            case N:
-                return 0;
-            case E:
-                return 1;
-            case S:
-                return 2;
-            case W:
-                return 3;
-            default:
-                return 0;
-        }
     }
 
     private String dumpConnectCommands() {
