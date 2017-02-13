@@ -1,4 +1,4 @@
-package model;
+package gizmoball.model;
 
 public enum GizmoType {
     LEFT_FLIPPER,

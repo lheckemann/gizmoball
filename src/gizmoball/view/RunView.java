@@ -1,8 +1,8 @@
-package view;
+package gizmoball.view;
 
-import controller.TickListener;
-import controller.ToggleRunningListener;
-import model.RunModel;
+import gizmoball.controller.TickListener;
+import gizmoball.controller.ToggleRunningListener;
+import gizmoball.model.RunModel;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;

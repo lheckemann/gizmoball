@@ -1,4 +1,4 @@
-package model;
+package gizmoball.model;
 
 public abstract class Gizmo implements ReadGizmo {
     private int x, y;

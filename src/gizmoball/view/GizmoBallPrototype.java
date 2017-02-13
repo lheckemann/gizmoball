@@ -1,13 +1,11 @@
-package view;
+package gizmoball.view;
 
-import model.Model;
-import model.Flipper;
-import model.RunModel;
+import gizmoball.model.Model;
+import gizmoball.model.Flipper;
+import gizmoball.model.RunModel;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import java.awt.*;
-import javax.swing.Timer;
 
 public class GizmoBallPrototype {
     private Flipper[] flippers;

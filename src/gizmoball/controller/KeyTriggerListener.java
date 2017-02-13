@@ -1,11 +1,9 @@
-package controller;
+package gizmoball.controller;
 
-import model.ReadModel;
-import model.RunModel;
+import gizmoball.model.RunModel;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class KeyTriggerListener extends KeyAdapter {
     private final RunModel model;

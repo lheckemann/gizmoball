@@ -1,6 +1,6 @@
-package view;
+package gizmoball.view;
 
-import model.*;
+import gizmoball.model.*;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

@@ -1,4 +1,4 @@
-package model;
+package gizmoball.model;
 
 import java.util.Observer;
 import java.util.Set;

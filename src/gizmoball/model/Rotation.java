@@ -1,4 +1,4 @@
-package model;
+package gizmoball.model;
 
 public enum Rotation {
     NORTH, EAST, SOUTH, WEST;

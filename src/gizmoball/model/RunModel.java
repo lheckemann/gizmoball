@@ -1,4 +1,4 @@
-package model;
+package gizmoball.model;
 
 public interface RunModel extends ReadModel {
     void tick();

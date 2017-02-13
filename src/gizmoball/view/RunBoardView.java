@@ -1,15 +1,12 @@
-package view;
+package gizmoball.view;
 
-import controller.KeyTriggerListener;
-import controller.TickListener;
-import model.Model;
-import model.ReadGizmo;
-import model.ReadModel;
-import model.RunModel;
+import gizmoball.controller.KeyTriggerListener;
+import gizmoball.model.Model;
+import gizmoball.model.ReadGizmo;
+import gizmoball.model.RunModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 
 public class RunBoardView extends JComponent {

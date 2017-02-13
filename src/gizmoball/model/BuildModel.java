@@ -1,4 +1,4 @@
-package model;
+package gizmoball.model;
 
 public interface BuildModel {
     void connectKeyPress(int code);

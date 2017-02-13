@@ -1,6 +1,6 @@
-package controller;
+package gizmoball.controller;
 
-import model.RunModel;
+import gizmoball.model.RunModel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
