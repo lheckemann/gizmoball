@@ -1,34 +1,18 @@
 package gizmoball.model;
 
-import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Observer;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import physics.Vect;
-
-import gizmoball.model.gizmos.Absorber;
-import gizmoball.model.gizmos.Square;
-import gizmoball.model.gizmos.Circle;
-import gizmoball.model.gizmos.Triangle;
-import gizmoball.model.gizmos.RightFlipper;
-import gizmoball.model.gizmos.LeftFlipper;
+import gizmoball.model.gizmos.*;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
+import gizmoball.model.gizmos.Rotation;
+import physics.Vect;
+
 import gizmoball.model.gizmos.ReadGizmo.GizmoType;
-import gizmoball.model.gizmos.ReadGizmo.Rotation;
 
 public class Model implements BuildModel, RunModel {
     private static final Set<String> DEPENDENT = new HashSet<>(Arrays.asList(
@@ -47,9 +31,9 @@ public class Model implements BuildModel, RunModel {
     //A map from Ball Id to Balls
     private Map<String, Ball> balls;
     //A map from Key Id to Gizmo
-    private Map<Integer, Set<Gizmo>> keyPressMap;
+    private Map<Integer, Set<Gizmo>> keyPressMap = new HashMap<>();
     //A map from Key Id to Gizmo
-    private Map<Integer, Set<Gizmo>> keyReleaseMap;
+    private Map<Integer, Set<Gizmo>> keyReleaseMap = new HashMap<>();
     private Map<Gizmo, Set<Gizmo>> gizmoMap;
     private Set<Gizmo> wallTriggers;
     private Set<Observer> observers;
@@ -573,10 +557,6 @@ public class Model implements BuildModel, RunModel {
         writer.format("Friction %f %f\n", this.getFrictionMu(), this.getFrictionMu2());
     }
 
-    public Set<ReadGizmo> getGizmos() {
-        return new HashSet<>(this.gizmos.values());
-    }
-
     public Set<Vect> getBallPositions() { // FIXME: we don't want to use vect here
         return this.balls.values()
                          .stream()
@@ -584,23 +564,48 @@ public class Model implements BuildModel, RunModel {
                          .collect(Collectors.toSet());
     }
 
-    public void addObserver(Observer observer) {
-        this.observers.add(observer);
-    }
-
-    public void deleteObserver(Observer observer) {
-        this.observers.remove(observer);
-    }
-
-    public void tick() {
-        // TODO
-    }
-
     public void keyPressed(int keyCode) {
-        this.keyPressMap.getOrDefault(keyCode, new HashSet<>()).stream().forEach(Gizmo::trigger);
+        this.keyPressMap.getOrDefault(keyCode, Collections.emptySet()).forEach(Gizmo::trigger);
     }
 
     public void keyReleased(int keyCode) {
-        this.keyReleaseMap.getOrDefault(keyCode, new HashSet<>()).stream().forEach(Gizmo::trigger);
+        this.keyReleaseMap.getOrDefault(keyCode, Collections.emptySet()).forEach(Gizmo::trigger);
+    }
+
+    @Override
+    public void tick() {
+        gizmos.values().forEach(Gizmo::tick);
+        observable.update();
+    }
+
+    public static Model prototype1Example() {
+        Model model = new Model(16, 16);
+        int x = 1;
+        for (Rotation rot : Rotation.values()) {
+            Flipper flipper = new Flipper(true);
+            flipper.setRotation(rot);
+            flipper = new Flipper(false);
+            flipper.setRotation(rot);
+            flipper.setPosition(x, 2);
+            model.gizmos.put("flipper" + x, flipper);
+            x += 3;
+        }
+        return model;
+    }
+
+    @Override
+    public Collection<ReadGizmo> getGizmos() {
+        return Collections.unmodifiableCollection(gizmos.values());
+    }
+
+    private SimpleObservable observable = new SimpleObservable();
+    @Override
+    public void addObserver(Observer observer) {
+        observable.addObserver(observer);
+    }
+
+    @Override
+    public void deleteObserver(Observer observer) {
+        observable.deleteObserver(observer);
     }
 }

@@ -3,8 +3,6 @@ package gizmoball.model;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import gizmoball.model.gizmos.ReadGizmo;
-
 public interface BuildModel extends ReadModel {
     /**
      * Seleects the ball or gizmo at the provided location as an operand in
