@@ -1,6 +1,6 @@
 package model;
 
-public abstract class Gizmo {
+public abstract class Gizmo implements ReadGizmo {
     private int x, y;
     private Rotation rotation;
 
@@ -13,9 +13,6 @@ public abstract class Gizmo {
     }
 
     public void trigger() {
-    }
-
-    public void untrigger() {
     }
 
     public void tick() {
@@ -44,5 +41,25 @@ public abstract class Gizmo {
 
     public void setRotation(Rotation rot) {
         rotation = rot;
+    }
+
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    @Override
+    public int getY() {
+        return y;
+    }
+
+    @Override
+    public int getPivotAngle() throws GizmoTypeException {
+        throw new GizmoTypeException();
+    }
+
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 }

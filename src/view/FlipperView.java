@@ -1,19 +1,18 @@
 package view;
 
-import model.Model;
-import model.FlipperModel;
+import model.*;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
 public class FlipperView {
-    public void paint(Graphics2D graphics, FlipperModel flipper) {
+    public void paint(Graphics2D graphics, ReadGizmo flipper) {
         graphics.setColor(Color.ORANGE);
         AffineTransform saved = graphics.getTransform();
 
         graphics.translate(Model.L_TO_PIXELS, Model.L_TO_PIXELS);
-        if (!flipper.isLeft()) {
+        if (flipper.getType() == GizmoType.RIGHT_FLIPPER) {
             graphics.scale(-1, 1);
         }
         switch (flipper.getRotation()) {
@@ -35,7 +34,11 @@ public class FlipperView {
         graphics.translate(-Model.L_TO_PIXELS, -Model.L_TO_PIXELS);
 
         graphics.translate(Model.L_TO_PIXELS * 0.25, Model.L_TO_PIXELS * 0.25);
-        graphics.rotate(-Math.toRadians(flipper.getPosition()));
+        try {
+            graphics.rotate(-Math.toRadians(flipper.getPivotAngle()));
+        } catch (GizmoTypeException e) {
+            assert false : "This gizmo should have a pivot angle, as it is a flipper.";
+        }
         graphics.translate(-Model.L_TO_PIXELS * 0.25, -Model.L_TO_PIXELS * 0.25);
 
         graphics.fillRoundRect(0, 0, Model.L_TO_PIXELS / 2, Model.L_TO_PIXELS * 2, Model.L_TO_PIXELS / 2, Model.L_TO_PIXELS / 2);

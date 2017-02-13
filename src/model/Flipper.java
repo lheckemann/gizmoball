@@ -1,6 +1,6 @@
 package model;
 
-public class FlipperModel extends Gizmo {
+public class Flipper extends Gizmo {
 
     private boolean isLeftFlipper;
 
@@ -21,7 +21,7 @@ public class FlipperModel extends Gizmo {
         return isLeftFlipper;
     }
 
-    public FlipperModel(boolean isLeft) {
+    public Flipper(boolean isLeft) {
         super();
         active = false;
         position = 0;
@@ -36,12 +36,7 @@ public class FlipperModel extends Gizmo {
 
     @Override
     public void trigger() {
-        active = true;
-    }
-
-    @Override
-    public void untrigger() {
-        active = false;
+        active = !active;
     }
 
     private static final int ROTATION_SPEED = 1080; // Degrees per second
@@ -56,7 +51,26 @@ public class FlipperModel extends Gizmo {
         }
     }
 
-    public int getPosition() {
+    @Override
+    public int getWidth() {
+        return 2;
+    }
+
+    @Override
+    public int getHeight() {
+        return 2;
+    }
+
+    @Override
+    public GizmoType getType() {
+        if (isLeftFlipper)
+            return GizmoType.LEFT_FLIPPER;
+        else
+            return GizmoType.RIGHT_FLIPPER;
+    }
+
+    @Override
+    public int getPivotAngle() throws GizmoTypeException {
         return position;
     }
 }

@@ -1,53 +1,29 @@
 package view;
 
-import controller.FlipKeyListener;
 import model.Model;
-import model.FlipperModel;
-import model.Rotation;
+import model.Flipper;
+import model.RunModel;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.*;
 import javax.swing.Timer;
 
-public class GizmoBallPrototype extends JPanel {
-    private FlipperModel[] flippers;
+public class GizmoBallPrototype {
+    private Flipper[] flippers;
     private FlipperView flipperView;
     private static JFrame window;
 
     public static void main(String[] args) {
         window = new JFrame();
-        GizmoBallPrototype p = new GizmoBallPrototype();
-        window.add(p);
+        RunModel model = Model.prototype1Example();
+        window.add(new RunView(model).getComponent());
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(new Dimension(300, 300));
     }
 
-    public GizmoBallPrototype() {
-        flippers = new FlipperModel[8];
-        int i = 0;
-        for (Rotation rot : Rotation.values()) {
-            flippers[i] = new FlipperModel(true);
-            flippers[i].setRotation(rot);
-            flippers[i+4] = new FlipperModel(false);
-            flippers[i+4].setRotation(rot);
-            window.addKeyListener(new FlipKeyListener(flippers[i]));
-            window.addKeyListener(new FlipKeyListener(flippers[i+4]));
-            i++;
-        }
-        flipperView = new FlipperView();
-
-
-        new Timer(1000 / Model.TICKS_PER_SECOND, e -> {
-            for (FlipperModel flipper : flippers) {
-                flipper.tick();
-            }
-            // TODO this might be the wrong way to do it but at least it's smooth
-            updateUI();
-        }).start();
-    }
-
+    /*
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
@@ -60,9 +36,10 @@ public class GizmoBallPrototype extends JPanel {
             g2.drawLine(0, y, 1000, y);
         g2.translate(32, 32);
         // draw flipper
-        for (FlipperModel flipper : flippers) {
+        for (Flipper flipper : flippers) {
             g2.translate(96, 0);
             flipperView.paint(g2, flipper);
         }
     }
+    */
 }
