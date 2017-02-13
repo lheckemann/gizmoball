@@ -593,8 +593,7 @@ public class Model implements BuildModel, RunModel {
                 return currGizmoEntry.getKey();
             }
         }
-
-        return "";
+        return null;
     }
 
     private String dumpFrictionGravityDeclarations() {
