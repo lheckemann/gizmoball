@@ -435,25 +435,24 @@ public class Model implements BuildModel, RunModel {
     //Returns an output stream containing all of
     //the Gizmo declarations for Gizmos in this model
     private void dumpGizmoDeclarations(PrintWriter writer) {
-        for (Map.Entry<String, Gizmo> currEntry: this.gizmos.entrySet()) {
-            String gizmoId = currEntry.getKey();
-            Gizmo currGizmo = currEntry.getValue();
+        for (String id : this.gizmos.keySet()) {
+            Gizmo gizmo = this.gizmos.get(id);
 
-            if(currGizmo.getType() == GizmoType.ABSORBER) {
+            if (gizmo.getType() == GizmoType.ABSORBER) {
                 writer.format("%s %s %d %d %d %d\n",
-                        this.convertGizmoTypeToString(currGizmo.getType()),
-                        gizmoId,
-                        currGizmo.getX(),
-                        currGizmo.getY(),
-                        currGizmo.getX() + currGizmo.getWidth(),
-                        currGizmo.getY() + currGizmo.getHeight());
+                        this.convertGizmoTypeToString(gizmo.getType()),
+                        id,
+                        gizmo.getX(),
+                        gizmo.getY(),
+                        gizmo.getX() + gizmo.getWidth(),
+                        gizmo.getY() + gizmo.getHeight());
             }
             else {
                 writer.format("%s %s %d %d\n",
-                        this.convertGizmoTypeToString(currGizmo.getType()),
-                        gizmoId,
-                        currGizmo.getX(),
-                        currGizmo.getY());
+                        this.convertGizmoTypeToString(gizmo.getType()),
+                        id,
+                        gizmo.getX(),
+                        gizmo.getY());
             }
         }
     }
@@ -478,26 +477,23 @@ public class Model implements BuildModel, RunModel {
     }
 
     private void dumpBallDeclarations(PrintWriter writer) {
-        for (Map.Entry<String, Ball> currEntry: this.balls.entrySet()) {
-            String ballId = currEntry.getKey();
-            Ball currBall = currEntry.getValue();
+        for (String id : this.balls.keySet()) {
+            Ball ball = this.balls.get(id);
             writer.format("Ball %s %f %f %f %f\n",
-                    ballId,
-                    currBall.getX(),
-                    currBall.getY(),
-                    currBall.getVelocityX(),
-                    currBall.getVelocityY()
+                    id,
+                    ball.getX(),
+                    ball.getY(),
+                    ball.getVelocityX(),
+                    ball.getVelocityY()
                     );
         }
     }
 
     private void dumpRotateCommands(PrintWriter writer) {
-        for (Map.Entry<String, Gizmo> currEntry: this.gizmos.entrySet()) {
-            String gizmoId = currEntry.getKey();
-            Gizmo currGizmo = currEntry.getValue();
-            //Create all of the necessary rotate commands
-            for (int i=0; i < currGizmo.getRotation().getTurns(); i++) {
-                writer.format("Rotate %s\n", gizmoId);
+        for (String id : this.gizmos.keySet()) {
+            Gizmo gizmo = this.gizmos.get(id);
+            for (int i = 0; i < gizmo.getRotation().getTurns(); i++) {
+                writer.format("Rotate %s\n", id);
             }
         }
     }
@@ -526,9 +522,9 @@ public class Model implements BuildModel, RunModel {
     }
 
     private String getGizmoId(Gizmo gizmo) {
-        for(Map.Entry<String, Gizmo> currGizmoEntry: this.gizmos.entrySet()) {
-            if(currGizmoEntry.getValue().equals(gizmo)) {
-                return currGizmoEntry.getKey();
+        for (String id : this.gizmos.keySet()) {
+            if (this.gizmos.get(id).equals(gizmo)) {
+                return id;
             }
         }
         return null;
