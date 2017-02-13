@@ -147,13 +147,13 @@ public class Model implements BuildModel, RunModel {
     }
 
     public void addRightFlipper(String identifier) {
-        Gizmo gizmo = new RightFlipper();
+        Gizmo gizmo = new Flipper(false);
         gizmo.setPosition((int) this.selX, (int) this.selY);
         this.gizmos.put(identifier, gizmo);
     }
 
     public void addLeftFlipper(String identifier) {
-        Gizmo gizmo = new LeftFlipper();
+        Gizmo gizmo = new Flipper(true);
         gizmo.setPosition((int) this.selX, (int) this.selY);
         this.gizmos.put(identifier, gizmo);
     }
