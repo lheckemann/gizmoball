@@ -21,7 +21,6 @@
 
     <plugins>
       <!-- Set the JAR entry point -->
-      <!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -30,12 +29,11 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>gizmoball.Main</mainClass>
+              <mainClass>gizmoball.main.PrototypeFour</mainClass>
             </manifest>
           </archive>
         </configuration>
       </plugin>
-      -->
 
       <!-- Set the Java version to use -->
       <plugin>
