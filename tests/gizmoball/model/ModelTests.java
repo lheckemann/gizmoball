@@ -1,4 +1,4 @@
-package tests;
+package gizmoball.model;
 
 import static org.junit.Assert.*;
 
@@ -29,7 +29,7 @@ public class ModelTests {
 	public void testLoadModel() throws IOException, SyntaxError {
 		String modelString = "";
 		try {
-			FileReader modelFileReader = new FileReader("tests/sampleModelFile.gzm");
+			FileReader modelFileReader = new FileReader("sampleModelFile.gzm");
 			BufferedReader modelBufferedReader = new BufferedReader(modelFileReader);
 			String line = null;
 			while((line = modelBufferedReader.readLine()) != null) {
