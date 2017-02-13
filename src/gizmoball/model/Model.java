@@ -76,10 +76,28 @@ public class Model implements BuildModel, RunModel {
                           .findFirst().orElse(null);
     }
 
+    private String getGizmoId(Gizmo gizmo) {
+        for (String id : this.gizmos.keySet()) {
+            if (this.gizmos.get(id).equals(gizmo)) {
+                return id;
+            }
+        }
+        return null;
+    }
+
     private Ball getBallAt(double x, double y) {
         return this.balls.values().stream()
                          .filter(b -> b.contains(x, y))
                          .findFirst().orElse(null);
+    }
+
+    private String getBallId(Ball ball) {
+        for (String id : this.balls.keySet()) {
+            if (this.balls.get(id).equals(ball)) {
+                return id;
+            }
+        }
+        return null;
     }
 
     public void select(double x, double y) {
@@ -100,13 +118,26 @@ public class Model implements BuildModel, RunModel {
     }
 
     public void delete() {
-        // TODO: we still have to remove gizmos from the trigger mappings
-        this.gizmos = this.gizmos.entrySet().stream()
-                                 .filter(e -> !e.getValue().contains(this.selX, this.selY))
-                                 .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
-        this.balls = this.balls.entrySet().stream()
-                               .filter(e -> !e.getValue().contains(this.selX, this.selY))
-                               .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
+        Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
+        if (gizmo != null) {
+            this.gizmos.remove(this.getGizmoId(gizmo));
+            this.gizmoMap.remove(gizmo);
+            for (Set<Gizmo> listeners : this.gizmoMap.values()) {
+                listeners.remove(gizmo);
+            }
+            for (Set<Gizmo> listeners : this.keyPressMap.values()) {
+                listeners.remove(gizmo);
+            }
+            for (Set<Gizmo> listeners : this.keyReleaseMap.values()) {
+                listeners.remove(gizmo);
+            }
+            this.wallTriggers.remove(gizmo);
+            return;
+        }
+        Ball ball = this.getBallAt(this.selX, this.selY);
+        if (ball != null) {
+            this.balls.remove(this.getBallId(ball));
+        }
     }
 
     public void addAbsorber(String identifier, int width, int height) {
@@ -535,15 +566,6 @@ public class Model implements BuildModel, RunModel {
                 writer.format("KeyConnect key %d up %s\n", key, this.getGizmoId(to));
             }
         }
-    }
-
-    private String getGizmoId(Gizmo gizmo) {
-        for (String id : this.gizmos.keySet()) {
-            if (this.gizmos.get(id).equals(gizmo)) {
-                return id;
-            }
-        }
-        return null;
     }
 
     private void dumpFrictionGravityDeclarations(PrintWriter writer) {
