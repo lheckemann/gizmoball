@@ -32,12 +32,12 @@ import gizmoball.model.gizmos.ReadGizmo.Rotation;
 public class Model implements BuildModel, RunModel {
     private static final Set<String> DEPENDENT = new HashSet<>(Arrays.asList(
                 "Rotate", "Delete", "Move", "Connect", "KeyConnect"));
-    
+
     //At the moment there is only one non rotating gizmo but since we might want to add more
-    //in the future, decided to add a Set to declare which Gizmo cannot be rotated 
+    //in the future, decided to add a Set to declare which Gizmo cannot be rotated
     //via a Rotate command.
     private static final Set<GizmoType> NON_ROTATING_GIZMOS = new HashSet<>(Arrays.asList(
-    		     GizmoType.ABSORBER));
+                 GizmoType.ABSORBER));
 
     private final double width;
     private final double height;
@@ -321,7 +321,7 @@ public class Model implements BuildModel, RunModel {
                                      Double.parseDouble(tokens.get(2)));
                     break;
                 case "Ball":
-                	//TODO: Need to add in parsing for Ball Velocity
+                    //TODO: Need to add in parsing for Ball Velocity
                     SYNTAX_ERROR = "Ball <identifier> <float> <float>";
                     if (tokens.size() != 3) {
                         throw new SyntaxError(SYNTAX_ERROR);
@@ -428,208 +428,208 @@ public class Model implements BuildModel, RunModel {
     }
 
     public OutputStream save() {
-		
+
         String modelString = "";
-        
-       	//Write Gizmo declarations to output stream 
+
+           //Write Gizmo declarations to output stream
         modelString += this.dumpGizmoDeclarations();
-		//Write Ball declarations
+        //Write Ball declarations
         modelString += this.dumpBallDeclarations();
-		//Write Rotate commands
+        //Write Rotate commands
         modelString += this.dumpRotateCommands();
-		//Write Connect commands
+        //Write Connect commands
         modelString += this.dumpConnectCommands();
-		//Write KeyConnect commands	
+        //Write KeyConnect commands
         modelString += this.dumpKeyConnectCommands();
         //Write friction and gravity
         modelString += this.dumpFrictionGravityDeclarations();
-        
+
         OutputStream modelStream = new ByteArrayOutputStream();
-        
+
         try {
-			modelStream.write(modelString.getBytes(StandardCharsets.UTF_8));
-		} catch (IOException e) {
-			//Should never reach here
-		}
-        
+            modelStream.write(modelString.getBytes(StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            //Should never reach here
+        }
+
         return modelStream;
 
     }
-    
-    //Returns an output stream containing all of 
+
+    //Returns an output stream containing all of
     //the Gizmo declarations for Gizmos in this model
     private String dumpGizmoDeclarations() {
         String gizmoDeclarations = "";
         for(Map.Entry<String, Gizmo> currEntry: this.gizmos.entrySet()) {
-    	    String gizmoId = currEntry.getKey();
-    	    Gizmo currGizmo = currEntry.getValue();
-            
-    	    if(currGizmo.getType() == GizmoType.ABSORBER) {
-    	        gizmoDeclarations += String.format("%s %s %d %d %d %d\n", 
+            String gizmoId = currEntry.getKey();
+            Gizmo currGizmo = currEntry.getValue();
+
+            if(currGizmo.getType() == GizmoType.ABSORBER) {
+                gizmoDeclarations += String.format("%s %s %d %d %d %d\n",
                         this.convertGizmoTypeToString(currGizmo.getType()),
                         gizmoId,
                         currGizmo.getX(),
                         currGizmo.getY(),
                         currGizmo.getX() + currGizmo.getWidth(),
-                        currGizmo.getY() + currGizmo.getHeight());	
-    	    }
-    	    else {
-    	        gizmoDeclarations += String.format("%s %s %d %d\n", 
+                        currGizmo.getY() + currGizmo.getHeight());
+            }
+            else {
+                gizmoDeclarations += String.format("%s %s %d %d\n",
                         this.convertGizmoTypeToString(currGizmo.getType()),
                         gizmoId,
                         currGizmo.getX(),
                         currGizmo.getY());
-    	    }
+            }
         }
-        
+
         return gizmoDeclarations;
     }
-    
+
     private String convertGizmoTypeToString(GizmoType type) {
         switch(type) {
             case SQUARE:
                 return "Square";
             case TRIANGLE:
-            	return "Triangle";
+                return "Triangle";
             case CIRCLE:
-            	return "Circle";
+                return "Circle";
             case ABSORBER:
-            	return "Asborber";
+                return "Asborber";
             case RIGHT_FLIPPER:
-            	return "RightFlipper";
+                return "RightFlipper";
             case LEFT_FLIPPER:
-            	return "LeftFlipper";
+                return "LeftFlipper";
             default:
                 return "";
         }
     }
-    
+
     private String dumpBallDeclarations() {
-    	String ballDeclarations = "";
+        String ballDeclarations = "";
         for(Map.Entry<String, Ball> currEntry: this.balls.entrySet()) {
-    	    String ballId = currEntry.getKey();
-    	    Ball currBall = currEntry.getValue();
-            
-    	    ballDeclarations += String.format("Ball %s %f %f %f %f\n",
-    	    		                          ballId,
-    	    		                          currBall.getX(),
-    	    		                          currBall.getY(),
-    	    		                          currBall.getVelocityX(),
-    	    		                          currBall.getVelocityY()
-    	    		                          );
+            String ballId = currEntry.getKey();
+            Ball currBall = currEntry.getValue();
+
+            ballDeclarations += String.format("Ball %s %f %f %f %f\n",
+                                              ballId,
+                                              currBall.getX(),
+                                              currBall.getY(),
+                                              currBall.getVelocityX(),
+                                              currBall.getVelocityY()
+                                              );
         }
-        
+
         return ballDeclarations;
     }
-    
+
     private String dumpRotateCommands() {
         String rotateCommands = "";
         for(Map.Entry<String, Gizmo> currEntry: this.gizmos.entrySet()) {
-    	    String gizmoId = currEntry.getKey();
-    	    Gizmo currGizmo = currEntry.getValue();
-            
-    	    //If the current gizmo can be rotated
-    	    if(false == NON_ROTATING_GIZMOS.contains(currGizmo.getType())) {
-    	    	//Get the number of rotation commands required
-    	        int numberOfRotations = convertRotationToNumOfRotations(currGizmo.getRotation());
-    	        //Create all of the necessary rotate commands
-    	        for(int i=0; i < numberOfRotations; i++) {
-    	        	rotateCommands += String.format("Rotate %s\n", gizmoId);
-    	        }
-    	    }
+            String gizmoId = currEntry.getKey();
+            Gizmo currGizmo = currEntry.getValue();
+
+            //If the current gizmo can be rotated
+            if(false == NON_ROTATING_GIZMOS.contains(currGizmo.getType())) {
+                //Get the number of rotation commands required
+                int numberOfRotations = convertRotationToNumOfRotations(currGizmo.getRotation());
+                //Create all of the necessary rotate commands
+                for(int i=0; i < numberOfRotations; i++) {
+                    rotateCommands += String.format("Rotate %s\n", gizmoId);
+                }
+            }
         }
-        
-        return rotateCommands;	
+
+        return rotateCommands;
     }
-    
+
     //Used to convert a Rotation (North, East, South West)
-    //to the number of 90 degree rotations needed to get from 
+    //to the number of 90 degree rotations needed to get from
     //North to the given Rotation
     private int convertRotationToNumOfRotations(Rotation rotation) {
-    	switch(rotation) {
-    	    case N:
-    	        return 0;
-    	    case E:
-    	        return 1;
-    	    case S:
-    	        return 2;
-    	    case W:
-    	        return 3;
-    	    default:
-    	        return 0;
-    	}
+        switch(rotation) {
+            case N:
+                return 0;
+            case E:
+                return 1;
+            case S:
+                return 2;
+            case W:
+                return 3;
+            default:
+                return 0;
+        }
     }
 
     private String dumpConnectCommands() {
-    	String connectCommands = "";
-    	for(Map.Entry<Gizmo, Set<Gizmo>> currConnection: this.gizmoMap.entrySet()) {
-    		String fromGizmoId = this.getGizmoId(currConnection.getKey());
-    		Set<String> toGizmoIdCollection = this.getGizmoIdSet(currConnection.getValue());
-    		
-    		for(String toGizmoId: toGizmoIdCollection) {
-    			connectCommands += String.format("Connect %s %s\n", fromGizmoId, toGizmoId);
-    		}
-    	}
-    	
-    	return connectCommands;
+        String connectCommands = "";
+        for(Map.Entry<Gizmo, Set<Gizmo>> currConnection: this.gizmoMap.entrySet()) {
+            String fromGizmoId = this.getGizmoId(currConnection.getKey());
+            Set<String> toGizmoIdCollection = this.getGizmoIdSet(currConnection.getValue());
+
+            for(String toGizmoId: toGizmoIdCollection) {
+                connectCommands += String.format("Connect %s %s\n", fromGizmoId, toGizmoId);
+            }
+        }
+
+        return connectCommands;
     }
-    
+
     private String dumpKeyConnectCommands() {
-    	String keyConnectCommands = "";
-  
-    	//Add down commands
-    	for(Map.Entry<Integer, Set<Gizmo>> currKeyConnection: this.keyPressMap.entrySet()) {
-    		Integer fromKeyId = currKeyConnection.getKey();
-    		Set<String> toGizmoIdCollection = this.getGizmoIdSet(currKeyConnection.getValue());
-    		
-    		for(String toGizmoId: toGizmoIdCollection) {
-    			keyConnectCommands += String.format("KeyConnect key %d down %s\n", 
-    					              fromKeyId,
-    					              toGizmoId);
-    		}
-    	}
-    	
-    	//Add up commands
-    	for(Map.Entry<Integer, Set<Gizmo>> currKeyConnection: this.keyPressMap.entrySet()) {
-    		Integer fromKeyId = currKeyConnection.getKey();
-    		Set<String> toGizmoIdCollection = this.getGizmoIdSet(currKeyConnection.getValue());
-    		
-    		for(String toGizmoId: toGizmoIdCollection) {
-    			keyConnectCommands += String.format("KeyConnect key %d up %s\n", 
-    					              fromKeyId,
-    					              toGizmoId);
-    		}
-    	}
-    	
-    	return keyConnectCommands;
+        String keyConnectCommands = "";
+
+        //Add down commands
+        for(Map.Entry<Integer, Set<Gizmo>> currKeyConnection: this.keyPressMap.entrySet()) {
+            Integer fromKeyId = currKeyConnection.getKey();
+            Set<String> toGizmoIdCollection = this.getGizmoIdSet(currKeyConnection.getValue());
+
+            for(String toGizmoId: toGizmoIdCollection) {
+                keyConnectCommands += String.format("KeyConnect key %d down %s\n",
+                                      fromKeyId,
+                                      toGizmoId);
+            }
+        }
+
+        //Add up commands
+        for(Map.Entry<Integer, Set<Gizmo>> currKeyConnection: this.keyPressMap.entrySet()) {
+            Integer fromKeyId = currKeyConnection.getKey();
+            Set<String> toGizmoIdCollection = this.getGizmoIdSet(currKeyConnection.getValue());
+
+            for(String toGizmoId: toGizmoIdCollection) {
+                keyConnectCommands += String.format("KeyConnect key %d up %s\n",
+                                      fromKeyId,
+                                      toGizmoId);
+            }
+        }
+
+        return keyConnectCommands;
     }
-    
+
     private String getGizmoId(Gizmo gizmo) {
-    	for(Map.Entry<String, Gizmo> currGizmoEntry: this.gizmos.entrySet()) {
-    		if(currGizmoEntry.getValue().equals(gizmo)) {
-    			return currGizmoEntry.getKey();
-    		}
-    	}
-    	
-    	return "";
+        for(Map.Entry<String, Gizmo> currGizmoEntry: this.gizmos.entrySet()) {
+            if(currGizmoEntry.getValue().equals(gizmo)) {
+                return currGizmoEntry.getKey();
+            }
+        }
+
+        return "";
     }
-    
+
     private String dumpFrictionGravityDeclarations() {
-    	String gravityDeclaration = String.format("Gravity %f\n", this.gravity);
-    	String frictionDeclaration = String.format("Friction %f %f\n", this.getFrictionMu(), this.getFrictionMu2());
-    	
-    	return gravityDeclaration + frictionDeclaration;
+        String gravityDeclaration = String.format("Gravity %f\n", this.gravity);
+        String frictionDeclaration = String.format("Friction %f %f\n", this.getFrictionMu(), this.getFrictionMu2());
+
+        return gravityDeclaration + frictionDeclaration;
     }
-    
+
     private Set<String> getGizmoIdSet(Set<Gizmo> gizmoSet) {
-    	Set<String> gizmoIdSet = new HashSet<>();
-    	for(Gizmo gizmo: gizmoSet) {
-    		gizmoIdSet.add(getGizmoId(gizmo));
-    	}
-    	
-    	return gizmoIdSet;
+        Set<String> gizmoIdSet = new HashSet<>();
+        for(Gizmo gizmo: gizmoSet) {
+            gizmoIdSet.add(getGizmoId(gizmo));
+        }
+
+        return gizmoIdSet;
     }
-    
+
     public Set<ReadGizmo> getGizmos() {
         return new HashSet<>(this.gizmos.values());
     }

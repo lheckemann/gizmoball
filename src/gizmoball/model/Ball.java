@@ -6,7 +6,7 @@ public class Ball {
     private final static double RADIUS = 0.5;
     private double x;
     private double y;
-    
+
     //VelocityX and Y are needed since it is not possible to get them from Vect
     //without them begin changed (since Vect.x() and Vect.y() changes the x and y values,
     //making them different to what was passed in at construction.)
@@ -29,13 +29,13 @@ public class Ball {
     public double getY() {
         return this.y;
     }
-    
+
     public double getVelocityX() {
-    	return this.velocityX;
+        return this.velocityX;
     }
-    
+
     public double getVelocityY() {
-    	return this.velocityY;
+        return this.velocityY;
     }
 
     public void setPosition(double x, double y) {
