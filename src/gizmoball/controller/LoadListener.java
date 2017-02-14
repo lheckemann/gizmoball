@@ -1,8 +1,6 @@
 package gizmoball.controller;
 
-import gizmoball.model.BuildModel;
 import gizmoball.model.IModel;
-import gizmoball.model.Model;
 import gizmoball.model.SyntaxError;
 import gizmoball.view.GizmoBallView;
 

@@ -26,7 +26,6 @@ public class BoardView extends JPanel {
     }
 
     public void updateGUI() {
-        FlipperView flipperView = new FlipperView();
         Graphics graphics = this.getGraphics();
 
         //this.paintComponent(graphics);
@@ -42,7 +41,7 @@ public class BoardView extends JPanel {
             switch (gizmo.getType()) {
                 case LEFT_FLIPPER:
                 case RIGHT_FLIPPER:
-                    flipperView.paint(g, gizmo);
+                    FlipperView.paint(g, gizmo);
                     break;
             }
             g.setTransform(origin);

@@ -10,7 +10,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class FlipperView {
-    public void paint(Graphics2D graphics, ReadGizmo flipper) {
+    public static void paint(Graphics2D graphics, ReadGizmo flipper) {
         graphics.setColor(Color.ORANGE);
         graphics.translate(Model.L_TO_PIXELS, Model.L_TO_PIXELS);
         if (flipper.getType() == GizmoType.RIGHT_FLIPPER) {
