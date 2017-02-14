@@ -9,6 +9,7 @@ import gizmoball.model.Model;
 import gizmoball.model.BuildModel;
 import gizmoball.model.SyntaxError;
 import gizmoball.view.BuildView;
+import gizmoball.view.GizmoBallView;
 
 
 public class PrototypeFour {
@@ -29,5 +30,12 @@ public class PrototypeFour {
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(new Dimension(300, 300));*/
+
+        BuildModel model = new Model(20, 20);
+
+        GizmoBallView gui = new GizmoBallView(model);
+        JFrame frame = gui.getGUI();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 }
