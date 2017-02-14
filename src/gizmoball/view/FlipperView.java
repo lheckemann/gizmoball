@@ -8,13 +8,10 @@ import gizmoball.model.gizmos.Rotation;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 
 public class FlipperView {
     public void paint(Graphics2D graphics, ReadGizmo flipper) {
         graphics.setColor(Color.ORANGE);
-        AffineTransform saved = graphics.getTransform();
-
         graphics.translate(Model.L_TO_PIXELS, Model.L_TO_PIXELS);
         if (flipper.getType() == GizmoType.RIGHT_FLIPPER) {
             graphics.scale(-1, 1);
@@ -48,7 +45,6 @@ public class FlipperView {
         graphics.fillRoundRect(0, 0, Model.L_TO_PIXELS / 2, Model.L_TO_PIXELS * 2, Model.L_TO_PIXELS / 2, Model.L_TO_PIXELS / 2);
         graphics.setColor(Color.RED);
         graphics.fillOval(Model.L_TO_PIXELS / 8, Model.L_TO_PIXELS / 8, Model.L_TO_PIXELS / 4, Model.L_TO_PIXELS / 4);
-        graphics.setTransform(saved);
     }
 }
 

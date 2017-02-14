@@ -34,7 +34,7 @@ public class RunBoardView extends JComponent {
                 case RIGHT_FLIPPER:
                     flipperView.paint(g, gizmo);
             }
+            g.setTransform(origin);
         }
-        g.setTransform(origin);
     }
 }
