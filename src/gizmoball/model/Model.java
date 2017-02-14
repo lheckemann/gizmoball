@@ -233,8 +233,9 @@ public class Model implements BuildModel, RunModel {
         List<List<String>> dependent = new LinkedList<>();
         try (Scanner scanner = new Scanner(input)) {
             while (scanner.hasNextLine()) {
-                List<String> tokens = Arrays.asList(scanner.nextLine().split("\\s+"));
-                if (!tokens.isEmpty()) {
+                String line = scanner.nextLine().trim();
+                if (!line.isEmpty()) {
+                    List<String> tokens = Arrays.asList(line.split("\\s+"));
                     if (Model.DEPENDENT.contains(tokens.get(0))) {
                         dependent.add(tokens);
                     } else {
