@@ -252,6 +252,16 @@ public class Model implements BuildModel, RunModel {
     private void creationCommand(List<String> tokens) throws SyntaxError {
         String SYNTAX_ERROR = "Invalid command.";
         try {
+            if (tokens.get(0).equals("Ball")) {
+                SYNTAX_ERROR = "Ball <identifier> <float> <float>";
+                if (tokens.size() != 4) {
+                    throw new SyntaxError(SYNTAX_ERROR);
+                }
+                this.select(Double.parseDouble(tokens.get(2)),
+                            Double.parseDouble(tokens.get(3)));
+                this.addBall(tokens.get(1));
+                return;
+            }
             Integer x = Integer.parseInt(tokens.get(2));
             Integer y = Integer.parseInt(tokens.get(3));
             this.select(x, y);
@@ -337,17 +347,6 @@ public class Model implements BuildModel, RunModel {
                     }
                     this.setFriction(Double.parseDouble(tokens.get(1)),
                                      Double.parseDouble(tokens.get(2)));
-                    break;
-
-                case "Ball":
-                    //TODO: Need to add in parsing for Ball Velocity
-                    SYNTAX_ERROR = "Ball <identifier> <float> <float>";
-                    if (tokens.size() != 3) {
-                        throw new SyntaxError(SYNTAX_ERROR);
-                    }
-                    this.select(Double.parseDouble(tokens.get(2)),
-                                Double.parseDouble(tokens.get(3)));
-                    this.addBall(tokens.get(1));
                     break;
 
                 case "Move":
