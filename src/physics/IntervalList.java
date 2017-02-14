@@ -109,11 +109,7 @@ public class IntervalList
     // returns true of this and i overlap
     private boolean overlaps(Interval i) {
       if (this.start <= i.start) {
-	if (i.start > this.end) {
-	  return false;
-	} else {
-	  return true;
-	}
+          return !(i.start > this.end);
       } else {
 	return i.overlaps(this);
       }
@@ -173,12 +169,8 @@ public class IntervalList
       if (o instanceof Interval) {
 	Interval i = (Interval) o;
 	if (i == this) { return true; }
-	if (this.start == i.start &&
-	    this.end == i.end) {
-	  return true;
-	} else {
-	  return false;
-	}
+          return this.start == i.start &&
+                  this.end == i.end;
       } else {
 	return false;
       }

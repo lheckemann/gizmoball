@@ -55,13 +55,13 @@ public abstract class Gizmo implements ReadGizmo {
     public abstract int getWidth();
     public abstract int getHeight();
 
-    public void tick() {};
+    public void tick() {}
 
     public double getReflectionCoefficient() {
         return 1.0;
-    };
+    }
 
-    public void trigger() {};
+    public void trigger() {}
 
     @Override
     public int getPivotAngle() throws GizmoTypeException {

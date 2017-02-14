@@ -75,12 +75,12 @@ public class GeometryCompare
    * only be computed when the assertion fails.  (See section 4.2.2 in
    * SICP by Abelson, et. al.)
    **/
-  private static interface StringThunk
+  private interface StringThunk
   {
     /**
      * @return the forced value
      **/
-    public String string();
+    String string();
   }
 
   /**

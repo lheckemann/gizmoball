@@ -9,6 +9,25 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
+import java.awt.*;
+
+public class RunBoardView extends BoardView
+{
+    private final RunModel model;
+
+    public RunBoardView(RunModel model) {
+        this.model = model;
+    }
+
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+        g.setColor(Color.black);
+        g.fillRect(0, 0, getWidth(), getHeight());
+    }
+}
+/*
 public class RunBoardView extends JComponent {
     private final RunModel model;
     private final FlipperView flipperView = new FlipperView();
@@ -38,3 +57,4 @@ public class RunBoardView extends JComponent {
         }
     }
 }
+*/

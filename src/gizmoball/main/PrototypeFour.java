@@ -13,7 +13,7 @@ import gizmoball.view.BuildView;
 
 public class PrototypeFour {
     public static void main(String[] args) {
-        if (args.length != 1) {
+        /*if (args.length != 1) {
             System.out.println("Supply a filename.");
             System.exit(1);
         }
@@ -28,6 +28,6 @@ public class PrototypeFour {
         window.add(new BuildView(model).getComponent());
         window.setVisible(true);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(new Dimension(300, 300));
+        window.setSize(new Dimension(300, 300));*/
     }
 }

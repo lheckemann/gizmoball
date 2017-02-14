@@ -88,11 +88,11 @@ public class Newton {
    * Newton.Function is an interface which specifies a function whose
    * roots can be found by this class.
    **/
-  public static interface Function {
+  public interface Function {
     /**
      * @returns the value of the function evaluated at <code>t</code>
      **/
-    public abstract Result evaluate(double t);
+    Result evaluate(double t);
   }
 
   private static final int MAX_STEPS = 30;

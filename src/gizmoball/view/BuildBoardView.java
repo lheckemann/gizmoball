@@ -8,6 +8,26 @@ import gizmoball.model.Model;
 import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.model.BuildModel;
 
+public class BuildBoardView extends BoardView {
+    private final BuildModel model;
+
+    public BuildBoardView(BuildModel model) {
+        this.model = model;
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(Color.white);
+        g.fillRect(0, 0, getWidth(), getHeight());
+        g.setColor(Color.black);
+        for (int x = 0; x <= 20 * Model.L_TO_PIXELS; x += Model.L_TO_PIXELS)
+            g.drawLine(x, 0, x, getHeight());
+        for (int y = 0; y <= 20 * Model.L_TO_PIXELS; y += Model.L_TO_PIXELS)
+            g.drawLine(0, y, getWidth(), y);
+    }
+}
+/*
 public class BuildBoardView extends JComponent {
     private final BuildModel model;
     private final FlipperView flipperView = new FlipperView();
@@ -36,3 +56,4 @@ public class BuildBoardView extends JComponent {
         }
     }
 }
+*/

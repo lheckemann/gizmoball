@@ -63,67 +63,67 @@ public interface GeometryInterface {
    *
    * @see physics.Geometry#quadraticSolution
    **/
-  public DoublePair quadraticSolution(double a, double b, double c);
+  DoublePair quadraticSolution(double a, double b, double c);
 
   /**
    * Specified by Geometry.minQuadraticSolution
    *
    * @see physics.Geometry#minQuadraticSolution
    **/
-  public double minQuadraticSolution(double a,
-				     double b,
-				     double c);
+  double minQuadraticSolution(double a,
+                              double b,
+                              double c);
 
   /**
    * Specified by Geometry.perpendicularPoint
    *
    * @see physics.Geometry#perpendicularPoint
    **/
-  public Vect perpendicularPoint(LineSegment line,
-				 Vect point);
+  Vect perpendicularPoint(LineSegment line,
+                          Vect point);
 
   /**
    * Specified by Geometry.perpendicularPointWholeLine
    *
    * @see physics.Geometry#perpendicularPointWholeLine
    **/
-  public Vect perpendicularPointWholeLine(LineSegment line,
-					  Vect point);
+  Vect perpendicularPointWholeLine(LineSegment line,
+                                   Vect point);
 
   /**
    * Specified by Geometry.applyReflectionCoeff
    *
    * @see physics.Geometry#applyReflectionCoeff
    **/
-  public Vect applyReflectionCoeff(Vect incidentVect,
-				   Vect reflectedVect,
-				   double rCoeff);
+  Vect applyReflectionCoeff(Vect incidentVect,
+                            Vect reflectedVect,
+                            double rCoeff);
 
   /**
    * Specified by Geometry.timeUntilWallCollision
    *
    * @see physics.Geometry#timeUntilWallCollision
    **/
-  public double timeUntilWallCollision(LineSegment line,
-				       Circle ball,
-				       Vect velocity);
+  double timeUntilWallCollision(LineSegment line,
+                                Circle ball,
+                                Vect velocity);
 
   /**
    * Specified by Geometry.reflectWall
    *
    * @see physics.Geometry#reflectWall
    **/
-  public Vect reflectWall(LineSegment line,
-			  Vect velocity,
-			  double reflectionCoeff);
+  Vect reflectWall(LineSegment line,
+                   Vect velocity,
+                   double reflectionCoeff);
 
   /**
    * Specified by Geometry.reflectWall
    *
    * @see physics.Geometry#reflectWall
    **/
-  public Vect reflectWall(LineSegment line,
-			  Vect velocity);
+  Vect reflectWall(LineSegment line,
+                   Vect velocity);
 
   /****************************************************************************
    *
@@ -136,43 +136,43 @@ public interface GeometryInterface {
    *
    * @see physics.Geometry#distanceSquared
    **/
-  public double distanceSquared(Vect v1, Vect v2);
+  double distanceSquared(Vect v1, Vect v2);
 
   /**
    * Specified by Geometry.distanceSquared
    *
    * @see physics.Geometry#distanceSquared
    **/
-   public double distanceSquared(double x1, double y1,
-				 double x2, double y2);
+  double distanceSquared(double x1, double y1,
+                         double x2, double y2);
 
   /**
    * Specified by Geometry.timeUntilCircleCollision
    *
    * @see physics.Geometry#timeUntilCircleCollision
    **/
-  public double timeUntilCircleCollision(Circle circle,
-					 Circle ball,
-					 Vect velocity);
+  double timeUntilCircleCollision(Circle circle,
+                                  Circle ball,
+                                  Vect velocity);
 
   /**
    * Specified by Geometry.reflectCircle
    *
    * @see physics.Geometry#reflectCircle
    **/
-  public Vect reflectCircle(Vect circle,
-			    Vect ball,
-			    Vect velocity, 
-			    double reflectionCoeff);
+  Vect reflectCircle(Vect circle,
+                     Vect ball,
+                     Vect velocity,
+                     double reflectionCoeff);
 
   /**
    * Specified by Geometry.reflectCircle
    *
    * @see physics.Geometry#reflectCircle
    **/
-  public Vect reflectCircle(Vect circle,
-			    Vect ball,
-			    Vect velocity);
+  Vect reflectCircle(Vect circle,
+                     Vect ball,
+                     Vect velocity);
 
   /****************************************************************************
    *
@@ -185,98 +185,98 @@ public interface GeometryInterface {
    *
    * @see physics.Geometry#rotateAround
    **/
-  public Vect rotateAround(Vect point, Vect cor, Angle a);
+  Vect rotateAround(Vect point, Vect cor, Angle a);
 
   /**
    * Specified by Geometry.rotateAround
    *
    * @see physics.Geometry#rotateAround
    **/
-  public LineSegment rotateAround(LineSegment line, Vect cor, Angle a);
+  LineSegment rotateAround(LineSegment line, Vect cor, Angle a);
 
   /**
    * Specified by Geometry.rotateAround
    *
    * @see physics.Geometry#rotateAround
    **/
-  public Circle rotateAround(Circle circle, Vect cor, Angle a);
+  Circle rotateAround(Circle circle, Vect cor, Angle a);
 
   /**
    * Specified by Geometry.timeUntilCircleCollision
    *
    * @see physics.Geometry#timeUntilCircleCollision
    **/
-  public DoublePair timeUntilCircleCollision(Circle circle,
-					     Vect point,
-					     Vect velocity);
+  DoublePair timeUntilCircleCollision(Circle circle,
+                                      Vect point,
+                                      Vect velocity);
 
   /**
    * Specified by Geometry.timeUntilRotatingWallCollision
    *
    * @see physics.Geometry#timeUntilRotatingWallCollision
    **/
-  public double timeUntilRotatingWallCollision(LineSegment line,
-					       Vect center,
-					       double angularVelocity,
-					       Circle ball,
-					       Vect velocity);
+  double timeUntilRotatingWallCollision(LineSegment line,
+                                        Vect center,
+                                        double angularVelocity,
+                                        Circle ball,
+                                        Vect velocity);
 
   /**
    * Specified by Geometry.reflectRotatingWall
    *
    * @see physics.Geometry#reflectRotatingWall
    **/
-  public Vect reflectRotatingWall(LineSegment line,
-				  Vect center,
-				  double angularVelocity,
-				  Circle ball,
-				  Vect velocity);
+  Vect reflectRotatingWall(LineSegment line,
+                           Vect center,
+                           double angularVelocity,
+                           Circle ball,
+                           Vect velocity);
 
   /**
    * Specified by Geometry.reflectRotatingWall
    *
    * @see physics.Geometry#reflectRotatingWall
    **/
-  public Vect reflectRotatingWall(LineSegment line,
-				  Vect center,
-				  double angularVelocity,
-				  Circle ball,
-				  Vect velocity,
-				  double reflectionCoeff);
+  Vect reflectRotatingWall(LineSegment line,
+                           Vect center,
+                           double angularVelocity,
+                           Circle ball,
+                           Vect velocity,
+                           double reflectionCoeff);
 
   /**
    * Specified by Geometry.timeUntilRotatingCircleCollision
    *
    * @see physics.Geometry#timeUntilRotatingCircleCollision
    **/
-  public double timeUntilRotatingCircleCollision(Circle circle,
-						 Vect center,
-						 double angularVelocity,
-						 Circle ball,
-						 Vect velocity);
+  double timeUntilRotatingCircleCollision(Circle circle,
+                                          Vect center,
+                                          double angularVelocity,
+                                          Circle ball,
+                                          Vect velocity);
 
   /**
    * Specified by Geometry.reflectRotatingCircle
    *
    * @see physics.Geometry#reflectRotatingCircle
    **/
-  public Vect reflectRotatingCircle(Circle circle,
-				    Vect center,
-				    double angularVelocity,
-				    Circle ball,
-				    Vect velocity);
+  Vect reflectRotatingCircle(Circle circle,
+                             Vect center,
+                             double angularVelocity,
+                             Circle ball,
+                             Vect velocity);
 
   /**
    * Specified by Geometry.reflectRotatingCircle
    *
    * @see physics.Geometry#reflectRotatingCircle
    **/
-  public Vect reflectRotatingCircle(Circle circle,
-				    Vect center,
-				    double angularVelocity,
-				    Circle ball,
-				    Vect velocity,
-				    double reflectionCoeff);
+  Vect reflectRotatingCircle(Circle circle,
+                             Vect center,
+                             double angularVelocity,
+                             Circle ball,
+                             Vect velocity,
+                             double reflectionCoeff);
 
   /****************************************************************************
    *
@@ -290,21 +290,21 @@ public interface GeometryInterface {
    *
    * @see physics.Geometry#timeUntilBallBallCollision
    **/
-  public double timeUntilBallBallCollision(Circle ball1,
-					   Vect   vel1,
-					   Circle ball2,
-					   Vect   vel2);
+  double timeUntilBallBallCollision(Circle ball1,
+                                    Vect vel1,
+                                    Circle ball2,
+                                    Vect vel2);
 
   /**
    * Specified by Geometry.reflectBalls
    *
    * @see physics.Geometry#reflectBalls
    **/
-  public VectPair reflectBalls(Vect center1,
-			       double mass1,
-			       Vect velocity1,
-			       Vect center2,
-			       double mass2,
-			       Vect velocity2);
+  VectPair reflectBalls(Vect center1,
+                        double mass1,
+                        Vect velocity1,
+                        Vect center2,
+                        double mass2,
+                        Vect velocity2);
 }
 
