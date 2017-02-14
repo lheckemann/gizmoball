@@ -5,8 +5,6 @@ import java.io.OutputStream;
 import java.util.Observer;
 
 public interface IModel extends ReadModel {
-    void addObserver(Observer o);
-
     // TODO: Decide whether the board has to be resetted before loading.
     void load(InputStream input) throws SyntaxError;
 

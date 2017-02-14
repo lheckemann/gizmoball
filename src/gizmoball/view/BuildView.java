@@ -1,22 +1,20 @@
 package gizmoball.view;
 
 import gizmoball.controller.ToggleGizmoChoiceListener;
-import gizmoball.model.BuildModel;
 import gizmoball.model.IModel;
 
 import javax.swing.*;
-import java.awt.*;
 
-public class BuildView extends Box
-{
+public class BuildView implements IBoard {
     private JComboBox<String> gizmoList;
     private JRadioButton addBtn;
     private BoardView board;
     private JPanel buttonsPnl;
 
-    public BuildView(BuildModel model)
-    {
-        super(BoxLayout.Y_AXIS);
+    private Box box;
+
+    public BuildView(IModel model) {
+        box = new Box(BoxLayout.Y_AXIS);
         board = new BuildBoardView(model);
         buttonsPnl = new JPanel();
         ButtonGroup bg = new ButtonGroup();
@@ -51,16 +49,25 @@ public class BuildView extends Box
         buttonsPnl.add(connectBtn);
         buttonsPnl.add(addBtn);
         buttonsPnl.add(gizmoList);
-        this.add(board);
-        this.add(buttonsPnl);
+        box.add(board);
+        box.add(buttonsPnl);
     }
 
-    public void toggleGizmoChoiceVisibility()
-    {
+    public void toggleGizmoChoiceVisibility() {
         if (addBtn.isSelected())
             gizmoList.setEnabled(true);
         else
             gizmoList.setEnabled(false);
+    }
+
+    @Override
+    public Box getBox() {
+        return box;
+    }
+
+    @Override
+    public void updateGUI() {
+        board.updateGUI();
     }
 }
 /*

@@ -10,7 +10,7 @@ import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.model.BuildModel;
 
 public class BuildBoardView extends BoardView {
-    public BuildBoardView(BuildModel model) {
+    public BuildBoardView(IModel model) {
         super(model);
     }
 

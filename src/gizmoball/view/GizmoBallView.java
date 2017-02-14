@@ -16,7 +16,7 @@ public class GizmoBallView {
     private IModel model;
     private JFrame frame;
     private JButton modeBtn;
-    private Box boardView;
+    private IBoard boardView;
 
     public GizmoBallView(IModel model) {
         this.model = model;
@@ -37,16 +37,16 @@ public class GizmoBallView {
                 System.exit(0);
             }
         });
-        modeBtn.addActionListener(new SwitchModeListener(this));
+        modeBtn.addActionListener(new SwitchModeListener(this, model));
         actionBar.add(newBtn);
         actionBar.add(loadBtn);
         actionBar.add(saveBtn);
         actionBar.add(modeBtn);
         actionBar.add(Box.createGlue());
         actionBar.add(exitBtn);
-        boardView = new BuildView((BuildModel) model);
+        boardView = new BuildView(model);
         frame.add(actionBar, BorderLayout.NORTH);
-        frame.add(boardView, BorderLayout.CENTER);
+        frame.add(boardView.getBox(), BorderLayout.CENTER);
         frame.pack();
         frame.setLocationRelativeTo(null);
     }
@@ -84,21 +84,23 @@ public class GizmoBallView {
         return frame;
     }
 
-    public void switchToBuildView(BuildModel model) {
+    public void switchToBuildView(IModel model) {
         modeBtn.setText("Run");
-        frame.remove(boardView);
+
+        frame.getContentPane().remove(boardView.getBox());
         boardView = new BuildView(model);
-        frame.add(boardView, BorderLayout.CENTER);
-        frame.validate();
-        frame.repaint();
+        frame.getContentPane().add(boardView.getBox(), BorderLayout.CENTER);
     }
 
-    public void switchToRunView(RunModel model) {
+    public void switchToRunView(IModel model) {
         modeBtn.setText("Build");
-        frame.remove(boardView);
+
+        frame.getContentPane().remove(boardView.getBox());
         boardView = new RunView(model);
-        frame.add(boardView, BorderLayout.CENTER);
-        frame.validate();
-        frame.repaint();
+        frame.getContentPane().add(boardView.getBox(), BorderLayout.CENTER);
+    }
+
+    public void updateGUI() {
+        boardView.updateGUI();
     }
 }

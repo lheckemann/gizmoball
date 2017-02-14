@@ -31,6 +31,7 @@ public class LoadListener implements ActionListener {
             if (result == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = chooser.getSelectedFile();
                 model.load(new FileInputStream(selectedFile.getPath()));
+                view.updateGUI();
             }
 
         } catch (FileNotFoundException | SyntaxError ex) {

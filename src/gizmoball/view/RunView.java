@@ -1,18 +1,20 @@
 package gizmoball.view;
 
 import gizmoball.controller.ToggleRunningListener;
-import gizmoball.model.RunModel;
+import gizmoball.model.IModel;
 
 import javax.swing.*;
 
-public class RunView extends Box {
+public class RunView implements IBoard {
     private JPanel buttonsPnl;
     private JButton stateBtn;
     private JButton tickBtn;
     private BoardView board;
 
-    public RunView(RunModel model) {
-        super(BoxLayout.Y_AXIS);
+    private Box box;
+
+    public RunView(IModel model) {
+        box = new Box(BoxLayout.Y_AXIS);
         board = new RunBoardView(model);
         buttonsPnl = new JPanel();
         stateBtn = new JButton("Run"); // either Run or Stop
@@ -20,8 +22,9 @@ public class RunView extends Box {
         tickBtn = new JButton("Tick");
         buttonsPnl.add(stateBtn);
         buttonsPnl.add(tickBtn);
-        this.add(board);
-        this.add(buttonsPnl);
+
+        box.add(board);
+        box.add(buttonsPnl);
     }
 
     public void changeButtonState() {
@@ -32,6 +35,16 @@ public class RunView extends Box {
             stateBtn.setText("Run");
             tickBtn.setEnabled(true);
         }
+    }
+
+    @Override
+    public Box getBox() {
+        return box;
+    }
+
+    @Override
+    public void updateGUI() {
+        board.updateGUI();
     }
 }
 /*

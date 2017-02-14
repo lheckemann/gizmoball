@@ -1,6 +1,7 @@
 package gizmoball.controller;
 
 import gizmoball.model.BuildModel;
+import gizmoball.model.IModel;
 import gizmoball.model.Model;
 import gizmoball.model.RunModel;
 import gizmoball.view.GizmoBallView;
@@ -12,8 +13,10 @@ public class SwitchModeListener implements ActionListener
 {
     private CurrentMode currMode;
     private final GizmoBallView view;
-    public SwitchModeListener(GizmoBallView view) {
+    private IModel model;
+    public SwitchModeListener(GizmoBallView view, IModel model) {
         this.view = view;
+        this.model = model;
         currMode = CurrentMode.RUN;
     }
     @Override
@@ -24,13 +27,11 @@ public class SwitchModeListener implements ActionListener
         switch(currMode)
         {
             case BUILD:
-                BuildModel newModelB = new Model(20, 20); // fake model interaction
-                view.switchToBuildView(newModelB);
+                view.switchToBuildView(this.model);
                 currMode = CurrentMode.RUN;
                 break;
             case RUN:
-                RunModel newModelR = new Model(20, 20d);
-                view.switchToRunView(newModelR);
+                view.switchToRunView(this.model);
                 currMode = CurrentMode.BUILD;
                 break;
         }

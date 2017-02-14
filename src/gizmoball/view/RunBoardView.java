@@ -1,27 +1,16 @@
 package gizmoball.view;
 
-import gizmoball.controller.KeyTriggerListener;
-import gizmoball.model.BuildModel;
-import gizmoball.model.Model;
-import gizmoball.model.gizmos.ReadGizmo;
-import gizmoball.model.RunModel;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.geom.AffineTransform;
+import gizmoball.model.IModel;
 
 import java.awt.*;
 
-public class RunBoardView extends BoardView
-{
-    public RunBoardView(RunModel model)
-    {
+public class RunBoardView extends BoardView {
+    public RunBoardView(IModel model) {
         super(model);
     }
 
     @Override
-    public void paintComponent(Graphics g)
-    {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.black);
         g.fillRect(0, 0, getWidth(), getHeight());
