@@ -5,15 +5,13 @@ import gizmoball.model.RunModel;
 
 import javax.swing.*;
 
-public class RunView extends Box
-{
+public class RunView extends Box {
     private JPanel buttonsPnl;
     private JButton stateBtn;
     private JButton tickBtn;
     private BoardView board;
 
-    public RunView(RunModel model)
-    {
+    public RunView(RunModel model) {
         super(BoxLayout.Y_AXIS);
         board = new RunBoardView(model);
         buttonsPnl = new JPanel();
@@ -26,14 +24,11 @@ public class RunView extends Box
         this.add(buttonsPnl);
     }
 
-    public void changeButtonState()
-    {
-        if (stateBtn.getText().equals("Run"))
-        {
+    public void changeButtonState() {
+        if (stateBtn.getText().equals("Run")) {
             stateBtn.setText("Stop");
             tickBtn.setEnabled(false);
-        } else
-        {
+        } else {
             stateBtn.setText("Run");
             tickBtn.setEnabled(true);
         }

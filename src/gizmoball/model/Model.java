@@ -14,10 +14,9 @@ import physics.Vect;
 
 import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 
-public class Model extends Observable implements BuildModel, RunModel
-{
+public class Model extends Observable implements BuildModel, RunModel {
     private static final Set<String> DEPENDENT = new HashSet<>(Arrays.asList(
-                "Rotate", "Delete", "Move", "Connect", "KeyConnect"));
+            "Rotate", "Delete", "Move", "Connect", "KeyConnect"));
 
     private final double width;
     private final double height;
@@ -55,8 +54,8 @@ public class Model extends Observable implements BuildModel, RunModel
 
     private Gizmo getGizmoAt(double x, double y) {
         return this.gizmos.values().stream()
-                          .filter(g -> g.contains(x, y))
-                          .findFirst().orElse(null);
+                .filter(g -> g.contains(x, y))
+                .findFirst().orElse(null);
     }
 
     private String getGizmoId(Gizmo gizmo) {
@@ -70,8 +69,8 @@ public class Model extends Observable implements BuildModel, RunModel
 
     private Ball getBallAt(double x, double y) {
         return this.balls.values().stream()
-                         .filter(b -> b.contains(x, y))
-                         .findFirst().orElse(null);
+                .filter(b -> b.contains(x, y))
+                .findFirst().orElse(null);
     }
 
     private String getBallId(Ball ball) {
@@ -262,7 +261,7 @@ public class Model extends Observable implements BuildModel, RunModel
                     throw new SyntaxError(SYNTAX_ERROR);
                 }
                 this.select(Double.parseDouble(tokens.get(2)),
-                            Double.parseDouble(tokens.get(3)));
+                        Double.parseDouble(tokens.get(3)));
                 this.addBall(tokens.get(1));
                 return;
             }
@@ -324,7 +323,7 @@ public class Model extends Observable implements BuildModel, RunModel
                 default:
                     throw new SyntaxError(String.format("Invalid command %s.", tokens.get(0)));
             }
-        } catch (NumberFormatException|IndexOutOfBoundsException e) {
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new SyntaxError(SYNTAX_ERROR);
         }
     }
@@ -350,7 +349,7 @@ public class Model extends Observable implements BuildModel, RunModel
                         throw new SyntaxError(SYNTAX_ERROR);
                     }
                     this.setFriction(Double.parseDouble(tokens.get(1)),
-                                     Double.parseDouble(tokens.get(2)));
+                            Double.parseDouble(tokens.get(2)));
                     break;
 
                 case "Move":
@@ -362,14 +361,14 @@ public class Model extends Observable implements BuildModel, RunModel
                     if (ball != null) {
                         this.select(ball.getX(), ball.getY());
                         this.move(Double.parseDouble(tokens.get(2)),
-                                  Double.parseDouble(tokens.get(3)));
+                                Double.parseDouble(tokens.get(3)));
                         break;
                     }
                     gizmo = this.gizmos.get(tokens.get(1));
                     if (gizmo != null) {
                         this.select(gizmo.getX(), gizmo.getY());
                         this.move(Integer.parseInt(tokens.get(2)),
-                                  Integer.parseInt(tokens.get(3)));
+                                Integer.parseInt(tokens.get(3)));
                         break;
                     }
                     throw new SyntaxError(tokens.get(1) + " does not refer to an existing object.");
@@ -450,7 +449,7 @@ public class Model extends Observable implements BuildModel, RunModel
                 default:
                     throw new SyntaxError(String.format("Invalid command %s.", tokens.get(0)));
             }
-        } catch (NumberFormatException|IndexOutOfBoundsException e) {
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new SyntaxError(SYNTAX_ERROR);
         }
     }
@@ -479,8 +478,7 @@ public class Model extends Observable implements BuildModel, RunModel
                         gizmo.getY(),
                         gizmo.getX() + gizmo.getWidth(),
                         gizmo.getY() + gizmo.getHeight());
-            }
-            else {
+            } else {
                 writer.format("%s %s %d %d\n",
                         this.convertGizmoTypeToString(gizmo.getType()),
                         id,
@@ -491,7 +489,7 @@ public class Model extends Observable implements BuildModel, RunModel
     }
 
     private String convertGizmoTypeToString(GizmoType type) {
-        switch(type) {
+        switch (type) {
             case SQUARE:
                 return "Square";
             case TRIANGLE:
@@ -518,7 +516,7 @@ public class Model extends Observable implements BuildModel, RunModel
                     ball.getY(),
                     ball.getVelocityX(),
                     ball.getVelocityY()
-                    );
+            );
         }
     }
 
@@ -561,9 +559,9 @@ public class Model extends Observable implements BuildModel, RunModel
 
     public Set<Vect> getBallPositions() { // FIXME: we don't want to use vect here
         return this.balls.values()
-                         .stream()
-                         .map(b -> new Vect(b.getX(), b.getY()))
-                         .collect(Collectors.toSet());
+                .stream()
+                .map(b -> new Vect(b.getX(), b.getY()))
+                .collect(Collectors.toSet());
     }
 
     public void keyPressed(int keyCode) {

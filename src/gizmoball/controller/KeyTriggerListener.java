@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 
 public class KeyTriggerListener extends KeyAdapter {
     private final RunModel model;
+
     public KeyTriggerListener(RunModel model) {
         this.model = model;
     }

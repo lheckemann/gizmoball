@@ -13,34 +13,27 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class LoadListener implements ActionListener
-{
+public class LoadListener implements ActionListener {
     private final IModel model;
     private final GizmoBallView view;
 
-    public LoadListener(IModel model, GizmoBallView view)
-    {
+    public LoadListener(IModel model, GizmoBallView view) {
         this.model = model;
         this.view = view;
     }
 
     @Override
-    public void actionPerformed(ActionEvent e)
-    {
-        try
-        {
+    public void actionPerformed(ActionEvent e) {
+        try {
             JFileChooser chooser = new JFileChooser();
 
             int result = chooser.showOpenDialog(new JFrame());
-            if(result == JFileChooser.APPROVE_OPTION)
-            {
+            if (result == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = chooser.getSelectedFile();
                 model.load(new FileInputStream(selectedFile.getPath()));
             }
 
-        }
-        catch (FileNotFoundException|SyntaxError ex)
-        {
+        } catch (FileNotFoundException | SyntaxError ex) {
             ex.printStackTrace();
         }
     }

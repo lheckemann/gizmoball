@@ -12,15 +12,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GizmoBallView
-{
+public class GizmoBallView {
     private IModel model;
     private JFrame frame;
     private JButton modeBtn;
     private Box boardView;
 
-    public GizmoBallView(IModel model)
-    {
+    public GizmoBallView(IModel model) {
         this.model = model;
 
         frame = new JFrame("Gizmoball");
@@ -33,11 +31,9 @@ public class GizmoBallView
         //newBtn.addActionListener(new CreateGizmoListener(model, this));
         loadBtn.addActionListener(new LoadListener(model, this));
         //saveBtn.addActionListener(new LoadListener(model, this));
-        exitBtn.addActionListener(new ActionListener()
-        {
+        exitBtn.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
@@ -84,13 +80,11 @@ public class GizmoBallView
     }
     */
 
-    public JFrame getGUI()
-    {
+    public JFrame getGUI() {
         return frame;
     }
 
-    public void switchToBuildView(BuildModel model)
-    {
+    public void switchToBuildView(BuildModel model) {
         modeBtn.setText("Run");
         frame.remove(boardView);
         boardView = new BuildView(model);
@@ -99,8 +93,7 @@ public class GizmoBallView
         frame.repaint();
     }
 
-    public void switchToRunView(RunModel model)
-    {
+    public void switchToRunView(RunModel model) {
         modeBtn.setText("Build");
         frame.remove(boardView);
         boardView = new RunView(model);
