@@ -2,6 +2,7 @@ package gizmoball.view;
 
 import gizmoball.controller.ToggleGizmoChoiceListener;
 import gizmoball.model.BuildModel;
+import gizmoball.model.IModel;
 
 import javax.swing.*;
 import java.awt.*;

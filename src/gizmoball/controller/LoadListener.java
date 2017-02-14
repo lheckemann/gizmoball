@@ -1,6 +1,7 @@
 package gizmoball.controller;
 
 import gizmoball.model.BuildModel;
+import gizmoball.model.IModel;
 import gizmoball.model.Model;
 import gizmoball.model.SyntaxError;
 import gizmoball.view.GizmoBallView;
@@ -14,10 +15,10 @@ import java.io.FileNotFoundException;
 
 public class LoadListener implements ActionListener
 {
-    private final BuildModel model;
+    private final IModel model;
     private final GizmoBallView view;
 
-    public LoadListener(BuildModel model, GizmoBallView view)
+    public LoadListener(IModel model, GizmoBallView view)
     {
         this.model = model;
         this.view = view;
@@ -36,7 +37,6 @@ public class LoadListener implements ActionListener
                 File selectedFile = chooser.getSelectedFile();
                 model.load(new FileInputStream(selectedFile.getPath()));
             }
-
 
         }
         catch (FileNotFoundException|SyntaxError ex)

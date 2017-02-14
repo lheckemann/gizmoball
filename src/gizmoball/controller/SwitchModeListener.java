@@ -18,6 +18,9 @@ public class SwitchModeListener implements ActionListener
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        //
+        // TODO: don't create new Model every time
+        //
         switch(currMode)
         {
             case BUILD:

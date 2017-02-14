@@ -4,6 +4,7 @@ import gizmoball.controller.LoadListener;
 import gizmoball.controller.CreateGizmoListener;
 import gizmoball.controller.SwitchModeListener;
 import gizmoball.model.BuildModel;
+import gizmoball.model.IModel;
 import gizmoball.model.RunModel;
 
 import javax.swing.*;
@@ -13,16 +14,13 @@ import java.awt.event.ActionListener;
 
 public class GizmoBallView
 {
-    private BuildModel model;
+    private IModel model;
     private JFrame frame;
     private JButton modeBtn;
     private Box boardView;
 
-    /*private Flipper[] flippers;
-    private FlipperView flipperView;
-    private static JFrame window;*/
-
-    public GizmoBallView(BuildModel model) {
+    public GizmoBallView(IModel model)
+    {
         this.model = model;
 
         frame = new JFrame("Gizmoball");
@@ -32,12 +30,14 @@ public class GizmoBallView
         JButton saveBtn = new JButton("Save");
         JButton exitBtn = new JButton("Exit");
         modeBtn = new JButton("Run");
-        newBtn.addActionListener(new CreateGizmoListener(model, this));
+        //newBtn.addActionListener(new CreateGizmoListener(model, this));
         loadBtn.addActionListener(new LoadListener(model, this));
         //saveBtn.addActionListener(new LoadListener(model, this));
-        exitBtn.addActionListener(new ActionListener() {
+        exitBtn.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 System.exit(0);
             }
         });
@@ -48,7 +48,7 @@ public class GizmoBallView
         actionBar.add(modeBtn);
         actionBar.add(Box.createGlue());
         actionBar.add(exitBtn);
-        boardView = new BuildView(model);
+        boardView = new BuildView((BuildModel) model);
         frame.add(actionBar, BorderLayout.NORTH);
         frame.add(boardView, BorderLayout.CENTER);
         frame.pack();
@@ -84,10 +84,13 @@ public class GizmoBallView
     }
     */
 
-    public JFrame getGUI() {
+    public JFrame getGUI()
+    {
         return frame;
     }
-    public void switchToBuildView(BuildModel model) {
+
+    public void switchToBuildView(BuildModel model)
+    {
         modeBtn.setText("Run");
         frame.remove(boardView);
         boardView = new BuildView(model);
@@ -95,7 +98,9 @@ public class GizmoBallView
         frame.validate();
         frame.repaint();
     }
-    public void switchToRunView(RunModel model) {
+
+    public void switchToRunView(RunModel model)
+    {
         modeBtn.setText("Build");
         frame.remove(boardView);
         boardView = new RunView(model);

@@ -14,7 +14,8 @@ import physics.Vect;
 
 import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 
-public class Model implements BuildModel, RunModel {
+public class Model extends Observable implements BuildModel, RunModel
+{
     private static final Set<String> DEPENDENT = new HashSet<>(Arrays.asList(
                 "Rotate", "Delete", "Move", "Connect", "KeyConnect"));
 
@@ -247,6 +248,9 @@ public class Model implements BuildModel, RunModel {
         for (List<String> tokens : dependent) {
             this.dependentCommand(tokens);
         }
+
+        setChanged();
+        notifyObservers();
     }
 
     private void creationCommand(List<String> tokens) throws SyntaxError {
@@ -573,7 +577,9 @@ public class Model implements BuildModel, RunModel {
     @Override
     public void tick() {
         gizmos.values().forEach(Gizmo::tick);
-        observable.update();
+
+        setChanged();
+        notifyObservers();
     }
 
     public static Model prototype1Example() {
@@ -594,16 +600,5 @@ public class Model implements BuildModel, RunModel {
     @Override
     public Collection<ReadGizmo> getGizmos() {
         return Collections.unmodifiableCollection(gizmos.values());
-    }
-
-    private SimpleObservable observable = new SimpleObservable();
-    @Override
-    public void addObserver(Observer observer) {
-        observable.addObserver(observer);
-    }
-
-    @Override
-    public void deleteObserver(Observer observer) {
-        observable.deleteObserver(observer);
     }
 }

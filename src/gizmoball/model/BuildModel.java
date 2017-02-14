@@ -2,8 +2,10 @@ package gizmoball.model;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Observer;
 
-public interface BuildModel extends ReadModel {
+public interface BuildModel extends IModel
+{
     /**
      * Seleects the ball or gizmo at the provided location as an operand in
      * future operations. Gizmos are selected by their bounding boxes.
@@ -129,13 +131,4 @@ public interface BuildModel extends ReadModel {
      * friction.
      */
     void reset();
-
-    // TODO: Decide whether the board has to be resetted before loading.
-    void load(InputStream input) throws SyntaxError;
-
-    /**
-     * Returns a representation of the game in the standard format.
-     * https://personal.cis.strath.ac.uk/murray.wood/Gizmoball/Gizmoball_spec.htm#file-format
-     */
-    void save(OutputStream output);
 }

@@ -4,15 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
+import gizmoball.model.IModel;
 import gizmoball.model.Model;
 import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.model.BuildModel;
 
 public class BuildBoardView extends BoardView {
-    private final BuildModel model;
-
-    public BuildBoardView(BuildModel model) {
-        this.model = model;
+    public BuildBoardView(BuildModel model)
+    {
+        super(model);
     }
 
     @Override

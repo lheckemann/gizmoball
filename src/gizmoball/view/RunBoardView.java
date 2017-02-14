@@ -1,6 +1,7 @@
 package gizmoball.view;
 
 import gizmoball.controller.KeyTriggerListener;
+import gizmoball.model.BuildModel;
 import gizmoball.model.Model;
 import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.model.RunModel;
@@ -13,10 +14,9 @@ import java.awt.*;
 
 public class RunBoardView extends BoardView
 {
-    private final RunModel model;
-
-    public RunBoardView(RunModel model) {
-        this.model = model;
+    public RunBoardView(RunModel model)
+    {
+        super(model);
     }
 
     @Override
