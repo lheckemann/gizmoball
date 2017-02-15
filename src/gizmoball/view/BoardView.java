@@ -25,11 +25,9 @@ public class BoardView extends JPanel {
     public void paintGizmos(Graphics graphics) {
         
         Graphics2D g = (Graphics2D) graphics;
-        System.out.println(model.getGizmos().size());
         for (ReadGizmo gizmo : model.getGizmos()) {
             switch (gizmo.getType()) {
                 case SQUARE:
-                	System.out.println("Square");
                 	SquareView.paint(g, gizmo);
                     break;
                 case ABSORBER:
