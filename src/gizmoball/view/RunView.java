@@ -6,7 +6,6 @@ import gizmoball.model.RunModel;
 import javax.swing.*;
 
 public class RunView implements IBoard {
-    private JPanel buttonsPnl;
     private JButton stateBtn;
     private JButton tickBtn;
     private BoardView board;
@@ -16,7 +15,7 @@ public class RunView implements IBoard {
     public RunView(RunModel model) {
         box = new Box(BoxLayout.Y_AXIS);
         board = new RunBoardView(model);
-        buttonsPnl = new JPanel();
+        JPanel buttonsPnl = new JPanel();
         stateBtn = new JButton("Run"); // either Run or Stop
         stateBtn.addActionListener(new ToggleRunningListener(this));
         tickBtn = new JButton("Tick");
@@ -41,7 +40,7 @@ public class RunView implements IBoard {
     public Box getBox() {
         return box;
     }
-    
+
     public void updateBoard() {
     	this.board.repaint();
     }

@@ -13,22 +13,15 @@ public class BoardView extends JPanel {
 
     public BoardView(ReadModel model) {
         this.model = model;
-
         this.setBorder(BorderFactory.createLineBorder(Color.red, 4));
     }
 
-    @Override
-    public void paintComponent(Graphics graphics) {
-        super.paintComponent(graphics);
-    }
-    
     public void paintGizmos(Graphics graphics) {
-        
         Graphics2D g = (Graphics2D) graphics;
         for (ReadGizmo gizmo : model.getGizmos()) {
             switch (gizmo.getType()) {
                 case SQUARE:
-                	SquareView.paint(g, gizmo);
+                    SquareView.paint(g, gizmo);
                     break;
                 case ABSORBER:
                     AbsorberView.paint(g, gizmo);
@@ -50,7 +43,7 @@ public class BoardView extends JPanel {
             BallView.paint(g, ballPos);
         }
     }
-    
+
     public Dimension getPreferredSize() {
         return new Dimension(20 * ReadModel.L_TO_PIXELS, 20 * ReadModel.L_TO_PIXELS);
     }

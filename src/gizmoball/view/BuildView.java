@@ -64,7 +64,7 @@ public class BuildView implements IBoard {
     public Box getBox() {
         return box;
     }
-    
+
     public void updateBoard() {
     	this.board.repaint();
     }
