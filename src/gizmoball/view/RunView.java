@@ -5,12 +5,9 @@ import gizmoball.model.RunModel;
 
 import javax.swing.*;
 
-public class RunView implements IBoard {
+public class RunView extends GameView {
     private JButton stateBtn;
     private JButton tickBtn;
-    private BoardView board;
-
-    private Box box;
 
     public RunView(RunModel model) {
         box = new Box(BoxLayout.Y_AXIS);
@@ -35,14 +32,4 @@ public class RunView implements IBoard {
             tickBtn.setEnabled(true);
         }
     }
-
-    @Override
-    public Box getBox() {
-        return box;
-    }
-
-    public void updateBoard() {
-    	this.board.repaint();
-    }
-
 }

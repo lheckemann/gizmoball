@@ -13,18 +13,18 @@ public class GizmoBallView {
     private Model model;
     private JFrame frame;
     private JButton modeBtn;
-    private IBoard boardView;
+    private GameView gameView;
 
     public GizmoBallView(Model model) {
         this.model = model;
 
-        frame = new JFrame("Gizmoball");
+        this.frame = new JFrame("Gizmoball");
         Box actionBar = new Box(BoxLayout.X_AXIS);
         JButton newBtn = new JButton("New");
         JButton loadBtn = new JButton("Load");
         JButton saveBtn = new JButton("Save");
         JButton exitBtn = new JButton("Exit");
-        modeBtn = new JButton("Run");
+        this.modeBtn = new JButton("Run");
         //newBtn.addActionListener(new CreateGizmoListener(model, this));
         loadBtn.addActionListener(new LoadListener(model, this));
         //saveBtn.addActionListener(new LoadListener(model, this));
@@ -34,42 +34,39 @@ public class GizmoBallView {
                 System.exit(0);
             }
         });
-        modeBtn.addActionListener(new SwitchModeListener(this, model));
+        this.modeBtn.addActionListener(new SwitchModeListener(this, model));
         actionBar.add(newBtn);
         actionBar.add(loadBtn);
         actionBar.add(saveBtn);
         actionBar.add(modeBtn);
         actionBar.add(Box.createGlue());
         actionBar.add(exitBtn);
-        boardView = new BuildView(model);
-        frame.add(actionBar, BorderLayout.NORTH);
-        frame.add(boardView.getBox(), BorderLayout.CENTER);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
+        this.gameView = new BuildView(model);
+        this.frame.add(actionBar, BorderLayout.NORTH);
+        this.frame.add(gameView.getBox(), BorderLayout.CENTER);
+        this.frame.pack();
+        this.frame.setLocationRelativeTo(null);
     }
 
     public JFrame getGUI() {
-        return frame;
+        return this.frame;
     }
 
     public void switchToBuildView(Model model) {
-        modeBtn.setText("Run");
-
-        frame.getContentPane().remove(boardView.getBox());
-        boardView = new BuildView(model);
-        frame.getContentPane().add(boardView.getBox(), BorderLayout.CENTER);
+        this.modeBtn.setText("Run");
+        this.frame.getContentPane().remove(gameView.getBox());
+        this.gameView = new BuildView(model);
+        this.frame.getContentPane().add(gameView.getBox(), BorderLayout.CENTER);
     }
 
     public void switchToRunView(Model model) {
-        modeBtn.setText("Build");
-
-        frame.getContentPane().remove(boardView.getBox());
-        boardView = new RunView(model);
-        frame.getContentPane().add(boardView.getBox(), BorderLayout.CENTER);
+        this.modeBtn.setText("Build");
+        this.frame.getContentPane().remove(gameView.getBox());
+        this.gameView = new RunView(model);
+        this.frame.getContentPane().add(gameView.getBox(), BorderLayout.CENTER);
     }
-    
+
     public void updateBoard() {
-    	this.boardView.updateBoard();
+    	this.gameView.updateBoard();
     }
-
 }

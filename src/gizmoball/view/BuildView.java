@@ -5,13 +5,10 @@ import gizmoball.model.BuildModel;
 
 import javax.swing.*;
 
-public class BuildView implements IBoard {
+public class BuildView extends GameView {
     private JComboBox<String> gizmoList;
     private JRadioButton addBtn;
-    private BoardView board;
     private JPanel buttonsPnl;
-
-    private Box box;
 
     public BuildView(BuildModel model) {
         box = new Box(BoxLayout.Y_AXIS);
@@ -60,12 +57,4 @@ public class BuildView implements IBoard {
             gizmoList.setEnabled(false);
     }
 
-    @Override
-    public Box getBox() {
-        return box;
-    }
-
-    public void updateBoard() {
-    	this.board.repaint();
-    }
 }
