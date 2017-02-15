@@ -600,21 +600,6 @@ public class Model implements BuildModel, RunModel {
         gizmos.values().forEach(Gizmo::tick);
     }
 
-    public static Model prototype1Example() {
-        Model model = new Model(16, 16);
-        int x = 1;
-        for (Rotation rot : Rotation.values()) {
-            Flipper flipper = new Flipper(true);
-            flipper.setRotation(rot);
-            flipper = new Flipper(false);
-            flipper.setRotation(rot);
-            flipper.setPosition(x, 2);
-            model.gizmos.put("flipper" + x, flipper);
-            x += 3;
-        }
-        return model;
-    }
-
     @Override
     public Collection<ReadGizmo> getGizmos() {
         return Collections.unmodifiableCollection(gizmos.values());
