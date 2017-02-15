@@ -252,23 +252,40 @@ public class Model implements BuildModel, RunModel {
     }
 
     public void load(InputStream input) throws SyntaxError {
+        Map<String,Gizmo> gizmos = new HashMap<>(this.gizmos);
+        Map<String,Ball> balls = new HashMap<>(this.balls);
+        Map<Integer,Set<Gizmo>> keyPressMap = new HashMap<>(this.keyPressMap);
+        Map<Integer,Set<Gizmo>> keyReleaseMap = new HashMap<>(this.keyReleaseMap);
+        Map<Gizmo,Set<Gizmo>> gizmoMap = new HashMap<>(this.gizmoMap);
+        Set<Gizmo> wallTriggers = new HashSet<>(this.wallTriggers);
     	this.reset();
-        List<List<String>> dependent = new LinkedList<>();
-        try (Scanner scanner = new Scanner(input)) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine().trim();
-                if (!line.isEmpty()) {
-                    List<String> tokens = Arrays.asList(line.split("\\s+"));
-                    if (Model.DEPENDENT.contains(tokens.get(0))) {
-                        dependent.add(tokens);
-                    } else {
-                        this.creationCommand(tokens);
+
+        try {
+            List<List<String>> dependent = new LinkedList<>();
+            try (Scanner scanner = new Scanner(input)) {
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine().trim();
+                    if (!line.isEmpty()) {
+                        List<String> tokens = Arrays.asList(line.split("\\s+"));
+                        if (Model.DEPENDENT.contains(tokens.get(0))) {
+                            dependent.add(tokens);
+                        } else {
+                            this.creationCommand(tokens);
+                        }
                     }
                 }
             }
-        }
-        for (List<String> tokens : dependent) {
-            this.dependentCommand(tokens);
+            for (List<String> tokens : dependent) {
+                this.dependentCommand(tokens);
+            }
+        } catch (SyntaxError e) {
+            this.gizmos = gizmos;
+            this.balls = balls;
+            this.keyPressMap = keyPressMap;
+            this.keyReleaseMap = keyReleaseMap;
+            this.gizmoMap = gizmoMap;
+            this.wallTriggers = wallTriggers;
+            throw e;
         }
     }
 
