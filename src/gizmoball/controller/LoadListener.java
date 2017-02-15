@@ -1,6 +1,6 @@
 package gizmoball.controller;
 
-import gizmoball.model.IModel;
+import gizmoball.model.Model;
 import gizmoball.model.SyntaxError;
 import gizmoball.view.GizmoBallView;
 
@@ -12,10 +12,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class LoadListener implements ActionListener {
-    private final IModel model;
+    private final Model model;
     private final GizmoBallView view;
 
-    public LoadListener(IModel model, GizmoBallView view) {
+    public LoadListener(Model model, GizmoBallView view) {
         this.model = model;
         this.view = view;
     }

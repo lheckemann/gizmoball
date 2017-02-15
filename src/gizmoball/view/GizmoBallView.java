@@ -2,7 +2,7 @@ package gizmoball.view;
 
 import gizmoball.controller.LoadListener;
 import gizmoball.controller.SwitchModeListener;
-import gizmoball.model.IModel;
+import gizmoball.model.Model;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,12 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GizmoBallView {
-    private IModel model;
+    private Model model;
     private JFrame frame;
     private JButton modeBtn;
     private IBoard boardView;
 
-    public GizmoBallView(IModel model) {
+    public GizmoBallView(Model model) {
         this.model = model;
 
         frame = new JFrame("Gizmoball");
@@ -52,7 +52,7 @@ public class GizmoBallView {
         return frame;
     }
 
-    public void switchToBuildView(IModel model) {
+    public void switchToBuildView(Model model) {
         modeBtn.setText("Run");
 
         frame.getContentPane().remove(boardView.getBox());
@@ -60,7 +60,7 @@ public class GizmoBallView {
         frame.getContentPane().add(boardView.getBox(), BorderLayout.CENTER);
     }
 
-    public void switchToRunView(IModel model) {
+    public void switchToRunView(Model model) {
         modeBtn.setText("Build");
 
         frame.getContentPane().remove(boardView.getBox());

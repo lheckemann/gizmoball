@@ -1,6 +1,6 @@
 package gizmoball.model;
 
-public interface BuildModel extends IModel {
+public interface BuildModel extends ReadModel {
     /**
      * Selects the ball or gizmo at the provided location as an operand in
      * future operations. Gizmos are selected by their bounding boxes.

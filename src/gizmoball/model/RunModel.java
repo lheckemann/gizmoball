@@ -1,6 +1,6 @@
 package gizmoball.model;
 
-public interface RunModel extends IModel {
+public interface RunModel extends ReadModel {
     void tick();
 
     void keyPressed(int code);

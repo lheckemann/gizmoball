@@ -1,7 +1,7 @@
 package gizmoball.view;
 
 import gizmoball.controller.ToggleRunningListener;
-import gizmoball.model.IModel;
+import gizmoball.model.RunModel;
 
 import javax.swing.*;
 
@@ -13,7 +13,7 @@ public class RunView implements IBoard {
 
     private Box box;
 
-    public RunView(IModel model) {
+    public RunView(RunModel model) {
         box = new Box(BoxLayout.Y_AXIS);
         board = new RunBoardView(model);
         buttonsPnl = new JPanel();

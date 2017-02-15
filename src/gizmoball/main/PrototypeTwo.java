@@ -1,6 +1,5 @@
 package gizmoball.main;
 
-import gizmoball.model.BuildModel;
 import gizmoball.model.Model;
 import gizmoball.view.GizmoBallView;
 
@@ -8,7 +7,7 @@ import javax.swing.*;
 
 public class PrototypeTwo {
     public static void main(String[] args) {
-        BuildModel model = new Model(20, 20);
+        Model model = new Model(20, 20);
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override

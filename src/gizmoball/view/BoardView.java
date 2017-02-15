@@ -1,7 +1,6 @@
 package gizmoball.view;
 
-import gizmoball.model.IModel;
-import gizmoball.model.Model;
+import gizmoball.model.ReadModel;
 import gizmoball.model.gizmos.ReadGizmo;
 import physics.Vect;
 
@@ -9,9 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BoardView extends JPanel {
-    private IModel model;
+    private ReadModel model;
 
-    public BoardView(IModel model) {
+    public BoardView(ReadModel model) {
         this.model = model;
 
         this.setBorder(BorderFactory.createLineBorder(Color.red, 4));
@@ -52,6 +51,6 @@ public class BoardView extends JPanel {
     }
     
     public Dimension getPreferredSize() {
-        return new Dimension(20 * Model.L_TO_PIXELS, 20 * Model.L_TO_PIXELS);
+        return new Dimension(20 * ReadModel.L_TO_PIXELS, 20 * ReadModel.L_TO_PIXELS);
     }
 }

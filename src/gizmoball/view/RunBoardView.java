@@ -1,11 +1,11 @@
 package gizmoball.view;
 
-import gizmoball.model.IModel;
+import gizmoball.model.RunModel;
 
 import java.awt.*;
 
 public class RunBoardView extends BoardView {
-    public RunBoardView(IModel model) {
+    public RunBoardView(RunModel model) {
         super(model);
     }
 

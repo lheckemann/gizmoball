@@ -1,7 +1,7 @@
 package gizmoball.view;
 
 import gizmoball.controller.ToggleGizmoChoiceListener;
-import gizmoball.model.IModel;
+import gizmoball.model.BuildModel;
 
 import javax.swing.*;
 
@@ -13,7 +13,7 @@ public class BuildView implements IBoard {
 
     private Box box;
 
-    public BuildView(IModel model) {
+    public BuildView(BuildModel model) {
         box = new Box(BoxLayout.Y_AXIS);
         board = new BuildBoardView(model);
         buttonsPnl = new JPanel();

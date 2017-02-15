@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class SaveListener implements ActionListener
 {
-    //private final IModel model;
+    //private final Model model;
     //private final GizmoBallView view;
     public SaveListener() {
         //this.model = new Model();
