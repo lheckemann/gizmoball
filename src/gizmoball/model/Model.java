@@ -230,6 +230,7 @@ public class Model implements BuildModel, RunModel {
     }
 
     public void load(InputStream input) throws SyntaxError {
+    	this.reset();
         List<List<String>> dependent = new LinkedList<>();
         try (Scanner scanner = new Scanner(input)) {
             while (scanner.hasNextLine()) {
@@ -247,6 +248,13 @@ public class Model implements BuildModel, RunModel {
         for (List<String> tokens : dependent) {
             this.dependentCommand(tokens);
         }
+    }
+    
+    /***
+     * Used to clear the contents of the model
+     */
+    private void clear() {
+    	
     }
 
     private void creationCommand(List<String> tokens) throws SyntaxError {
