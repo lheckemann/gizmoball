@@ -1,7 +1,6 @@
 package gizmoball.model;
 
 import java.util.Collection;
-import java.util.Observable;
 import java.util.Set;
 
 import physics.Vect;

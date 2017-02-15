@@ -1,6 +1,5 @@
 package gizmoball.controller;
 
-import gizmoball.model.IModel;
 import gizmoball.model.RunModel;
 
 import java.awt.event.KeyAdapter;

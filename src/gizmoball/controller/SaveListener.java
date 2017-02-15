@@ -1,7 +1,5 @@
 package gizmoball.controller;
 
-import gizmoball.model.IModel;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

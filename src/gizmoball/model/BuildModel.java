@@ -1,12 +1,8 @@
 package gizmoball.model;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Observer;
-
 public interface BuildModel extends IModel {
     /**
-     * Seleects the ball or gizmo at the provided location as an operand in
+     * Selects the ball or gizmo at the provided location as an operand in
      * future operations. Gizmos are selected by their bounding boxes.
      */
     void select(double x, double y);

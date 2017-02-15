@@ -5,17 +5,10 @@ import gizmoball.model.gizmos.ReadGizmo;
 
 import java.awt.*;
 
-/**
- * Created by fra_m on 14/02/2017.
- */
 public class AbsorberView {
 
     public static void paint(Graphics2D graphics, ReadGizmo absorber) {
-        System.out.println(absorber.getX());
-        System.out.println(absorber.getY());
-        System.out.println(absorber.getHeight());
-        System.out.println(absorber.getWidth());
-        graphics.setColor(Color.green);
+        graphics.setColor(Color.cyan);
 
         switch (absorber.getRotation()) {
             case EAST:

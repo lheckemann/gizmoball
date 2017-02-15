@@ -2,7 +2,6 @@ package gizmoball.model;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Observer;
 
 public interface IModel extends ReadModel {
     // TODO: Decide whether the board has to be resetted before loading.

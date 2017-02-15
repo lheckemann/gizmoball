@@ -3,13 +3,10 @@ package gizmoball.view;
 import gizmoball.model.IModel;
 import gizmoball.model.Model;
 import gizmoball.model.gizmos.ReadGizmo;
-import gizmoball.model.gizmos.Triangle;
 import physics.Vect;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
 
 public class BoardView extends JPanel {
     private IModel model;
@@ -26,18 +23,17 @@ public class BoardView extends JPanel {
     }
 
     public Dimension getPreferredSize() {
-        return new Dimension(20 * 32, 20 * 32);
+        return new Dimension(20 * Model.L_TO_PIXELS, 20 * Model.L_TO_PIXELS);
     }
 
     public void updateGUI() {
         Graphics graphics = this.getGraphics();
 
-        //this.paintComponent(graphics);
         Graphics2D g = (Graphics2D) graphics;
         for (ReadGizmo gizmo : model.getGizmos()) {
             switch (gizmo.getType()) {
                 case SQUARE:
-                    SquareView.paint(g, gizmo);
+                	SquareView.paint(g, gizmo);
                     break;
                 case ABSORBER:
                     AbsorberView.paint(g, gizmo);

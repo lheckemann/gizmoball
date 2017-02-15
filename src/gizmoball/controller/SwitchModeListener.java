@@ -1,9 +1,6 @@
 package gizmoball.controller;
 
-import gizmoball.model.BuildModel;
 import gizmoball.model.IModel;
-import gizmoball.model.Model;
-import gizmoball.model.RunModel;
 import gizmoball.view.GizmoBallView;
 
 import java.awt.event.ActionEvent;

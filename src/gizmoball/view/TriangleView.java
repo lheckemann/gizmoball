@@ -1,15 +1,10 @@
 package gizmoball.view;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import gizmoball.model.Model;
 import gizmoball.model.gizmos.ReadGizmo;
-import gizmoball.model.gizmos.Rotation;
 
 import java.awt.*;
 
-/**
- * Created by fra_m on 14/02/2017.
- */
 public class TriangleView {
 
     public static void paint(Graphics2D graphics, ReadGizmo triangle) {
@@ -57,7 +52,6 @@ public class TriangleView {
             yCoords[i] = yCoords[i] * Model.L_TO_PIXELS;
         }
 
-        System.out.println("Drawing triangle");
         graphics.fillPolygon(xCoords, yCoords, numPoints);
 
     }
