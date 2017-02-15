@@ -2,6 +2,7 @@ package gizmoball.view;
 
 import gizmoball.model.ReadModel;
 import gizmoball.model.gizmos.ReadGizmo;
+import gizmoball.view.elements.*;
 import physics.Vect;
 
 import javax.swing.*;

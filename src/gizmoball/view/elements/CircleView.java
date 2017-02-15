@@ -1,4 +1,4 @@
-package gizmoball.view;
+package gizmoball.view.elements;
 
 import gizmoball.model.Model;
 import gizmoball.model.gizmos.ReadGizmo;
