@@ -43,6 +43,7 @@ public class Model implements BuildModel, RunModel {
         this.reset();
     }
 
+    @Override
     public void reset() {
         this.gizmos = new HashMap<>();
         this.balls = new HashMap<>();
@@ -82,11 +83,13 @@ public class Model implements BuildModel, RunModel {
         return null;
     }
 
+    @Override
     public void select(double x, double y) {
         this.selX = x;
         this.selY = y;
     }
 
+    @Override
     public void move(double dX, double dY) {
         Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
         if (gizmo != null) {
@@ -99,6 +102,7 @@ public class Model implements BuildModel, RunModel {
         }
     }
 
+    @Override
     public void delete() {
         Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
         if (gizmo != null) {
@@ -122,42 +126,49 @@ public class Model implements BuildModel, RunModel {
         }
     }
 
+    @Override
     public void addAbsorber(String identifier, int width, int height) {
         Gizmo gizmo = new Absorber(width, height);
         gizmo.setPosition((int) this.selX, (int) this.selY);
         this.gizmos.put(identifier, gizmo);
     }
 
+    @Override
     public void addSquare(String identifier) {
         Gizmo gizmo = new Square();
         gizmo.setPosition((int) this.selX, (int) this.selY);
         this.gizmos.put(identifier, gizmo);
     }
 
+    @Override
     public void addCircle(String identifier) {
         Gizmo gizmo = new Circle();
         gizmo.setPosition((int) this.selX, (int) this.selY);
         this.gizmos.put(identifier, gizmo);
     }
 
+    @Override
     public void addTriangle(String identifier) {
         Gizmo gizmo = new Triangle();
         gizmo.setPosition((int) this.selX, (int) this.selY);
         this.gizmos.put(identifier, gizmo);
     }
 
+    @Override
     public void addRightFlipper(String identifier) {
         Gizmo gizmo = new Flipper(false);
         gizmo.setPosition((int) this.selX, (int) this.selY);
         this.gizmos.put(identifier, gizmo);
     }
 
+    @Override
     public void addLeftFlipper(String identifier) {
         Gizmo gizmo = new Flipper(true);
         gizmo.setPosition((int) this.selX, (int) this.selY);
         this.gizmos.put(identifier, gizmo);
     }
 
+    @Override
     public void rotateGizmo() {
         Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
         if (gizmo != null) {
@@ -165,6 +176,7 @@ public class Model implements BuildModel, RunModel {
         }
     }
 
+    @Override
     public void addBall(String identifier) {
         Ball ball = new Ball();
         ball.setPosition(this.selX, this.selY);
@@ -172,6 +184,7 @@ public class Model implements BuildModel, RunModel {
         this.balls.put(identifier, ball);
     }
 
+    @Override
     public void setBallVelocity(double vX, double vY) {
         Ball ball = this.getBallAt(this.selX, this.selY);
         if (ball != null) {
@@ -179,27 +192,33 @@ public class Model implements BuildModel, RunModel {
         }
     }
 
+    @Override
     public double getGravity() {
         return this.gravity;
     }
 
+    @Override
     public void setGravity(double gravity) {
         this.gravity = gravity;
     }
 
+    @Override
     public double getFrictionMu() {
         return this.mu;
     }
 
+    @Override
     public double getFrictionMu2() {
         return this.mu2;
     }
 
+    @Override
     public void setFriction(double mu, double mu2) {
         this.mu = mu;
         this.mu2 = mu2;
     }
 
+    @Override
     public void triggerOnKeyPress(int key) {
         Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
         if (gizmo != null) {
@@ -207,6 +226,7 @@ public class Model implements BuildModel, RunModel {
         }
     }
 
+    @Override
     public void triggerOnKeyRelease(int key) {
         Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
         if (gizmo != null) {
@@ -214,6 +234,7 @@ public class Model implements BuildModel, RunModel {
         }
     }
 
+    @Override
     public void triggerOnOuterWalls() {
         Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
         if (gizmo != null) {
@@ -221,6 +242,7 @@ public class Model implements BuildModel, RunModel {
         }
     }
 
+    @Override
     public void triggerOnGizmo(double sX, double sY) {
         Gizmo source = this.getGizmoAt(sX, sY);
         Gizmo destination = this.getGizmoAt(this.selX, this.selY);
@@ -248,13 +270,6 @@ public class Model implements BuildModel, RunModel {
         for (List<String> tokens : dependent) {
             this.dependentCommand(tokens);
         }
-    }
-    
-    /***
-     * Used to clear the contents of the model
-     */
-    private void clear() {
-    	
     }
 
     private void creationCommand(List<String> tokens) throws SyntaxError {
@@ -562,17 +577,20 @@ public class Model implements BuildModel, RunModel {
         writer.format("Friction %f %f\n", this.getFrictionMu(), this.getFrictionMu2());
     }
 
-    public Set<Vect> getBallPositions() { // FIXME: we don't want to use vect here
+    @Override
+    public Set<Vect> getBallPositions() {
         return this.balls.values()
                 .stream()
                 .map(b -> new Vect(b.getX(), b.getY()))
                 .collect(Collectors.toSet());
     }
 
+    @Override
     public void keyPressed(int keyCode) {
         this.keyPressMap.getOrDefault(keyCode, Collections.emptySet()).forEach(Gizmo::trigger);
     }
 
+    @Override
     public void keyReleased(int keyCode) {
         this.keyReleaseMap.getOrDefault(keyCode, Collections.emptySet()).forEach(Gizmo::trigger);
     }
