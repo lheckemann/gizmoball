@@ -19,5 +19,7 @@ public class BuildBoardView extends BoardView {
             g.drawLine(x, 0, x, getHeight());
         for (int y = 0; y <= 20 * Model.L_TO_PIXELS; y += Model.L_TO_PIXELS)
             g.drawLine(0, y, getWidth(), y);
+        
+        super.paintGizmos(g);
     }
 }

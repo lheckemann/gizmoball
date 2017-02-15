@@ -67,8 +67,9 @@ public class GizmoBallView {
         boardView = new RunView(model);
         frame.getContentPane().add(boardView.getBox(), BorderLayout.CENTER);
     }
-
-    public void updateGUI() {
-        boardView.updateGUI();
+    
+    public void updateBoard() {
+    	this.boardView.updateBoard();
     }
+
 }

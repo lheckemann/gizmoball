@@ -14,5 +14,6 @@ public class RunBoardView extends BoardView {
         super.paintComponent(g);
         g.setColor(Color.black);
         g.fillRect(0, 0, getWidth(), getHeight());
+        super.paintGizmos(g);
     }
 }

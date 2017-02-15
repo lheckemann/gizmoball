@@ -64,9 +64,8 @@ public class BuildView implements IBoard {
     public Box getBox() {
         return box;
     }
-
-    @Override
-    public void updateGUI() {
-    	board.updateGUI();
+    
+    public void updateBoard() {
+    	this.board.repaint();
     }
 }
