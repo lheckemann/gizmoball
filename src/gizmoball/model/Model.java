@@ -1,6 +1,8 @@
 package gizmoball.model;
 
 import java.io.PrintWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.*;
@@ -270,8 +272,10 @@ public class Model implements BuildModel, RunModel {
                         List<String> tokens = Arrays.asList(line.split("\\s+"));
                         if (Model.DEPENDENT.contains(tokens.get(0))) {
                             dependent.put(n, tokens);
+                        } else if(tokens.get(0).equals("Gravity") || tokens.get(0).equals("Friction")){
+                            this.frictionGravityCommand(n, tokens);
                         } else {
-                            this.creationCommand(n, tokens);
+                        	this.creationCommand(n, tokens);
                         }
                     }
                 }
@@ -289,25 +293,56 @@ public class Model implements BuildModel, RunModel {
             throw e;
         }
     }
+    
+    private void frictionGravityCommand(Integer lineNum, List<String> tokens) throws SyntaxError {
+	   
+    	SyntaxError error = new SyntaxError(lineNum, String.join(" ", tokens), "Invalid command.");
+    	try {
+	    	switch (tokens.get(0)) {
+		    	case "Gravity":
+			        error.setMessage("Gravity <float>");
+			        if (tokens.size() != 2) {
+			            throw error;
+			        }
+			        this.setGravity(Double.parseDouble(tokens.get(1)));
+			        break;
+			
+			    case "Friction":
+			        error.setMessage("Friction <float> <float>");
+			        if (tokens.size() != 3) {
+			            throw error;
+			        }
+			        this.setFriction(Double.parseDouble(tokens.get(1)),
+			                Double.parseDouble(tokens.get(2)));
+			        break;
+		    }
+	    }
+	    catch(IndexOutOfBoundsException|NumberFormatException e) {
+	    	throw error;
+	    }
+    }
 
     private void creationCommand(Integer lineNum, List<String> tokens) throws SyntaxError {
         SyntaxError error = new SyntaxError(lineNum, String.join(" ", tokens), "Invalid command.");
         try {
             if (tokens.get(0).equals("Ball")) {
-                error.setMessage("Ball <identifier> <float> <float>");
-                if (tokens.size() != 4) {
+                error.setMessage("Ball <identifier> <float> <float> <float> <float>");
+                if (tokens.size() != 6) {
                     throw error;
                 }
-                this.select(Double.parseDouble(tokens.get(2)),
-                        Double.parseDouble(tokens.get(3)));
+                Double x = Double.parseDouble(tokens.get(2));
+                Double y = Double.parseDouble(tokens.get(3));
+                this.select(x, y);
                 this.addBall(tokens.get(1));
+                this.getBallAt(x, y).setVelocity(new Vect(Double.parseDouble(tokens.get(4))
+                										  ,Double.parseDouble(tokens.get(5))));
                 return;
             }
             Integer x = Integer.parseInt(tokens.get(2));
             Integer y = Integer.parseInt(tokens.get(3));
             this.select(x, y);
             switch (tokens.get(0)) {
-
+            
                 case "Circle":
                     error.setMessage("Circle <identifier> <int> <int>");
                     if (tokens.size() != 4) {
@@ -357,8 +392,9 @@ public class Model implements BuildModel, RunModel {
                     Integer y1 = Integer.parseInt(tokens.get(5));
                     this.addAbsorber(tokens.get(1), x1 - x, y1 - y);
                     break;
-
+                
                 default:
+                	System.out.println("Hello");
                     throw error;
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
@@ -372,23 +408,6 @@ public class Model implements BuildModel, RunModel {
         SyntaxError error = new SyntaxError(lineNum, String.join(" ", tokens), "Invalid command.");
         try {
             switch (tokens.get(0)) {
-
-                case "Gravity":
-                    error.setMessage("Gravity <float>");
-                    if (tokens.size() != 2) {
-                        throw error;
-                    }
-                    this.setGravity(Double.parseDouble(tokens.get(1)));
-                    break;
-
-                case "Friction":
-                    error.setMessage("Friction <float> <float>");
-                    if (tokens.size() != 3) {
-                        throw error;
-                    }
-                    this.setFriction(Double.parseDouble(tokens.get(1)),
-                            Double.parseDouble(tokens.get(2)));
-                    break;
 
                 case "Move":
                     error.setMessage("Move <identifier> <number> <number>");
@@ -499,7 +518,7 @@ public class Model implements BuildModel, RunModel {
         }
     }
 
-    public void save(OutputStream output) {
+    public void save(OutputStream output) throws FileNotFoundException {
         PrintWriter writer = new PrintWriter(output);
         this.dumpGizmoDeclarations(writer);
         this.dumpBallDeclarations(writer);
@@ -507,6 +526,7 @@ public class Model implements BuildModel, RunModel {
         this.dumpConnectCommands(writer);
         this.dumpKeyConnectCommands(writer);
         this.dumpFrictionGravityDeclarations(writer);
+        writer.close();
     }
 
     //Returns an output stream containing all of
@@ -542,7 +562,7 @@ public class Model implements BuildModel, RunModel {
             case CIRCLE:
                 return "Circle";
             case ABSORBER:
-                return "Asborber";
+                return "Absorber";
             case RIGHT_FLIPPER:
                 return "RightFlipper";
             case LEFT_FLIPPER:
