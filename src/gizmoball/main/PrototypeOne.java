@@ -7,6 +7,8 @@ import gizmoball.view.GizmoBallView;
 
 import javax.swing.*;
 
+import static java.awt.event.KeyEvent.VK_SPACE;
+
 public class PrototypeOne {
     public static void main(String[] args) {
         Model model = new Model(16, 16);
@@ -17,6 +19,8 @@ public class PrototypeOne {
             for (int i = 0; i < rot.getTurns(); i++) {
                 model.rotateGizmo();
             }
+            model.triggerOnKeyPress(VK_SPACE);
+            model.triggerOnKeyRelease(VK_SPACE);
             x += 3;
         }
 
