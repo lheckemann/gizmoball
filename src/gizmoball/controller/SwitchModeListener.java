@@ -10,25 +10,20 @@ public class SwitchModeListener implements ActionListener
 {
     private CurrentMode currMode;
     private final GizmoBallView view;
-    private Model model;
-    public SwitchModeListener(GizmoBallView view, Model model) {
+    public SwitchModeListener(GizmoBallView view) {
         this.view = view;
-        this.model = model;
         currMode = CurrentMode.RUN;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        //
-        // TODO: don't create new Model every time
-        //
         switch(currMode)
         {
             case BUILD:
-                view.switchToBuildView(this.model);
+                view.switchToBuildView();
                 currMode = CurrentMode.RUN;
                 break;
             case RUN:
-                view.switchToRunView(this.model);
+                view.switchToRunView();
                 currMode = CurrentMode.BUILD;
                 break;
         }

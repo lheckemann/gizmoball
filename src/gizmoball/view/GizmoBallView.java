@@ -16,6 +16,7 @@ public class GizmoBallView {
     private GameView gameView;
     private BuildView buildView;
     private RunView runView;
+    private JPanel gamePanel;
 
     public GizmoBallView(Model model) {
         this.model = model;
@@ -41,7 +42,7 @@ public class GizmoBallView {
                 System.exit(0);
             }
         });
-        this.modeBtn.addActionListener(new SwitchModeListener(this, model));
+        this.modeBtn.addActionListener(new SwitchModeListener(this));
         actionBar.add(newBtn);
         actionBar.add(loadBtn);
         actionBar.add(saveBtn);
@@ -52,7 +53,9 @@ public class GizmoBallView {
         this.runView = new RunView(model);
         this.gameView = buildView;
         this.frame.add(actionBar, BorderLayout.NORTH);
-        this.frame.add(gameView.getBox(), BorderLayout.CENTER);
+        gamePanel = new JPanel();
+        gamePanel.add(gameView.getBox());
+        frame.add(gamePanel);
         this.frame.pack();
         this.frame.setLocationRelativeTo(null);
     }
@@ -61,19 +64,21 @@ public class GizmoBallView {
         return this.frame;
     }
 
-    public void switchToBuildView(Model model) {
+    public void switchToBuildView() {
         this.modeBtn.setText("Run");
-        this.frame.getContentPane().remove(gameView.getBox());
+        gamePanel.removeAll();
         this.gameView = buildView;
-        this.frame.getContentPane().add(gameView.getBox(), BorderLayout.CENTER);
+        gamePanel.add(gameView.getBox());
+        this.frame.repaint();
     }
 
-    public void switchToRunView(Model model) {
+    public void switchToRunView() {
         this.modeBtn.setText("Build");
-        this.frame.getContentPane().remove(gameView.getBox());
+        gamePanel.removeAll();
         this.gameView = runView;
-        this.frame.getContentPane().add(gameView.getBox(), BorderLayout.CENTER);
+        gamePanel.add(gameView.getBox());
         runView.focus();
+        this.frame.repaint();
     }
 
     public void updateBoard() {
