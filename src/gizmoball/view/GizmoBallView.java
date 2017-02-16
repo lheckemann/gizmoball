@@ -21,10 +21,15 @@ public class GizmoBallView {
         this.frame = new JFrame("Gizmoball");
         Box actionBar = new Box(BoxLayout.X_AXIS);
         JButton newBtn = new JButton("New");
+        newBtn.setFocusable(false);
         JButton loadBtn = new JButton("Load");
+        loadBtn.setFocusable(false);
         JButton saveBtn = new JButton("Save");
+        saveBtn.setFocusable(false);
         JButton exitBtn = new JButton("Exit");
+        exitBtn.setFocusable(false);
         this.modeBtn = new JButton("Run");
+        this.modeBtn.setFocusable(false);
         //newBtn.addActionListener(new CreateGizmoListener(model, this));
         loadBtn.addActionListener(new LoadListener(model, this));
         //saveBtn.addActionListener(new LoadListener(model, this));

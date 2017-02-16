@@ -13,12 +13,12 @@ public class Flipper extends Gizmo {
     // 0 = at rest
     // in between = in animation
     // 90 = active
-    private int position;
+    private int pivotAngle;
 
     public Flipper(boolean isLeft) {
         super();
         active = false;
-        position = 0;
+        pivotAngle = 0;
         isLeftFlipper = isLeft;
     }
 
@@ -37,12 +37,13 @@ public class Flipper extends Gizmo {
 
     @Override
     public void tick() {
-        if (active && position < 90) {
-            position += (ROTATION_SPEED / Model.TICKS_PER_SECOND);
-            position = Math.min(90, position);
-        } else if (!active && position > 0) {
-            position -= (ROTATION_SPEED / Model.TICKS_PER_SECOND);
-            position = Math.max(0, position);
+   
+        if (active && pivotAngle < 90) {
+            pivotAngle += (ROTATION_SPEED / Model.TICKS_PER_SECOND);
+            pivotAngle = Math.min(90, pivotAngle);
+        } else if (!active && pivotAngle > 0) {
+            pivotAngle -= (ROTATION_SPEED / Model.TICKS_PER_SECOND);
+            pivotAngle = Math.max(0, pivotAngle);
         }
     }
 
@@ -66,6 +67,6 @@ public class Flipper extends Gizmo {
 
     @Override
     public int getPivotAngle() throws GizmoTypeException {
-        return position;
+        return pivotAngle;
     }
 }

@@ -6,12 +6,11 @@ import java.io.OutputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import physics.Vect;
 import gizmoball.model.gizmos.*;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.model.gizmos.Rotation;
-import physics.Vect;
-
 import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 
 public class Model implements BuildModel, RunModel {
@@ -604,12 +603,26 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void keyPressed(int keyCode) {
-        this.keyPressMap.getOrDefault(keyCode, Collections.emptySet()).forEach(Gizmo::trigger);
+    	try {
+	    	Set<Gizmo> gizmosToTrigger = this.keyPressMap.get(keyCode);
+	    	for(Gizmo gizmo: gizmosToTrigger) {
+	    		gizmo.trigger();
+	    	}
+	    } catch(NullPointerException e) {
+			
+		}
     }
 
     @Override
     public void keyReleased(int keyCode) {
-        this.keyReleaseMap.getOrDefault(keyCode, Collections.emptySet()).forEach(Gizmo::trigger);
+    	try {
+	    	Set<Gizmo> gizmosToTrigger = this.keyReleaseMap.get(keyCode);
+	    	for(Gizmo gizmo: gizmosToTrigger) {
+	    		gizmo.trigger();
+	    	}
+    	} catch(NullPointerException e) {
+    		
+    	}
     }
 
     @Override
