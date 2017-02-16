@@ -1,6 +1,7 @@
 package gizmoball.controller;
 
 import gizmoball.model.RunModel;
+import gizmoball.view.RunView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -8,8 +9,8 @@ import java.awt.event.ActionListener;
 
 public class TickListener implements ActionListener {
     private RunModel model;
-    private JComponent view;
-    public TickListener(RunModel model, JComponent view) {
+    private RunView view;
+    public TickListener(RunModel model, RunView view) {
         this.model = model;
         this.view = view;
     }
@@ -17,6 +18,6 @@ public class TickListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         model.tick();
-        view.updateUI(); // TODO: is this the right method to call? It does make the movement smooth.
+        view.updateBoard();
     }
 }

@@ -13,6 +13,7 @@ import gizmoball.model.gizmos.Rotation;
 import physics.Vect;
 
 import gizmoball.model.gizmos.ReadGizmo.GizmoType;
+import javafx.scene.input.KeyCode;
 
 public class Model implements BuildModel, RunModel {
     private static final Set<String> DEPENDENT = new HashSet<>(Arrays.asList(
@@ -570,11 +571,25 @@ public class Model implements BuildModel, RunModel {
     }
 
     public void keyPressed(int keyCode) {
-        this.keyPressMap.getOrDefault(keyCode, Collections.emptySet()).forEach(Gizmo::trigger);
+    	try {
+	    	Set<Gizmo> gizmosToTrigger = this.keyPressMap.get(keyCode);
+	    	for(Gizmo gizmo: gizmosToTrigger) {
+	    		gizmo.trigger();
+	    	}
+	    } catch(NullPointerException e) {
+			
+		}
     }
 
     public void keyReleased(int keyCode) {
-        this.keyReleaseMap.getOrDefault(keyCode, Collections.emptySet()).forEach(Gizmo::trigger);
+    	try {
+	    	Set<Gizmo> gizmosToTrigger = this.keyReleaseMap.get(keyCode);
+	    	for(Gizmo gizmo: gizmosToTrigger) {
+	    		gizmo.trigger();
+	    	}
+    	} catch(NullPointerException e) {
+    		
+    	}
     }
 
     @Override

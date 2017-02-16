@@ -8,26 +8,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ToggleRunningListener implements ActionListener {
-    private Model model;
     private final RunView view;
     private Timer timer;
-    private RunMode currMode;
-    public ToggleRunningListener(RunView view) {
+    public ToggleRunningListener(ActionListener tickListener, RunView view) {
+    	timer = new Timer(1000/Model.TICKS_PER_SECOND, tickListener);
         this.view = view;
-        currMode = RunMode.RUN;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch(currMode)
-        {
-            case RUN:
+    	if(timer.isRunning()) {
+            	timer.stop();
                 view.changeButtonState();
-                currMode = RunMode.STOP;
-                break;
-            case STOP:
+    	} else {
+            	timer.start();
                 view.changeButtonState();
-                currMode = RunMode.STOP;
-                break;
         }
     }
 }
