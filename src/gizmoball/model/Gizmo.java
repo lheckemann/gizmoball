@@ -1,4 +1,4 @@
-package model;
+package gizmoball.model;
 
 import physics.Circle;
 import physics.LineSegment;

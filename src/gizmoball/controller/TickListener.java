@@ -1,6 +1,6 @@
-package controller;
+package gizmoball.controller;
 
-import model.Model;
+import gizmoball.model.Model;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
