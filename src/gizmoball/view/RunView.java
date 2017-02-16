@@ -28,7 +28,6 @@ public class RunView extends GameView {
         this.box.add(buttonsPnl);
         this.board.addKeyListener(new KeyTriggerListener(model));
         this.board.setFocusable(true);
-        this.board.requestFocusInWindow();
     }
 
     public void changeButtonState() {
@@ -39,5 +38,9 @@ public class RunView extends GameView {
             stateBtn.setText("Run");
             tickBtn.setEnabled(true);
         }
+    }
+
+    public void focus() {
+        this.board.requestFocusInWindow();
     }
 }

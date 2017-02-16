@@ -14,6 +14,8 @@ public class GizmoBallView {
     private JFrame frame;
     private JButton modeBtn;
     private GameView gameView;
+    private BuildView buildView;
+    private RunView runView;
 
     public GizmoBallView(Model model) {
         this.model = model;
@@ -46,7 +48,9 @@ public class GizmoBallView {
         actionBar.add(modeBtn);
         actionBar.add(Box.createGlue());
         actionBar.add(exitBtn);
-        this.gameView = new BuildView(model);
+        this.buildView = new BuildView(model);
+        this.runView = new RunView(model);
+        this.gameView = buildView;
         this.frame.add(actionBar, BorderLayout.NORTH);
         this.frame.add(gameView.getBox(), BorderLayout.CENTER);
         this.frame.pack();
@@ -60,15 +64,16 @@ public class GizmoBallView {
     public void switchToBuildView(Model model) {
         this.modeBtn.setText("Run");
         this.frame.getContentPane().remove(gameView.getBox());
-        this.gameView = new BuildView(model);
+        this.gameView = buildView;
         this.frame.getContentPane().add(gameView.getBox(), BorderLayout.CENTER);
     }
 
     public void switchToRunView(Model model) {
         this.modeBtn.setText("Build");
         this.frame.getContentPane().remove(gameView.getBox());
-        this.gameView = new RunView(model);
+        this.gameView = runView;
         this.frame.getContentPane().add(gameView.getBox(), BorderLayout.CENTER);
+        runView.focus();
     }
 
     public void updateBoard() {
