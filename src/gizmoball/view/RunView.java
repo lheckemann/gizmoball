@@ -19,8 +19,6 @@ public class RunView extends GameView {
         this.tickBtn.setFocusable(false);
 
         JPanel buttonsPnl = new JPanel();
-        buttonsPnl.setFocusable(true);
-        buttonsPnl.requestFocusInWindow();
         buttonsPnl.add(stateBtn);
         buttonsPnl.add(tickBtn);
 
@@ -29,6 +27,8 @@ public class RunView extends GameView {
         this.box.add(this.board);
         this.box.add(buttonsPnl);
         this.board.addKeyListener(new KeyTriggerListener(model));
+        this.board.setFocusable(true);
+        this.board.requestFocusInWindow();
     }
 
     public void changeButtonState() {
