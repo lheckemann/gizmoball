@@ -30,8 +30,12 @@ public class LoadListener implements ActionListener {
                 model.load(new FileInputStream(selectedFile.getPath()));
                 view.updateBoard();
             }
-        } catch (FileNotFoundException | SyntaxError ex) {
-            ex.printStackTrace();
+        } catch (FileNotFoundException fnfe) {
+            JOptionPane.showMessageDialog(null, fnfe.getMessage(), "File not found", JOptionPane.ERROR_MESSAGE);
+            fnfe.printStackTrace();
+        } catch (SyntaxError se) {
+            JOptionPane.showMessageDialog(null, se.getMessage(), "Syntax error", JOptionPane.ERROR_MESSAGE);
+            se.printStackTrace();
         }
     }
 }
