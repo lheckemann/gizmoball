@@ -14,7 +14,9 @@ public class PrototypeOne {
         for (Rotation rot : Rotation.values()) {
             model.select(x, 2);
             model.addRightFlipper("F" + x);
-            model.rotateGizmo();
+            for (int i = 0; i < rot.getTurns(); i++) {
+                model.rotateGizmo();
+            }
             x += 3;
         }
 
