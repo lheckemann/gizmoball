@@ -30,10 +30,10 @@ public class LoadListener implements ActionListener {
             }
         } catch (FileNotFoundException fnfe) {
             JOptionPane.showMessageDialog(null, fnfe.getMessage(), "File not found", JOptionPane.ERROR_MESSAGE);
-            fnfe.printStackTrace();
+            //fnfe.printStackTrace();
         } catch (SyntaxError se) {
             JOptionPane.showMessageDialog(null, se.getMessage(), "Syntax error", JOptionPane.ERROR_MESSAGE);
-            se.printStackTrace();
+            //se.printStackTrace();
         }
     }
 }
