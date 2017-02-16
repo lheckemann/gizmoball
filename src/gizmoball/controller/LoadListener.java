@@ -24,14 +24,12 @@ public class LoadListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             JFileChooser chooser = new JFileChooser();
-
-            int result = chooser.showOpenDialog(new JFrame());
-            if (result == JFileChooser.APPROVE_OPTION) {
+            chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            if (chooser.showOpenDialog(new JFrame()) == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = chooser.getSelectedFile();
                 model.load(new FileInputStream(selectedFile.getPath()));
                 view.updateBoard();
             }
-
         } catch (FileNotFoundException | SyntaxError ex) {
             ex.printStackTrace();
         }
