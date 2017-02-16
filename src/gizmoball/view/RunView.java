@@ -12,23 +12,23 @@ public class RunView extends GameView {
     private JButton tickBtn;
 
     public RunView(RunModel model) {
-        box = new Box(BoxLayout.Y_AXIS);
-        board = new RunBoardView(model);
+        this.stateBtn = new JButton("Run"); // either Run or Stop
+        this.stateBtn.setFocusable(false);
+        this.stateBtn.addActionListener(new ToggleRunningListener(new TickListener(model, this), this));
+        this.tickBtn = new JButton("Tick");
+        this.tickBtn.setFocusable(false);
+
         JPanel buttonsPnl = new JPanel();
         buttonsPnl.setFocusable(true);
         buttonsPnl.requestFocusInWindow();
-        stateBtn = new JButton("Run"); // either Run or Stop
-        stateBtn.setFocusable(false);
-        stateBtn.addActionListener(new ToggleRunningListener(new TickListener(model, this), this));
-        tickBtn = new JButton("Tick");
-        tickBtn.setFocusable(false);
         buttonsPnl.add(stateBtn);
         buttonsPnl.add(tickBtn);
 
-        box.add(board);
-        box.add(buttonsPnl);
-
-        buttonsPnl.addKeyListener(new KeyTriggerListener(model));
+        this.box = new Box(BoxLayout.Y_AXIS);
+        this.board = new RunBoardView(model);
+        this.box.add(this.board);
+        this.box.add(buttonsPnl);
+        this.board.addKeyListener(new KeyTriggerListener(model));
     }
 
     public void changeButtonState() {

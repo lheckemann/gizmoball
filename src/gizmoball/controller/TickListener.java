@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 public class TickListener implements ActionListener {
     private RunModel model;
     private RunView view;
+
     public TickListener(RunModel model, RunView view) {
         this.model = model;
         this.view = view;
@@ -17,7 +18,7 @@ public class TickListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        model.tick();
-        view.updateBoard();
+        this.model.tick();
+        this.view.updateBoard();
     }
 }
