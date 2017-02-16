@@ -8,17 +8,10 @@ import javax.swing.*;
 public class PrototypeFour {
     public static void main(String[] args) {
         Model model = new Model(20, 20);
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                GizmoBallView gui = new GizmoBallView(model);
-                JFrame frame = gui.getGUI();
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setVisible(true);
-            }
-        });
-
+        GizmoBallView gui = new GizmoBallView(model);
+        JFrame frame = gui.getGUI();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 }
 

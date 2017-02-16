@@ -20,4 +20,8 @@ public class Absorber extends Gizmo {
     public int getHeight() {
         return this.height;
     }
+
+    @Override
+    public void rotate() {
+    }
 }

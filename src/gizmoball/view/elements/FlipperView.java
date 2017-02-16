@@ -14,10 +14,6 @@ public class FlipperView {
 
 	public static void paint(Graphics2D graphics, ReadGizmo flipper) {
     	graphics.setColor(Color.ORANGE);
-    	AffineTransform originalTransform = graphics.getTransform();
-
-        // Translate to flipper's top-left corner
-        graphics.translate(flipper.getX() * Model.L_TO_PIXELS, flipper.getY() * Model.L_TO_PIXELS);
 
         // Rotate (both gizmo rotation and flipper pivot)
     	performFlipperTransformations(graphics, flipper);
@@ -38,23 +34,14 @@ public class FlipperView {
                 Model.L_TO_PIXELS/8,
                 Model.L_TO_PIXELS/4,
                 Model.L_TO_PIXELS/4);
-
-        // Restore transformation
-    	graphics.setTransform(originalTransform);
     }
 
 	private static void performFlipperTransformations(Graphics2D graphics, ReadGizmo flipper) {
-	    int middleX = flipper.getWidth() * Model.L_TO_PIXELS / 2;
-        int middleY = flipper.getHeight() * Model.L_TO_PIXELS / 2;
-		graphics.translate(middleX, middleY);
-
-        // Perform rotation according to gizmo rotation
-        graphics.rotate(flipper.getRotation().getRadiansFromNorth());
-        // Flip horizontally if appropriate
-    	if (flipper.getType() == GizmoType.RIGHT_FLIPPER) {
-    		graphics.scale(-1, 1);
-    	}
-        graphics.translate(-middleX, -middleY);
+	    graphics.translate(flipper.getWidth() * Model.L_TO_PIXELS / 2, 0);
+	    if (flipper.getType().equals(GizmoType.RIGHT_FLIPPER)) {
+	    	graphics.scale(-1, 1);
+		}
+		graphics.translate(-flipper.getWidth() * Model.L_TO_PIXELS / 2, 0);
 
         // Translate to pivot point
     	graphics.translate(0.25 * Model.L_TO_PIXELS, 0.25 * Model.L_TO_PIXELS);
