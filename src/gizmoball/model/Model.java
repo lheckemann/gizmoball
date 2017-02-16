@@ -603,26 +603,12 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void keyPressed(int keyCode) {
-    	try {
-	    	Set<Gizmo> gizmosToTrigger = this.keyPressMap.get(keyCode);
-	    	for(Gizmo gizmo: gizmosToTrigger) {
-	    		gizmo.trigger();
-	    	}
-	    } catch(NullPointerException e) {
-			
-		}
+        this.keyPressMap.getOrDefault(keyCode, Collections.emptySet()).forEach(Gizmo::trigger);
     }
 
     @Override
     public void keyReleased(int keyCode) {
-    	try {
-	    	Set<Gizmo> gizmosToTrigger = this.keyReleaseMap.get(keyCode);
-	    	for(Gizmo gizmo: gizmosToTrigger) {
-	    		gizmo.trigger();
-	    	}
-    	} catch(NullPointerException e) {
-    		
-    	}
+        this.keyReleaseMap.getOrDefault(keyCode, Collections.emptySet()).forEach(Gizmo::trigger);
     }
 
     @Override
