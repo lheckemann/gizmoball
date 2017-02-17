@@ -20,6 +20,22 @@ public class Ball implements ReadBall {
         this.velocity = new Vect(this.velocityX, this.velocityY);
     }
     
+    public void setX(double x) {
+    	this.x = x;
+    }
+    
+    public void setY(double y) {
+    	this.y = y;
+    }
+    
+    public double getX() {
+    	return this.x;
+    }
+    
+    public double getY() {
+    	return this.y;
+    }
+    
     public double getVelocityX() {
         return this.velocityX;
     }

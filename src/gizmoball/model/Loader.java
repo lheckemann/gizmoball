@@ -2,6 +2,7 @@ package gizmoball.model;
 
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -262,7 +263,7 @@ public class Loader {
                         error.setMessage(tokens.get(1) + " is not an existing gizmo.");
                         throw error;
                     } else {
-                    	ReadGizmo source = this.model.getPositionToGizmoMap().get(this.idToGizmoPos.get(tokens.get(1)));
+                    	ReadGizmo source = this.getGizmoAt(this.idToGizmoPos.get(tokens.get(1)));
                     	this.model.triggerOnGizmo(source);
                     }
                     
@@ -299,6 +300,13 @@ public class Loader {
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw error;
         }
+    }
+    
+    private ReadGizmo getGizmoAt(Vect position) {
+    	Collection<ReadGizmo> gizmos = this.model.getGizmos();
+    	return gizmos.stream()
+                .filter(g -> (g.getX() == (int)position.x()) && (g.getY() == (int)position.y()))
+                .findFirst().orElse(null);
     }
 
 }

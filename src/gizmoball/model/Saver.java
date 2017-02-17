@@ -17,8 +17,8 @@ import physics.Vect;
 public class Saver {
 
 	private BuildModel model;
-	private Map<String, Vect> idToGizmo;
-	private Map<String, Vect> idToBall;
+	private Map<String, ReadGizmo> idToGizmo;
+	private Map<String, ReadBall> idToBall;
 	
 	public Saver(BuildModel model) {
 		this.model = model;
@@ -26,12 +26,23 @@ public class Saver {
 		this.idToBall = new HashMap<>();
 	}
 	
+	protected void save(OutputStream output) throws FileNotFoundException {
+		PrintWriter writer = new PrintWriter(output);
+        this.dumpGizmoDeclarations(writer);
+        this.dumpBallDeclarations(writer);
+        this.dumpRotateCommands(writer);
+        this.dumpConnectCommands(writer);
+        this.dumpKeyConnectCommands(writer);
+        this.dumpFrictionGravityDeclarations(writer);
+        writer.close();
+    }
+	
 	private Set<String> getIdsForType(GizmoType type) {
 		Set<String> idsOfSelectedType = new HashSet<>();
 		
 		GizmoType currGizmoType;
-		for (Map.Entry<String, Vect> entry: this.idToGizmo.entrySet()) {
-			currGizmoType = this.model.getPositionToGizmoMap().get(entry.getValue()).getType();
+		for (Map.Entry<String, ReadGizmo> entry: this.idToGizmo.entrySet()) {
+			currGizmoType = entry.getValue().getType();
 			if (currGizmoType.equals(type)) {
 				idsOfSelectedType.add(entry.getKey());
 			}
@@ -104,9 +115,9 @@ public class Saver {
 		return "B" + highestIdNumber;
 	}
 	
-	private String getGizmoId(Vect gizmoPos) {
-		for (Map.Entry<String, Vect> entry: this.idToGizmo.entrySet()) {
-			if (entry.getValue().equals(gizmoPos)) {
+	private String getGizmoId(ReadGizmo gizmo) {
+		for (Map.Entry<String, ReadGizmo> entry: this.idToGizmo.entrySet()) {
+			if (entry.getValue().equals(gizmo)) {
 				return entry.getKey();
 			}
 		}
@@ -114,48 +125,28 @@ public class Saver {
 		return "";
 	}
 
-	private Vect getGizmoPos(ReadGizmo gizmo) {
-    	for (Map.Entry<Vect, ReadGizmo> entry: this.model.getPositionToGizmoMap().entrySet()) {
-    		if (gizmo.equals(entry.getValue())) {
-    			return entry.getKey();
-    		}
-    	}
-    	
-    	return null;
-    }
-	
-	protected void save(OutputStream output) throws FileNotFoundException {
-		PrintWriter writer = new PrintWriter(output);
-        this.dumpGizmoDeclarations(writer);
-        this.dumpBallDeclarations(writer);
-        this.dumpRotateCommands(writer);
-        //this.dumpConnectCommands(writer);
-        //this.dumpKeyConnectCommands(writer);
-        this.dumpFrictionGravityDeclarations(writer);
-        writer.close();
-    }
 
     //Returns an output stream containing all of
     //the Gizmo declarations for Gizmos in this model
    private void dumpGizmoDeclarations(PrintWriter writer) {
         for (ReadGizmo gizmo : this.model.getGizmos()) {
         	
-        	Vect gizmoPos = this.getGizmoPos(gizmo);
-
+        	String id = this.createGizmoId(gizmo);
+        	this.idToGizmo.put(id, gizmo);
             if (gizmo.getType() == GizmoType.ABSORBER) {
                 writer.format("%s %s %d %d %d %d\n",
                         this.convertGizmoTypeToString(gizmo.getType()),
-                        this.createGizmoId(gizmo),
-                        (int)gizmoPos.x(),
-                        (int)gizmoPos.y(),
-                        (int)gizmoPos.x() + gizmo.getWidth(),
-                        (int)gizmoPos.y() + gizmo.getHeight());
+                        id,
+                        gizmo.getX(),
+                        gizmo.getY(),
+                        gizmo.getX() + gizmo.getWidth(),
+                        gizmo.getY() + gizmo.getHeight());
             } else {
                 writer.format("%s %s %d %d\n",
                         this.convertGizmoTypeToString(gizmo.getType()),
-                        this.createGizmoId(gizmo),
-                        (int)gizmoPos.x(),
-                        (int)gizmoPos.y());
+                        id,
+                        gizmo.getX(),
+                        gizmo.getY());
             }
         }
     }
@@ -180,12 +171,14 @@ public class Saver {
     }
 
     private void dumpBallDeclarations(PrintWriter writer) {
-        for (Vect ballPos: this.model.getBallPositions()) {
-            ReadBall ball = this.model.getPositionToBallMap().get(ballPos).iterator().next();
+        for (ReadBall ball: this.model.getBalls()) {
+            
+        	String id = this.createBallId(ball);
+        	this.idToBall.put(id, ball);
             writer.format("Ball %s %f %f %f %f\n",
-            		this.createBallId(ball),
-                    ballPos.x(),
-                    ballPos.y(),
+            		id,
+                    ball.getX(),
+                    ball.getY(),
                     ball.getVelocityX(),
                     ball.getVelocityY()
             );
@@ -193,19 +186,18 @@ public class Saver {
     }
 
     private void dumpRotateCommands(PrintWriter writer) {
-        for (Map.Entry<Vect, ReadGizmo> entry: this.model.getPositionToGizmoMap().entrySet()) {
-            String id = this.getGizmoId(entry.getKey());
-            for (int i = 0; i < entry.getValue().getRotation().getTurns(); i++) {
+        for (ReadGizmo gizmo: model.getGizmos()) {
+            String id = this.getGizmoId(gizmo);
+            for (int i = 0; i < gizmo.getRotation().getTurns(); i++) {
                 writer.format("Rotate %s\n", id);
             }
         }
     }
 
-    /*private void dumpConnectCommands(PrintWriter writer) {
+    private void dumpConnectCommands(PrintWriter writer) {
     	Map<ReadGizmo, Set<ReadGizmo>> gizmoMap = this.model.getGizmoToGizmoMapping();
-    	Map<Vect, ReadGizmo> gizmoPosMap = this.model.getPositionToGizmoMap();
         for (ReadGizmo from : gizmoMap.keySet()) {
-            String fromId = this.getGizmoId(gizmoPosMap.get)
+            String fromId = this.getGizmoId(from);
             for (ReadGizmo to : gizmoMap.get(from)) {
                 String toId = this.getGizmoId(to);
                 writer.format("Connect %s %s\n", fromId, toId);
@@ -226,7 +218,7 @@ public class Saver {
                 writer.format("KeyConnect key %d up %s\n", key, this.getGizmoId(to));
             }
         }
-    }*/
+    }
 
     private void dumpFrictionGravityDeclarations(PrintWriter writer) {
         writer.format("Gravity %f\n", this.model.getGravity());

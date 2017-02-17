@@ -2,9 +2,13 @@ package gizmoball.model.gizmos;
 
 public abstract class Gizmo implements ReadGizmo {
     private Rotation rotation;
+    private int x;
+    private int y;
 
     public Gizmo() {
         this.rotation = Rotation.NORTH;
+        this.x = 0;
+        this.y = 0;
     }
 
     public Rotation getRotation() {
@@ -36,6 +40,22 @@ public abstract class Gizmo implements ReadGizmo {
     public abstract int getWidth();
 
     public abstract int getHeight();
+    
+    public int getX() {
+    	return this.x;
+    }
+    
+    public int getY() {
+    	return this.y;
+    }
+    
+    public void setX(int x) {
+    	this.x = x;
+    }
+    
+    public void setY(int y) {
+    	this.y = y;
+    }
 
     public void tick() {
     }
@@ -50,5 +70,20 @@ public abstract class Gizmo implements ReadGizmo {
     @Override
     public int getPivotAngle() throws GizmoTypeException {
         throw new GizmoTypeException();
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (null == obj) {
+            return false;
+         }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+        Gizmo other = (Gizmo) obj;
+        return (this.getX() == other.getX() && this.getY() == other.getY());
     }
 }

@@ -1,6 +1,7 @@
 package gizmoball.view;
 
 import gizmoball.model.Model;
+import gizmoball.model.ReadBall;
 import gizmoball.model.ReadModel;
 import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.view.elements.*;
@@ -23,12 +24,11 @@ public class BoardView extends JPanel {
         Graphics2D g = (Graphics2D) graphics;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         AffineTransform originalTransform = g.getTransform();
-        ReadGizmo gizmo;
-        for (Map.Entry<Vect, ReadGizmo> entry: model.getPositionToGizmoMap().entrySet()) {
+       
+        for (ReadGizmo gizmo: model.getGizmos()) {
 
-        	gizmo = entry.getValue();
             // Translate to gizmo's position
-            g.translate(entry.getKey().x() * Model.L_TO_PIXELS, entry.getKey().y() * Model.L_TO_PIXELS);
+            g.translate(gizmo.getX() * Model.L_TO_PIXELS, gizmo.getY() * Model.L_TO_PIXELS);
 
             // Apply gizmo rotation
             g.translate(
@@ -60,8 +60,8 @@ public class BoardView extends JPanel {
             g.setTransform(originalTransform);
         }
 
-        for(Vect ballPos: model.getBallPositions()) {
-            BallView.paint(g, ballPos);
+        for(ReadBall ball: model.getBalls()) {
+            BallView.paint(g, ball);
         }
     }
 
