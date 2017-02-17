@@ -2,7 +2,7 @@ package gizmoball.model;
 
 import physics.Vect;
 
-public class Ball {
+public class Ball implements ReadBall {
     private final static double RADIUS = 0.5;
     private double x;
     private double y;
@@ -15,32 +15,17 @@ public class Ball {
     private Vect velocity;
 
     public Ball() {
-        this.x = 0d;
-        this.y = 0d;
         this.velocityX = 0d;
         this.velocityY = 0d;
         this.velocity = new Vect(this.velocityX, this.velocityY);
     }
-
-    public double getX() {
-        return this.x;
-    }
-
-    public double getY() {
-        return this.y;
-    }
-
+    
     public double getVelocityX() {
         return this.velocityX;
     }
 
     public double getVelocityY() {
         return this.velocityY;
-    }
-
-    public void setPosition(double x, double y) {
-        this.x = x;
-        this.y = y;
     }
 
     public void setVelocity(Vect velocity) {

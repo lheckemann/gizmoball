@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Set;
 
 import gizmoball.model.gizmos.ReadGizmo;
+import physics.Vect;
 
 public interface BuildModel extends ReadModel {
     /**
@@ -31,22 +32,22 @@ public interface BuildModel extends ReadModel {
     void delete();
 
     // TODO
-    void addAbsorber(String identifier, int width, int height);
+    void addAbsorber(int width, int height) throws PositionOverlapException;
 
     // TODO
-    void addSquare(String identifier);
+    void addSquare() throws PositionOverlapException;
 
     // TODO
-    void addCircle(String identifier);
+    void addCircle() throws PositionOverlapException;
 
     // TODO
-    void addTriangle(String identifier);
+    void addTriangle() throws PositionOverlapException;
 
     // TODO
-    void addRightFlipper(String identifier);
+    void addRightFlipper() throws PositionOverlapException;
 
     // TODO
-    void addLeftFlipper(String identifier);
+    void addLeftFlipper() throws PositionOverlapException;
 
     /**
      * Rotates the gizmo at the selected location clockwise.
@@ -60,7 +61,7 @@ public interface BuildModel extends ReadModel {
      * If there is no selection or the selected location is already occupied by
      * some other item, this will effectively be a noop.
      */
-    void addBall(String identifier);
+    void addBall(double vX, double vY) throws PositionOverlapException;
 
     /**
      * Sets the velocity of the ball at the selected location.
@@ -122,8 +123,11 @@ public interface BuildModel extends ReadModel {
     // TODO
     void triggerOnOuterWalls();
 
-    // TODO
-    void triggerOnGizmo(double sX, double sY);
+    /***
+     * Connects the bumping of the given Gizmo to the triggering of the currently
+     * selected Gizmo
+     */
+    void triggerOnGizmo(ReadGizmo gizmo);
 
     /**
      * Resets all the state related to a particular game.
@@ -147,5 +151,4 @@ public interface BuildModel extends ReadModel {
 	 */
 	Map<Integer, Set<ReadGizmo>> getKeyPressToGizmoMapping();
    
-    
 }

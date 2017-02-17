@@ -8,8 +8,6 @@ public interface ReadGizmo {
 
     GizmoType getType();
     Rotation getRotation();
-    int getX();
-    int getY();
     int getWidth();
     int getHeight();
     int getPivotAngle() throws GizmoTypeException;

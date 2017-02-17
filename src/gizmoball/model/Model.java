@@ -27,17 +27,18 @@ public class Model implements BuildModel, RunModel {
     private double mu = 0.025;
     private double mu2 = 0.025;
 
-    //A map from Gizmo Id to Gizmos
-    private Map<String, Gizmo> gizmos;
-    //A map from Ball Id to Balls
-    private Map<String, Ball> balls;
+    //A map from Gizmo position to Gizmos
+    private Map<Vect, Gizmo> gizmos;
+    //A map from Ball position to Balls
+    private Map<Vect, Set<Ball>> balls;
     //A map from Key Id to Gizmo
     private Map<Integer, Set<Gizmo>> keyPressMap = new HashMap<>();
     //A map from Key Id to Gizmo
     private Map<Integer, Set<Gizmo>> keyReleaseMap = new HashMap<>();
+    
     private Map<Gizmo, Set<Gizmo>> gizmoMap;
     private Set<Gizmo> wallTriggers;
-
+ 
     public Model(double width, double height) {
         this.width = width;
         this.height = height;
@@ -47,42 +48,25 @@ public class Model implements BuildModel, RunModel {
     @Override
     public void reset() {
         this.gizmos = new HashMap<>();
-        this.balls = new HashMap<>();
         this.keyPressMap = new HashMap<>();
         this.keyReleaseMap = new HashMap<>();
         this.gizmoMap = new HashMap<>();
         this.wallTriggers = new HashSet<>();
+        this.balls = new HashMap<>();
     }
 
     private Gizmo getGizmoAt(double x, double y) {
-        return this.gizmos.values().stream()
-                .filter(g -> g.contains(x, y))
-                .findFirst().orElse(null);
+    	
+        return this.gizmos.get(new Vect((int)x, (int)y));
     }
 
-    private String getGizmoId(Gizmo gizmo) {
-        for (String id : this.gizmos.keySet()) {
-            if (this.gizmos.get(id).equals(gizmo)) {
-                return id;
-            }
-        }
-        return null;
-    }
 
-    private Ball getBallAt(double x, double y) {
+    /*Multiple balls could be at the same position e.g. inside an absorber*/
+    /*private Ball getBallAt(double x, double y) {
         return this.balls.values().stream()
                 .filter(b -> b.contains(x, y))
                 .findFirst().orElse(null);
-    }
-
-    private String getBallId(Ball ball) {
-        for (String id : this.balls.keySet()) {
-            if (this.balls.get(id).equals(ball)) {
-                return id;
-            }
-        }
-        return null;
-    }
+    }*/
 
     @Override
     public void select(double x, double y) {
@@ -94,12 +78,22 @@ public class Model implements BuildModel, RunModel {
     public void move(double dX, double dY) {
         Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
         if (gizmo != null) {
-            gizmo.setPosition((int) dX, (int) dY);
+            this.gizmos.remove(new Vect((int)this.selX, (int)this.selY));
+            this.gizmos.put(new Vect((int)dX, (int)dY), gizmo);
             return;
         }
-        Ball ball = this.getBallAt(this.selX, this.selY);
+        Ball ball = this.balls.get(new Vect(this.selX, this.selY)).iterator().next();
         if (ball != null) {
-            ball.setPosition(dX, dY);
+        	//If the ball != null then that means the Set of balls pointed at by this position must be at
+        	//least 1
+        	if (this.balls.get(new Vect(this.selX, this.selY)).size() == 1) {
+        		this.balls.remove(new Vect(this.selX, this.selY));
+        	} else /*If the number of balls at the selected position is greater than 1*/{
+        		this.balls.get(new Vect(this.selX, this.selY)).remove(ball);
+        	}        	
+        	Set<Ball> newBallSet = new HashSet<>();
+    		newBallSet.add(ball);
+    		this.balls.put(new Vect(dX, dY), newBallSet);
         }
     }
 
@@ -107,7 +101,7 @@ public class Model implements BuildModel, RunModel {
     public void delete() {
         Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
         if (gizmo != null) {
-            this.gizmos.remove(this.getGizmoId(gizmo));
+            this.gizmos.remove(new Vect(this.selX, this.selY));
             this.gizmoMap.remove(gizmo);
             for (Set<Gizmo> listeners : this.gizmoMap.values()) {
                 listeners.remove(gizmo);
@@ -121,52 +115,82 @@ public class Model implements BuildModel, RunModel {
             this.wallTriggers.remove(gizmo);
             return;
         }
-        Ball ball = this.getBallAt(this.selX, this.selY);
+        Ball ball = this.balls.get(new Vect(this.selX, this.selY)).iterator().next();
         if (ball != null) {
-            this.balls.remove(this.getBallId(ball));
+            this.balls.remove(new Vect(this.selX, this.selY));
         }
     }
 
     @Override
-    public void addAbsorber(String identifier, int width, int height) {
+    public void addAbsorber(int width, int height) throws PositionOverlapException{
         Gizmo gizmo = new Absorber(width, height);
-        gizmo.setPosition((int) this.selX, (int) this.selY);
-        this.gizmos.put(identifier, gizmo);
+        
+        if (this.gizmos.containsKey(new Vect((int)this.selX, (int) this.selY))) {
+        	throw new PositionOverlapException();
+        }
+        else {
+        	this.gizmos.put(new Vect((int)this.selX, (int)this.selY), gizmo);
+        }
     }
 
     @Override
-    public void addSquare(String identifier) {
+    public void addSquare() throws PositionOverlapException {
         Gizmo gizmo = new Square();
-        gizmo.setPosition((int) this.selX, (int) this.selY);
-        this.gizmos.put(identifier, gizmo);
+        
+        if (this.gizmos.containsKey(new Vect((int)this.selX, (int)this.selY))) {
+        	throw new PositionOverlapException();
+        }
+        else {
+        	this.gizmos.put(new Vect((int)this.selX, (int)this.selY), gizmo);
+        }
     }
 
     @Override
-    public void addCircle(String identifier) {
+    public void addCircle() throws PositionOverlapException {
         Gizmo gizmo = new Circle();
-        gizmo.setPosition((int) this.selX, (int) this.selY);
-        this.gizmos.put(identifier, gizmo);
+        
+        if (this.gizmoMap.containsKey(new Vect((int)this.selX, (int)this.selY))) {
+        	throw new PositionOverlapException();
+        }
+        else {
+        	this.gizmos.put(new Vect((int)this.selX, (int) this.selY), gizmo);
+        }
     }
 
     @Override
-    public void addTriangle(String identifier) {
+    public void addTriangle() throws PositionOverlapException {
         Gizmo gizmo = new Triangle();
-        gizmo.setPosition((int) this.selX, (int) this.selY);
-        this.gizmos.put(identifier, gizmo);
+        
+        if (this.gizmoMap.containsKey(new Vect((int) this.selX, (int) this.selY))) {
+        	throw new PositionOverlapException();
+        }
+        else {
+        	this.gizmos.put(new Vect((int)this.selX, (int)this.selY), gizmo);
+        }
     }
 
     @Override
-    public void addRightFlipper(String identifier) {
+    public void addRightFlipper() throws PositionOverlapException {
         Gizmo gizmo = new Flipper(false);
-        gizmo.setPosition((int) this.selX, (int) this.selY);
-        this.gizmos.put(identifier, gizmo);
+        
+        if (this.gizmoMap.containsKey(new Vect((int) this.selX, (int) this.selY))) {
+        	throw new PositionOverlapException();
+        }
+        else {
+        	this.gizmos.put(new Vect((int)this.selX, (int)this.selY), gizmo);
+        }
     }
 
     @Override
-    public void addLeftFlipper(String identifier) {
+    public void addLeftFlipper() throws PositionOverlapException {
         Gizmo gizmo = new Flipper(true);
-        gizmo.setPosition((int) this.selX, (int) this.selY);
-        this.gizmos.put(identifier, gizmo);
+        
+        if (this.gizmos.containsKey(new Vect((int)this.selX, (int)this.selY))) {
+        	throw new PositionOverlapException();
+        }
+        else {
+        	this.gizmos.put(new Vect((int)this.selX, (int)this.selY), gizmo);
+        }
     }
 
     @Override
@@ -178,16 +202,23 @@ public class Model implements BuildModel, RunModel {
     }
 
     @Override
-    public void addBall(String identifier) {
-        Ball ball = new Ball();
-        ball.setPosition(this.selX, this.selY);
-        // TODO: manage conflicting identifiers?
-        this.balls.put(identifier, ball);
+    public void addBall(double velocityX, double velocityY) throws PositionOverlapException {
+        
+    	Ball ball = new Ball();
+    	ball.setVelocity(new Vect(velocityX, velocityY));
+    	if(this.balls.containsKey(new Vect(this.selX, this.selY))) {
+    		throw new PositionOverlapException();
+    	} 
+    	else {
+    		Set<Ball> newBallSet = new HashSet<>();
+    		newBallSet.add(ball);
+    		this.balls.put(new Vect(this.selX, this.selY), newBallSet);
+    	}
     }
 
     @Override
     public void setBallVelocity(double vX, double vY) {
-        Ball ball = this.getBallAt(this.selX, this.selY);
+        Ball ball = this.balls.get(new Vect(this.selX, this.selY)).iterator().next();
         if (ball != null) {
             ball.setVelocity(new Vect(vX, vY));
         }
@@ -242,11 +273,12 @@ public class Model implements BuildModel, RunModel {
             this.wallTriggers.add(gizmo);
         }
     }
-
+    
     @Override
-    public void triggerOnGizmo(double sX, double sY) {
-        Gizmo source = this.getGizmoAt(sX, sY);
-        Gizmo destination = this.getGizmoAt(this.selX, this.selY);
+    public void triggerOnGizmo(ReadGizmo gizmo) {
+        Gizmo destination = this.gizmos.get(new Vect(this.selX, this.selY));
+        Gizmo source = (Gizmo)gizmo;
+        
         if (source != null && destination != null) {
             this.gizmoMap.computeIfAbsent(source, s -> new HashSet<>()).add(destination);
         }
@@ -254,10 +286,7 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public Set<Vect> getBallPositions() {
-        return this.balls.values()
-                .stream()
-                .map(b -> new Vect(b.getX(), b.getY()))
-                .collect(Collectors.toSet());
+        return this.balls.keySet();
     }
 
     @Override
@@ -334,4 +363,19 @@ public class Model implements BuildModel, RunModel {
     	Saver saver = new Saver(this);
     	saver.save(stream);
     }
+  
+    public Map<Vect, ReadGizmo> getPositionToGizmoMap() {
+    	return new HashMap<>(this.gizmos);
+    }
+
+	@Override
+	public Map<Vect, Set<ReadBall>> getPositionToBallMap() {
+		Map<Vect, Set<ReadBall>> positionToBall = new HashMap<>();
+		
+		for (Map.Entry<Vect, Set<Ball>> entry: this.balls.entrySet()) {
+			positionToBall.put(entry.getKey(), new HashSet<ReadBall>(entry.getValue()));
+		}
+		
+		return positionToBall;
+	}
 }

@@ -9,6 +9,7 @@ import physics.Vect;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.util.Map;
 
 public class BoardView extends JPanel {
     private ReadModel model;
@@ -22,10 +23,12 @@ public class BoardView extends JPanel {
         Graphics2D g = (Graphics2D) graphics;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         AffineTransform originalTransform = g.getTransform();
-        for (ReadGizmo gizmo : model.getGizmos()) {
+        ReadGizmo gizmo;
+        for (Map.Entry<Vect, ReadGizmo> entry: model.getPositionToGizmoMap().entrySet()) {
 
+        	gizmo = entry.getValue();
             // Translate to gizmo's position
-            g.translate(gizmo.getX() * Model.L_TO_PIXELS, gizmo.getY() * Model.L_TO_PIXELS);
+            g.translate(entry.getKey().x() * Model.L_TO_PIXELS, entry.getKey().y() * Model.L_TO_PIXELS);
 
             // Apply gizmo rotation
             g.translate(

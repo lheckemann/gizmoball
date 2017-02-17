@@ -2,8 +2,6 @@ package gizmoball.model.gizmos;
 
 public abstract class Gizmo implements ReadGizmo {
     private Rotation rotation;
-    private int x;
-    private int y;
 
     public Gizmo() {
         this.rotation = Rotation.NORTH;
@@ -29,26 +27,8 @@ public abstract class Gizmo implements ReadGizmo {
         }
     }
 
-    public int getX() {
-        return this.x;
-    }
-
-    public int getY() {
-        return this.y;
-    }
-
-    public void setPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
     public void setRotation(Rotation rotation) {
         this.rotation = rotation;
-    }
-
-    public boolean contains(double x, double y) {
-        return (this.x <= x && x < this.x + this.getWidth() &&
-                this.y <= y && y < this.y + this.getHeight());
     }
 
     public abstract GizmoType getType();

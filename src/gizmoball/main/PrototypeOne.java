@@ -3,6 +3,7 @@ package gizmoball.main;
 
 import gizmoball.model.gizmos.*;
 import gizmoball.model.Model;
+import gizmoball.model.PositionOverlapException;
 import gizmoball.view.GizmoBallView;
 
 import javax.swing.*;
@@ -15,7 +16,12 @@ public class PrototypeOne {
         int x = 1;
         for (Rotation rot : Rotation.values()) {
             model.select(x, 2);
-            model.addRightFlipper("F" + x);
+            try {
+				model.addRightFlipper();
+			} catch (PositionOverlapException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             for (int i = 0; i < rot.getTurns(); i++) {
                 model.rotateGizmo();
             }

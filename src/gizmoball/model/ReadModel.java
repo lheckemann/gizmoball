@@ -1,6 +1,7 @@
 package gizmoball.model;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 
 import physics.Vect;
@@ -14,4 +15,8 @@ public interface ReadModel {
     Collection<ReadGizmo> getGizmos();
 
     Set<Vect> getBallPositions(); // FIXME: we don't want to use vect here
+    
+    Map<Vect, ReadGizmo> getPositionToGizmoMap();
+    
+    Map<Vect, Set<ReadBall>> getPositionToBallMap();
 }

@@ -1,6 +1,7 @@
 package gizmoball.main;
 
 import gizmoball.model.Model;
+import gizmoball.model.PositionOverlapException;
 import gizmoball.view.GizmoBallView;
 
 import javax.swing.*;
@@ -12,9 +13,19 @@ public class PrototypeTwo {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-            	model.addBall("B0");
+            	try {
+					model.addBall(0.0, 0.0);
+				} catch (PositionOverlapException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             	model.move(4, 4);
-            	model.addAbsorber("A0", 19, 2);
+            	try {
+					model.addAbsorber(19, 2);
+				} catch (PositionOverlapException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             	model.move(0, 18);
             	model.triggerOnKeyPress(32);
                 GizmoBallView gui = new GizmoBallView(model);
