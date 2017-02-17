@@ -10,9 +10,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
-import physics.Vect;
 
 public class Loader {
 	
@@ -20,13 +18,13 @@ public class Loader {
             "Rotate", "Delete", "Move", "Connect", "KeyConnect"));
 	
 	private BuildModel model;
-	private Map<String, Vect> idToGizmoPos;
-	private Map<String, Vect> idToBallPos;
+	private Map<String, ReadGizmo> idToGizmos;
+	private Map<String, ReadBall> idToBalls;
 	
 	protected Loader(BuildModel model) {
 		this.model = model;
-		this.idToGizmoPos = new HashMap<>();
-		this.idToBallPos = new HashMap<>();
+		this.idToGizmos = new HashMap<>();
+		this.idToBalls = new HashMap<>();
 	}
 
 	protected void load(InputStream input) throws SyntaxError {
@@ -101,7 +99,7 @@ public class Loader {
                 Double y = Double.parseDouble(tokens.get(3));
                 model.select(x, y);
                 model.addBall(Double.parseDouble(tokens.get(4)), Double.parseDouble(tokens.get(5)));
-                this.idToBallPos.put(tokens.get(1), new Vect(x, y));
+                this.idToBalls.put(tokens.get(1), this.getBallAt(x, y));
           
                 return;
             }
@@ -116,7 +114,7 @@ public class Loader {
                         throw error;
                     }
                     model.addCircle();
-                    this.idToGizmoPos.put(tokens.get(1), new Vect(x, y));
+                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
                     break;
 
                 case "Triangle":
@@ -125,7 +123,7 @@ public class Loader {
                         throw error;
                     }
                     model.addTriangle();
-                    this.idToGizmoPos.put(tokens.get(1), new Vect(x, y));
+                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
                     break;
 
                 case "Square":
@@ -134,7 +132,7 @@ public class Loader {
                         throw error;
                     }
                     model.addSquare();
-                    this.idToGizmoPos.put(tokens.get(1), new Vect(x, y));
+                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
                     break;
 
                 case "LeftFlipper":
@@ -143,7 +141,7 @@ public class Loader {
                         throw error;
                     }
                     model.addLeftFlipper();
-                    this.idToGizmoPos.put(tokens.get(1), new Vect(x, y));
+                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
                     break;
 
                 case "RightFlipper":
@@ -152,7 +150,7 @@ public class Loader {
                         throw error;
                     }
                     model.addRightFlipper();
-                    this.idToGizmoPos.put(tokens.get(1), new Vect(x, y));
+                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
                     break;
 
                 case "Absorber":
@@ -163,7 +161,7 @@ public class Loader {
                     Integer x1 = Integer.parseInt(tokens.get(4));
                     Integer y1 = Integer.parseInt(tokens.get(5));
                     model.addAbsorber(x1 - x, y1 - y);
-                    this.idToGizmoPos.put(tokens.get(1), new Vect(x, y));
+                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
                     break;
                 
                 default:
@@ -177,7 +175,6 @@ public class Loader {
     }
 
     private void dependentCommand(Integer lineNum, List<String> tokens) throws SyntaxError {
-        Gizmo gizmo;
         SyntaxError error = new SyntaxError(lineNum, String.join(" ", tokens), "Invalid command.");
         try {
             switch (tokens.get(0)) {
@@ -188,15 +185,15 @@ public class Loader {
                         throw error;
                     }
                     
-                    if (this.idToBallPos.containsKey(tokens.get(1))) {
-                    	Vect ballPos = this.idToBallPos.get(tokens.get(1));
-                    	model.select(ballPos.x(), ballPos.y());
+                    if (this.idToBalls.containsKey(tokens.get(1))) {
+                    	ReadBall ball = this.idToBalls.get(tokens.get(1));
+                    	model.select(ball.getX(), ball.getY());
                     	model.move(Double.parseDouble(tokens.get(2)), Double.parseDouble(tokens.get(3)));
                     	break;
                     }
-                    else if (this.idToGizmoPos.containsKey(tokens.get(1))) {
-                    	Vect gizmoPos = this.idToGizmoPos.get(tokens.get(1));
-                    	model.select(gizmoPos.x(), gizmoPos.y());
+                    else if (this.idToGizmos.containsKey(tokens.get(1))) {
+                    	ReadGizmo gizmo = this.idToGizmos.get(tokens.get(1));
+                    	model.select(gizmo.getX(), gizmo.getY());
                     	model.move(Integer.parseInt(tokens.get(2)), Integer.parseInt(tokens.get(3)));
                     	break;
                     }
@@ -209,9 +206,9 @@ public class Loader {
                         throw error;
                     }
                     
-                    if (this.idToGizmoPos.containsKey(tokens.get(1))) {
-                    	Vect gizmoPos = this.idToGizmoPos.get(tokens.get(1));
-                    	model.select(gizmoPos.x(), gizmoPos.y());
+                    if (this.idToGizmos.containsKey(tokens.get(1))) {
+                    	ReadGizmo gizmo = this.idToGizmos.get(tokens.get(1));
+                    	model.select(gizmo.getX(), gizmo.getY());
                     	model.rotateGizmo();
                     	break;
                     }
@@ -225,14 +222,14 @@ public class Loader {
                         throw error;
                     }
                     
-                    if (this.idToGizmoPos.containsKey(tokens.get(1))) {
-                    	Vect gizmoPos = this.idToGizmoPos.get(tokens.get(1));
-                    	model.select(gizmoPos.x(), gizmoPos.y());
+                    if (this.idToGizmos.containsKey(tokens.get(1))) {
+                    	ReadGizmo gizmo = this.idToGizmos.get(tokens.get(1));
+                    	model.select(gizmo.getX(), gizmo.getY());
                     	model.delete();
                     	break;
-                    } else if (this.idToBallPos.containsKey(tokens.get(1))){
-                    	Vect ballPos = this.idToBallPos.get(tokens.get(1));
-                    	model.select(ballPos.x(), ballPos.y());
+                    } else if (this.idToBalls.containsKey(tokens.get(1))){
+                    	ReadBall ball = this.idToBalls.get(tokens.get(1));
+                    	model.select(ball.getX(), ball.getY());
                     	model.delete();
                     	break;
                     }
@@ -246,12 +243,12 @@ public class Loader {
                         throw error;
                     }
                     
-                    if (this.idToGizmoPos.containsKey(tokens.get(2)) == false) {
+                    if (this.idToGizmos.containsKey(tokens.get(2)) == false) {
                         error.setMessage(tokens.get(2) + " is not an existing gizmo.");
                         throw error;
                     } else {
-                    	Vect gizmoPos = this.idToGizmoPos.get(tokens.get(2));
-                    	model.select(gizmoPos.x(), gizmoPos.y());
+                    	ReadGizmo gizmo = this.idToGizmos.get(tokens.get(2));
+                    	model.select(gizmo.getX(), gizmo.getY());
                     }
                     
                     if (tokens.get(1).equals("OuterWalls")) {
@@ -259,11 +256,11 @@ public class Loader {
                         break;
                     }
                     
-                    if (this.idToGizmoPos.containsKey(tokens.get(1)) == false) {
+                    if (this.idToGizmos.containsKey(tokens.get(1)) == false) {
                         error.setMessage(tokens.get(1) + " is not an existing gizmo.");
                         throw error;
                     } else {
-                    	ReadGizmo source = this.getGizmoAt(this.idToGizmoPos.get(tokens.get(1)));
+                    	ReadGizmo source = this.idToGizmos.get(tokens.get(1));
                     	this.model.triggerOnGizmo(source);
                     }
                     
@@ -275,12 +272,12 @@ public class Loader {
                         throw error;
                     }
                     
-                    if (this.idToGizmoPos.containsKey(tokens.get(4)) == false) {
+                    if (this.idToGizmos.containsKey(tokens.get(4)) == false) {
                         error.setMessage(tokens.get(4) + " is not an existing gizmo.");
                         throw error;
                     } else {
-                    	Vect gizmoPos = this.idToGizmoPos.get(tokens.get(4));
-                    	this.model.select(gizmoPos.x(), gizmoPos.y());
+                    	ReadGizmo gizmo = this.idToGizmos.get(tokens.get(4));
+                    	this.model.select(gizmo.getX(), gizmo.getY());
                     }
                     
                     Integer keyCode = Integer.parseInt(tokens.get(2));
@@ -302,10 +299,17 @@ public class Loader {
         }
     }
     
-    private ReadGizmo getGizmoAt(Vect position) {
+    private ReadGizmo getGizmoAt(int x, int y) {
     	Collection<ReadGizmo> gizmos = this.model.getGizmos();
     	return gizmos.stream()
-                .filter(g -> (g.getX() == (int)position.x()) && (g.getY() == (int)position.y()))
+                .filter(g -> (g.getX() == x) && (g.getY() == y))
+                .findFirst().orElse(null);
+    }
+    
+    private ReadBall getBallAt(double x, double y) {
+    	Collection<ReadBall> balls = this.model.getBalls();
+    	return balls.stream()
+                .filter(b -> (b.getX() == x) && (b.getY() == y))
                 .findFirst().orElse(null);
     }
 

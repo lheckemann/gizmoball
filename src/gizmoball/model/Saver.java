@@ -8,11 +8,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import gizmoball.model.gizmos.Gizmo;
-import gizmoball.model.gizmos.GizmoTypeException;
 import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.model.gizmos.ReadGizmo.GizmoType;
-import physics.Vect;
 
 public class Saver {
 
