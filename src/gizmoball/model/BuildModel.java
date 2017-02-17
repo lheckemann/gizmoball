@@ -1,5 +1,10 @@
 package gizmoball.model;
 
+import java.util.Map;
+import java.util.Set;
+
+import gizmoball.model.gizmos.ReadGizmo;
+
 public interface BuildModel extends ReadModel {
     /**
      * Selects the ball or gizmo at the provided location as an operand in
@@ -126,4 +131,21 @@ public interface BuildModel extends ReadModel {
      * friction.
      */
     void reset();
+
+    /***
+     * Returns a mapping from a Gizmo to the Gizmos it trigger
+     */
+	Map<ReadGizmo, Set<ReadGizmo>> getGizmoToGizmoMapping();
+
+	/***
+	 * Returns a mapping from a key release to all of the Gizmos it triggers
+	 */
+	Map<Integer, Set<ReadGizmo>> getKeyReleaseToGizmoMapping();
+
+	/***
+	 * Returns a mapping from a key press to all of the Gizmos it triggers
+	 */
+	Map<Integer, Set<ReadGizmo>> getKeyPressToGizmoMapping();
+   
+    
 }
