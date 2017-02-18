@@ -22,7 +22,6 @@ public class SaveListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
-            chooser.setFileFilter(new FileNameExtensionFilter("GizmoBall File", "gzm"));
             if (JFileChooser.APPROVE_OPTION == chooser.showSaveDialog(null)) {
                 new Saver(model).save(new FileOutputStream(chooser.getSelectedFile()));
             }
