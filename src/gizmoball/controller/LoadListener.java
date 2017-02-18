@@ -26,7 +26,7 @@ public class LoadListener implements ActionListener {
         try {
             JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
             if (JFileChooser.APPROVE_OPTION == chooser.showOpenDialog(null)) {
-                new Loader(model).load(new FileInputStream(chooser.getSelectedFile()));
+                model.load(new FileInputStream(chooser.getSelectedFile()));
                 view.updateBoard();
             }
         } catch (FileNotFoundException fnfe) {

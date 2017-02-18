@@ -373,4 +373,34 @@ public class Model implements BuildModel, RunModel {
         }
         return copy;
     }
+
+    public void load(InputStream input) throws SyntaxError {
+        double gravity = this.gravity;
+        double mu = this.mu;
+        double mu2 = this.mu2;
+        Set<Gizmo> gizmos = new HashSet<>(this.gizmos);
+        Set<Ball> balls = new HashSet<>(this.balls);
+        Map<Integer,Set<Gizmo>> keyPressMap = new HashMap<>(this.keyPressMap);
+        Map<Integer,Set<Gizmo>> keyReleaseMap = new HashMap<>(this.keyReleaseMap);
+        Map<Gizmo,Set<Gizmo>> gizmoMap = new HashMap<>(this.gizmoMap);
+        Set<Gizmo> wallTriggers = new HashSet<>(this.wallTriggers);
+        try {
+            new Loader(this).load(input);
+        } catch (SyntaxError e) {
+            this.gravity = gravity;
+            this.mu = mu;
+            this.mu2 = mu2;
+            this.gizmos = gizmos;
+            this.balls = balls;
+            this.keyPressMap = keyPressMap;
+            this.keyReleaseMap = keyReleaseMap;
+            this.gizmoMap = gizmoMap;
+            this.wallTriggers = wallTriggers;
+            throw e;
+        }
+    }
+
+    public void save(OutputStream output) {
+        new Saver(this).save(output);
+    }
 }

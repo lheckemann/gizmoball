@@ -23,7 +23,7 @@ public class SaveListener implements ActionListener {
         try {
             JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
             if (JFileChooser.APPROVE_OPTION == chooser.showSaveDialog(null)) {
-                new Saver(model).save(new FileOutputStream(chooser.getSelectedFile()));
+                model.save(new FileOutputStream(chooser.getSelectedFile()));
             }
         } catch (FileNotFoundException fnfe) {
             JOptionPane.showMessageDialog(null, fnfe.getMessage(), "File not found", JOptionPane.ERROR_MESSAGE);
