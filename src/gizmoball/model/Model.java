@@ -373,14 +373,4 @@ public class Model implements BuildModel, RunModel {
         }
         return copy;
     }
-
-    public void load(InputStream stream) throws SyntaxError {
-        Loader loader = new Loader(this);
-        loader.load(stream);
-    }
-
-    public void save(OutputStream stream) throws FileNotFoundException {
-        Saver saver = new Saver(this);
-        saver.save(stream);
-    }
 }

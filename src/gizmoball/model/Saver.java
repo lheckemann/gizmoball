@@ -17,7 +17,7 @@ public class Saver {
         this.taggedBalls = this.getTaggedBalls(model.getBalls());
     }
 
-    protected void save(OutputStream output) throws FileNotFoundException {
+    public void save(OutputStream output) throws FileNotFoundException {
         PrintWriter writer = new PrintWriter(output);
         this.dumpGizmoDeclarations(writer);
         this.dumpBallDeclarations(writer);

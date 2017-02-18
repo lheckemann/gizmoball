@@ -1,15 +1,16 @@
 package gizmoball.controller;
 
-import gizmoball.model.Model;
-import gizmoball.model.SyntaxError;
-import gizmoball.view.GizmoBallView;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+
+import gizmoball.model.Model;
+import gizmoball.model.Loader;
+import gizmoball.model.SyntaxError;
+import gizmoball.view.GizmoBallView;
 
 public class LoadListener implements ActionListener {
     private final Model model;
@@ -25,7 +26,7 @@ public class LoadListener implements ActionListener {
         try {
             JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
             if (JFileChooser.APPROVE_OPTION == chooser.showOpenDialog(null)) {
-                model.load(new FileInputStream(chooser.getSelectedFile()));
+                new Loader(model).load(new FileInputStream(chooser.getSelectedFile()));
                 view.updateBoard();
             }
         } catch (FileNotFoundException fnfe) {
