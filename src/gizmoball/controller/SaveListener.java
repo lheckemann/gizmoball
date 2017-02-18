@@ -24,13 +24,7 @@ public class SaveListener implements ActionListener {
             JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
             chooser.setFileFilter(new FileNameExtensionFilter("GizmoBall File", "gzm"));
             if (JFileChooser.APPROVE_OPTION == chooser.showSaveDialog(null)) {
-                //If the file exists just write to the existing file
-                if (chooser.getSelectedFile().exists()) {
-                    new Saver(model).save(new FileOutputStream(chooser.getSelectedFile()));
-                } //Otherwise add the .gzm extension and write to a new file
-                else {
-                    new Saver(model).save(new FileOutputStream(new File(chooser.getSelectedFile().toString() + ".gzm")));
-                }
+                new Saver(model).save(new FileOutputStream(chooser.getSelectedFile()));
             }
         } catch (FileNotFoundException fnfe) {
             JOptionPane.showMessageDialog(null, fnfe.getMessage(), "File not found", JOptionPane.ERROR_MESSAGE);
