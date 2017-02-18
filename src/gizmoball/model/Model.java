@@ -384,6 +384,7 @@ public class Model implements BuildModel, RunModel {
         Map<Integer,Set<Gizmo>> keyReleaseMap = new HashMap<>(this.keyReleaseMap);
         Map<Gizmo,Set<Gizmo>> gizmoMap = new HashMap<>(this.gizmoMap);
         Set<Gizmo> wallTriggers = new HashSet<>(this.wallTriggers);
+        this.reset();
         try {
             new Loader(this).load(input);
         } catch (SyntaxError e) {

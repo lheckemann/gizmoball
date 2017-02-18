@@ -22,35 +22,26 @@ public class Loader {
     }
 
     public void load(InputStream input) throws SyntaxError {
-        BuildModel tempModel = model;
-        model.reset();
-
         int n = 0;
         Map<Integer, List<String>> dependent = new HashMap<>();
-        try {
-            try (Scanner scanner = new Scanner(input)) {
-                while (scanner.hasNextLine()) {
-                    n++;
-                    String line = scanner.nextLine().trim();
-                    if (!line.isEmpty()) {
-                        List<String> tokens = Arrays.asList(line.split("\\s+"));
-                        if (DEPENDENT.contains(tokens.get(0))) {
-                            dependent.put(n, tokens);
-                        } else if (GLOBAL.contains(tokens.get(0))) {
-                            this.globalCommand(n, tokens);
-                        } else {
-                            this.creationCommand(n, tokens);
-                        }
+        try (Scanner scanner = new Scanner(input)) {
+            while (scanner.hasNextLine()) {
+                n++;
+                String line = scanner.nextLine().trim();
+                if (!line.isEmpty()) {
+                    List<String> tokens = Arrays.asList(line.split("\\s+"));
+                    if (DEPENDENT.contains(tokens.get(0))) {
+                        dependent.put(n, tokens);
+                    } else if (GLOBAL.contains(tokens.get(0))) {
+                        this.globalCommand(n, tokens);
+                    } else {
+                        this.creationCommand(n, tokens);
                     }
                 }
             }
-            for (Integer lineNumber : dependent.keySet()) {
-                this.dependentCommand(lineNumber, dependent.get(lineNumber));
-            }
-        } catch (SyntaxError e) {
-            // FIXME: This won't restore the model to its original state
-            this.model = tempModel;
-            throw e;
+        }
+        for (Integer lineNumber : dependent.keySet()) {
+            this.dependentCommand(lineNumber, dependent.get(lineNumber));
         }
     }
 
