@@ -192,7 +192,7 @@ public class Saver {
     }
 
     private void dumpConnectCommands(PrintWriter writer) {
-        Map<ReadGizmo, Set<ReadGizmo>> gizmoMap = this.model.getGizmoToGizmoMapping();
+        Map<ReadGizmo, Set<ReadGizmo>> gizmoMap = this.model.getGizmoToGizmoMap();
         for (ReadGizmo from : gizmoMap.keySet()) {
             String fromId = this.getGizmoId(from);
             for (ReadGizmo to : gizmoMap.get(from)) {
@@ -203,13 +203,13 @@ public class Saver {
     }
 
     private void dumpKeyConnectCommands(PrintWriter writer) {
-        Map<Integer, Set<ReadGizmo>> keyPressMap = this.model.getKeyPressToGizmoMapping();
+        Map<Integer, Set<ReadGizmo>> keyPressMap = this.model.getKeyPressToGizmoMap();
         for (Integer key : keyPressMap.keySet()) {
             for (ReadGizmo to : keyPressMap.get(key)) {
                 writer.format("KeyConnect key %d down %s\n", key, this.getGizmoId(to));
             }
         }
-        Map<Integer, Set<ReadGizmo>> keyReleaseMap = this.model.getKeyReleaseToGizmoMapping();
+        Map<Integer, Set<ReadGizmo>> keyReleaseMap = this.model.getKeyReleaseToGizmoMap();
         for (Integer key : keyReleaseMap.keySet()) {
             for (ReadGizmo to : keyReleaseMap.get(key)) {
                 writer.format("KeyConnect key %d up %s\n", key, this.getGizmoId(to));
