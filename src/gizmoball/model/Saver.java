@@ -1,28 +1,22 @@
 package gizmoball.model;
 
-import java.io.FileNotFoundException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 
 import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 
 public class Saver {
-
     private BuildModel model;
-    private Map<String, ReadGizmo> idToGizmo;
-    private Map<String, ReadBall> idToBall;
-    
+    private Map<ReadGizmo, String> taggedGizmos;
+    private Map<ReadBall, String> taggedBalls;
+
     public Saver(BuildModel model) {
         this.model = model;
-        this.idToGizmo = new HashMap<>();
-        this.idToBall = new HashMap<>();
+        this.taggedGizmos = this.getTaggedGizmos(model.getGizmos());
+        this.taggedBalls = this.getTaggedBalls(model.getBalls());
     }
-    
+
     protected void save(OutputStream output) throws FileNotFoundException {
         PrintWriter writer = new PrintWriter(output);
         this.dumpGizmoDeclarations(writer);
@@ -33,21 +27,7 @@ public class Saver {
         this.dumpFrictionGravityDeclarations(writer);
         writer.close();
     }
-    
-    private Set<String> getIdsForType(GizmoType type) {
-        Set<String> idsOfSelectedType = new HashSet<>();
-        
-        GizmoType currGizmoType;
-        for (Map.Entry<String, ReadGizmo> entry: this.idToGizmo.entrySet()) {
-            currGizmoType = entry.getValue().getType();
-            if (currGizmoType.equals(type)) {
-                idsOfSelectedType.add(entry.getKey());
-            }
-        }
-        
-        return idsOfSelectedType;
-    }
-    
+
     private String getTypeIdPrefix(GizmoType type) {
         switch (type) {
             case TRIANGLE:
@@ -66,70 +46,28 @@ public class Saver {
                 return "";
         }
     }
-    
-    private int extractIdNumber(String existingId) {
-        String idNumber = "";
-        for (int i=0; i < existingId.length(); i++) {
-            if (Character.isDigit(existingId.charAt(i))) {
-                idNumber += existingId.charAt(i);
-            }
+
+    private Map<ReadGizmo,String> getTaggedGizmos(Collection<ReadGizmo> gizmos) {
+        int i = 0;
+        Map<ReadGizmo,String> tagged = new HashMap<>();
+        for (ReadGizmo gizmo : gizmos) {
+            tagged.put(gizmo, this.getTypeIdPrefix(gizmo.getType()) + i);
         }
-        
-        return Integer.parseInt(idNumber);
-    }
-    
-    private String createGizmoId(ReadGizmo gizmo) {
-        String idPrefix = this.getTypeIdPrefix(gizmo.getType());
-        
-        int highestIdNumber = -1;
-        int currentIdNumber = 0;
-        
-        for(String existingId: this.getIdsForType(gizmo.getType())) {
-            currentIdNumber = this.extractIdNumber(existingId);
-            if (currentIdNumber > highestIdNumber) {
-                highestIdNumber = currentIdNumber;
-            }
-        }
-        
-        highestIdNumber++;
-        
-        return idPrefix + highestIdNumber;
-    }
-    
-    private String createBallId(ReadBall ball) {
-        int highestIdNumber = -1;
-        int currentIdNumber = 0;
-        
-        for(String existingId: this.idToBall.keySet()) {
-            currentIdNumber = this.extractIdNumber(existingId);
-            if (currentIdNumber > highestIdNumber) {
-                highestIdNumber = currentIdNumber;
-            }
-        }
-        
-        highestIdNumber++;
-        
-        return "B" + highestIdNumber;
-    }
-    
-    private String getGizmoId(ReadGizmo gizmo) {
-        for (Map.Entry<String, ReadGizmo> entry: this.idToGizmo.entrySet()) {
-            if (entry.getValue().equals(gizmo)) {
-                return entry.getKey();
-            }
-        }
-        
-        return "";
+        return tagged;
     }
 
+    private Map<ReadBall,String> getTaggedBalls(Collection<ReadBall> balls) {
+        int i = 0;
+        Map<ReadBall,String> tagged = new HashMap<>();
+        for (ReadBall ball : balls) {
+            tagged.put(ball, "B" + i);
+        }
+        return tagged;
+    }
 
-    //Returns an output stream containing all of
-    //the Gizmo declarations for Gizmos in this model
-   private void dumpGizmoDeclarations(PrintWriter writer) {
-        for (ReadGizmo gizmo : this.model.getGizmos()) {
-            
-            String id = this.createGizmoId(gizmo);
-            this.idToGizmo.put(id, gizmo);
+    private void dumpGizmoDeclarations(PrintWriter writer) {
+        for (ReadGizmo gizmo : this.taggedGizmos.keySet()) {
+            String id = this.taggedGizmos.get(gizmo);
             if (gizmo.getType() == GizmoType.ABSORBER) {
                 writer.format("%s %s %d %d %d %d\n",
                         this.convertGizmoTypeToString(gizmo.getType()),
@@ -168,12 +106,9 @@ public class Saver {
     }
 
     private void dumpBallDeclarations(PrintWriter writer) {
-        for (ReadBall ball: this.model.getBalls()) {
-            
-            String id = this.createBallId(ball);
-            this.idToBall.put(id, ball);
+        for (ReadBall ball: this.taggedBalls.keySet()) {
             writer.format("Ball %s %f %f %f %f\n",
-                    id,
+                    this.taggedBalls.get(ball),
                     ball.getX(),
                     ball.getY(),
                     ball.getVelocityX(),
@@ -183,36 +118,33 @@ public class Saver {
     }
 
     private void dumpRotateCommands(PrintWriter writer) {
-        for (ReadGizmo gizmo: model.getGizmos()) {
-            String id = this.getGizmoId(gizmo);
+        for (ReadGizmo gizmo: this.taggedGizmos.keySet()) {
             for (int i = 0; i < gizmo.getRotation().getTurns(); i++) {
-                writer.format("Rotate %s\n", id);
+                writer.format("Rotate %s\n", this.taggedGizmos.get(gizmo));
             }
         }
     }
 
     private void dumpConnectCommands(PrintWriter writer) {
-        Map<ReadGizmo, Set<ReadGizmo>> gizmoMap = this.model.getGizmoToGizmoMap();
-        for (ReadGizmo from : gizmoMap.keySet()) {
-            String fromId = this.getGizmoId(from);
-            for (ReadGizmo to : gizmoMap.get(from)) {
-                String toId = this.getGizmoId(to);
-                writer.format("Connect %s %s\n", fromId, toId);
+        Map<ReadGizmo, Set<ReadGizmo>> map = this.model.getGizmoToGizmoMap();
+        for (ReadGizmo from : map.keySet()) {
+            for (ReadGizmo to : map.get(from)) {
+                writer.format("Connect %s %s\n", this.taggedGizmos.get(from), this.taggedGizmos.get(to));
             }
         }
     }
 
     private void dumpKeyConnectCommands(PrintWriter writer) {
-        Map<Integer, Set<ReadGizmo>> keyPressMap = this.model.getKeyPressToGizmoMap();
-        for (Integer key : keyPressMap.keySet()) {
-            for (ReadGizmo to : keyPressMap.get(key)) {
-                writer.format("KeyConnect key %d down %s\n", key, this.getGizmoId(to));
+        Map<Integer, Set<ReadGizmo>> pressMap = this.model.getKeyPressToGizmoMap();
+        for (Integer key : pressMap.keySet()) {
+            for (ReadGizmo to : pressMap.get(key)) {
+                writer.format("KeyConnect key %d down %s\n", key, this.taggedGizmos.get(to));
             }
         }
-        Map<Integer, Set<ReadGizmo>> keyReleaseMap = this.model.getKeyReleaseToGizmoMap();
-        for (Integer key : keyReleaseMap.keySet()) {
-            for (ReadGizmo to : keyReleaseMap.get(key)) {
-                writer.format("KeyConnect key %d up %s\n", key, this.getGizmoId(to));
+        Map<Integer, Set<ReadGizmo>> releaseMap = this.model.getKeyReleaseToGizmoMap();
+        for (Integer key : releaseMap.keySet()) {
+            for (ReadGizmo to : releaseMap.get(key)) {
+                writer.format("KeyConnect key %d up %s\n", key, this.taggedGizmos.get(to));
             }
         }
     }
