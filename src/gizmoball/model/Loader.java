@@ -1,21 +1,15 @@
 package gizmoball.model;
 
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 import gizmoball.model.gizmos.ReadGizmo;
 
 public class Loader {
-
     private static final Set<String> DEPENDENT = new HashSet<>(Arrays.asList(
             "Rotate", "Delete", "Move", "Connect", "KeyConnect"));
+    private static final Set<String> GLOBAL = new HashSet<>(Arrays.asList(
+            "Gravity", "Friction"));
 
     private BuildModel model;
     private Map<String, ReadGizmo> idToGizmos;
@@ -42,8 +36,8 @@ public class Loader {
                         List<String> tokens = Arrays.asList(line.split("\\s+"));
                         if (DEPENDENT.contains(tokens.get(0))) {
                             dependent.put(n, tokens);
-                        } else if(tokens.get(0).equals("Gravity") || tokens.get(0).equals("Friction")){
-                            this.frictionGravityCommand(n, tokens);
+                        } else if (GLOBAL.contains(tokens.get(0))) {
+                            this.globalCommand(n, tokens);
                         } else {
                             this.creationCommand(n, tokens);
                         }
@@ -54,13 +48,13 @@ public class Loader {
                 this.dependentCommand(lineNumber, dependent.get(lineNumber));
             }
         } catch (SyntaxError e) {
+            // FIXME: This won't restore the model to its original state
             this.model = tempModel;
             throw e;
         }
     }
 
-    private void frictionGravityCommand(Integer lineNum, List<String> tokens) throws SyntaxError {
-
+    private void globalCommand(Integer lineNum, List<String> tokens) throws SyntaxError {
         SyntaxError error = new SyntaxError(lineNum, String.join(" ", tokens), "Invalid command.");
         try {
             switch (tokens.get(0)) {
@@ -70,7 +64,7 @@ public class Loader {
                         throw error;
                     }
                     model.setGravity(Double.parseDouble(tokens.get(1)));
-                    break;
+                    return;
 
                 case "Friction":
                     error.setMessage("Friction <float> <float>");
@@ -79,7 +73,7 @@ public class Loader {
                     }
                     model.setFriction(Double.parseDouble(tokens.get(1)),
                             Double.parseDouble(tokens.get(2)));
-                    break;
+                    return;
             }
         }
         catch(IndexOutOfBoundsException|NumberFormatException e) {
@@ -100,9 +94,9 @@ public class Loader {
                 model.select(x, y);
                 model.addBall(Double.parseDouble(tokens.get(4)), Double.parseDouble(tokens.get(5)));
                 this.idToBalls.put(tokens.get(1), this.getBallAt(x, y));
-
                 return;
             }
+
             Integer x = Integer.parseInt(tokens.get(2));
             Integer y = Integer.parseInt(tokens.get(3));
             model.select(x, y);
@@ -115,7 +109,7 @@ public class Loader {
                     }
                     model.addCircle();
                     this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
-                    break;
+                    return;
 
                 case "Triangle":
                     error.setMessage("Triangle <identifier> <int> <int>");
@@ -124,7 +118,7 @@ public class Loader {
                     }
                     model.addTriangle();
                     this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
-                    break;
+                    return;
 
                 case "Square":
                     error.setMessage("Square <identifier> <int> <int>");
@@ -133,7 +127,7 @@ public class Loader {
                     }
                     model.addSquare();
                     this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
-                    break;
+                    return;
 
                 case "LeftFlipper":
                     error.setMessage("LeftFlipper <identifier> <int> <int>");
@@ -142,7 +136,7 @@ public class Loader {
                     }
                     model.addLeftFlipper();
                     this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
-                    break;
+                    return;
 
                 case "RightFlipper":
                     error.setMessage("RightFlipper <identifier> <int> <int>");
@@ -151,7 +145,7 @@ public class Loader {
                     }
                     model.addRightFlipper();
                     this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
-                    break;
+                    return;
 
                 case "Absorber":
                     error.setMessage("Absorber <identifier> <int> <int> <int> <int>");
@@ -162,14 +156,18 @@ public class Loader {
                     Integer y1 = Integer.parseInt(tokens.get(5));
                     model.addAbsorber(x1 - x, y1 - y);
                     this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
-                    break;
+                    return;
 
                 default:
                     throw error;
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw error;
-        } catch (PositionOverlapException | PositionOutOfBoundsException e) {
+        } catch (PositionOutOfBoundsException e) {
+            error.setMessage("Position out of arena bounds.");
+            throw error;
+        } catch (PositionOverlapException e) {
+            error.setMessage("Position overlaping with another element.");
             throw error;
         }
     }
@@ -189,13 +187,13 @@ public class Loader {
                         ReadBall ball = this.idToBalls.get(tokens.get(1));
                         model.select(ball.getX(), ball.getY());
                         model.move(Double.parseDouble(tokens.get(2)), Double.parseDouble(tokens.get(3)));
-                        break;
+                        return;
                     }
                     else if (this.idToGizmos.containsKey(tokens.get(1))) {
                         ReadGizmo gizmo = this.idToGizmos.get(tokens.get(1));
                         model.select(gizmo.getX(), gizmo.getY());
                         model.move(Integer.parseInt(tokens.get(2)), Integer.parseInt(tokens.get(3)));
-                        break;
+                        return;
                     }
                     error.setMessage(tokens.get(1) + " does not refer to an existing object.");
                     throw error;
@@ -210,7 +208,7 @@ public class Loader {
                         ReadGizmo gizmo = this.idToGizmos.get(tokens.get(1));
                         model.select(gizmo.getX(), gizmo.getY());
                         model.rotateGizmo();
-                        break;
+                        return;
                     }
 
                     error.setMessage(tokens.get(1) + " does not refer to an existing gizmo.");
@@ -226,12 +224,12 @@ public class Loader {
                         ReadGizmo gizmo = this.idToGizmos.get(tokens.get(1));
                         model.select(gizmo.getX(), gizmo.getY());
                         model.delete();
-                        break;
+                        return;
                     } else if (this.idToBalls.containsKey(tokens.get(1))){
                         ReadBall ball = this.idToBalls.get(tokens.get(1));
                         model.select(ball.getX(), ball.getY());
                         model.delete();
-                        break;
+                        return;
                     }
 
                     error.setMessage(tokens.get(1) + " does not refer to an existing object.");
@@ -253,7 +251,7 @@ public class Loader {
 
                     if (tokens.get(1).equals("OuterWalls")) {
                         model.triggerOnOuterWalls();
-                        break;
+                        return;
                     }
 
                     if (this.idToGizmos.containsKey(tokens.get(1)) == false) {
@@ -264,7 +262,7 @@ public class Loader {
                         this.model.triggerOnGizmo(source);
                     }
 
-                    break;
+                    return;
 
                 case "KeyConnect":
                     error.setMessage("KeyConnect key <keynum> <up-or-down> <identifier>");
@@ -289,14 +287,18 @@ public class Loader {
                         error.setMessage("KeyConnect key <keynum> <up-or-down> <identifier>");
                         throw error;
                     }
-                    break;
+                    return;
 
                 default:
                     throw error;
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw error;
-        } catch (PositionOverlapException | PositionOutOfBoundsException e) {
+        } catch (PositionOutOfBoundsException e) {
+            error.setMessage("Position out of arena bounds.");
+            throw error;
+        } catch (PositionOverlapException e) {
+            error.setMessage("Position overlaping with another element.");
             throw error;
         }
     }
