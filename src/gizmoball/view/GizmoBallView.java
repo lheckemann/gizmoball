@@ -83,6 +83,6 @@ public class GizmoBallView {
     }
 
     public void updateBoard() {
-    	this.gameView.updateBoard();
+        this.gameView.updateBoard();
     }
 }

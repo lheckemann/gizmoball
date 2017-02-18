@@ -13,23 +13,23 @@ import java.util.Set;
 import gizmoball.model.gizmos.ReadGizmo;
 
 public class Loader {
-	
-	private static final Set<String> DEPENDENT = new HashSet<>(Arrays.asList(
+    
+    private static final Set<String> DEPENDENT = new HashSet<>(Arrays.asList(
             "Rotate", "Delete", "Move", "Connect", "KeyConnect"));
-	
-	private BuildModel model;
-	private Map<String, ReadGizmo> idToGizmos;
-	private Map<String, ReadBall> idToBalls;
-	
-	protected Loader(BuildModel model) {
-		this.model = model;
-		this.idToGizmos = new HashMap<>();
-		this.idToBalls = new HashMap<>();
-	}
+    
+    private BuildModel model;
+    private Map<String, ReadGizmo> idToGizmos;
+    private Map<String, ReadBall> idToBalls;
+    
+    protected Loader(BuildModel model) {
+        this.model = model;
+        this.idToGizmos = new HashMap<>();
+        this.idToBalls = new HashMap<>();
+    }
 
-	protected void load(InputStream input) throws SyntaxError {
+    protected void load(InputStream input) throws SyntaxError {
         BuildModel tempModel = model;
-    	model.reset();
+        model.reset();
 
         int n = 0;
         Map<Integer, List<String>> dependent = new HashMap<>();
@@ -45,7 +45,7 @@ public class Loader {
                         } else if(tokens.get(0).equals("Gravity") || tokens.get(0).equals("Friction")){
                             this.frictionGravityCommand(n, tokens);
                         } else {
-                        	this.creationCommand(n, tokens);
+                            this.creationCommand(n, tokens);
                         }
                     }
                 }
@@ -60,31 +60,31 @@ public class Loader {
     }
     
     private void frictionGravityCommand(Integer lineNum, List<String> tokens) throws SyntaxError {
-	   
-    	SyntaxError error = new SyntaxError(lineNum, String.join(" ", tokens), "Invalid command.");
-    	try {
-	    	switch (tokens.get(0)) {
-		    	case "Gravity":
-			        error.setMessage("Gravity <float>");
-			        if (tokens.size() != 2) {
-			            throw error;
-			        }
-			        model.setGravity(Double.parseDouble(tokens.get(1)));
-			        break;
-			
-			    case "Friction":
-			        error.setMessage("Friction <float> <float>");
-			        if (tokens.size() != 3) {
-			            throw error;
-			        }
-			        model.setFriction(Double.parseDouble(tokens.get(1)),
-			                Double.parseDouble(tokens.get(2)));
-			        break;
-		    }
-	    }
-	    catch(IndexOutOfBoundsException|NumberFormatException e) {
-	    	throw error;
-	    }
+       
+        SyntaxError error = new SyntaxError(lineNum, String.join(" ", tokens), "Invalid command.");
+        try {
+            switch (tokens.get(0)) {
+                case "Gravity":
+                    error.setMessage("Gravity <float>");
+                    if (tokens.size() != 2) {
+                        throw error;
+                    }
+                    model.setGravity(Double.parseDouble(tokens.get(1)));
+                    break;
+            
+                case "Friction":
+                    error.setMessage("Friction <float> <float>");
+                    if (tokens.size() != 3) {
+                        throw error;
+                    }
+                    model.setFriction(Double.parseDouble(tokens.get(1)),
+                            Double.parseDouble(tokens.get(2)));
+                    break;
+            }
+        }
+        catch(IndexOutOfBoundsException|NumberFormatException e) {
+            throw error;
+        }
     }
 
     private void creationCommand(Integer lineNum, List<String> tokens) throws SyntaxError {
@@ -170,7 +170,7 @@ public class Loader {
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw error;
         } catch (PositionOverlapException | PositionOutOfBoundsException e) {
-        	throw error;
+            throw error;
         }
     }
 
@@ -186,16 +186,16 @@ public class Loader {
                     }
                     
                     if (this.idToBalls.containsKey(tokens.get(1))) {
-                    	ReadBall ball = this.idToBalls.get(tokens.get(1));
-                    	model.select(ball.getX(), ball.getY());
-                    	model.move(Double.parseDouble(tokens.get(2)), Double.parseDouble(tokens.get(3)));
-                    	break;
+                        ReadBall ball = this.idToBalls.get(tokens.get(1));
+                        model.select(ball.getX(), ball.getY());
+                        model.move(Double.parseDouble(tokens.get(2)), Double.parseDouble(tokens.get(3)));
+                        break;
                     }
                     else if (this.idToGizmos.containsKey(tokens.get(1))) {
-                    	ReadGizmo gizmo = this.idToGizmos.get(tokens.get(1));
-                    	model.select(gizmo.getX(), gizmo.getY());
-                    	model.move(Integer.parseInt(tokens.get(2)), Integer.parseInt(tokens.get(3)));
-                    	break;
+                        ReadGizmo gizmo = this.idToGizmos.get(tokens.get(1));
+                        model.select(gizmo.getX(), gizmo.getY());
+                        model.move(Integer.parseInt(tokens.get(2)), Integer.parseInt(tokens.get(3)));
+                        break;
                     }
                     error.setMessage(tokens.get(1) + " does not refer to an existing object.");
                     throw error;
@@ -207,10 +207,10 @@ public class Loader {
                     }
                     
                     if (this.idToGizmos.containsKey(tokens.get(1))) {
-                    	ReadGizmo gizmo = this.idToGizmos.get(tokens.get(1));
-                    	model.select(gizmo.getX(), gizmo.getY());
-                    	model.rotateGizmo();
-                    	break;
+                        ReadGizmo gizmo = this.idToGizmos.get(tokens.get(1));
+                        model.select(gizmo.getX(), gizmo.getY());
+                        model.rotateGizmo();
+                        break;
                     }
                     
                     error.setMessage(tokens.get(1) + " does not refer to an existing gizmo.");
@@ -223,15 +223,15 @@ public class Loader {
                     }
                     
                     if (this.idToGizmos.containsKey(tokens.get(1))) {
-                    	ReadGizmo gizmo = this.idToGizmos.get(tokens.get(1));
-                    	model.select(gizmo.getX(), gizmo.getY());
-                    	model.delete();
-                    	break;
+                        ReadGizmo gizmo = this.idToGizmos.get(tokens.get(1));
+                        model.select(gizmo.getX(), gizmo.getY());
+                        model.delete();
+                        break;
                     } else if (this.idToBalls.containsKey(tokens.get(1))){
-                    	ReadBall ball = this.idToBalls.get(tokens.get(1));
-                    	model.select(ball.getX(), ball.getY());
-                    	model.delete();
-                    	break;
+                        ReadBall ball = this.idToBalls.get(tokens.get(1));
+                        model.select(ball.getX(), ball.getY());
+                        model.delete();
+                        break;
                     }
                     
                     error.setMessage(tokens.get(1) + " does not refer to an existing object.");
@@ -247,8 +247,8 @@ public class Loader {
                         error.setMessage(tokens.get(2) + " is not an existing gizmo.");
                         throw error;
                     } else {
-                    	ReadGizmo gizmo = this.idToGizmos.get(tokens.get(2));
-                    	model.select(gizmo.getX(), gizmo.getY());
+                        ReadGizmo gizmo = this.idToGizmos.get(tokens.get(2));
+                        model.select(gizmo.getX(), gizmo.getY());
                     }
                     
                     if (tokens.get(1).equals("OuterWalls")) {
@@ -260,8 +260,8 @@ public class Loader {
                         error.setMessage(tokens.get(1) + " is not an existing gizmo.");
                         throw error;
                     } else {
-                    	ReadGizmo source = this.idToGizmos.get(tokens.get(1));
-                    	this.model.triggerOnGizmo(source);
+                        ReadGizmo source = this.idToGizmos.get(tokens.get(1));
+                        this.model.triggerOnGizmo(source);
                     }
                     
                     break;
@@ -276,8 +276,8 @@ public class Loader {
                         error.setMessage(tokens.get(4) + " is not an existing gizmo.");
                         throw error;
                     } else {
-                    	ReadGizmo gizmo = this.idToGizmos.get(tokens.get(4));
-                    	this.model.select(gizmo.getX(), gizmo.getY());
+                        ReadGizmo gizmo = this.idToGizmos.get(tokens.get(4));
+                        this.model.select(gizmo.getX(), gizmo.getY());
                     }
                     
                     Integer keyCode = Integer.parseInt(tokens.get(2));
@@ -297,20 +297,20 @@ public class Loader {
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw error;
         } catch (PositionOverlapException | PositionOutOfBoundsException e) {
-        	throw error;
+            throw error;
         }
     }
     
     private ReadGizmo getGizmoAt(int x, int y) {
-    	Collection<ReadGizmo> gizmos = this.model.getGizmos();
-    	return gizmos.stream()
+        Collection<ReadGizmo> gizmos = this.model.getGizmos();
+        return gizmos.stream()
                 .filter(g -> (g.getX() == x) && (g.getY() == y))
                 .findFirst().orElse(null);
     }
     
     private ReadBall getBallAt(double x, double y) {
-    	Collection<ReadBall> balls = this.model.getBalls();
-    	return balls.stream()
+        Collection<ReadBall> balls = this.model.getBalls();
+        return balls.stream()
                 .filter(b -> (b.getX() == x) && (b.getY() == y))
                 .findFirst().orElse(null);
     }

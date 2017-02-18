@@ -19,23 +19,23 @@ import gizmoball.model.ReadModel;
 public class SaveListener implements ActionListener
 {
 
-	private Model model;
+    private Model model;
     public SaveListener(Model model) {
-    	this.model = model;
+        this.model = model;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-    	try {
+        try {
             JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
             chooser.setFileFilter(new FileNameExtensionFilter("GizmoBall File", "gzm"));
             if (JFileChooser.APPROVE_OPTION == chooser.showSaveDialog(null)) {
-            	//If the file exists just write to the existing file
-            	if (chooser.getSelectedFile().exists()) {
-            		model.save(new FileOutputStream(chooser.getSelectedFile()));
-            	} //Otherwise add the .gzm extension and write to a new file
-            	else {
-            		model.save(new FileOutputStream(new File(chooser.getSelectedFile().toString() + ".gzm")));
-            	}
+                //If the file exists just write to the existing file
+                if (chooser.getSelectedFile().exists()) {
+                    model.save(new FileOutputStream(chooser.getSelectedFile()));
+                } //Otherwise add the .gzm extension and write to a new file
+                else {
+                    model.save(new FileOutputStream(new File(chooser.getSelectedFile().toString() + ".gzm")));
+                }
             }
         } catch (FileNotFoundException fnfe) {
             JOptionPane.showMessageDialog(null, fnfe.getMessage(), "File not found", JOptionPane.ERROR_MESSAGE);

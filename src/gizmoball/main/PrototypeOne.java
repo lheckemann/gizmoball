@@ -17,13 +17,13 @@ public class PrototypeOne {
         int x = 1;
         for (Rotation rot : Rotation.values()) {
             model.select(x, 2);
-				try {
-					model.addRightFlipper();
-				} catch (PositionOutOfBoundsException | PositionOverlapException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
+                try {
+                    model.addRightFlipper();
+                } catch (PositionOutOfBoundsException | PositionOverlapException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                
             for (int i = 0; i < rot.getTurns(); i++) {
                 model.rotateGizmo();
             }

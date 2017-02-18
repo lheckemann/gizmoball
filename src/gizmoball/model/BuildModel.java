@@ -141,16 +141,16 @@ public interface BuildModel extends ReadModel {
     /***
      * Returns a mapping from a Gizmo to the Gizmos it trigger
      */
-	Map<ReadGizmo, Set<ReadGizmo>> getGizmoToGizmoMapping();
+    Map<ReadGizmo, Set<ReadGizmo>> getGizmoToGizmoMapping();
 
-	/***
-	 * Returns a mapping from a key release to all of the Gizmos it triggers
-	 */
-	Map<Integer, Set<ReadGizmo>> getKeyReleaseToGizmoMapping();
+    /***
+     * Returns a mapping from a key release to all of the Gizmos it triggers
+     */
+    Map<Integer, Set<ReadGizmo>> getKeyReleaseToGizmoMapping();
 
-	/***
-	 * Returns a mapping from a key press to all of the Gizmos it triggers
-	 */
-	Map<Integer, Set<ReadGizmo>> getKeyPressToGizmoMapping();
+    /***
+     * Returns a mapping from a key press to all of the Gizmos it triggers
+     */
+    Map<Integer, Set<ReadGizmo>> getKeyPressToGizmoMapping();
    
 }

@@ -14,40 +14,40 @@ public class PrototypeTwo {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-            	try {
-					model.addBall(0.0, 0.0);
-				} catch (PositionOverlapException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (PositionOutOfBoundsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            	try {
-					model.move(4, 4);
-				} catch (PositionOverlapException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (PositionOutOfBoundsException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-            	try {
-					model.addAbsorber(19, 2);
-				} catch (PositionOverlapException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (PositionOutOfBoundsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            	try {
-					model.move(0, 18);
-				} catch (PositionOverlapException | PositionOutOfBoundsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            	model.triggerOnKeyPress(32);
+                try {
+                    model.addBall(0.0, 0.0);
+                } catch (PositionOverlapException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                } catch (PositionOutOfBoundsException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                try {
+                    model.move(4, 4);
+                } catch (PositionOverlapException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                } catch (PositionOutOfBoundsException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                try {
+                    model.addAbsorber(19, 2);
+                } catch (PositionOverlapException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (PositionOutOfBoundsException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                try {
+                    model.move(0, 18);
+                } catch (PositionOverlapException | PositionOutOfBoundsException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                model.triggerOnKeyPress(32);
                 GizmoBallView gui = new GizmoBallView(model);
                 JFrame frame = gui.getGUI();
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -11,9 +11,9 @@ import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
 
 public class Model implements BuildModel, RunModel {
-	
-	private double width;
-	private double height;
+    
+    private double width;
+    private double height;
     private double selX;
     private double selY;
     private double gravity = 25;
@@ -47,8 +47,8 @@ public class Model implements BuildModel, RunModel {
     }
 
     private Gizmo getGizmoAt(int x, int y) {
-    	
-    	return this.gizmos.stream()
+        
+        return this.gizmos.stream()
                 .filter(g -> (g.getX() == x && g.getY() == y))
                 .findFirst().orElse(null);
     }
@@ -71,21 +71,21 @@ public class Model implements BuildModel, RunModel {
     public void move(double dX, double dY) throws PositionOverlapException, PositionOutOfBoundsException {
         Gizmo gizmo = this.getGizmoAt((int)this.selX, (int)this.selY);
         if (gizmo != null) {
-        	if (this.positionTaken(dX, dY)) {
-        		throw new PositionOverlapException();
-        	}
-        	else if(this.positionOutOfBounds(dX, dY)) {
-        		throw new PositionOutOfBoundsException();
-        	} else {
-        		gizmo.setX((int) dX);
-        		gizmo.setY((int) dY);
-        		return;
-        	}
+            if (this.positionTaken(dX, dY)) {
+                throw new PositionOverlapException();
+            }
+            else if(this.positionOutOfBounds(dX, dY)) {
+                throw new PositionOutOfBoundsException();
+            } else {
+                gizmo.setX((int) dX);
+                gizmo.setY((int) dY);
+                return;
+            }
         }
         Ball ball = this.getBallAt(this.selX, this.selY);
         if (ball != null) {
-        	ball.setX(dX);
-        	ball.setY(dY);
+            ball.setX(dX);
+            ball.setY(dY);
         }
     }
 
@@ -93,7 +93,7 @@ public class Model implements BuildModel, RunModel {
     public void delete() {
         Gizmo gizmo = this.getGizmoAt((int)this.selX, (int)this.selY);
         if (gizmo != null) {
-        	this.gizmos.remove(gizmo);
+            this.gizmos.remove(gizmo);
             for (Set<Gizmo> listeners : this.gizmoMap.values()) {
                 listeners.remove(gizmo);
             }
@@ -113,12 +113,12 @@ public class Model implements BuildModel, RunModel {
     }
     
     private boolean positionTaken(double dX, double dY) {
-    	
-    	return false;
+        
+        return false;
     }
     
     private boolean positionOutOfBounds(double dX, double dY) {
-    	return false;
+        return false;
     }
 
     @Override
@@ -126,15 +126,15 @@ public class Model implements BuildModel, RunModel {
         Gizmo gizmo = new Absorber(width, height);
         
         if (this.positionTaken(this.selX, this.selY)) {
-        	throw new PositionOverlapException();
+            throw new PositionOverlapException();
         }
         else if (this.positionOutOfBounds(this.selX, this.selY)) {
-        	throw new PositionOutOfBoundsException();
+            throw new PositionOutOfBoundsException();
         }
         else {
-        	gizmo.setX((int)this.selX);
-        	gizmo.setY((int)this.selY);
-        	this.gizmos.add(gizmo);
+            gizmo.setX((int)this.selX);
+            gizmo.setY((int)this.selY);
+            this.gizmos.add(gizmo);
         }
     }
 
@@ -143,15 +143,15 @@ public class Model implements BuildModel, RunModel {
         Gizmo gizmo = new Square();
         
         if (this.positionTaken(this.selX, this.selY)) {
-        	throw new PositionOverlapException();
+            throw new PositionOverlapException();
         }
         else if (this.positionOutOfBounds(this.selX, this.selY)) {
-        	throw new PositionOutOfBoundsException();
+            throw new PositionOutOfBoundsException();
         }
         else {
-        	gizmo.setX((int)this.selX);
-        	gizmo.setY((int)this.selY);
-        	this.gizmos.add(gizmo);
+            gizmo.setX((int)this.selX);
+            gizmo.setY((int)this.selY);
+            this.gizmos.add(gizmo);
         }
     }
 
@@ -160,15 +160,15 @@ public class Model implements BuildModel, RunModel {
         Gizmo gizmo = new Circle();
         
         if (this.positionTaken(this.selX, this.selY)) {
-        	throw new PositionOverlapException();
+            throw new PositionOverlapException();
         }
         else if (this.positionOutOfBounds(this.selX, this.selY)) {
-        	throw new PositionOutOfBoundsException();
+            throw new PositionOutOfBoundsException();
         }
         else {
-        	gizmo.setX((int)this.selX);
-        	gizmo.setY((int)this.selY);
-        	this.gizmos.add(gizmo);
+            gizmo.setX((int)this.selX);
+            gizmo.setY((int)this.selY);
+            this.gizmos.add(gizmo);
         }
     }
 
@@ -177,15 +177,15 @@ public class Model implements BuildModel, RunModel {
         Gizmo gizmo = new Triangle();
         
         if (this.positionTaken(this.selX, this.selY)) {
-        	throw new PositionOverlapException();
+            throw new PositionOverlapException();
         }
         else if (this.positionOutOfBounds(this.selX, this.selY)) {
-        	throw new PositionOutOfBoundsException();
+            throw new PositionOutOfBoundsException();
         }
         else {
-        	gizmo.setX((int)this.selX);
-        	gizmo.setY((int)this.selY);
-        	this.gizmos.add(gizmo);
+            gizmo.setX((int)this.selX);
+            gizmo.setY((int)this.selY);
+            this.gizmos.add(gizmo);
         }
     }
 
@@ -194,15 +194,15 @@ public class Model implements BuildModel, RunModel {
         Gizmo gizmo = new Flipper(false);
         
         if (this.positionTaken(this.selX, this.selY)) {
-        	throw new PositionOverlapException();
+            throw new PositionOverlapException();
         }
         else if (this.positionOutOfBounds(this.selX, this.selY)) {
-        	throw new PositionOutOfBoundsException();
+            throw new PositionOutOfBoundsException();
         }
         else {
-        	gizmo.setX((int)this.selX);
-        	gizmo.setY((int)this.selY);
-        	this.gizmos.add(gizmo);
+            gizmo.setX((int)this.selX);
+            gizmo.setY((int)this.selY);
+            this.gizmos.add(gizmo);
         }
     }
 
@@ -211,15 +211,15 @@ public class Model implements BuildModel, RunModel {
         Gizmo gizmo = new Flipper(true);
         
         if (this.positionTaken(this.selX, this.selY)) {
-        	throw new PositionOverlapException();
+            throw new PositionOverlapException();
         }
         else if (this.positionOutOfBounds(this.selX, this.selY)) {
-        	throw new PositionOutOfBoundsException();
+            throw new PositionOutOfBoundsException();
         }
         else {
-        	gizmo.setX((int)this.selX);
-        	gizmo.setY((int)this.selY);
-        	this.gizmos.add(gizmo);
+            gizmo.setX((int)this.selX);
+            gizmo.setY((int)this.selY);
+            this.gizmos.add(gizmo);
         }
     }
 
@@ -234,19 +234,19 @@ public class Model implements BuildModel, RunModel {
     @Override
     public void addBall(double velocityX, double velocityY) throws PositionOverlapException, PositionOutOfBoundsException {
         
-    	Ball ball = new Ball();
-    	ball.setVelocity(new Vect(velocityX, velocityY));
-    	if(this.positionTaken(this.selX, this.selY)) {
-    		throw new PositionOverlapException();
-    	} 
-    	else if (this.positionOutOfBounds(this.selX, this.selY)) {
-        	throw new PositionOutOfBoundsException();
+        Ball ball = new Ball();
+        ball.setVelocity(new Vect(velocityX, velocityY));
+        if(this.positionTaken(this.selX, this.selY)) {
+            throw new PositionOverlapException();
+        } 
+        else if (this.positionOutOfBounds(this.selX, this.selY)) {
+            throw new PositionOutOfBoundsException();
         }
-    	else {
-    		ball.setX(this.selX);
-    		ball.setY(this.selY);
-    		this.balls.add(ball);
-    	}
+        else {
+            ball.setX(this.selX);
+            ball.setY(this.selY);
+            this.balls.add(ball);
+        }
     }
 
     @Override
@@ -343,56 +343,56 @@ public class Model implements BuildModel, RunModel {
  
     @Override
     public Map<Integer, Set<ReadGizmo>> getKeyPressToGizmoMapping() {
-    	Map<Integer, Set<ReadGizmo>> keyPressToGizmo = new HashMap<>();
-    	
-    	for(Map.Entry<Integer, Set<Gizmo>> entry: this.keyPressMap.entrySet()) {
-    		Set<ReadGizmo> triggeredGizmos = new HashSet<>();
-    		for(Gizmo gizmo: entry.getValue()) {
-    			triggeredGizmos.add(gizmo);
-    		}
-    		keyPressToGizmo.put(entry.getKey(), triggeredGizmos);
-    	}
-    	
-    	return keyPressToGizmo;
+        Map<Integer, Set<ReadGizmo>> keyPressToGizmo = new HashMap<>();
+        
+        for(Map.Entry<Integer, Set<Gizmo>> entry: this.keyPressMap.entrySet()) {
+            Set<ReadGizmo> triggeredGizmos = new HashSet<>();
+            for(Gizmo gizmo: entry.getValue()) {
+                triggeredGizmos.add(gizmo);
+            }
+            keyPressToGizmo.put(entry.getKey(), triggeredGizmos);
+        }
+        
+        return keyPressToGizmo;
     }
     
     @Override
     public Map<Integer, Set<ReadGizmo>> getKeyReleaseToGizmoMapping() {
-    	Map<Integer, Set<ReadGizmo>> keyReleaseToGizmo = new HashMap<>();
-    	
-    	for(Map.Entry<Integer, Set<Gizmo>> entry: this.keyReleaseMap.entrySet()) {
-    		Set<ReadGizmo> triggeredGizmos = new HashSet<>();
-    		for(Gizmo gizmo: entry.getValue()) {
-    			triggeredGizmos.add(gizmo);
-    		}
-    		keyReleaseToGizmo.put(entry.getKey(), triggeredGizmos);
-    	}
-    	
-    	return keyReleaseToGizmo;
+        Map<Integer, Set<ReadGizmo>> keyReleaseToGizmo = new HashMap<>();
+        
+        for(Map.Entry<Integer, Set<Gizmo>> entry: this.keyReleaseMap.entrySet()) {
+            Set<ReadGizmo> triggeredGizmos = new HashSet<>();
+            for(Gizmo gizmo: entry.getValue()) {
+                triggeredGizmos.add(gizmo);
+            }
+            keyReleaseToGizmo.put(entry.getKey(), triggeredGizmos);
+        }
+        
+        return keyReleaseToGizmo;
     }
     
     @Override
     public Map<ReadGizmo, Set<ReadGizmo>> getGizmoToGizmoMapping() {
-    	Map<ReadGizmo, Set<ReadGizmo>> keyReleaseToGizmo = new HashMap<>();
-    	
-    	for(Map.Entry<Gizmo, Set<Gizmo>> entry: this.gizmoMap.entrySet()) {
-    		Set<ReadGizmo> triggeredGizmos = new HashSet<>();
-    		for(Gizmo gizmo: entry.getValue()) {
-    			triggeredGizmos.add(gizmo);
-    		}
-    		keyReleaseToGizmo.put(entry.getKey(), triggeredGizmos);
-    	}
-    	
-    	return keyReleaseToGizmo;
+        Map<ReadGizmo, Set<ReadGizmo>> keyReleaseToGizmo = new HashMap<>();
+        
+        for(Map.Entry<Gizmo, Set<Gizmo>> entry: this.gizmoMap.entrySet()) {
+            Set<ReadGizmo> triggeredGizmos = new HashSet<>();
+            for(Gizmo gizmo: entry.getValue()) {
+                triggeredGizmos.add(gizmo);
+            }
+            keyReleaseToGizmo.put(entry.getKey(), triggeredGizmos);
+        }
+        
+        return keyReleaseToGizmo;
     }
     
     public void load(InputStream stream) throws SyntaxError {
-    	Loader loader = new Loader(this);
-    	loader.load(stream);
+        Loader loader = new Loader(this);
+        loader.load(stream);
     }
     
     public void save(OutputStream stream) throws FileNotFoundException {
-    	Saver saver = new Saver(this);
-    	saver.save(stream);
+        Saver saver = new Saver(this);
+        saver.save(stream);
     }
 }
