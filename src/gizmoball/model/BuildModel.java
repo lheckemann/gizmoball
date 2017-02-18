@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Set;
 
 import gizmoball.model.gizmos.ReadGizmo;
-import physics.Vect;
 
 public interface BuildModel extends ReadModel {
     /**
@@ -21,8 +20,10 @@ public interface BuildModel extends ReadModel {
      * location, this will effectively be a noop.
      * TODO: moving outside of the arena (noop or a deletion?)
      * TODO: moving to an already occupied location
+     * @throws PositionOverlapException 
+     * @throws PositionOutOfBoundsException 
      */
-    void move(double dX, double dY);
+    void move(double dX, double dY) throws PositionOverlapException, PositionOutOfBoundsException;
 
     /**
      * Deletes the current selection.
@@ -32,22 +33,22 @@ public interface BuildModel extends ReadModel {
     void delete();
 
     // TODO
-    void addAbsorber(int width, int height) throws PositionOverlapException;
+    void addAbsorber(int width, int height) throws PositionOverlapException, PositionOutOfBoundsException;
 
     // TODO
-    void addSquare() throws PositionOverlapException;
+    void addSquare() throws PositionOverlapException, PositionOutOfBoundsException;
 
     // TODO
-    void addCircle() throws PositionOverlapException;
+    void addCircle() throws PositionOverlapException, PositionOutOfBoundsException;
 
     // TODO
-    void addTriangle() throws PositionOverlapException;
+    void addTriangle() throws PositionOverlapException, PositionOutOfBoundsException;
 
     // TODO
-    void addRightFlipper() throws PositionOverlapException;
+    void addRightFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
 
     // TODO
-    void addLeftFlipper() throws PositionOverlapException;
+    void addLeftFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
 
     /**
      * Rotates the gizmo at the selected location clockwise.
@@ -60,8 +61,9 @@ public interface BuildModel extends ReadModel {
      * Creates a new ball at the selected location.
      * If there is no selection or the selected location is already occupied by
      * some other item, this will effectively be a noop.
+     * @throws PositionOutOfBoundsException 
      */
-    void addBall(double vX, double vY) throws PositionOverlapException;
+    void addBall(double vX, double vY) throws PositionOverlapException, PositionOutOfBoundsException;
 
     /**
      * Sets the velocity of the ball at the selected location.

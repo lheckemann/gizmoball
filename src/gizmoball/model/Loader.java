@@ -169,7 +169,7 @@ public class Loader {
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw error;
-        } catch (PositionOverlapException e) {
+        } catch (PositionOverlapException | PositionOutOfBoundsException e) {
         	throw error;
         }
     }
@@ -296,6 +296,8 @@ public class Loader {
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw error;
+        } catch (PositionOverlapException | PositionOutOfBoundsException e) {
+        	throw error;
         }
     }
     
