@@ -14,7 +14,7 @@ public class Saver {
     public Saver(BuildModel model) {
         this.model = model;
         this.taggedGizmos = this.getTaggedGizmos(model.getGizmos());
-        this.taggedBalls = this.getTaggedBalls(model.getBalls());
+        this.taggedBalls = this.getTaggedBalls(model.getBuildtimeBalls());
     }
 
     public void save(OutputStream output) {
