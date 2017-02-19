@@ -63,6 +63,9 @@ public class Model implements BuildModel, RunModel {
     }
 
     private void checkPositionFree(int x, int y) throws PositionOverlapException, PositionOutOfBoundsException {
+        if (!(0 < x && x < this.width && 0 < y && y < this.height)) {
+            throw new PositionOutOfBoundsException();
+        }
         for (Gizmo g : this.gizmos) {
             if (g.getBoundingBoxCells().contains(new Vect(x, y))) {
                 throw new PositionOverlapException();
@@ -73,10 +76,6 @@ public class Model implements BuildModel, RunModel {
                 throw new PositionOverlapException();
             }
         }
-        if (!(0 < x && x < this.width && 0 < y && y < this.height)) {
-            throw new PositionOutOfBoundsException();
-        }
-        return;
     }
 
     @Override
