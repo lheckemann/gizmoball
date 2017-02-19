@@ -1,8 +1,15 @@
 package gizmoball.model.gizmos;
 
-import physics.LineSegment;
+import gizmoball.model.*;
+import gizmoball.model.Geometry;
+import physics.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.awt.geom.AffineTransform;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public abstract class Gizmo implements ReadGizmo {
     private Rotation rotation;
@@ -76,10 +83,39 @@ public abstract class Gizmo implements ReadGizmo {
         throw new GizmoTypeException();
     }
 
-    /*
-    public abstract Set<LineSegment> getLineSegments();
-    public abstract Set<Circle> getCircles();
-    */
+    private Set<LineSegment> lineCache = null;
+    public Set<LineSegment> getLineSegments() {
+        AffineTransform transform = computeTransform();
+        if (lineCache == null) {
+            lineCache = getBasicLineSegments().stream()
+                    .map(line -> gizmoball.model.Geometry.transformThrough(transform, line))
+                    .collect(Collectors.toSet());
+        }
+        return Collections.unmodifiableSet(lineCache);
+    }
+    protected abstract Set<LineSegment> getBasicLineSegments();
+
+    private Set<physics.Circle> circleCache = null;
+    public Set<physics.Circle> getCircles() {
+        AffineTransform transform = computeTransform();
+        if (circleCache == null) {
+            circleCache = getBasicCircles().stream()
+                    .map(circle -> Geometry.transformThrough(transform, circle))
+                    .collect(Collectors.toSet());
+        }
+        return Collections.unmodifiableSet(circleCache);
+    }
+    protected abstract Set<physics.Circle> getBasicCircles();
+
+    protected AffineTransform computeTransform() {
+        AffineTransform result = new AffineTransform();
+        result.translate(getX(), getY());
+        result.translate(getWidth()/2, getHeight()/2);
+        result.quadrantRotate(getRotation().getTurns());
+        result.translate(getWidth()/-2, getHeight()/-2);
+        return result;
+    }
+
     public boolean containsCell(int x, int y) {
         return this.getX() <= x && x < this.getX() + this.getWidth() &&
                this.getY() <= y && y < this.getY() + this.getWidth();
