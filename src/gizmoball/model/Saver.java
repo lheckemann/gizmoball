@@ -18,14 +18,14 @@ public class Saver {
     }
 
     public void save(OutputStream output) {
-        PrintWriter writer = new PrintWriter(output);
-        this.dumpGizmoDeclarations(writer);
-        this.dumpBallDeclarations(writer);
-        this.dumpRotateCommands(writer);
-        this.dumpConnectCommands(writer);
-        this.dumpKeyConnectCommands(writer);
-        this.dumpFrictionGravityDeclarations(writer);
-        writer.close();
+        try (PrintWriter writer = new PrintWriter(output)) {
+            this.dumpGizmoDeclarations(writer);
+            this.dumpBallDeclarations(writer);
+            this.dumpRotateCommands(writer);
+            this.dumpConnectCommands(writer);
+            this.dumpKeyConnectCommands(writer);
+            this.dumpFrictionGravityDeclarations(writer);
+        }
     }
 
     private String getTypeIdPrefix(GizmoType type) {
