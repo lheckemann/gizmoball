@@ -34,6 +34,11 @@ public class Ball implements ReadBall {
         return this.y;
     }
 
+    @Override
+    public double getRadius() {
+        return RADIUS;
+    }
+
     public Vect getPosition() {
         return new Vect(x, y);
     }
