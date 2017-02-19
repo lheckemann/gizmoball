@@ -22,6 +22,7 @@ public class Model implements BuildModel, RunModel {
     private double mu2 = 0.025;
 
     private Set<Gizmo> gizmos;
+    private Set<Ball> buildtimeBalls;
     private Set<Ball> balls;
     //A map from Key Id to Gizmo
     private Map<Integer, Set<Gizmo>> keyPressMap = new HashMap<>();
@@ -190,17 +191,20 @@ public class Model implements BuildModel, RunModel {
         this.checkPositionFree((int) this.selX, (int) this.selY);
 
         Ball ball = new Ball();
-        ball.setVelocity(new Vect(velocityX, velocityY));
         ball.setX(this.selX);
         ball.setY(this.selY);
+        ball.setVelocityX(velocityX);
+        ball.setVelocityY(velocityY);
         this.balls.add(ball);
+        this.buildtimeBalls.add(ball.clone());
     }
 
     @Override
     public void setBallVelocity(double vX, double vY) {
         Ball ball = this.getBallAt(this.selX, this.selY);
         if (ball != null) {
-            ball.setVelocity(new Vect(vX, vY));
+            ball.setVelocityX(vX);
+            ball.setVelocityY(vY);
         }
     }
 
@@ -275,17 +279,22 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void tick() {
-        gizmos.forEach(Gizmo::tick);
+        this.gizmos.forEach(Gizmo::tick);
     }
 
     @Override
     public Set<ReadGizmo> getGizmos() {
-        return Collections.unmodifiableSet(gizmos);
+        return Collections.unmodifiableSet(this.gizmos);
     }
 
     @Override
     public Set<ReadBall> getBalls() {
-        return Collections.unmodifiableSet(balls);
+        return Collections.unmodifiableSet(this.balls);
+    }
+
+    @Override
+    public Set<ReadBall> getBuildtimeBalls() {
+        return Collections.unmodifiableSet(this.buildtimeBalls);
     }
 
     @Override

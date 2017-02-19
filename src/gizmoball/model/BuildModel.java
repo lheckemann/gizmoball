@@ -20,8 +20,8 @@ public interface BuildModel extends ReadModel {
      * location, this will effectively be a noop.
      * TODO: moving outside of the arena (noop or a deletion?)
      * TODO: moving to an already occupied location
-     * @throws PositionOverlapException 
-     * @throws PositionOutOfBoundsException 
+     * @throws PositionOverlapException
+     * @throws PositionOutOfBoundsException
      */
     void move(double dX, double dY) throws PositionOverlapException, PositionOutOfBoundsException;
 
@@ -61,7 +61,7 @@ public interface BuildModel extends ReadModel {
      * Creates a new ball at the selected location.
      * If there is no selection or the selected location is already occupied by
      * some other item, this will effectively be a noop.
-     * @throws PositionOutOfBoundsException 
+     * @throws PositionOutOfBoundsException
      */
     void addBall(double vX, double vY) throws PositionOverlapException, PositionOutOfBoundsException;
 
@@ -152,5 +152,5 @@ public interface BuildModel extends ReadModel {
      * Returns a mapping from a key press to all of the Gizmos it triggers
      */
     Map<Integer, Set<ReadGizmo>> getKeyPressToGizmoMap();
-   
+
 }

@@ -1,24 +1,29 @@
 package gizmoball.model;
 
-import java.util.*;
-
 import physics.Vect;
+
+import java.util.*;
 
 public class Ball implements ReadBall {
     private double x;
     private double y;
-
-    //VelocityX and Y are needed since it is not possible to get them from Vect
-    //without them begin changed (since Vect.x() and Vect.y() changes the x and y values,
-    //making them different to what was passed in at construction.)
     private double velocityX;
     private double velocityY;
-    private Vect velocity;
 
     public Ball() {
+        this.x = 0d;
+        this.y = 0d;
         this.velocityX = 0d;
         this.velocityY = 0d;
-        this.velocity = new Vect(this.velocityX, this.velocityY);
+    }
+
+    public Ball clone() {
+        Ball b = new Ball();
+        b.setX(this.x);
+        b.setY(this.y);
+        b.setVelocityX(this.velocityX);
+        b.setVelocityY(this.velocityY);
+        return b;
     }
 
     public void setX(double x) {
@@ -45,8 +50,12 @@ public class Ball implements ReadBall {
         return this.velocityY;
     }
 
-    public void setVelocity(Vect velocity) {
-        this.velocity = velocity;
+    public void setVelocityX(double vX) {
+        this.velocityX = vX;
+    }
+
+    public void setVelocityY(double vY) {
+        this.velocityY = vY;
     }
 
     public Set<Vect> getBoundingBoxCells() {
