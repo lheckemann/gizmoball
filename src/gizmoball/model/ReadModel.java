@@ -13,8 +13,6 @@ public interface ReadModel {
     // TODO docs
     Set<ReadBall> getBalls();
 
-    Set<ReadBall> getBuildtimeBalls();
-
     int getWidth();
     int getHeight();
 }

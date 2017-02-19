@@ -1,7 +1,8 @@
 package gizmoball.model;
 
-import physics.Circle;
-import physics.Vect;
+import java.util.*;
+
+import physics.*;
 
 public class Ball implements ReadBall {
     private final static double RADIUS = 0.5;
@@ -87,5 +88,9 @@ public class Ball implements ReadBall {
 
     public Circle getCircle() {
         return new Circle(x, y, RADIUS);
+    }
+
+    public Set<Vect> getCells() {
+        return Collections.singleton(new Vect((int) this.getX(), (int) this.getY()));
     }
 }

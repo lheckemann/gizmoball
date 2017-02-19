@@ -1,14 +1,13 @@
 package gizmoball.model.gizmos;
 
-import gizmoball.model.*;
-import gizmoball.model.Geometry;
+import java.awt.geom.AffineTransform;
+import java.util.*;
+
 import physics.*;
 
-import java.awt.geom.AffineTransform;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+import gizmoball.model.*;
+import gizmoball.model.Geometry;
+
 
 public abstract class Gizmo implements ReadGizmo {
     private Rotation rotation;
@@ -103,6 +102,16 @@ public abstract class Gizmo implements ReadGizmo {
     public boolean containsCell(int x, int y) {
         return this.getX() <= x && x < this.getX() + this.getWidth() &&
                this.getY() <= y && y < this.getY() + this.getWidth();
+    }
+
+    public Set<Vect> getCells() {
+        Set<Vect> cells = new HashSet<>();
+        for (int x = 0; x < this.getWidth(); x++) {
+            for (int y = 0; y < this.getHeight(); y++) {
+                cells.add(new Vect(this.getX() + x, this.getY() + y));
+            }
+        }
+        return cells;
     }
 
     @Override

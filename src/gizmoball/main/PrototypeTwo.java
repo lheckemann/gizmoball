@@ -16,35 +16,12 @@ public class PrototypeTwo {
             public void run() {
                 try {
                     model.addBall(0.0, 0.0);
-                } catch (PositionOverlapException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                } catch (PositionOutOfBoundsException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                try {
                     model.move(4, 4);
-                } catch (PositionOverlapException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                } catch (PositionOutOfBoundsException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-                try {
                     model.addAbsorber(19, 2);
-                } catch (PositionOverlapException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (PositionOutOfBoundsException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                try {
                     model.move(0, 18);
-                } catch (PositionOverlapException | PositionOutOfBoundsException e) {
-                    // TODO Auto-generated catch block
+                } catch (PositionOverlapException e1) {
+                    e1.printStackTrace();
+                } catch (PositionOutOfBoundsException e) {
                     e.printStackTrace();
                 }
                 model.triggerOnKeyPress(32);
