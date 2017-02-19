@@ -313,6 +313,14 @@ public class Model implements BuildModel, RunModel {
     public void keyReleased(int keyCode) {
         this.keyReleaseMap.getOrDefault(keyCode, Collections.emptySet()).forEach(Gizmo::trigger);
     }
+    
+    public void gizmoTriggered(ReadGizmo gizmo) {
+        this.gizmoMap.getOrDefault(gizmo, Collections.emptySet()).forEach(Gizmo::trigger);
+    }
+    
+    public void wallTriggered() {
+        this.wallTriggers.forEach(Gizmo::trigger);
+    }
 
     @Override
     public void tick() {
@@ -435,6 +443,13 @@ public class Model implements BuildModel, RunModel {
             else {
                 Absorber absorber = (Absorber)gizmoBallCollidesWith;
                 absorber.addBall(ball);
+            }
+            
+            if (wallCollisionFound) {
+               this.wallTriggered();
+            }
+            else {
+               this.gizmoTriggered(gizmoBallCollidesWith);
             }
         }
         else if (ball.isInAbsorber() && ball.hasBeenFired() == false) {
