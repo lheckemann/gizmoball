@@ -2,12 +2,10 @@ package gizmoball.model;
 
 import physics.LineSegment;
 import physics.Vect;
-import java.io.PrintWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.*;
+import java.awt.geom.AffineTransform;
 
 import gizmoball.model.gizmos.*;
 import gizmoball.model.gizmos.Gizmo;
@@ -19,11 +17,11 @@ import java.util.Set;
 public class Model implements BuildModel, RunModel {
     private final Set<LineSegment> walls = new HashSet<>();
 
-    private double width;
-    private double height;
+    private int width;
+    private int height;
     private double selX;
     private double selY;
-    private double gravity = 25;
+    private Vect gravity = new Vect(0, 25);
     private double mu = 0.025;
     private double mu2 = 0.025;
 
@@ -37,7 +35,7 @@ public class Model implements BuildModel, RunModel {
     private Map<Gizmo, Set<Gizmo>> gizmoMap;
     private Set<Gizmo> wallTriggers;
 
-    public Model(double width, double height) {
+    public Model(int width, int height) {
         this.width = width;
         this.height = height;
         this.reset();
@@ -247,12 +245,12 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public double getGravity() {
-        return this.gravity;
+        return this.gravity.y();
     }
 
     @Override
     public void setGravity(double gravity) {
-        this.gravity = gravity;
+        this.gravity = new Vect(0, gravity);
     }
 
     @Override
@@ -317,6 +315,7 @@ public class Model implements BuildModel, RunModel {
     @Override
     public void tick() {
         this.gizmos.forEach(Gizmo::tick);
+        this.balls.forEach(this::tickBall);
     }
 
     @Override
@@ -327,6 +326,16 @@ public class Model implements BuildModel, RunModel {
     @Override
     public Set<ReadBall> getBalls() {
         return Collections.unmodifiableSet(this.balls);
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
     }
 
     @Override
@@ -363,7 +372,7 @@ public class Model implements BuildModel, RunModel {
     }
 
     public void load(InputStream input) throws SyntaxError {
-        double gravity = this.gravity;
+        double gravity = this.gravity.y();
         double mu = this.mu;
         double mu2 = this.mu2;
         Set<Gizmo> gizmos = new HashSet<>(this.gizmos);
@@ -376,7 +385,7 @@ public class Model implements BuildModel, RunModel {
         try {
             new Loader(this).load(input);
         } catch (SyntaxError e) {
-            this.gravity = gravity;
+            this.gravity = new Vect(gravity, 25);
             this.mu = mu;
             this.mu2 = mu2;
             this.gizmos = gizmos;
@@ -389,22 +398,28 @@ public class Model implements BuildModel, RunModel {
         }
     }
 
-    //private void tickBall(Ball ball) {
-    //    // TODO: does not handle multiple balls or moving flippers.
-    //    CollisionFinder finder = new CollisionFinder(ball.getCircle(), ball.getVelocity());
-    //    walls.forEach(finder.getLineConsumer());
-    //    gizmos.values().stream().map(Gizmo::getLineSegments).flatMap(Collection::stream).forEach(finder.getLineConsumer());
-    //    gizmos.values().stream().map(Gizmo::getCircles).flatMap(Collection::stream).forEach(finder.getCircleConsumer());
+    private void tickBall(Ball ball) {
+        // TODO: does not handle multiple balls or moving flippers.
+        Vect ballVel = ball.getVelocity();
+        CollisionFinder finder = new CollisionFinder(ball.getCircle(), ballVel);
+        walls.forEach(l -> finder.consumeLine(l));
+        for (Gizmo g : this.gizmos) {
+            AffineTransform t = g.getTransform();
+            g.getLineSegments().forEach(l ->
+                    finder.consumeLine(Geometry.transformThrough(t, l)));
+            g.getCircles().forEach(c ->
+                    finder.consumeCircle(Geometry.transformThrough(t, c)));
+        }
 
-    //    if (finder.getTimeUntilCollision() < 1.0 / TICKS_PER_SECOND) {
-    //        ball.position = finder.nextCollisionPosition();
-    //        ball.velocity = finder.getNewVelocity();
-    //    }
-    //    else {
-    //        ball.position = ball.position.plus(ball.velocity.times(1.0 / TICKS_PER_SECOND));
-    //        ball.velocity = ball.velocity.plus(gravity);
-    //    }
-    //}
+        if (finder.getTimeUntilCollision() < 1.0 / TICKS_PER_SECOND) {
+            ball.setPosition(finder.nextCollisionPosition());
+            ball.setVelocity(finder.getNewVelocity());
+        }
+        else {
+            ball.setPosition(ball.getPosition().plus(ballVel.times(1.0 / TICKS_PER_SECOND)));
+            ball.setVelocity(ballVel.plus(gravity.times(1.0 / TICKS_PER_SECOND)));
+        }
+    }
 
     public void save(OutputStream output) {
         new Saver(this).save(output);

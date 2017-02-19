@@ -13,28 +13,25 @@ public class CollisionFinder {
     private double nextCollisionTime;
     private Vect nextCollisionPos;
     private Vect newBallVelocity;
-    public Consumer<LineSegment> getLineConsumer() {
-        return line -> {
-            double time = Geometry.timeUntilWallCollision(line, ball, ballVelocity);
-            if (time < nextCollisionTime) {
-                nextCollisionTime = time;
-                nextCollisionPos = ball.getCenter().plus(ballVelocity.times(time));
-                // TODO: add reflection coefficient
-                newBallVelocity = Geometry.reflectWall(line, ballVelocity);
-            }
-        };
+
+    public void consumeLine(LineSegment line) {
+        double time = Geometry.timeUntilWallCollision(line, ball, ballVelocity);
+        if (time < nextCollisionTime) {
+            nextCollisionTime = time;
+            nextCollisionPos = ball.getCenter().plus(ballVelocity.times(time));
+            // TODO: add reflection coefficient
+            newBallVelocity = Geometry.reflectWall(line, ballVelocity);
+        }
     }
 
-    public Consumer<Circle> getCircleConsumer() {
-        return circle -> {
-            double time = Geometry.timeUntilCircleCollision(circle, ball, ballVelocity);
-            if (time < nextCollisionTime) {
-                nextCollisionTime = time;
-                nextCollisionPos = ball.getCenter().plus(ballVelocity.times(time));
-                // TODO: add reflection coefficient
-                newBallVelocity = Geometry.reflectCircle(circle.getCenter(), ball.getCenter(), ballVelocity);
-            }
-        };
+    public void consumeCircle(Circle circle) {
+        double time = Geometry.timeUntilCircleCollision(circle, ball, ballVelocity);
+        if (time < nextCollisionTime) {
+            nextCollisionTime = time;
+            nextCollisionPos = ball.getCenter().plus(ballVelocity.times(time));
+            // TODO: add reflection coefficient
+            newBallVelocity = Geometry.reflectCircle(circle.getCenter(), ball.getCenter(), ballVelocity);
+        }
     }
 
     public double getTimeUntilCollision() {

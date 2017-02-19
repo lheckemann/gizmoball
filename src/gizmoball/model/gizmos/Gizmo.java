@@ -1,11 +1,13 @@
 package gizmoball.model.gizmos;
 
+import java.awt.geom.AffineTransform;
 import java.util.*;
 
-import physics.LineSegment;
-import physics.Vect;
+import physics.*;
 
-import java.util.Set;
+import gizmoball.model.*;
+import gizmoball.model.Geometry;
+
 
 public abstract class Gizmo implements ReadGizmo {
     private Rotation rotation;
@@ -79,10 +81,24 @@ public abstract class Gizmo implements ReadGizmo {
         throw new GizmoTypeException();
     }
 
-    /*
-    public abstract Set<LineSegment> getLineSegments();
-    public abstract Set<Circle> getCircles();
-    */
+    public Set<LineSegment> getLineSegments() {
+        return Collections.emptySet();
+    }
+
+    public Set<physics.Circle> getCircles() {
+        return Collections.emptySet();
+    }
+
+    @Override
+    public AffineTransform getTransform() {
+        AffineTransform result = new AffineTransform();
+        result.translate(getX(), getY());
+        result.translate(getWidth()/2, getHeight()/2);
+        result.quadrantRotate(getRotation().getTurns());
+        result.translate(getWidth()/-2, getHeight()/-2);
+        return result;
+    }
+
     public Set<Vect> getCells() {
         Set<Vect> cells = new HashSet<>();
         for (int x = 0; x < this.getWidth(); x++) {

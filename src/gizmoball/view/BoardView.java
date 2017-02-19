@@ -13,6 +13,7 @@ import java.awt.geom.AffineTransform;
 import java.util.Map;
 
 public class BoardView extends JPanel {
+    public static final int L_TO_PIXELS = 32;
     private ReadModel model;
 
     public BoardView(ReadModel model) {
@@ -24,20 +25,20 @@ public class BoardView extends JPanel {
         Graphics2D g = (Graphics2D) graphics;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         AffineTransform originalTransform = g.getTransform();
-       
+
         for (ReadGizmo gizmo: model.getGizmos()) {
 
             // Translate to gizmo's position
-            g.translate(gizmo.getX() * Model.L_TO_PIXELS, gizmo.getY() * Model.L_TO_PIXELS);
+            g.translate(gizmo.getX() * L_TO_PIXELS, gizmo.getY() * L_TO_PIXELS);
 
             // Apply gizmo rotation
             g.translate(
-                    gizmo.getWidth() * Model.L_TO_PIXELS / 2,
-                    gizmo.getHeight() * Model.L_TO_PIXELS / 2);
+                    gizmo.getWidth() * L_TO_PIXELS / 2,
+                    gizmo.getHeight() * L_TO_PIXELS / 2);
             g.rotate(gizmo.getRotation().getRadiansFromNorth());
             g.translate(
-                    -gizmo.getWidth() * Model.L_TO_PIXELS / 2,
-                    -gizmo.getHeight() * Model.L_TO_PIXELS / 2);
+                    -gizmo.getWidth() * L_TO_PIXELS / 2,
+                    -gizmo.getHeight() * L_TO_PIXELS / 2);
 
             switch (gizmo.getType()) {
                 case SQUARE:
@@ -66,6 +67,10 @@ public class BoardView extends JPanel {
     }
 
     public Dimension getPreferredSize() {
-        return new Dimension(20 * ReadModel.L_TO_PIXELS, 20 * ReadModel.L_TO_PIXELS);
+        return new Dimension(model.getWidth() * L_TO_PIXELS, model.getHeight() * L_TO_PIXELS);
+    }
+
+    protected ReadModel getModel() {
+        return model;
     }
 }
