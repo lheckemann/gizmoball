@@ -47,18 +47,23 @@ public class Model implements BuildModel, RunModel {
     }
 
     private Gizmo getGizmoAt(int x, int y) {
-
         return this.gizmos.stream()
                 .filter(g -> (g.getX() == x && g.getY() == y))
                 .findFirst().orElse(null);
     }
 
 
-    /*Multiple balls could be at the same position e.g. inside an absorber*/
+    /* ATTENTION: Multiple balls could be at the same position e.g. inside an
+     * absorber */
     private Ball getBallAt(double x, double y) {
         return this.balls.stream()
                 .filter(b -> b.contains(x, y))
                 .findFirst().orElse(null);
+    }
+
+    private void checkPositionFree(int x, int y) throws PositionOverlapException, PositionOutOfBoundsException {
+        // TODO
+        return;
     }
 
     @Override
@@ -69,18 +74,12 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void move(double dX, double dY) throws PositionOverlapException, PositionOutOfBoundsException {
-        Gizmo gizmo = this.getGizmoAt((int)this.selX, (int)this.selY);
+        this.checkPositionFree((int) dX, (int) dY);
+        Gizmo gizmo = this.getGizmoAt((int) this.selX, (int) this.selY);
         if (gizmo != null) {
-            if (this.positionTaken(dX, dY)) {
-                throw new PositionOverlapException();
-            }
-            else if(this.positionOutOfBounds(dX, dY)) {
-                throw new PositionOutOfBoundsException();
-            } else {
-                gizmo.setX((int) dX);
-                gizmo.setY((int) dY);
-                return;
-            }
+            gizmo.setX((int) dX);
+            gizmo.setY((int) dY);
+            return;
         }
         Ball ball = this.getBallAt(this.selX, this.selY);
         if (ball != null) {
@@ -108,119 +107,62 @@ public class Model implements BuildModel, RunModel {
         }
         Ball ball = this.getBallAt(this.selX, this.selY);
         if (ball != null) {
-            this.balls.remove(new Vect(this.selX, this.selY));
+            this.balls.remove(ball);
         }
-    }
-
-    private boolean positionTaken(double dX, double dY) {
-
-        return false;
-    }
-
-    private boolean positionOutOfBounds(double dX, double dY) {
-        return false;
     }
 
     @Override
     public void addAbsorber(int width, int height) throws PositionOverlapException, PositionOutOfBoundsException {
+        this.checkPositionFree((int) this.selX, (int) this.selY);
         Gizmo gizmo = new Absorber(width, height);
-
-        if (this.positionTaken(this.selX, this.selY)) {
-            throw new PositionOverlapException();
-        }
-        else if (this.positionOutOfBounds(this.selX, this.selY)) {
-            throw new PositionOutOfBoundsException();
-        }
-        else {
-            gizmo.setX((int)this.selX);
-            gizmo.setY((int)this.selY);
-            this.gizmos.add(gizmo);
-        }
+        gizmo.setX((int)this.selX);
+        gizmo.setY((int)this.selY);
+        this.gizmos.add(gizmo);
     }
 
     @Override
     public void addSquare() throws PositionOverlapException, PositionOutOfBoundsException {
+        this.checkPositionFree((int) this.selX, (int) this.selY);
         Gizmo gizmo = new Square();
-
-        if (this.positionTaken(this.selX, this.selY)) {
-            throw new PositionOverlapException();
-        }
-        else if (this.positionOutOfBounds(this.selX, this.selY)) {
-            throw new PositionOutOfBoundsException();
-        }
-        else {
-            gizmo.setX((int)this.selX);
-            gizmo.setY((int)this.selY);
-            this.gizmos.add(gizmo);
-        }
+        gizmo.setX((int)this.selX);
+        gizmo.setY((int)this.selY);
+        this.gizmos.add(gizmo);
     }
 
     @Override
     public void addCircle() throws PositionOverlapException, PositionOutOfBoundsException {
+        this.checkPositionFree((int) this.selX, (int) this.selY);
         Gizmo gizmo = new Circle();
-
-        if (this.positionTaken(this.selX, this.selY)) {
-            throw new PositionOverlapException();
-        }
-        else if (this.positionOutOfBounds(this.selX, this.selY)) {
-            throw new PositionOutOfBoundsException();
-        }
-        else {
-            gizmo.setX((int)this.selX);
-            gizmo.setY((int)this.selY);
-            this.gizmos.add(gizmo);
-        }
+        gizmo.setX((int)this.selX);
+        gizmo.setY((int)this.selY);
+        this.gizmos.add(gizmo);
     }
 
     @Override
     public void addTriangle() throws PositionOverlapException, PositionOutOfBoundsException {
+        this.checkPositionFree((int) this.selX, (int) this.selY);
         Gizmo gizmo = new Triangle();
-
-        if (this.positionTaken(this.selX, this.selY)) {
-            throw new PositionOverlapException();
-        }
-        else if (this.positionOutOfBounds(this.selX, this.selY)) {
-            throw new PositionOutOfBoundsException();
-        }
-        else {
-            gizmo.setX((int)this.selX);
-            gizmo.setY((int)this.selY);
-            this.gizmos.add(gizmo);
-        }
+        gizmo.setX((int)this.selX);
+        gizmo.setY((int)this.selY);
+        this.gizmos.add(gizmo);
     }
 
     @Override
     public void addRightFlipper() throws PositionOverlapException, PositionOutOfBoundsException {
+        this.checkPositionFree((int) this.selX, (int) this.selY);
         Gizmo gizmo = new Flipper(false);
-
-        if (this.positionTaken(this.selX, this.selY)) {
-            throw new PositionOverlapException();
-        }
-        else if (this.positionOutOfBounds(this.selX, this.selY)) {
-            throw new PositionOutOfBoundsException();
-        }
-        else {
-            gizmo.setX((int)this.selX);
-            gizmo.setY((int)this.selY);
-            this.gizmos.add(gizmo);
-        }
+        gizmo.setX((int)this.selX);
+        gizmo.setY((int)this.selY);
+        this.gizmos.add(gizmo);
     }
 
     @Override
     public void addLeftFlipper() throws PositionOverlapException, PositionOutOfBoundsException {
+        this.checkPositionFree((int) this.selX, (int) this.selY);
         Gizmo gizmo = new Flipper(true);
-
-        if (this.positionTaken(this.selX, this.selY)) {
-            throw new PositionOverlapException();
-        }
-        else if (this.positionOutOfBounds(this.selX, this.selY)) {
-            throw new PositionOutOfBoundsException();
-        }
-        else {
-            gizmo.setX((int)this.selX);
-            gizmo.setY((int)this.selY);
-            this.gizmos.add(gizmo);
-        }
+        gizmo.setX((int)this.selX);
+        gizmo.setY((int)this.selY);
+        this.gizmos.add(gizmo);
     }
 
     @Override
@@ -233,20 +175,13 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void addBall(double velocityX, double velocityY) throws PositionOverlapException, PositionOutOfBoundsException {
+        this.checkPositionFree((int) this.selX, (int) this.selY);
 
         Ball ball = new Ball();
         ball.setVelocity(new Vect(velocityX, velocityY));
-        if(this.positionTaken(this.selX, this.selY)) {
-            throw new PositionOverlapException();
-        }
-        else if (this.positionOutOfBounds(this.selX, this.selY)) {
-            throw new PositionOutOfBoundsException();
-        }
-        else {
-            ball.setX(this.selX);
-            ball.setY(this.selY);
-            this.balls.add(ball);
-        }
+        ball.setX(this.selX);
+        ball.setY(this.selY);
+        this.balls.add(ball);
     }
 
     @Override
