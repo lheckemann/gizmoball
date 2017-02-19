@@ -380,13 +380,13 @@ public class Model implements BuildModel, RunModel {
         // TODO: does not handle multiple balls or moving flippers.
         Vect ballVel = ball.getVelocity();
         CollisionFinder finder = new CollisionFinder(ball.getCircle(), ballVel);
-        walls.forEach(finder.getLineConsumer());
+        walls.forEach(l -> finder.consumeLine(l));
         for (Gizmo g : this.gizmos) {
             AffineTransform t = g.getTransform();
             g.getLineSegments().forEach(l ->
-                    finder.getLineConsumer().accept(Geometry.transformThrough(t, l)));
+                    finder.consumeLine(Geometry.transformThrough(t, l)));
             g.getCircles().forEach(c ->
-                    finder.getCircleConsumer().accept(Geometry.transformThrough(t, c)));
+                    finder.consumeCircle(Geometry.transformThrough(t, c)));
         }
 
         if (finder.getTimeUntilCollision() < 1.0 / TICKS_PER_SECOND) {
