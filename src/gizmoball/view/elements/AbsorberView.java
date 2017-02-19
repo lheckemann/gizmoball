@@ -1,7 +1,7 @@
 package gizmoball.view.elements;
 
-import gizmoball.model.Model;
 import gizmoball.model.gizmos.ReadGizmo;
+import gizmoball.view.BoardView;
 
 import java.awt.*;
 
@@ -12,7 +12,7 @@ public class AbsorberView {
         graphics.fillRect(
                 0,
                 0,
-                absorber.getWidth() * Model.L_TO_PIXELS,
-                absorber.getHeight() * Model.L_TO_PIXELS);
+                absorber.getWidth() * BoardView.L_TO_PIXELS,
+                absorber.getHeight() * BoardView.L_TO_PIXELS);
     }
 }

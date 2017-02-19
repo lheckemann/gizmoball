@@ -1,7 +1,7 @@
 package gizmoball.view.elements;
 
-import gizmoball.model.Model;
 import gizmoball.model.gizmos.ReadGizmo;
+import gizmoball.view.BoardView;
 
 import java.awt.*;
 
@@ -11,7 +11,7 @@ public class CircleView {
         graphics.fillOval(
                 0,
                 0,
-                circle.getWidth() * Model.L_TO_PIXELS,
-                circle.getHeight() * Model.L_TO_PIXELS);
+                circle.getWidth() * BoardView.L_TO_PIXELS,
+                circle.getHeight() * BoardView.L_TO_PIXELS);
     }
 }

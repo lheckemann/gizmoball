@@ -1,7 +1,7 @@
 package gizmoball.view.elements;
 
-import gizmoball.model.Model;
 import gizmoball.model.gizmos.ReadGizmo;
+import gizmoball.view.BoardView;
 
 import java.awt.*;
 
@@ -12,7 +12,7 @@ public class SquareView {
         graphics.fillRect(
                 0,
                 0,
-                square.getWidth() * Model.L_TO_PIXELS,
-                square.getHeight() * Model.L_TO_PIXELS);
+                square.getWidth() * BoardView.L_TO_PIXELS,
+                square.getHeight() * BoardView.L_TO_PIXELS);
     }
 }
