@@ -62,7 +62,7 @@ public class Model implements BuildModel, RunModel {
     }
 
     private void checkPositionFree(double x, double y) throws PositionOverlapException, PositionOutOfBoundsException {
-        if (!(0 < x && x < this.width && 0 < y && y < this.height)) {
+        if (!(0 <= x && x < this.width && 0 <= y && y < this.height)) {
             throw new PositionOutOfBoundsException();
         }
         for (Gizmo g : this.gizmos) {
