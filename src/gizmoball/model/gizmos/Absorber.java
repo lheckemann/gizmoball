@@ -57,6 +57,7 @@ public class Absorber extends Gizmo {
     public void trigger() {
         if (balls.size() > 0) {
             Ball ballToFire = this.balls.iterator().next();
+            ballToFire.setPosition(new Vect(this.getX() + width - 0.25, this.getY() - 0.25));
             ballToFire.setVelocity(new Vect(0, -50));
             ballToFire.setHasBeenFired(true);
         }

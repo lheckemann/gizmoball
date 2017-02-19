@@ -454,16 +454,6 @@ public class Model implements BuildModel, RunModel {
         else if (ball.isInAbsorber() && ball.hasBeenFired() == false) {
         }
         else if(ball.isInAbsorber() && ball.hasBeenFired()) {
-            Absorber a;
-            for (Gizmo g: gizmos) {
-                if (g.getType().equals(GizmoType.ABSORBER)) {
-                    a = (Absorber)g;
-                    if (a.containsBall()) {
-                        ball.setPosition(new Vect(a.getX() + a.getWidth() - 0.25, a.getY() - 0.25));
-                        break;
-                    }    
-                }
-            }
             ball.setInAbsorber(false);
             ball.setHasBeenFired(false);
             ball.setVelocity(ballVel.plus(gravity.times(1.0 / TICKS_PER_SECOND)));
