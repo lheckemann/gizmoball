@@ -116,6 +116,10 @@ public abstract class Gizmo implements ReadGizmo {
         return result;
     }
 
+    public AffineTransform getTransform() {
+        return new AffineTransform(computeTransform());
+    }
+
     public boolean containsCell(int x, int y) {
         return this.getX() <= x && x < this.getX() + this.getWidth() &&
                this.getY() <= y && y < this.getY() + this.getWidth();

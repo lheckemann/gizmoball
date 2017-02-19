@@ -1,5 +1,7 @@
 package gizmoball.model.gizmos;
 
+import java.awt.geom.AffineTransform;
+
 public interface ReadGizmo {
 
     enum GizmoType {
@@ -14,4 +16,5 @@ public interface ReadGizmo {
     int getY();
     int getPivotAngle() throws GizmoTypeException;
     boolean equals(Object obj);
+    AffineTransform getTransform();
 }
