@@ -304,9 +304,9 @@ public class Model implements BuildModel, RunModel {
             throw e;
         }
     }
-    
+
     private void frictionGravityCommand(Integer lineNum, List<String> tokens) throws SyntaxError {
-	   
+
     	SyntaxError error = new SyntaxError(lineNum, String.join(" ", tokens), "Invalid command.");
     	try {
 	    	switch (tokens.get(0)) {
@@ -317,7 +317,7 @@ public class Model implements BuildModel, RunModel {
 			        }
 			        this.setGravity(Double.parseDouble(tokens.get(1)));
 			        break;
-			
+
 			    case "Friction":
 			        error.setMessage("Friction <float> <float>");
 			        if (tokens.size() != 3) {
@@ -353,7 +353,7 @@ public class Model implements BuildModel, RunModel {
             Integer y = Integer.parseInt(tokens.get(3));
             this.select(x, y);
             switch (tokens.get(0)) {
-            
+
                 case "Circle":
                     error.setMessage("Circle <identifier> <int> <int>");
                     if (tokens.size() != 4) {
@@ -403,7 +403,7 @@ public class Model implements BuildModel, RunModel {
                     Integer y1 = Integer.parseInt(tokens.get(5));
                     this.addAbsorber(tokens.get(1), x1 - x, y1 - y);
                     break;
-                
+
                 default:
                 	System.out.println("Hello");
                     throw error;
@@ -671,7 +671,7 @@ public class Model implements BuildModel, RunModel {
     //        ball.position = ball.position.plus(ball.velocity.times(1.0 / TICKS_PER_SECOND));
     //        ball.velocity = ball.velocity.plus(gravity);
     //    }
-    }
+    //}
 
 
     @Override
