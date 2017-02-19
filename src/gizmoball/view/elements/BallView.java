@@ -10,6 +10,6 @@ public class BallView {
 
     public static void paint(Graphics2D g, ReadBall ball) {
         g.setColor(Color.YELLOW);
-        g.fill(new Ellipse2D.Double(ball.getX() * Model.L_TO_PIXELS, ball.getY() * Model.L_TO_PIXELS, Model.L_TO_PIXELS * ball.getDiameter() , Model.L_TO_PIXELS * ball.getDiameter()));
+        g.fill(new Ellipse2D.Double(ball.getX() * Model.L_TO_PIXELS, ball.getY() * Model.L_TO_PIXELS, Model.L_TO_PIXELS , Model.L_TO_PIXELS));
     }
 }
