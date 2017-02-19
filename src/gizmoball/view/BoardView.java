@@ -1,6 +1,7 @@
 package gizmoball.view;
 
 import gizmoball.model.Model;
+import gizmoball.model.ReadBall;
 import gizmoball.model.ReadModel;
 import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.view.elements.*;
@@ -9,6 +10,7 @@ import physics.Vect;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.util.Map;
 
 public class BoardView extends JPanel {
     private ReadModel model;
@@ -22,7 +24,8 @@ public class BoardView extends JPanel {
         Graphics2D g = (Graphics2D) graphics;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         AffineTransform originalTransform = g.getTransform();
-        for (ReadGizmo gizmo : model.getGizmos()) {
+       
+        for (ReadGizmo gizmo: model.getGizmos()) {
 
             // Translate to gizmo's position
             g.translate(gizmo.getX() * Model.L_TO_PIXELS, gizmo.getY() * Model.L_TO_PIXELS);
@@ -57,8 +60,8 @@ public class BoardView extends JPanel {
             g.setTransform(originalTransform);
         }
 
-        for(Vect ballPos: model.getBallPositions()) {
-            BallView.paint(g, ballPos);
+        for(ReadBall ball: model.getBalls()) {
+            BallView.paint(g, ball);
         }
     }
 

@@ -1,5 +1,10 @@
 package gizmoball.model;
 
+import java.util.Map;
+import java.util.Set;
+
+import gizmoball.model.gizmos.ReadGizmo;
+
 public interface BuildModel extends ReadModel {
     /**
      * Selects the ball or gizmo at the provided location as an operand in
@@ -15,8 +20,10 @@ public interface BuildModel extends ReadModel {
      * location, this will effectively be a noop.
      * TODO: moving outside of the arena (noop or a deletion?)
      * TODO: moving to an already occupied location
+     * @throws PositionOverlapException
+     * @throws PositionOutOfBoundsException
      */
-    void move(double dX, double dY);
+    void move(double dX, double dY) throws PositionOverlapException, PositionOutOfBoundsException;
 
     /**
      * Deletes the current selection.
@@ -26,22 +33,22 @@ public interface BuildModel extends ReadModel {
     void delete();
 
     // TODO
-    void addAbsorber(String identifier, int width, int height);
+    void addAbsorber(int width, int height) throws PositionOverlapException, PositionOutOfBoundsException;
 
     // TODO
-    void addSquare(String identifier);
+    void addSquare() throws PositionOverlapException, PositionOutOfBoundsException;
 
     // TODO
-    void addCircle(String identifier);
+    void addCircle() throws PositionOverlapException, PositionOutOfBoundsException;
 
     // TODO
-    void addTriangle(String identifier);
+    void addTriangle() throws PositionOverlapException, PositionOutOfBoundsException;
 
     // TODO
-    void addRightFlipper(String identifier);
+    void addRightFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
 
     // TODO
-    void addLeftFlipper(String identifier);
+    void addLeftFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
 
     /**
      * Rotates the gizmo at the selected location clockwise.
@@ -54,8 +61,9 @@ public interface BuildModel extends ReadModel {
      * Creates a new ball at the selected location.
      * If there is no selection or the selected location is already occupied by
      * some other item, this will effectively be a noop.
+     * @throws PositionOutOfBoundsException
      */
-    void addBall(String identifier);
+    void addBall(double vX, double vY) throws PositionOverlapException, PositionOutOfBoundsException;
 
     /**
      * Sets the velocity of the ball at the selected location.
@@ -117,8 +125,11 @@ public interface BuildModel extends ReadModel {
     // TODO
     void triggerOnOuterWalls();
 
-    // TODO
-    void triggerOnGizmo(double sX, double sY);
+    /***
+     * Connects the bumping of the given Gizmo to the triggering of the currently
+     * selected Gizmo
+     */
+    void triggerOnGizmo(ReadGizmo gizmo);
 
     /**
      * Resets all the state related to a particular game.
@@ -126,4 +137,20 @@ public interface BuildModel extends ReadModel {
      * friction.
      */
     void reset();
+
+    /***
+     * Returns a mapping from a Gizmo to the Gizmos it trigger
+     */
+    Map<ReadGizmo, Set<ReadGizmo>> getGizmoToGizmoMap();
+
+    /***
+     * Returns a mapping from a key release to all of the Gizmos it triggers
+     */
+    Map<Integer, Set<ReadGizmo>> getKeyReleaseToGizmoMap();
+
+    /***
+     * Returns a mapping from a key press to all of the Gizmos it triggers
+     */
+    Map<Integer, Set<ReadGizmo>> getKeyPressToGizmoMap();
+
 }

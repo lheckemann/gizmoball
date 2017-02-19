@@ -11,6 +11,8 @@ public abstract class Gizmo implements ReadGizmo {
 
     public Gizmo() {
         this.rotation = Rotation.NORTH;
+        this.x = 0;
+        this.y = 0;
     }
 
     public Rotation getRotation() {
@@ -33,6 +35,16 @@ public abstract class Gizmo implements ReadGizmo {
         }
     }
 
+    public void setRotation(Rotation rotation) {
+        this.rotation = rotation;
+    }
+
+    public abstract GizmoType getType();
+
+    public abstract int getWidth();
+
+    public abstract int getHeight();
+
     public int getX() {
         return this.x;
     }
@@ -41,25 +53,13 @@ public abstract class Gizmo implements ReadGizmo {
         return this.y;
     }
 
-    public void setPosition(int x, int y) {
+    public void setX(int x) {
         this.x = x;
+    }
+
+    public void setY(int y) {
         this.y = y;
     }
-
-    public void setRotation(Rotation rotation) {
-        this.rotation = rotation;
-    }
-
-    public boolean contains(double x, double y) {
-        return (this.x <= x && x < this.x + this.getWidth() &&
-                this.y <= y && y < this.y + this.getHeight());
-    }
-
-    public abstract GizmoType getType();
-
-    public abstract int getWidth();
-
-    public abstract int getHeight();
 
     public void tick() {
     }
@@ -80,4 +80,23 @@ public abstract class Gizmo implements ReadGizmo {
     public abstract Set<LineSegment> getLineSegments();
     public abstract Set<Circle> getCircles();
     */
+    public boolean containsCell(int x, int y) {
+        return this.getX() <= x && x < this.getX() + this.getWidth() &&
+               this.getY() <= y && y < this.getY() + this.getWidth();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (null == obj) {
+            return false;
+         }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+        Gizmo other = (Gizmo) obj;
+        return (this.getX() == other.getX() && this.getY() == other.getY());
+    }
 }

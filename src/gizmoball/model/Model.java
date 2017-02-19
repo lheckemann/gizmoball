@@ -8,14 +8,10 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.*;
-import java.util.stream.Collectors;
 
-import physics.Vect;
 import gizmoball.model.gizmos.*;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
-import gizmoball.model.gizmos.Rotation;
-import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,25 +19,22 @@ import java.util.Set;
 public class Model implements BuildModel, RunModel {
     private final Set<LineSegment> walls = new HashSet<>();
 
-    private static final Set<String> DEPENDENT = new HashSet<>(Arrays.asList(
-            "Rotate", "Delete", "Move", "Connect", "KeyConnect"));
-
-    private final double width;
-    private final double height;
+    private double width;
+    private double height;
     private double selX;
     private double selY;
     private double gravity = 25;
     private double mu = 0.025;
     private double mu2 = 0.025;
 
-    //A map from Gizmo Id to Gizmos
-    private Map<String, Gizmo> gizmos;
-    //A map from Ball Id to Balls
-    private Map<String, Ball> balls;
+    private Set<Gizmo> gizmos;
+    private Set<Ball> buildtimeBalls = new HashSet<>();
+    private Set<Ball> balls;
     //A map from Key Id to Gizmo
     private Map<Integer, Set<Gizmo>> keyPressMap = new HashMap<>();
     //A map from Key Id to Gizmo
     private Map<Integer, Set<Gizmo>> keyReleaseMap = new HashMap<>();
+
     private Map<Gizmo, Set<Gizmo>> gizmoMap;
     private Set<Gizmo> wallTriggers;
 
@@ -57,42 +50,43 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void reset() {
-        this.gizmos = new HashMap<>();
-        this.balls = new HashMap<>();
+        this.gizmos = new HashSet<>();
         this.keyPressMap = new HashMap<>();
         this.keyReleaseMap = new HashMap<>();
         this.gizmoMap = new HashMap<>();
         this.wallTriggers = new HashSet<>();
+        this.balls = new HashSet<>();
     }
 
-    private Gizmo getGizmoAt(double x, double y) {
-        return this.gizmos.values().stream()
-                .filter(g -> g.contains(x, y))
+    private Gizmo getGizmoAt(int x, int y) {
+        return this.gizmos.stream()
+                .filter(g -> g.containsCell(x, y))
                 .findFirst().orElse(null);
     }
 
-    private String getGizmoId(Gizmo gizmo) {
-        for (String id : this.gizmos.keySet()) {
-            if (this.gizmos.get(id).equals(gizmo)) {
-                return id;
-            }
-        }
-        return null;
-    }
 
+    /* ATTENTION: Multiple balls could be at the same position e.g. inside an
+     * absorber */
     private Ball getBallAt(double x, double y) {
-        return this.balls.values().stream()
+        return this.balls.stream()
                 .filter(b -> b.contains(x, y))
                 .findFirst().orElse(null);
     }
 
-    private String getBallId(Ball ball) {
-        for (String id : this.balls.keySet()) {
-            if (this.balls.get(id).equals(ball)) {
-                return id;
+    private void checkPositionFree(double x, double y) throws PositionOverlapException, PositionOutOfBoundsException {
+        if (!(0 <= x && x < this.width && 0 <= y && y < this.height)) {
+            throw new PositionOutOfBoundsException();
+        }
+        for (Gizmo g : this.gizmos) {
+            if (g.containsCell((int) x, (int) y)) {
+                throw new PositionOverlapException();
             }
         }
-        return null;
+        for (Ball b : this.balls) {
+            if (b.contains(x, y)) {
+                throw new PositionOverlapException();
+            }
+        }
     }
 
     @Override
@@ -102,24 +96,26 @@ public class Model implements BuildModel, RunModel {
     }
 
     @Override
-    public void move(double dX, double dY) {
-        Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
+    public void move(double dX, double dY) throws PositionOverlapException, PositionOutOfBoundsException {
+        this.checkPositionFree((int) dX, (int) dY);
+        Gizmo gizmo = this.getGizmoAt((int) this.selX, (int) this.selY);
         if (gizmo != null) {
-            gizmo.setPosition((int) dX, (int) dY);
+            gizmo.setX((int) dX);
+            gizmo.setY((int) dY);
             return;
         }
         Ball ball = this.getBallAt(this.selX, this.selY);
         if (ball != null) {
-            ball.setPosition(dX, dY);
+            ball.setX(dX);
+            ball.setY(dY);
         }
     }
 
     @Override
     public void delete() {
-        Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
+        Gizmo gizmo = this.getGizmoAt((int)this.selX, (int)this.selY);
         if (gizmo != null) {
-            this.gizmos.remove(this.getGizmoId(gizmo));
-            this.gizmoMap.remove(gizmo);
+            this.gizmos.remove(gizmo);
             for (Set<Gizmo> listeners : this.gizmoMap.values()) {
                 listeners.remove(gizmo);
             }
@@ -134,73 +130,91 @@ public class Model implements BuildModel, RunModel {
         }
         Ball ball = this.getBallAt(this.selX, this.selY);
         if (ball != null) {
-            this.balls.remove(this.getBallId(ball));
+            this.balls.remove(ball);
         }
     }
 
     @Override
-    public void addAbsorber(String identifier, int width, int height) {
+    public void addAbsorber(int width, int height) throws PositionOverlapException, PositionOutOfBoundsException {
+        this.checkPositionFree((int) this.selX, (int) this.selY);
         Gizmo gizmo = new Absorber(width, height);
-        gizmo.setPosition((int) this.selX, (int) this.selY);
-        this.gizmos.put(identifier, gizmo);
+        gizmo.setX((int)this.selX);
+        gizmo.setY((int)this.selY);
+        this.gizmos.add(gizmo);
     }
 
     @Override
-    public void addSquare(String identifier) {
+    public void addSquare() throws PositionOverlapException, PositionOutOfBoundsException {
+        this.checkPositionFree((int) this.selX, (int) this.selY);
         Gizmo gizmo = new Square();
-        gizmo.setPosition((int) this.selX, (int) this.selY);
-        this.gizmos.put(identifier, gizmo);
+        gizmo.setX((int)this.selX);
+        gizmo.setY((int)this.selY);
+        this.gizmos.add(gizmo);
     }
 
     @Override
-    public void addCircle(String identifier) {
+    public void addCircle() throws PositionOverlapException, PositionOutOfBoundsException {
+        this.checkPositionFree((int) this.selX, (int) this.selY);
         Gizmo gizmo = new Circle();
-        gizmo.setPosition((int) this.selX, (int) this.selY);
-        this.gizmos.put(identifier, gizmo);
+        gizmo.setX((int)this.selX);
+        gizmo.setY((int)this.selY);
+        this.gizmos.add(gizmo);
     }
 
     @Override
-    public void addTriangle(String identifier) {
+    public void addTriangle() throws PositionOverlapException, PositionOutOfBoundsException {
+        this.checkPositionFree((int) this.selX, (int) this.selY);
         Gizmo gizmo = new Triangle();
-        gizmo.setPosition((int) this.selX, (int) this.selY);
-        this.gizmos.put(identifier, gizmo);
+        gizmo.setX((int)this.selX);
+        gizmo.setY((int)this.selY);
+        this.gizmos.add(gizmo);
     }
 
     @Override
-    public void addRightFlipper(String identifier) {
+    public void addRightFlipper() throws PositionOverlapException, PositionOutOfBoundsException {
+        this.checkPositionFree((int) this.selX, (int) this.selY);
         Gizmo gizmo = new Flipper(false);
-        gizmo.setPosition((int) this.selX, (int) this.selY);
-        this.gizmos.put(identifier, gizmo);
+        gizmo.setX((int)this.selX);
+        gizmo.setY((int)this.selY);
+        this.gizmos.add(gizmo);
     }
 
     @Override
-    public void addLeftFlipper(String identifier) {
+    public void addLeftFlipper() throws PositionOverlapException, PositionOutOfBoundsException {
+        this.checkPositionFree((int) this.selX, (int) this.selY);
         Gizmo gizmo = new Flipper(true);
-        gizmo.setPosition((int) this.selX, (int) this.selY);
-        this.gizmos.put(identifier, gizmo);
+        gizmo.setX((int)this.selX);
+        gizmo.setY((int)this.selY);
+        this.gizmos.add(gizmo);
     }
 
     @Override
     public void rotateGizmo() {
-        Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
+        Gizmo gizmo = this.getGizmoAt((int)this.selX, (int)this.selY);
         if (gizmo != null) {
             gizmo.rotate();
         }
     }
 
     @Override
-    public void addBall(String identifier) {
+    public void addBall(double velocityX, double velocityY) throws PositionOverlapException, PositionOutOfBoundsException {
+        this.checkPositionFree((int) this.selX, (int) this.selY);
+
         Ball ball = new Ball();
-        ball.setPosition(this.selX, this.selY);
-        // TODO: manage conflicting identifiers?
-        this.balls.put(identifier, ball);
+        ball.setX(this.selX);
+        ball.setY(this.selY);
+        ball.setVelocityX(velocityX);
+        ball.setVelocityY(velocityY);
+        this.balls.add(ball);
+        this.buildtimeBalls.add(ball.clone());
     }
 
     @Override
     public void setBallVelocity(double vX, double vY) {
         Ball ball = this.getBallAt(this.selX, this.selY);
         if (ball != null) {
-            ball.setVelocity(new Vect(vX, vY));
+            ball.setVelocityX(vX);
+            ball.setVelocityY(vY);
         }
     }
 
@@ -232,7 +246,7 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void triggerOnKeyPress(int key) {
-        Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
+        Gizmo gizmo = this.getGizmoAt((int)this.selX, (int)this.selY);
         if (gizmo != null) {
             this.keyPressMap.computeIfAbsent(key, k -> new HashSet<>()).add(gizmo);
         }
@@ -240,7 +254,7 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void triggerOnKeyRelease(int key) {
-        Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
+        Gizmo gizmo = this.getGizmoAt((int)this.selX, (int)this.selY);
         if (gizmo != null) {
             this.keyReleaseMap.computeIfAbsent(key, k -> new HashSet<>()).add(gizmo);
         }
@@ -248,399 +262,21 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void triggerOnOuterWalls() {
-        Gizmo gizmo = this.getGizmoAt(this.selX, this.selY);
+        Gizmo gizmo = this.getGizmoAt((int)this.selX, (int)this.selY);
         if (gizmo != null) {
             this.wallTriggers.add(gizmo);
         }
     }
 
     @Override
-    public void triggerOnGizmo(double sX, double sY) {
-        Gizmo source = this.getGizmoAt(sX, sY);
-        Gizmo destination = this.getGizmoAt(this.selX, this.selY);
+    public void triggerOnGizmo(ReadGizmo gizmo) {
+        Gizmo destination = this.getGizmoAt((int)this.selX, (int)this.selY);
+        Gizmo source = (Gizmo)gizmo;
+
         if (source != null && destination != null) {
             this.gizmoMap.computeIfAbsent(source, s -> new HashSet<>()).add(destination);
         }
     }
-
-    public void load(InputStream input) throws SyntaxError {
-        Map<String,Gizmo> gizmos = new HashMap<>(this.gizmos);
-        Map<String,Ball> balls = new HashMap<>(this.balls);
-        Map<Integer,Set<Gizmo>> keyPressMap = new HashMap<>(this.keyPressMap);
-        Map<Integer,Set<Gizmo>> keyReleaseMap = new HashMap<>(this.keyReleaseMap);
-        Map<Gizmo,Set<Gizmo>> gizmoMap = new HashMap<>(this.gizmoMap);
-        Set<Gizmo> wallTriggers = new HashSet<>(this.wallTriggers);
-    	this.reset();
-
-        int n = 0;
-        Map<Integer, List<String>> dependent = new HashMap<>();
-        try {
-            try (Scanner scanner = new Scanner(input)) {
-                while (scanner.hasNextLine()) {
-                    n++;
-                    String line = scanner.nextLine().trim();
-                    if (!line.isEmpty()) {
-                        List<String> tokens = Arrays.asList(line.split("\\s+"));
-                        if (Model.DEPENDENT.contains(tokens.get(0))) {
-                            dependent.put(n, tokens);
-                        } else if(tokens.get(0).equals("Gravity") || tokens.get(0).equals("Friction")){
-                            this.frictionGravityCommand(n, tokens);
-                        } else {
-                        	this.creationCommand(n, tokens);
-                        }
-                    }
-                }
-            }
-            for (Integer lineNumber : dependent.keySet()) {
-                this.dependentCommand(lineNumber, dependent.get(lineNumber));
-            }
-        } catch (SyntaxError e) {
-            this.gizmos = gizmos;
-            this.balls = balls;
-            this.keyPressMap = keyPressMap;
-            this.keyReleaseMap = keyReleaseMap;
-            this.gizmoMap = gizmoMap;
-            this.wallTriggers = wallTriggers;
-            throw e;
-        }
-    }
-
-    private void frictionGravityCommand(Integer lineNum, List<String> tokens) throws SyntaxError {
-
-    	SyntaxError error = new SyntaxError(lineNum, String.join(" ", tokens), "Invalid command.");
-    	try {
-	    	switch (tokens.get(0)) {
-		    	case "Gravity":
-			        error.setMessage("Gravity <float>");
-			        if (tokens.size() != 2) {
-			            throw error;
-			        }
-			        this.setGravity(Double.parseDouble(tokens.get(1)));
-			        break;
-
-			    case "Friction":
-			        error.setMessage("Friction <float> <float>");
-			        if (tokens.size() != 3) {
-			            throw error;
-			        }
-			        this.setFriction(Double.parseDouble(tokens.get(1)),
-			                Double.parseDouble(tokens.get(2)));
-			        break;
-		    }
-	    }
-	    catch(IndexOutOfBoundsException|NumberFormatException e) {
-	    	throw error;
-	    }
-    }
-
-    private void creationCommand(Integer lineNum, List<String> tokens) throws SyntaxError {
-        SyntaxError error = new SyntaxError(lineNum, String.join(" ", tokens), "Invalid command.");
-        try {
-            if (tokens.get(0).equals("Ball")) {
-                error.setMessage("Ball <identifier> <float> <float> <float> <float>");
-                if (tokens.size() != 6) {
-                    throw error;
-                }
-                Double x = Double.parseDouble(tokens.get(2));
-                Double y = Double.parseDouble(tokens.get(3));
-                this.select(x, y);
-                this.addBall(tokens.get(1));
-                this.getBallAt(x, y).setVelocity(new Vect(Double.parseDouble(tokens.get(4))
-                										  ,Double.parseDouble(tokens.get(5))));
-                return;
-            }
-            Integer x = Integer.parseInt(tokens.get(2));
-            Integer y = Integer.parseInt(tokens.get(3));
-            this.select(x, y);
-            switch (tokens.get(0)) {
-
-                case "Circle":
-                    error.setMessage("Circle <identifier> <int> <int>");
-                    if (tokens.size() != 4) {
-                        throw error;
-                    }
-                    this.addCircle(tokens.get(1));
-                    break;
-
-                case "Triangle":
-                    error.setMessage("Triangle <identifier> <int> <int>");
-                    if (tokens.size() != 4) {
-                        throw error;
-                    }
-                    this.addTriangle(tokens.get(1));
-                    break;
-
-                case "Square":
-                    error.setMessage("Square <identifier> <int> <int>");
-                    if (tokens.size() != 4) {
-                        throw error;
-                    }
-                    this.addSquare(tokens.get(1));
-                    break;
-
-                case "LeftFlipper":
-                    error.setMessage("LeftFlipper <identifier> <int> <int>");
-                    if (tokens.size() != 4) {
-                        throw error;
-                    }
-                    this.addLeftFlipper(tokens.get(1));
-                    break;
-
-                case "RightFlipper":
-                    error.setMessage("RightFlipper <identifier> <int> <int>");
-                    if (tokens.size() != 4) {
-                        throw error;
-                    }
-                    this.addRightFlipper(tokens.get(1));
-                    break;
-
-                case "Absorber":
-                    error.setMessage("Absorber <identifier> <int> <int> <int> <int>");
-                    if (tokens.size() != 6) {
-                        throw error;
-                    }
-                    Integer x1 = Integer.parseInt(tokens.get(4));
-                    Integer y1 = Integer.parseInt(tokens.get(5));
-                    this.addAbsorber(tokens.get(1), x1 - x, y1 - y);
-                    break;
-
-                default:
-                	System.out.println("Hello");
-                    throw error;
-            }
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw error;
-        }
-    }
-
-    private void dependentCommand(Integer lineNum, List<String> tokens) throws SyntaxError {
-        Gizmo gizmo;
-        Ball ball;
-        SyntaxError error = new SyntaxError(lineNum, String.join(" ", tokens), "Invalid command.");
-        try {
-            switch (tokens.get(0)) {
-
-                case "Move":
-                    error.setMessage("Move <identifier> <number> <number>");
-                    if (tokens.size() != 4) {
-                        throw error;
-                    }
-                    ball = this.balls.get(tokens.get(1));
-                    if (ball != null) {
-                        this.select(ball.getX(), ball.getY());
-                        this.move(Double.parseDouble(tokens.get(2)),
-                                Double.parseDouble(tokens.get(3)));
-                        break;
-                    }
-                    gizmo = this.gizmos.get(tokens.get(1));
-                    if (gizmo != null) {
-                        this.select(gizmo.getX(), gizmo.getY());
-                        this.move(Integer.parseInt(tokens.get(2)),
-                                Integer.parseInt(tokens.get(3)));
-                        break;
-                    }
-                    error.setMessage(tokens.get(1) + " does not refer to an existing object.");
-                    throw error;
-
-                case "Rotate":
-                    error.setMessage("Rotate <identifier>");
-                    if (tokens.size() != 2) {
-                        throw error;
-                    }
-                    gizmo = this.gizmos.get(tokens.get(1));
-                    if (gizmo != null) {
-                        this.select(gizmo.getX(), gizmo.getY());
-                        this.rotateGizmo();
-                        break;
-                    }
-                    error.setMessage(tokens.get(1) + " does not refer to an existing gizmo.");
-                    throw error;
-
-                case "Delete":
-                    error.setMessage("Delete <identifier>");
-                    if (tokens.size() != 2) {
-                        throw error;
-                    }
-                    ball = this.balls.get(tokens.get(1));
-                    if (ball != null) {
-                        this.select(ball.getX(), ball.getY());
-                        this.delete();
-                        break;
-                    }
-                    gizmo = this.gizmos.get(tokens.get(1));
-                    if (gizmo != null) {
-                        this.select(gizmo.getX(), gizmo.getY());
-                        this.delete();
-                        break;
-                    }
-                    error.setMessage(tokens.get(1) + " does not refer to an existing object.");
-                    throw error;
-
-                case "Connect":
-                    error.setMessage("Connect <identifier> <identifier>");
-                    if (tokens.size() != 3) {
-                        throw error;
-                    }
-                    Gizmo destination = this.gizmos.get(tokens.get(2));
-                    if (destination == null) {
-                        error.setMessage(tokens.get(2) + " is not an existing gizmo.");
-                        throw error;
-                    }
-                    this.select(destination.getX(), destination.getY());
-                    if (tokens.get(1).equals("OuterWalls")) {
-                        this.triggerOnOuterWalls();
-                        break;
-                    }
-                    Gizmo source = this.gizmos.get(tokens.get(1));
-                    if (source == null) {
-                        error.setMessage(tokens.get(1) + " is not an existing gizmo.");
-                        throw error;
-                    }
-                    this.triggerOnGizmo(source.getX(), source.getY());
-                    break;
-
-                case "KeyConnect":
-                    error.setMessage("KeyConnect key <keynum> <up-or-down> <identifier>");
-                    if (tokens.size() != 5 || !tokens.get(1).equals("key")) {
-                        throw error;
-                    }
-                    gizmo = this.gizmos.get(tokens.get(4));
-                    if (gizmo == null) {
-                        error.setMessage(tokens.get(4) + " is not an existing gizmo.");
-                        throw error;
-                    }
-                    this.select(gizmo.getX(), gizmo.getY());
-                    Integer keyCode = Integer.parseInt(tokens.get(2));
-                    if (tokens.get(3).equals("up")) {
-                        this.triggerOnKeyRelease(keyCode);
-                    } else if (tokens.get(3).equals("down")) {
-                        this.triggerOnKeyPress(keyCode);
-                    } else {
-                        error.setMessage("KeyConnect key <keynum> <up-or-down> <identifier>");
-                        throw error;
-                    }
-                    break;
-
-                default:
-                    throw error;
-            }
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw error;
-        }
-    }
-
-    public void save(OutputStream output) throws FileNotFoundException {
-        PrintWriter writer = new PrintWriter(output);
-        this.dumpGizmoDeclarations(writer);
-        this.dumpBallDeclarations(writer);
-        this.dumpRotateCommands(writer);
-        this.dumpConnectCommands(writer);
-        this.dumpKeyConnectCommands(writer);
-        this.dumpFrictionGravityDeclarations(writer);
-        writer.close();
-    }
-
-    //Returns an output stream containing all of
-    //the Gizmo declarations for Gizmos in this model
-    private void dumpGizmoDeclarations(PrintWriter writer) {
-        for (String id : this.gizmos.keySet()) {
-            Gizmo gizmo = this.gizmos.get(id);
-
-            if (gizmo.getType() == GizmoType.ABSORBER) {
-                writer.format("%s %s %d %d %d %d\n",
-                        this.convertGizmoTypeToString(gizmo.getType()),
-                        id,
-                        gizmo.getX(),
-                        gizmo.getY(),
-                        gizmo.getX() + gizmo.getWidth(),
-                        gizmo.getY() + gizmo.getHeight());
-            } else {
-                writer.format("%s %s %d %d\n",
-                        this.convertGizmoTypeToString(gizmo.getType()),
-                        id,
-                        gizmo.getX(),
-                        gizmo.getY());
-            }
-        }
-    }
-
-    private String convertGizmoTypeToString(GizmoType type) {
-        switch (type) {
-            case SQUARE:
-                return "Square";
-            case TRIANGLE:
-                return "Triangle";
-            case CIRCLE:
-                return "Circle";
-            case ABSORBER:
-                return "Absorber";
-            case RIGHT_FLIPPER:
-                return "RightFlipper";
-            case LEFT_FLIPPER:
-                return "LeftFlipper";
-            default:
-                return "";
-        }
-    }
-
-    private void dumpBallDeclarations(PrintWriter writer) {
-        for (String id : this.balls.keySet()) {
-            Ball ball = this.balls.get(id);
-            writer.format("Ball %s %f %f %f %f\n",
-                    id,
-                    ball.getX(),
-                    ball.getY(),
-                    ball.getVelocityX(),
-                    ball.getVelocityY()
-            );
-        }
-    }
-
-    private void dumpRotateCommands(PrintWriter writer) {
-        for (String id : this.gizmos.keySet()) {
-            Gizmo gizmo = this.gizmos.get(id);
-            for (int i = 0; i < gizmo.getRotation().getTurns(); i++) {
-                writer.format("Rotate %s\n", id);
-            }
-        }
-    }
-
-    private void dumpConnectCommands(PrintWriter writer) {
-        for (Gizmo from : this.gizmoMap.keySet()) {
-            String fromId = this.getGizmoId(from);
-            for (Gizmo to : this.gizmoMap.get(from)) {
-                String toId = this.getGizmoId(to);
-                writer.format("Connect %s %s\n", fromId, toId);
-            }
-        }
-    }
-
-    private void dumpKeyConnectCommands(PrintWriter writer) {
-        for (Integer key : this.keyPressMap.keySet()) {
-            for (Gizmo to : this.keyPressMap.get(key)) {
-                writer.format("KeyConnect key %d down %s\n", key, this.getGizmoId(to));
-            }
-        }
-        for (Integer key : this.keyReleaseMap.keySet()) {
-            for (Gizmo to : this.keyReleaseMap.get(key)) {
-                writer.format("KeyConnect key %d up %s\n", key, this.getGizmoId(to));
-            }
-        }
-    }
-
-    private void dumpFrictionGravityDeclarations(PrintWriter writer) {
-        writer.format("Gravity %f\n", this.gravity);
-        writer.format("Friction %f %f\n", this.getFrictionMu(), this.getFrictionMu2());
-    }
-
-    @Override
-    public Set<Vect> getBallPositions() {
-        return this.balls.values()
-                .stream()
-                .map(b -> new Vect(b.getX(), b.getY()))
-                .collect(Collectors.toSet());
-    }
-
     @Override
     public void keyPressed(int keyCode) {
         this.keyPressMap.getOrDefault(keyCode, Collections.emptySet()).forEach(Gizmo::trigger);
@@ -653,7 +289,82 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void tick() {
-        gizmos.values().forEach(Gizmo::tick);
+        this.gizmos.forEach(Gizmo::tick);
+    }
+
+    @Override
+    public Set<ReadGizmo> getGizmos() {
+        return Collections.unmodifiableSet(this.gizmos);
+    }
+
+    @Override
+    public Set<ReadBall> getBalls() {
+        return Collections.unmodifiableSet(this.balls);
+    }
+
+    @Override
+    public Set<ReadBall> getBuildtimeBalls() {
+        return Collections.unmodifiableSet(this.buildtimeBalls);
+    }
+
+    @Override
+    public Map<Integer, Set<ReadGizmo>> getKeyPressToGizmoMap() {
+        // A Map<T,Set<ReadGizmo> is not a supertype of Map<T,Set<Gizmo>>,
+        // even if ReadGizmo is a supertype of Gizmo
+        Map<Integer, Set<ReadGizmo>> copy = new HashMap<>();
+        for (Integer i : this.keyPressMap.keySet()) {
+            copy.put(i, new HashSet<>(this.keyPressMap.get(i)));
+        }
+        return copy;
+    }
+
+    @Override
+    public Map<Integer, Set<ReadGizmo>> getKeyReleaseToGizmoMap() {
+        // A Map<T,Set<ReadGizmo> is not a supertype of Map<T,Set<Gizmo>>,
+        // even if ReadGizmo is a supertype of Gizmo
+        Map<Integer, Set<ReadGizmo>> copy = new HashMap<>();
+        for (Integer i : this.keyReleaseMap.keySet()) {
+            copy.put(i, new HashSet<>(this.keyReleaseMap.get(i)));
+        }
+        return copy;
+    }
+
+    @Override
+    public Map<ReadGizmo, Set<ReadGizmo>> getGizmoToGizmoMap() {
+        // A Map<T,Set<ReadGizmo> is not a supertype of Map<T,Set<Gizmo>>,
+        // even if ReadGizmo is a supertype of Gizmo
+        Map<ReadGizmo, Set<ReadGizmo>> copy = new HashMap<>();
+        for (Gizmo g : this.gizmoMap.keySet()) {
+            copy.put(g, new HashSet<>(this.gizmoMap.get(g)));
+        }
+        return copy;
+    }
+
+    public void load(InputStream input) throws SyntaxError {
+        double gravity = this.gravity;
+        double mu = this.mu;
+        double mu2 = this.mu2;
+        Set<Gizmo> gizmos = new HashSet<>(this.gizmos);
+        Set<Ball> balls = new HashSet<>(this.balls);
+        Map<Integer,Set<Gizmo>> keyPressMap = new HashMap<>(this.keyPressMap);
+        Map<Integer,Set<Gizmo>> keyReleaseMap = new HashMap<>(this.keyReleaseMap);
+        Map<Gizmo,Set<Gizmo>> gizmoMap = new HashMap<>(this.gizmoMap);
+        Set<Gizmo> wallTriggers = new HashSet<>(this.wallTriggers);
+        this.reset();
+        try {
+            new Loader(this).load(input);
+        } catch (SyntaxError e) {
+            this.gravity = gravity;
+            this.mu = mu;
+            this.mu2 = mu2;
+            this.gizmos = gizmos;
+            this.balls = balls;
+            this.keyPressMap = keyPressMap;
+            this.keyReleaseMap = keyReleaseMap;
+            this.gizmoMap = gizmoMap;
+            this.wallTriggers = wallTriggers;
+            throw e;
+        }
     }
 
     //private void tickBall(Ball ball) {
@@ -673,9 +384,7 @@ public class Model implements BuildModel, RunModel {
     //    }
     //}
 
-
-    @Override
-    public Collection<ReadGizmo> getGizmos() {
-        return Collections.unmodifiableCollection(gizmos.values());
+    public void save(OutputStream output) {
+        new Saver(this).save(output);
     }
 }
