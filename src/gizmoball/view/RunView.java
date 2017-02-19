@@ -12,11 +12,13 @@ public class RunView extends GameView {
     private JButton tickBtn;
 
     public RunView(RunModel model) {
+        TickListener ticks = new TickListener(model, this);
         this.stateBtn = new JButton("Run"); // either Run or Stop
         this.stateBtn.setFocusable(false);
-        this.stateBtn.addActionListener(new ToggleRunningListener(new TickListener(model, this), this));
+        this.stateBtn.addActionListener(new ToggleRunningListener(ticks, this));
         this.tickBtn = new JButton("Tick");
         this.tickBtn.setFocusable(false);
+        this.tickBtn.addActionListener(ticks);
 
         JPanel buttonsPnl = new JPanel();
         buttonsPnl.add(stateBtn);

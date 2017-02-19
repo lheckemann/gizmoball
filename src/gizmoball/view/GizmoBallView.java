@@ -1,6 +1,7 @@
 package gizmoball.view;
 
 import gizmoball.controller.LoadListener;
+import gizmoball.controller.SaveListener;
 import gizmoball.controller.SwitchModeListener;
 import gizmoball.model.Model;
 
@@ -35,7 +36,7 @@ public class GizmoBallView {
         this.modeBtn.setFocusable(false);
         //newBtn.addActionListener(new CreateGizmoListener(model, this));
         loadBtn.addActionListener(new LoadListener(model, this));
-        //saveBtn.addActionListener(new LoadListener(model, this));
+        saveBtn.addActionListener(new SaveListener(model));
         exitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

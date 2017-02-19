@@ -1,28 +1,28 @@
 define images
 
-![Class diagram](docs/design.png)
+![Class diagram](docs/preliminary/design.png)
 
-![Build mode](docs/screenshots/BuildModeScreenshot.PNG)
+![Build mode](docs/preliminary/screenshots/BuildModeScreenshot.PNG)
 
-![Build mode - add selection](docs/screenshots/BuildModeAddSelectionScreenshot.PNG)
+![Build mode - add selection](docs/preliminary/screenshots/BuildModeAddSelectionScreenshot.PNG)
 
-![Run mode](docs/screenshots/RunModeScreenshot.PNG)
+![Run mode](docs/preliminary/screenshots/RunModeScreenshot.PNG)
 
-![Run mode - stop](docs/screenshots/RunStopScreenshot.PNG)
+![Run mode - stop](docs/preliminary/screenshots/RunStopScreenshot.PNG)
 
 endef
 export images
 
-docs: docs/report.pdf
+docs: docs/preliminary/report.pdf
 
-docs/report.pdf: docs/report.md
-	pandoc -f markdown -t latex docs/report.md -o docs/report.pdf
+docs/preliminary/report.pdf: docs/preliminary/report.md
+	pandoc -f markdown -t latex docs/preliminary/report.md -o docs/preliminary/report.pdf
 
-docs/report.md: docs/specs.md docs/usecases.md docs/physics.md docs/design.png docs/triggering.md docs/design.md docs/projectplan.md
-	printf "%% Preliminary design\n%% Group JS8\n" > docs/report.md
-	cat docs/specs.md docs/usecases.md docs/physics.md docs/triggering.md docs/design.md docs/projectplan.md >> docs/report.md
-	printf "%s" "$$images" >> docs/report.md
+docs/preliminary/report.md: docs/preliminary/specs.md docs/preliminary/usecases.md docs/preliminary/physics.md docs/preliminary/design.png docs/preliminary/triggering.md docs/preliminary/design.md docs/preliminary/projectplan.md
+	printf "%% Preliminary design\n%% Group JS8\n" > docs/preliminary/report.md
+	cat docs/preliminary/specs.md docs/preliminary/usecases.md docs/preliminary/physics.md docs/preliminary/triggering.md docs/preliminary/design.md docs/preliminary/projectplan.md >> docs/preliminary/report.md
+	printf "%s" "$$images" >> docs/preliminary/report.md
 
-docs/design.png: docs/design.dia
-	dia -t png -s 2000x -e docs/design.png docs/design.dia
-	convert docs/design.png -rotate 90 docs/design.png
+docs/preliminary/design.png: docs/preliminary/design.dia
+	dia -t png -s 2000x -e docs/preliminary/design.png docs/preliminary/design.dia
+	convert docs/preliminary/design.png -rotate 90 docs/preliminary/design.png

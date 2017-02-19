@@ -23,17 +23,17 @@ public class LoadListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            JFileChooser chooser = new JFileChooser();
-
-            int result = chooser.showOpenDialog(new JFrame());
-            if (result == JFileChooser.APPROVE_OPTION) {
-                File selectedFile = chooser.getSelectedFile();
-                model.load(new FileInputStream(selectedFile.getPath()));
+            JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
+            if (JFileChooser.APPROVE_OPTION == chooser.showOpenDialog(null)) {
+                model.load(new FileInputStream(chooser.getSelectedFile()));
                 view.updateBoard();
             }
-
-        } catch (FileNotFoundException | SyntaxError ex) {
-            ex.printStackTrace();
+        } catch (FileNotFoundException fnfe) {
+            JOptionPane.showMessageDialog(null, fnfe.getMessage(), "File not found", JOptionPane.ERROR_MESSAGE);
+            //fnfe.printStackTrace();
+        } catch (SyntaxError se) {
+            JOptionPane.showMessageDialog(null, se.getMessage(), "Syntax error", JOptionPane.ERROR_MESSAGE);
+            //se.printStackTrace();
         }
     }
 }
