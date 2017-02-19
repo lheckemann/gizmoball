@@ -382,7 +382,7 @@ public class Model implements BuildModel, RunModel {
         }
         else {
             ball.setPosition(ball.getPosition().plus(ballVel.times(1.0 / TICKS_PER_SECOND)));
-            ball.setVelocity(ballVel.plus(gravity));
+            ball.setVelocity(ballVel.plus(gravity.times(1.0 / TICKS_PER_SECOND)));
         }
     }
 
