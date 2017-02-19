@@ -20,12 +20,12 @@ public class Circle extends Gizmo {
 
     private physics.Circle physics = new physics.Circle(0.5, 0.5, 0.5);
     @Override
-    protected Set<physics.Circle> getBasicCircles() {
+    public Set<physics.Circle> getCircles() {
         return Collections.singleton(physics);
     }
 
     @Override
-    protected Set<LineSegment> getBasicLineSegments() {
+    public Set<LineSegment> getLineSegments() {
         return Collections.emptySet();
     }
 }

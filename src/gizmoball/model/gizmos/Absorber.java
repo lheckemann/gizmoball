@@ -11,22 +11,10 @@ import java.util.stream.Stream;
 public class Absorber extends Gizmo {
     private final int width;
     private final int height;
-    private final Set<LineSegment> lines;
-    private final Set<Circle> circles;
 
     public Absorber(int width, int height) {
         this.width = width;
         this.height = height;
-        lines = Collections.unmodifiableSet(
-            Stream.of(
-                    new LineSegment(0, 0, 0, height),
-                    new LineSegment(0, height, width, height),
-                    new LineSegment(width, height, width, 0),
-                    new LineSegment(width, 0, 0, 0)
-            ).collect(Collectors.toSet())
-        );
-        // TODO
-        circles = Collections.emptySet();
     }
 
     public GizmoType getType() {
@@ -42,13 +30,21 @@ public class Absorber extends Gizmo {
     }
 
     @Override
-    protected Set<LineSegment> getBasicLineSegments() {
-        return lines;
+    public Set<LineSegment> getLineSegments() {
+        return Collections.unmodifiableSet(
+            Stream.of(
+                    new LineSegment(0, 0, 0, height),
+                    new LineSegment(0, height, width, height),
+                    new LineSegment(width, height, width, 0),
+                    new LineSegment(width, 0, 0, 0)
+            ).collect(Collectors.toSet())
+        );
     }
 
     @Override
-    protected Set<Circle> getBasicCircles() {
-        return circles;
+    public Set<Circle> getCircles() {
+        // TODO
+        return Collections.emptySet();
     }
 
     @Override

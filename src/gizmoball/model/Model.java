@@ -2,12 +2,10 @@ package gizmoball.model;
 
 import physics.LineSegment;
 import physics.Vect;
-import java.io.PrintWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.*;
+import java.awt.geom.AffineTransform;
 
 import gizmoball.model.gizmos.*;
 import gizmoball.model.gizmos.Gizmo;
@@ -383,8 +381,13 @@ public class Model implements BuildModel, RunModel {
         Vect ballVel = ball.getVelocity();
         CollisionFinder finder = new CollisionFinder(ball.getCircle(), ballVel);
         walls.forEach(finder.getLineConsumer());
-        gizmos.stream().map(Gizmo::getLineSegments).flatMap(Collection::stream).forEach(finder.getLineConsumer());
-        gizmos.stream().map(Gizmo::getCircles).flatMap(Collection::stream).forEach(finder.getCircleConsumer());
+        for (Gizmo g : this.gizmos) {
+            AffineTransform t = g.getTransform();
+            g.getLineSegments().forEach(l ->
+                    finder.getLineConsumer().accept(Geometry.transformThrough(t, l)));
+            g.getCircles().forEach(c ->
+                    finder.getCircleConsumer().accept(Geometry.transformThrough(t, c)));
+        }
 
         if (finder.getTimeUntilCollision() < 1.0 / TICKS_PER_SECOND) {
             ball.setPosition(finder.nextCollisionPosition());

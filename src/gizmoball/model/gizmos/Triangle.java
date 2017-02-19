@@ -27,7 +27,7 @@ public class Triangle extends Gizmo {
                     new LineSegment(1, 0, 0, 0)).collect(Collectors.toSet())
     );
     @Override
-    protected Set<LineSegment> getBasicLineSegments() {
+    public Set<LineSegment> getLineSegments() {
         return lines;
     }
 
@@ -38,7 +38,7 @@ public class Triangle extends Gizmo {
                     new Circle(1-circleSize, circleSize, circleSize)).collect(Collectors.toSet())
     );
     @Override
-    protected Set<Circle> getBasicCircles() {
+    public Set<Circle> getCircles() {
         return circles;
     }
 }

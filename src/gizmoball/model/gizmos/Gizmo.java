@@ -3,7 +3,6 @@ package gizmoball.model.gizmos;
 import gizmoball.model.*;
 import gizmoball.model.Geometry;
 import physics.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.geom.AffineTransform;
 import java.util.Collections;
@@ -83,41 +82,22 @@ public abstract class Gizmo implements ReadGizmo {
         throw new GizmoTypeException();
     }
 
-    private Set<LineSegment> lineCache = null;
     public Set<LineSegment> getLineSegments() {
-        AffineTransform transform = computeTransform();
-        if (lineCache == null) {
-            lineCache = getBasicLineSegments().stream()
-                    .map(line -> gizmoball.model.Geometry.transformThrough(transform, line))
-                    .collect(Collectors.toSet());
-        }
-        return Collections.unmodifiableSet(lineCache);
+        return Collections.emptySet();
     }
-    protected Set<LineSegment> getBasicLineSegments() { return Collections.emptySet(); };
 
-    private Set<physics.Circle> circleCache = null;
     public Set<physics.Circle> getCircles() {
-        AffineTransform transform = computeTransform();
-        if (circleCache == null) {
-            circleCache = getBasicCircles().stream()
-                    .map(circle -> Geometry.transformThrough(transform, circle))
-                    .collect(Collectors.toSet());
-        }
-        return Collections.unmodifiableSet(circleCache);
+        return Collections.emptySet();
     }
-    protected Set<physics.Circle> getBasicCircles() { return Collections.emptySet(); };
 
-    protected AffineTransform computeTransform() {
+    @Override
+    public AffineTransform getTransform() {
         AffineTransform result = new AffineTransform();
         result.translate(getX(), getY());
         result.translate(getWidth()/2, getHeight()/2);
         result.quadrantRotate(getRotation().getTurns());
         result.translate(getWidth()/-2, getHeight()/-2);
         return result;
-    }
-
-    public AffineTransform getTransform() {
-        return new AffineTransform(computeTransform());
     }
 
     public boolean containsCell(int x, int y) {
