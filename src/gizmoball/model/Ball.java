@@ -5,7 +5,7 @@ import java.util.*;
 import physics.*;
 
 public class Ball implements ReadBall {
-    private final static double RADIUS = 0.5;
+    private final static double RADIUS = 0.25;
 
     private double x;
     private double y;
