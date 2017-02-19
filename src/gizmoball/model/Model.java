@@ -107,6 +107,7 @@ public class Model implements BuildModel, RunModel {
     public void move(double dX, double dY) throws PositionOverlapException, PositionOutOfBoundsException {
         Gizmo gizmo = this.getGizmoAt((int) this.selX, (int) this.selY);
         if (gizmo != null) {
+            this.gizmos.remove(gizmo);
             int x = gizmo.getX();
             int y = gizmo.getY();
             gizmo.setX((int) dX);
@@ -118,10 +119,12 @@ public class Model implements BuildModel, RunModel {
                 gizmo.setY(y);
                 throw e;
             }
+            this.gizmos.add(gizmo);
             return;
         }
         Ball ball = this.getBallAt(this.selX, this.selY);
         if (ball != null) {
+            this.balls.remove(ball);
             double x = ball.getX();
             double y = ball.getY();
             ball.setX(dX);
@@ -133,6 +136,7 @@ public class Model implements BuildModel, RunModel {
                 ball.setY(y);
                 throw e;
             }
+            this.balls.add(ball);
         }
     }
 
