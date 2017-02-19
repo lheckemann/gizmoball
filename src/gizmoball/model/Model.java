@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.util.*;
 
 import physics.Vect;
+
 import gizmoball.model.gizmos.*;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
@@ -48,7 +49,7 @@ public class Model implements BuildModel, RunModel {
 
     private Gizmo getGizmoAt(int x, int y) {
         return this.gizmos.stream()
-                .filter(g -> (g.getX() == x && g.getY() == y))
+                .filter(g -> g.getBoundingBoxCells().contains(new Vect(x, y)))
                 .findFirst().orElse(null);
     }
 
@@ -57,7 +58,7 @@ public class Model implements BuildModel, RunModel {
      * absorber */
     private Ball getBallAt(double x, double y) {
         return this.balls.stream()
-                .filter(b -> b.contains(x, y))
+                .filter(b -> b.getBoundingBoxCells().contains(new Vect(x, y)))
                 .findFirst().orElse(null);
     }
 

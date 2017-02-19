@@ -1,5 +1,9 @@
 package gizmoball.model.gizmos;
 
+import java.util.*;
+
+import physics.Vect;
+
 public abstract class Gizmo implements ReadGizmo {
     private Rotation rotation;
     private int x;
@@ -40,19 +44,19 @@ public abstract class Gizmo implements ReadGizmo {
     public abstract int getWidth();
 
     public abstract int getHeight();
-    
+
     public int getX() {
         return this.x;
     }
-    
+
     public int getY() {
         return this.y;
     }
-    
+
     public void setX(int x) {
         this.x = x;
     }
-    
+
     public void setY(int y) {
         this.y = y;
     }
@@ -71,7 +75,17 @@ public abstract class Gizmo implements ReadGizmo {
     public int getPivotAngle() throws GizmoTypeException {
         throw new GizmoTypeException();
     }
-    
+
+    public Set<Vect> getBoundingBoxCells() {
+        Set<Vect> cells = new HashSet<>();
+        for (int x = 0; x < this.getWidth(); x++) {
+            for (int y = 0; y < this.getHeight(); y++) {
+                cells.add(new Vect(this.getX() + x, this.getY() + y));
+            }
+        }
+        return cells;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
