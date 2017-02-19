@@ -436,7 +436,6 @@ public class Model implements BuildModel, RunModel {
         if (finder.getTimeUntilCollision() < 1.0 / TICKS_PER_SECOND && !ball.isInAbsorber()) {
            
             if (wallCollisionFound || false == gizmoBallCollidesWith.getType().equals(GizmoType.ABSORBER)) {
-                System.out.println("This is true");
                 ball.setPosition(finder.nextCollisionPosition());
                 ball.setVelocity(finder.getNewVelocity());
             }

@@ -47,7 +47,6 @@ public class Absorber extends Gizmo {
     }
     
     public void addBall(Ball b) {
-        System.out.println("Ball added");
         b.setVelocity(new Vect(0, 0));
         b.setPosition(new Vect(this.getX() + width - 0.25, this.getY() + height - 0.25));
         b.setInAbsorber(true);
@@ -56,9 +55,7 @@ public class Absorber extends Gizmo {
     
     @Override
     public void trigger() {
-        System.out.println("Absorber triggered");
         if (balls.size() > 0) {
-            System.out.println("Absorber triggered");
             Ball ballToFire = this.balls.iterator().next();
             ballToFire.setVelocity(new Vect(0, -50));
             ballToFire.setHasBeenFired(true);
