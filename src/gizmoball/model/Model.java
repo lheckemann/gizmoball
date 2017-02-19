@@ -20,7 +20,7 @@ public class Model implements BuildModel, RunModel {
     private double mu2 = 0.025;
 
     private Set<Gizmo> gizmos;
-    private Set<Ball> buildtimeBalls;
+    private Set<Ball> buildtimeBalls = new HashSet<>();
     private Set<Ball> balls;
     //A map from Key Id to Gizmo
     private Map<Integer, Set<Gizmo>> keyPressMap = new HashMap<>();
