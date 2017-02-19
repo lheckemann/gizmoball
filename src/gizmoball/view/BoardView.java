@@ -67,6 +67,10 @@ public class BoardView extends JPanel {
     }
 
     public Dimension getPreferredSize() {
-        return new Dimension(20 * L_TO_PIXELS, 20 * L_TO_PIXELS);
+        return new Dimension(model.getWidth() * L_TO_PIXELS, model.getHeight() * L_TO_PIXELS);
+    }
+
+    protected ReadModel getModel() {
+        return model;
     }
 }

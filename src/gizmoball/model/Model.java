@@ -19,8 +19,8 @@ import java.util.Set;
 public class Model implements BuildModel, RunModel {
     private final Set<LineSegment> walls = new HashSet<>();
 
-    private double width;
-    private double height;
+    private int width;
+    private int height;
     private double selX;
     private double selY;
     private Vect gravity = new Vect(0, 25);
@@ -38,7 +38,7 @@ public class Model implements BuildModel, RunModel {
     private Map<Gizmo, Set<Gizmo>> gizmoMap;
     private Set<Gizmo> wallTriggers;
 
-    public Model(double width, double height) {
+    public Model(int width, int height) {
         this.width = width;
         this.height = height;
         this.reset();
@@ -306,6 +306,16 @@ public class Model implements BuildModel, RunModel {
     @Override
     public Set<ReadBall> getBuildtimeBalls() {
         return Collections.unmodifiableSet(this.buildtimeBalls);
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
     }
 
     @Override

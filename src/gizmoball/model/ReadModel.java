@@ -14,4 +14,7 @@ public interface ReadModel {
     Set<ReadBall> getBalls();
 
     Set<ReadBall> getBuildtimeBalls();
+
+    int getWidth();
+    int getHeight();
 }
