@@ -290,6 +290,7 @@ public class Model implements BuildModel, RunModel {
     @Override
     public void tick() {
         this.gizmos.forEach(Gizmo::tick);
+        this.balls.forEach(this::tickBall);
     }
 
     @Override
