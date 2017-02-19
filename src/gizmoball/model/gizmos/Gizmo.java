@@ -1,6 +1,9 @@
 package gizmoball.model.gizmos;
 
+import java.util.*;
+
 import physics.LineSegment;
+import physics.Vect;
 
 import java.util.Set;
 
@@ -80,9 +83,14 @@ public abstract class Gizmo implements ReadGizmo {
     public abstract Set<LineSegment> getLineSegments();
     public abstract Set<Circle> getCircles();
     */
-    public boolean containsCell(int x, int y) {
-        return this.getX() <= x && x < this.getX() + this.getWidth() &&
-               this.getY() <= y && y < this.getY() + this.getWidth();
+    public Set<Vect> getCells() {
+        Set<Vect> cells = new HashSet<>();
+        for (int x = 0; x < this.getWidth(); x++) {
+            for (int y = 0; y < this.getHeight(); y++) {
+                cells.add(new Vect(this.getX() + x, this.getY() + y));
+            }
+        }
+        return cells;
     }
 
     @Override

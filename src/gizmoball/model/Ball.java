@@ -63,4 +63,8 @@ public class Ball implements ReadBall {
     public boolean contains(double x, double y) {
         return RADIUS > Math.sqrt(Math.pow(x - this.getX(), 2.0) + Math.pow(y - this.getY(), 2.0));
     }
+
+    public Set<Vect> getCells() {
+        return Collections.singleton(new Vect((int) this.getX(), (int) this.getY()));
+    }
 }
