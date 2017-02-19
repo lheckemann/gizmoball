@@ -9,4 +9,6 @@ public interface ReadBall {
     public double getX();
 
     public double getY();
+    
+    public double getDiameter();
 }

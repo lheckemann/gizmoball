@@ -5,7 +5,7 @@ import physics.Vect;
 import java.util.*;
 
 public class Ball implements ReadBall {
-    private final static double RADIUS = 0.5;
+    private final static double RADIUS = 0.25;
 
     private double x;
     private double y;
@@ -50,6 +50,10 @@ public class Ball implements ReadBall {
 
     public double getVelocityY() {
         return this.velocityY;
+    }
+    
+    public double getDiameter() {
+        return RADIUS * 2;
     }
 
     public void setVelocityX(double vX) {
