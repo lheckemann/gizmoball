@@ -13,6 +13,4 @@ public interface ReadModel {
 
     // TODO docs
     Set<ReadBall> getBalls();
-
-    Set<ReadBall> getBuildtimeBalls();
 }

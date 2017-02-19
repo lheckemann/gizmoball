@@ -28,7 +28,6 @@ public class Model implements BuildModel, RunModel {
     private double mu2 = 0.025;
 
     private Set<Gizmo> gizmos;
-    private Set<Ball> buildtimeBalls = new HashSet<>();
     private Set<Ball> balls;
     //A map from Key Id to Gizmo
     private Map<Integer, Set<Gizmo>> keyPressMap = new HashMap<>();
@@ -81,7 +80,7 @@ public class Model implements BuildModel, RunModel {
         if (this.gizmos.stream().anyMatch(g -> g.getCells().contains(cell))) {
             throw new PositionOverlapException();
         }
-        if (this.buildtimeBalls.stream().anyMatch(b -> b.getCells().contains(cell))) {
+        if (this.balls.stream().anyMatch(b -> b.getCells().contains(cell))) {
             throw new PositionOverlapException();
         }
     }
@@ -231,7 +230,6 @@ public class Model implements BuildModel, RunModel {
         ball.setVelocityY(velocityY);
         this.checkPlacement(ball);
         this.balls.add(ball);
-        this.buildtimeBalls.add(ball.clone());
     }
 
     @Override
@@ -325,11 +323,6 @@ public class Model implements BuildModel, RunModel {
     @Override
     public Set<ReadBall> getBalls() {
         return Collections.unmodifiableSet(this.balls);
-    }
-
-    @Override
-    public Set<ReadBall> getBuildtimeBalls() {
-        return Collections.unmodifiableSet(this.buildtimeBalls);
     }
 
     @Override
