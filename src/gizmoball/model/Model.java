@@ -10,6 +10,7 @@ import java.awt.geom.AffineTransform;
 import gizmoball.model.gizmos.*;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
+import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -127,6 +128,7 @@ public class Model implements BuildModel, RunModel {
             double y = ball.getY();
             ball.setX(dX);
             ball.setY(dY);
+            
             try {
                 this.checkPlacement(ball);
             } catch (PositionOverlapException|PositionOutOfBoundsException e) {
@@ -403,24 +405,61 @@ public class Model implements BuildModel, RunModel {
         Vect ballVel = ball.getVelocity();
         CollisionFinder finder = new CollisionFinder(ball.getCircle(), ballVel);
         walls.forEach(l -> finder.consumeLine(l));
-        for (Gizmo g : this.gizmos) {
-            AffineTransform t = g.getTransform();
-            g.getLineSegments().forEach(l ->
+        boolean wallCollisionFound = finder.getTimeUntilCollision() < 1.0/TICKS_PER_SECOND;
+        Gizmo gizmoBallCollidesWith = null;
+        //If we find a wall collision, why bother checking if other gizmos have collided?
+        if (wallCollisionFound == false) {
+            for (Gizmo g : this.gizmos) {
+                AffineTransform t = g.getTransform();
+                g.getLineSegments().forEach(l ->
                     finder.consumeLine(Geometry.transformThrough(t, l)));
-            g.getCircles().forEach(c ->
+                g.getCircles().forEach(c ->
                     finder.consumeCircle(Geometry.transformThrough(t, c)));
+            
+                if (finder.getTimeUntilCollision() < 1.0 / TICKS_PER_SECOND) {
+                    gizmoBallCollidesWith = g;
+                    break;
+                }
+            }
         }
-
-        if (finder.getTimeUntilCollision() < 1.0 / TICKS_PER_SECOND) {
-            ball.setPosition(finder.nextCollisionPosition());
-            ball.setVelocity(finder.getNewVelocity());
+        
+        //Need to check if the ball is outside the absorber because a ball 
+        //will be colliding with the absorber if it's trying to move outside it
+        if (finder.getTimeUntilCollision() < 1.0 / TICKS_PER_SECOND && !ball.isInAbsorber()) {
+           
+            if (wallCollisionFound || false == gizmoBallCollidesWith.getType().equals(GizmoType.ABSORBER)) {
+                System.out.println("This is true");
+                ball.setPosition(finder.nextCollisionPosition());
+                ball.setVelocity(finder.getNewVelocity());
+            }
+            else {
+                Absorber absorber = (Absorber)gizmoBallCollidesWith;
+                absorber.addBall(ball);
+            }
         }
-        else {
+        else if (ball.isInAbsorber() && ball.hasBeenFired() == false) {
+        }
+        else if(ball.isInAbsorber() && ball.hasBeenFired()) {
+            Absorber a;
+            for (Gizmo g: gizmos) {
+                if (g.getType().equals(GizmoType.ABSORBER)) {
+                    a = (Absorber)g;
+                    if (a.containsBall()) {
+                        ball.setPosition(new Vect(a.getX() + a.getWidth() - 0.25, a.getY() - 0.25));
+                        break;
+                    }    
+                }
+            }
+            ball.setInAbsorber(false);
+            ball.setHasBeenFired(false);
+            ball.setVelocity(ballVel.plus(gravity.times(1.0 / TICKS_PER_SECOND)));
+        } else {
             ball.setPosition(ball.getPosition().plus(ballVel.times(1.0 / TICKS_PER_SECOND)));
             ball.setVelocity(ballVel.plus(gravity.times(1.0 / TICKS_PER_SECOND)));
         }
+      
     }
-
+    
     public void save(OutputStream output) {
         new Saver(this).save(output);
     }
