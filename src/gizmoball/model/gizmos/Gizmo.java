@@ -99,11 +99,6 @@ public abstract class Gizmo implements ReadGizmo {
         return result;
     }
 
-    public boolean containsCell(int x, int y) {
-        return this.getX() <= x && x < this.getX() + this.getWidth() &&
-               this.getY() <= y && y < this.getY() + this.getWidth();
-    }
-
     public Set<Vect> getCells() {
         Set<Vect> cells = new HashSet<>();
         for (int x = 0; x < this.getWidth(); x++) {
