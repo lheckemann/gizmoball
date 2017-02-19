@@ -93,7 +93,7 @@ public abstract class Gizmo implements ReadGizmo {
         }
         return Collections.unmodifiableSet(lineCache);
     }
-    protected abstract Set<LineSegment> getBasicLineSegments();
+    protected Set<LineSegment> getBasicLineSegments() { return Collections.emptySet(); };
 
     private Set<physics.Circle> circleCache = null;
     public Set<physics.Circle> getCircles() {
@@ -105,7 +105,7 @@ public abstract class Gizmo implements ReadGizmo {
         }
         return Collections.unmodifiableSet(circleCache);
     }
-    protected abstract Set<physics.Circle> getBasicCircles();
+    protected Set<physics.Circle> getBasicCircles() { return Collections.emptySet(); };
 
     protected AffineTransform computeTransform() {
         AffineTransform result = new AffineTransform();
