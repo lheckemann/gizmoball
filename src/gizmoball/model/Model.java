@@ -279,13 +279,13 @@ public class Model implements BuildModel, RunModel {
     }
 
     @Override
-    public Collection<ReadGizmo> getGizmos() {
-        return Collections.unmodifiableCollection(gizmos);
+    public Set<ReadGizmo> getGizmos() {
+        return Collections.unmodifiableSet(gizmos);
     }
 
     @Override
-    public Collection<ReadBall> getBalls() {
-        return Collections.unmodifiableCollection(balls);
+    public Set<ReadBall> getBalls() {
+        return Collections.unmodifiableSet(balls);
     }
 
     @Override
