@@ -5,8 +5,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.*;
 
-import physics.Vect;
-
 import gizmoball.model.gizmos.*;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
@@ -50,7 +48,7 @@ public class Model implements BuildModel, RunModel {
 
     private Gizmo getGizmoAt(int x, int y) {
         return this.gizmos.stream()
-                .filter(g -> g.getBoundingBoxCells().contains(new Vect(x, y)))
+                .filter(g -> g.containsCell(x, y))
                 .findFirst().orElse(null);
     }
 
@@ -59,21 +57,21 @@ public class Model implements BuildModel, RunModel {
      * absorber */
     private Ball getBallAt(double x, double y) {
         return this.balls.stream()
-                .filter(b -> b.getBoundingBoxCells().contains(new Vect(x, y)))
+                .filter(b -> b.contains(x, y))
                 .findFirst().orElse(null);
     }
 
-    private void checkPositionFree(int x, int y) throws PositionOverlapException, PositionOutOfBoundsException {
+    private void checkPositionFree(double x, double y) throws PositionOverlapException, PositionOutOfBoundsException {
         if (!(0 < x && x < this.width && 0 < y && y < this.height)) {
             throw new PositionOutOfBoundsException();
         }
         for (Gizmo g : this.gizmos) {
-            if (g.getBoundingBoxCells().contains(new Vect(x, y))) {
+            if (g.containsCell((int) x, (int) y)) {
                 throw new PositionOverlapException();
             }
         }
         for (Ball b : this.balls) {
-            if (b.getBoundingBoxCells().contains(new Vect(x, y))) {
+            if (b.contains(x, y)) {
                 throw new PositionOverlapException();
             }
         }

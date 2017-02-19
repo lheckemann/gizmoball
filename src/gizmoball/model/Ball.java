@@ -5,6 +5,8 @@ import physics.Vect;
 import java.util.*;
 
 public class Ball implements ReadBall {
+    private final static double RADIUS = 0.5;
+
     private double x;
     private double y;
     private double velocityX;
@@ -58,7 +60,7 @@ public class Ball implements ReadBall {
         this.velocityY = vY;
     }
 
-    public Set<Vect> getBoundingBoxCells() {
-        return Collections.singleton(new Vect(this.getX(), this.getY()));
+    public boolean contains(double x, double y) {
+        return RADIUS > Math.sqrt(Math.pow(x - this.getX(), 2.0) + Math.pow(y - this.getY(), 2.0));
     }
 }
