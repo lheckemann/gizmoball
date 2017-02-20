@@ -2,6 +2,7 @@ package gizmoball.model;
 
 import physics.LineSegment;
 import physics.Vect;
+import physics.Angle;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.*;
@@ -328,11 +329,16 @@ public class Model implements BuildModel, RunModel {
         this.triggerGizmos(this.keyReleaseMap.get(keyCode));
     }
 
-    public void gizmoTriggered(ReadGizmo gizmo) {
+    public void gizmoHit(Gizmo gizmo, Ball ball) {
         this.triggerGizmos(this.gizmoMap.get(gizmo));
+        this.balls.remove(ball);
+        Ball rBall = gizmo.ballHit(ball);
+        if (rBall != null) {
+            this.balls.add(rBall);
+        }
     }
 
-    public void wallTriggered() {
+    public void wallHit() {
         this.triggerGizmos(this.wallTriggers);
     }
 
@@ -426,60 +432,43 @@ public class Model implements BuildModel, RunModel {
         // TODO: does not handle multiple balls or moving flippers.
         Vect ballVel = ball.getVelocity();
         CollisionFinder finder = new CollisionFinder(ball.getCircle(), ballVel);
+
         walls.forEach(l -> finder.consumeLine(l, WALL_REFLECTION));
-        boolean wallCollisionFound = finder.getTimeUntilCollision() < 1.0/TICKS_PER_SECOND;
-        Gizmo gizmoBallCollidesWith = null;
-        //If we find a wall collision, why bother checking if other gizmos have collided?
-        if (wallCollisionFound == false) {
-            for (Gizmo g : this.gizmos) {
-                AffineTransform t = g.getTransform();
-                g.getLineSegments().forEach(l ->
-                    finder.consumeLine(Geometry.transformThrough(t, l), g.getReflectionCoefficient()));
-                g.getCircles().forEach(c ->
-                    finder.consumeCircle(Geometry.transformThrough(t, c), g.getReflectionCoefficient()));
-            
-                if (finder.getTimeUntilCollision() < 1.0 / TICKS_PER_SECOND) {
-                    gizmoBallCollidesWith = g;
-                    break;
-                }
+        double hitTime = finder.getTimeUntilCollision();
+        boolean hitsWall = hitTime < 1.0 / TICKS_PER_SECOND;
+        Gizmo hitGizmo = null;
+
+        for (Gizmo g : this.gizmos) {
+            AffineTransform t = g.getTransform();
+            g.getLineSegments().forEach(l ->
+                finder.consumeLine(Geometry.transformThrough(t, l), g.getReflectionCoefficient()));
+            g.getCircles().forEach(c ->
+                finder.consumeCircle(Geometry.transformThrough(t, c), g.getReflectionCoefficient()));
+
+            if (finder.getTimeUntilCollision() < hitTime
+                    && finder.getTimeUntilCollision() < 1.0 / TICKS_PER_SECOND) {
+                hitsWall = false;
+                hitTime = finder.getTimeUntilCollision();
+                hitGizmo = g;
             }
         }
-        
-        double friction = (1 - mu * 1.0/Model.TICKS_PER_SECOND - mu2 * ball.getVelocity().length() * 1.0/Model.TICKS_PER_SECOND);
-        ball.setVelocity(ball.getVelocity().times(friction));
-        //Need to check if the ball is outside the absorber because a ball 
-        //will be colliding with the absorber if it's trying to move outside it
-        if (finder.getTimeUntilCollision() < 1.0 / TICKS_PER_SECOND && !ball.isInAbsorber()) {
-        
-            if (wallCollisionFound || false == gizmoBallCollidesWith.getType().equals(GizmoType.ABSORBER)) {
-                ball.setPosition(finder.nextCollisionPosition());
-                ball.setVelocity(finder.getNewVelocity());
-            }
-            else {
-                Absorber absorber = (Absorber)gizmoBallCollidesWith;
-                absorber.addBall(ball);
-            }
-            
-            if (wallCollisionFound) {
-               this.wallTriggered();
-            }
-            else {
-               this.gizmoTriggered(gizmoBallCollidesWith);
-            }
-        }
-        else if (ball.isInAbsorber() && ball.hasBeenFired() == false) {
-        }
-        else if(ball.isInAbsorber() && ball.hasBeenFired()) {
-            ball.setInAbsorber(false);
-            ball.setHasBeenFired(false);
-            ball.setVelocity(ballVel.plus(gravity.times(1.0 / TICKS_PER_SECOND)));
+
+        if (hitsWall) {
+            ball.setPosition(finder.nextCollisionPosition());
+            ball.setVelocity(finder.getNewVelocity());
+            this.wallHit();
+        } else if (hitGizmo != null) {
+            ball.setPosition(finder.nextCollisionPosition());
+            ball.setVelocity(finder.getNewVelocity());
+            this.gizmoHit(hitGizmo, ball);
         } else {
-            ball.setPosition(ball.getPosition().plus(ballVel.times(1.0 / TICKS_PER_SECOND)));
-            ball.setVelocity(ballVel.plus(gravity.times(1.0 / TICKS_PER_SECOND)));
+            ball.setPosition(ball.getPosition().plus(ball.getVelocity().times(1.0 / TICKS_PER_SECOND)));
+            double friction = (1 - mu * 1.0/Model.TICKS_PER_SECOND - mu2 * ball.getVelocity().length() * 1.0/Model.TICKS_PER_SECOND);
+            Vect gravity = this.gravity.times(1.0/Model.TICKS_PER_SECOND);
+            ball.setVelocity(ball.getVelocity().times(friction).plus(gravity));
         }
-      
     }
-    
+
     public void save(OutputStream output) {
         new Saver(this).save(output);
     }
