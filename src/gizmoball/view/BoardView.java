@@ -18,7 +18,6 @@ public class BoardView extends JPanel {
 
     public BoardView(ReadModel model) {
         this.model = model;
-        this.setBorder(BorderFactory.createLineBorder(Color.red, 4));
     }
 
     public void paintGizmos(Graphics graphics) {

@@ -6,6 +6,7 @@ import gizmoball.controller.ToggleRunningListener;
 import gizmoball.model.RunModel;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class RunView extends GameView {
     private JButton stateBtn;
@@ -13,23 +14,29 @@ public class RunView extends GameView {
 
     public RunView(RunModel model) {
         TickListener ticks = new TickListener(model, this);
-        this.stateBtn = new JButton("Run"); // either Run or Stop
-        this.stateBtn.setFocusable(false);
-        this.stateBtn.addActionListener(new ToggleRunningListener(ticks, this));
-        this.tickBtn = new JButton("Tick");
-        this.tickBtn.setFocusable(false);
-        this.tickBtn.addActionListener(ticks);
+
+        stateBtn = new JButton("Run"); // either Run or Stop
+        stateBtn.setFocusable(false);
+        stateBtn.addActionListener(new ToggleRunningListener(ticks, this));
+        tickBtn = new JButton("Tick");
+        tickBtn.setFocusable(false);
+        tickBtn.addActionListener(ticks);
 
         JPanel buttonsPnl = new JPanel();
+        buttonsPnl.setLayout(new BoxLayout(buttonsPnl, BoxLayout.Y_AXIS));
         buttonsPnl.add(stateBtn);
         buttonsPnl.add(tickBtn);
+        buttonsPnl.add(Box.createGlue());
 
-        this.box = new Box(BoxLayout.Y_AXIS);
-        this.board = new RunBoardView(model);
-        this.box.add(this.board);
-        this.box.add(buttonsPnl);
-        this.board.addKeyListener(new KeyTriggerListener(model));
-        this.board.setFocusable(true);
+        box = new Box(BoxLayout.X_AXIS);
+        board = new RunBoardView(model);
+        box.add(board);
+        box.add(buttonsPnl);
+
+        buttonsPnl.setPreferredSize(new Dimension(this.panelWidth, box.getHeight()));
+
+        board.addKeyListener(new KeyTriggerListener(model));
+        board.setFocusable(true);
     }
 
     public void changeButtonState() {
@@ -43,6 +50,6 @@ public class RunView extends GameView {
     }
 
     public void focus() {
-        this.board.requestFocusInWindow();
+        board.requestFocusInWindow();
     }
 }
