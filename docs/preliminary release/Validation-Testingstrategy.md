@@ -1,11 +1,5 @@
 # Validation Testing Strategy
 
----- From Preliminary Design feedback ---
-Missed Switch to Build Mode from Run Mode
-Add Ball should specify initial velocity
-Alternative path for saving on top of existing file
-----
-
 ## Number:  Test 1
    Purpose: Add gizmo (bumper or flipper)
    Input:   Build Mode -> Add -> L/R Flipper -> Click on the board
@@ -17,9 +11,10 @@ Alternative path for saving on top of existing file
 
 ## Number:  Test 2
    Purpose: Add ball
-   Input:   Build Mode -> Add -> Ball -> Click on the board
+   Input:   Build Mode -> Add -> Ball -> Click on the board -> Specify
+                initial velocity on displayed message box
    Output:  UI Changes     - Ball appears at the selected position
-                             on the board
+                             on the board with specified velocity
             Error messages - if Gizmo already present, "A Gizmo at
                              selected position already present"
                              error message
@@ -61,47 +56,27 @@ Alternative path for saving on top of existing file
 
 ## Number:  Test 7
    Purpose: Modify gravity
-   Input:   Build Mode -> Rotate -> Click on a gizmo on the board
-   Output:  UI Changes     - Gizmo is rotated and displayed on the board
-            Error messages - if Gizmo type is not rotatable, "The {type}
-                             gizmo cannot be rotated" error message
-
-??????????????????????
-- Preconditions: User must be in build mode
-- Triggers: User clicks on gravity parameter field
-- Basic course of events:
-    1. User enters a value for gravity
-    2. Value user entered is valid
-    3. Gravity is successfully modified
-- Alternate paths:
-     a)
-        2. Value user entered is non numeric
-        3. System informs user that gravity must be a numeric value
-        4. Go to step 1 (Main path)
-     b)
-        2. Value user entered is out of range
-        3. System informs user that gravity must be within a specific range
-        4. Go to step 1 (Main path)
-
-## Modify friction
-????
-- Preconditions: User must be in build mode
-- Triggers: User clicks on friction parameter field
-- Basic course of events:
-    1. User enters a value for friction
-    2. Value user entered is valid
-    3. Friction is successfully modified
-- Alternate paths:
-    a)
-        2. Value user entered is non numeric
-        3. System informs user that friction must be a numeric value
-        4. Go to step 1 (Main path)
-    b)
-        2. Value user entered is out of range
-        3. System informs user that friction must be within a specific range
-        4. Go to step 1 (Main path)
+   Input:   Build Mode -> Modify input field next to label "Gravity: "
+   Output:  UI Changes     - "Gravity is successfully modified"
+                             message displayed to user
+            Error messages - if value is not a number, whole, decimal number or
+                             not within range,
+			                 "Gravity must be a whole or decimal number within
+	                         range {x1} and {x2}"
+                             error message
 
 ## Number:  Test 8
+   Purpose: Modify friction
+   Input:   Build Mode -> Modify input field next to label "Friction: "
+   Output:  UI Changes     - "Friction is successfully modified"
+                             message displayed to user
+            Error messages - if value is not a number, whole, decimal number or
+                             not within range,
+			                 "Friction must be a whole or decimal number within
+	                         range {x1} and {x2}"
+                             error message
+
+## Number:  Test 9
    Purpose: Connect key press to gizmo action
    Input:   Build Mode -> Connect -> List of connections displayed to user
                                   -> Click on "Add connection"
@@ -110,7 +85,7 @@ Alternative path for saving on top of existing file
                                   -> Click "Done" to add connections
    Output:  UI Changes - "success" message displayed to user
 
-## Number:  Test 9
+## Number:  Test 10
    Purpose: Connect gizmo to gizmo action
    Input:   Build Mode -> Connect -> List of connections displayed to user
                                   -> Click on "Add connection"
@@ -119,7 +94,7 @@ Alternative path for saving on top of existing file
                                   -> Click "Done" to add connections
    Output:  UI Changes - "success" message displayed to user
 
-## Number:  Test 10
+## Number:  Test 11
    Purpose: Remove connection
    Input:   Build Mode -> Connect -> List of connections displayed to user
                                   -> Click on "Remove connection"
@@ -130,56 +105,56 @@ Alternative path for saving on top of existing file
                                   -> Decline changes
    Output:  UI Changes - "success" message displayed to user
 
-## Number:  Test 11
+## Number:  Test 12
    Purpose: Switch to run mode
    Input:   Build Mode -> Run
    Output:  UI Changes - the system switches to Run mode
 
-## Number:  Test 12
+## Number:  Test 13
    Purpose: Switch to build mode
    Input:   Run Mode -> Build
    Output:  UI Changes - the system switches to Build mode
 
-## Number:  Test 13
+## Number:  Test 14
    Purpose: Press key to active gizmo
    Input:   Run Mode -> Run -> Press Key
    Output:  UI Changes - any gizmos connected to the key are activated
 
-## Number:  Test 14
+## Number:  Test 15
    Purpose: Hit ball with flipper
    Input:   Run Mode -> Run -> Press Key to trigger flippers
    Output:  UI Changes - flippers hit ball and its velocity changes
 
-## Number:  Test 15
+## Number:  Test 16
    Purpose: Press stop button
    Input:   Run Mode -> Run -> Stop
    Output:  UI Changes - game pauses (i.e. ball(s) stops moving)
 
-## Number:  Test 16
+## Number:  Test 17
    Purpose: Press run button
    Input:   Run Mode -> Run
    Output:  UI Changes - game starts running (i.e. ball(s) start moving)
 
-## Number:  Test 17
+## Number:  Test 18
    Purpose: Press tick button
    Input:   Run Mode -> Run -> Tick
    Output:  UI Changes - Ball(s) moves for the duration of one tick
 
-## Number:  Test 18
+## Number:  Test 19
    Purpose: Load game board from file
    Input:   Build/Run Mode -> Load -> Select file
    Output:  UI Changes     - game board is loaded
             Error messages - if file is not valid, "File Syntax not valid"
                              error message
 
-## Number:  Test 19
+## Number:  Test 20
    Purpose: Save game board to file
    Input:   Build/Run Mode -> Save -> Select location and name
                     -> if file already exists, ask for overwriting or different name
    Output:  UI Changes     - "Game board is saved successfully" message
             File changes   - new file containing current game has been created
 
-## Number:  Test 20
+## Number:  Test 21
    Purpose: Quit system
    Input:   Build Mode -> Exit -> Decide whether to save or not current game board (system's
                                   message)
