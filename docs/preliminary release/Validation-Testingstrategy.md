@@ -84,7 +84,7 @@ Alternative path for saving on top of existing file
         4. Go to step 1 (Main path)
 
 ## Modify friction
-
+????
 - Preconditions: User must be in build mode
 - Triggers: User clicks on friction parameter field
 - Basic course of events:
@@ -101,121 +101,89 @@ Alternative path for saving on top of existing file
         3. System informs user that friction must be within a specific range
         4. Go to step 1 (Main path)
 
-## Connect key press to gizmo action
+## Number:  Test 8
+   Purpose: Connect key press to gizmo action
+   Input:   Build Mode -> Connect -> List of connections displayed to user
+                                  -> Click on "Add connection"
+                                  -> Press to-be-triggered Key
+                                  -> Click on "connected" gizmos on the board
+                                  -> Click "Done" to add connections
+   Output:  UI Changes - "success" message displayed to user
 
-- Preconditions: User must be in build mode
-- Triggers: User chooses connect option
-- Basic course of events:
-    1. System displays connections to user
-    2. User chooses to add a connection
-    3. User chooses the key they want to use
-    4. User chooses all of the gizmos to connect the key press to
-    5. User selects "Done" button to choose they are finished adding connections
-    6. Connections are successfully added
+## Number:  Test 9
+   Purpose: Connect gizmo to gizmo action
+   Input:   Build Mode -> Connect -> List of connections displayed to user
+                                  -> Click on "Add connection"
+                                  -> Click on to-be-triggered Gizmo on the board
+                                  -> Click on "connected" gizmos on the board
+                                  -> Click "Done" to add connections
+   Output:  UI Changes - "success" message displayed to user
 
-## Connect gizmo to gizmo action
+## Number:  Test 10
+   Purpose: Remove connection
+   Input:   Build Mode -> Connect -> List of connections displayed to user
+                                  -> Click on "Remove connection"
+                                  -> Click on desired connection
+                                  -> Click "Yes" on System's "Are you sure you
+                                     want to remove that connection?" message
+                                     OR
+                                  -> Decline changes
+   Output:  UI Changes - "success" message displayed to user
 
-- Preconditions: User must be in build mode
-- Triggers: User chooses connect option
-- Basic course of events:
-    1. System displays connections to user
-    2. User chooses to add a connection
-    3. User chooses the gizmo they want to be the trigger
-    4. User chooses all of the gizmos to connect the chosen gizmo to
-    5. User selects "Done" button to choose they are finished adding connections
-    6. Connections are successfully added
+## Number:  Test 11
+   Purpose: Switch to run mode
+   Input:   Build Mode -> Run
+   Output:  UI Changes - the system switches to Run mode
 
-## Remove connection
+## Number:  Test 12
+   Purpose: Switch to build mode
+   Input:   Run Mode -> Build
+   Output:  UI Changes - the system switches to Build mode
 
-- Preconditions: User must be in build mode
-- Triggers: User chooses connect option
-- Basic course of events:
-    1. System displays connections to user
-    2. User chooses to remove a connection
-    3. User chooses the connection they would like to remove
-    4. System prompts user to confirm that they wish to proceed with the removal of the connection
-    5. User confirms their choice
-    6. Connection is removed
-- Alternate path:
-    5. User declines their choice
-    6. Go to step 1 (Main path)
+## Number:  Test 13
+   Purpose: Press key to active gizmo
+   Input:   Run Mode -> Run -> Press Key
+   Output:  UI Changes - any gizmos connected to the key are activated
 
-## Switch to run mode
+## Number:  Test 14
+   Purpose: Hit ball with flipper
+   Input:   Run Mode -> Run -> Press Key to trigger flippers
+   Output:  UI Changes - flippers hit ball and its velocity changes
 
-- Preconditions: User must be in build mode
-- Basic course of events:
-    1. User selects "Run" mode button
-    2. System switches from "Build" mode to "Run" mode
+## Number:  Test 15
+   Purpose: Press stop button
+   Input:   Run Mode -> Run -> Stop
+   Output:  UI Changes - game pauses (i.e. ball(s) stops moving)
 
-## Press key to active gizmo
+## Number:  Test 16
+   Purpose: Press run button
+   Input:   Run Mode -> Run
+   Output:  UI Changes - game starts running (i.e. ball(s) start moving)
 
-- Preconditions: User must be in run mode
-- Basic course of events:
-    1. User presses their chosen key
-    2. Any gizmos connected to the key are activated
+## Number:  Test 17
+   Purpose: Press tick button
+   Input:   Run Mode -> Run -> Tick
+   Output:  UI Changes - Ball(s) moves for the duration of one tick
 
-## Hit ball with flipper
+## Number:  Test 18
+   Purpose: Load game board from file
+   Input:   Build/Run Mode -> Load -> Select file
+   Output:  UI Changes     - game board is loaded
+            Error messages - if file is not valid, "File Syntax not valid"
+                             error message
 
-- Preconditions: User must be in run mode
-- Basic course of events:
-    1. User presses key to active flipper
-    2. User hits ball with flipper
-    3. Ball's velocity changes
+## Number:  Test 19
+   Purpose: Save game board to file
+   Input:   Build/Run Mode -> Save -> Select location and name
+                    -> if file already exists, ask for overwriting or different name
+   Output:  UI Changes     - "Game board is saved successfully" message
+            File changes   - new file containing current game has been created
 
-## Press pause button
-
-- Preconditions: User must be in run mode and currently have the game running
-- Basic course of events:
-    1. User presses pause button
-    2. Game pauses (i.e. ball(s) stops moving)
-
-## Press play button
-
-- Preconditions: User must be in run mode and currently have the game paused
-- Basic course of events:
-    1. User presses play button
-    2. Game starts running (i.e. ball(s) start moving)
-
-## Press tick button
-
-- Preconditions: User must be in run mode and currently have the game paused
-- Basic course of events:
-    1. User presses tick button
-    2. Ball(s) moves for the duration of one tick
-
-## Load game board from file
-
-- Triggers: User chooses load option
-- Basic course of events:
-    1. User chooses file to load game from
-    2. File user chose is a valid file
-    3. Game board is loaded successfully
-- Alternative paths:
-    2. File user chose is invalid
-    3. System informs user the chosen file was invalid
-    4. Go to step 1 (Main path)
-
-## Save game board to file
-
-- Triggers: User chooses save option
-- Basic course of events:
-    1. User chooses location to save game
-    2. Game board is saved successfully
-
-## Quit system
-
-- Triggers: User chooses quit option
-- Basic course of events:
-    1. User is in run mode
-    2. System prompts user to confirm quit
-    3. User confirms quit
-    4. System is terminated
-- Alternate paths:
-    a)
-        1. User is in build mode
-        2. System prompts user to save their game board
-        3. User chooses location to save game board
-        4. Go to step 2 (Main path)
-    b)
-        3. User declines quit
-
+## Number:  Test 20
+   Purpose: Quit system
+   Input:   Build Mode -> Exit -> Decide whether to save or not current game board (system's
+                                  message)
+                       -> if wanted to save, decide location and name to save game board
+            Run Mode -> Exit -> Click "Yes" on the "Are you sure you want to quit the game"
+			                    message
+   Output:  UI Changes - it exits the system
