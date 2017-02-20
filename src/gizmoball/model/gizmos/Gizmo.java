@@ -90,6 +90,10 @@ public abstract class Gizmo implements ReadGizmo {
         return Collections.emptySet();
     }
 
+    public boolean containsBall(Ball ball) {
+        return false;
+    }
+
     public Ball ballHit(Ball ball) {
         return ball;
     }

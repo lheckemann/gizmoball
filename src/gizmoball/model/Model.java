@@ -439,6 +439,10 @@ public class Model implements BuildModel, RunModel {
         Gizmo hitGizmo = null;
 
         for (Gizmo g : this.gizmos) {
+            if (g.containsBall(ball)) {
+                continue;
+            }
+
             AffineTransform t = g.getTransform();
             g.getLineSegments().forEach(l ->
                 finder.consumeLine(Geometry.transformThrough(t, l), g.getReflectionCoefficient()));

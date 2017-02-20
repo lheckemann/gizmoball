@@ -61,6 +61,13 @@ public class Absorber extends Gizmo {
         return null;
     }
 
+    public boolean containsBall(Ball ball) {
+        return this.getX() <= ball.getX() &&
+               ball.getX() < this.getX() + this.getWidth() &&
+               this.getY() <= ball.getY() &&
+               ball.getY() < this.getY() + this.getHeight();
+    }
+
     public Ball ballHit(Ball ball) {
         ball.setVelocity(new Vect(0, 0));
         ball.setPosition(new Vect(this.getX() + width - 0.25, this.getY() + height - 0.25));
