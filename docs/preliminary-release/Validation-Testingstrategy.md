@@ -4,7 +4,7 @@
    Purpose: Add gizmo (bumper or flipper)
    Input:   Build Mode -> Add -> L/R Flipper -> Click on the board
    Output:  UI Changes     - L/R Flipper (angle 0 degrees) appears
-			                 at the selected position on the board
+                             at the selected position on the board
             Error messages - if Gizmo already present, "A Gizmo at
                              selected position already present"
                              error message
@@ -46,7 +46,7 @@
             Error messages - if destination position is occupied, "A Gizmo at
                              selected position already present"
                              error message
-							 
+
 ## Number:  Test 6
    Purpose: Rotate gizmo (bumper, flipper)
    Input:   Build Mode -> Rotate -> Click on a gizmo on the board
@@ -61,8 +61,8 @@
                              message displayed to user
             Error messages - if value is not a number, whole, decimal number or
                              not within range,
-			                 "Gravity must be a whole or decimal number within
-	                         range {x1} and {x2}"
+                             "Gravity must be a whole or decimal number within
+                             range {x1} and {x2}"
                              error message
 
 ## Number:  Test 8
@@ -72,8 +72,8 @@
                              message displayed to user
             Error messages - if value is not a number, whole, decimal number or
                              not within range,
-			                 "Friction must be a whole or decimal number within
-	                         range {x1} and {x2}"
+                             "Friction must be a whole or decimal number within
+                             range {x1} and {x2}"
                              error message
 
 ## Number:  Test 9
@@ -160,5 +160,5 @@
                                   message)
                        -> if wanted to save, decide location and name to save game board
             Run Mode -> Exit -> Click "Yes" on the "Are you sure you want to quit the game"
-			                    message
+                                message
    Output:  UI Changes - it exits the system
