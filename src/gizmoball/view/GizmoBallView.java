@@ -57,6 +57,7 @@ public class GizmoBallView {
         gamePanel = new JPanel();
         gamePanel.add(gameView.getBox());
         frame.add(gamePanel);
+        this.frame.setResizable(false);
         this.frame.pack();
         this.frame.setLocationRelativeTo(null);
     }
