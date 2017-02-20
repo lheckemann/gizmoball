@@ -100,12 +100,27 @@ public abstract class Gizmo implements ReadGizmo {
 
     @Override
     public AffineTransform getTransform() {
-        AffineTransform result = new AffineTransform();
-        result.translate(getX(), getY());
-        result.translate(getWidth()/2, getHeight()/2);
-        result.quadrantRotate(getRotation().getTurns());
-        result.translate(getWidth()/-2, getHeight()/-2);
-        return result;
+        int m00, m01, m02, m10, m11, m12;
+        m00 = m01 = m02 = m10 = m11 = m12 = 0;
+        switch (this.getRotation()) {
+            case NORTH:
+                m00 =  1; m01 =  0; m02 = this.getX();
+                m10 =  0; m11 =  1; m12 = this.getY();
+                break;
+            case EAST:
+                m00 =  0; m01 = -1; m02 = this.getHeight() + this.getX();
+                m10 =  1; m11 =  0; m12 = this.getY();
+                break;
+            case SOUTH:
+                m00 = -1; m01 =  0; m02 = this.getWidth() + this.getX();
+                m10 =  0; m11 =  1; m12 = this.getHeight() + this.getY();
+                break;
+            case WEST:
+                m00 =  0; m01 =  1; m02 = this.getX();
+                m10 = -1; m11 =  0; m12 = this.getWidth() + this.getY();
+                break;
+        }
+        return new AffineTransform(m00, m10, m01, m11, m02, m12);
     }
 
     public Set<Vect> getCells() {
