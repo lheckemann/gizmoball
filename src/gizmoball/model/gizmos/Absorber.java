@@ -54,8 +54,7 @@ public class Absorber extends Gizmo {
         if (balls.size() > 0) {
             Ball ball = this.balls.iterator().next();
             this.balls.remove(ball);
-            ball.setPosition(new Vect(this.getX() + width - 0.25, this.getY() - 0.25));
-            ball.setVelocity(new Vect(0, -33));
+            ball.setVelocity(new Vect(0, -50));
             return ball;
         }
         return null;
@@ -70,7 +69,8 @@ public class Absorber extends Gizmo {
 
     public Ball ballHit(Ball ball) {
         ball.setVelocity(new Vect(0, 0));
-        ball.setPosition(new Vect(this.getX() + width - 0.25, this.getY() + height - 0.25));
+        ball.setPosition(new Vect(this.getX() + width - 0.25 - Ball.RADIUS,
+                                  this.getY() + height - 0.25 - Ball.RADIUS));
         this.balls.add(ball);
         return null;
     }
