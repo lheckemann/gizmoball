@@ -459,18 +459,19 @@ public class Model implements BuildModel, RunModel {
 
         if (hitsWall) {
             ball.setPosition(finder.nextCollisionPosition());
-            ball.setVelocity(finder.getNewVelocity());
             this.wallHit();
+            ball.setVelocity(finder.getNewVelocity());
         } else if (hitGizmo != null) {
             ball.setPosition(finder.nextCollisionPosition());
-            ball.setVelocity(finder.getNewVelocity());
             this.gizmoHit(hitGizmo, ball);
+            ball.setVelocity(finder.getNewVelocity());
         } else {
             ball.setPosition(ball.getPosition().plus(ball.getVelocity().times(1.0 / TICKS_PER_SECOND)));
-            double friction = (1 - mu * 1.0/Model.TICKS_PER_SECOND - mu2 * ball.getVelocity().length() * 1.0/Model.TICKS_PER_SECOND);
-            Vect gravity = this.gravity.times(1.0/Model.TICKS_PER_SECOND);
-            ball.setVelocity(ball.getVelocity().times(friction).plus(gravity));
         }
+        double friction = (1 - mu * 1.0/Model.TICKS_PER_SECOND - mu2 * ball.getVelocity().length() * 1.0/Model.TICKS_PER_SECOND);
+        ball.setVelocity(ball.getVelocity().times(friction));
+        Vect gravity = this.gravity.times(1.0/Model.TICKS_PER_SECOND);
+        ball.setVelocity(ball.getVelocity().plus(gravity));
     }
 
     public void save(OutputStream output) {
