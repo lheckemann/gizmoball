@@ -305,22 +305,35 @@ public class Model implements BuildModel, RunModel {
             this.gizmoMap.computeIfAbsent(source, s -> new HashSet<>()).add(destination);
         }
     }
+
+    private void triggerGizmos(Set<Gizmo> gizmos) {
+        if (gizmos == null) {
+            return;
+        }
+        for (Gizmo g : gizmos) {
+            Ball ball = g.trigger();
+            if (ball != null) {
+                this.balls.add(ball);
+            }
+        }
+    }
+
     @Override
     public void keyPressed(int keyCode) {
-        this.keyPressMap.getOrDefault(keyCode, Collections.emptySet()).forEach(Gizmo::trigger);
+        this.triggerGizmos(this.keyPressMap.get(keyCode));
     }
 
     @Override
     public void keyReleased(int keyCode) {
-        this.keyReleaseMap.getOrDefault(keyCode, Collections.emptySet()).forEach(Gizmo::trigger);
+        this.triggerGizmos(this.keyReleaseMap.get(keyCode));
     }
-    
+
     public void gizmoTriggered(ReadGizmo gizmo) {
-        this.gizmoMap.getOrDefault(gizmo, Collections.emptySet()).forEach(Gizmo::trigger);
+        this.triggerGizmos(this.gizmoMap.get(gizmo));
     }
-    
+
     public void wallTriggered() {
-        this.wallTriggers.forEach(Gizmo::trigger);
+        this.triggerGizmos(this.wallTriggers);
     }
 
     @Override
