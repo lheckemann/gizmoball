@@ -6,6 +6,7 @@ import gizmoball.controller.ToggleRunningListener;
 import gizmoball.model.RunModel;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class RunView extends GameView {
     private JButton stateBtn;
@@ -27,12 +28,15 @@ public class RunView extends GameView {
         buttonsPnl.add(tickBtn);
         buttonsPnl.add(Box.createGlue());
 
-        this.box = new Box(BoxLayout.X_AXIS);
-        this.board = new RunBoardView(model);
-        this.box.add(this.board);
-        this.box.add(buttonsPnl);
-        this.board.addKeyListener(new KeyTriggerListener(model));
-        this.board.setFocusable(true);
+        box = new Box(BoxLayout.X_AXIS);
+        board = new RunBoardView(model);
+        box.add(board);
+        box.add(buttonsPnl);
+
+        buttonsPnl.setPreferredSize(new Dimension(this.panelWidth, box.getHeight()));
+
+        board.addKeyListener(new KeyTriggerListener(model));
+        board.setFocusable(true);
     }
 
     public void changeButtonState() {
@@ -46,6 +50,6 @@ public class RunView extends GameView {
     }
 
     public void focus() {
-        this.board.requestFocusInWindow();
+        board.requestFocusInWindow();
     }
 }

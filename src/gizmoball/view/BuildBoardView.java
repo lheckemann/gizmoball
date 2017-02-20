@@ -3,9 +3,13 @@ import java.awt.*;
 
 import gizmoball.model.BuildModel;
 
+import javax.swing.*;
+
 public class BuildBoardView extends BoardView {
     public BuildBoardView(BuildModel model) {
         super(model);
+
+        this.setBorder(BorderFactory.createLineBorder(Color.red, 4));
     }
 
     @Override

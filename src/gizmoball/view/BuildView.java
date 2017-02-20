@@ -6,13 +6,13 @@ import gizmoball.controller.ToggleGizmoChoiceListener;
 import gizmoball.model.BuildModel;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class BuildView extends GameView {
     private BuildModel model;
 
     private JComboBox<String> gizmoList;
     private JRadioButton addBtn;
-    private JPanel buttonsPnl;
 
     private JTextField gravityTxt;
     private JTextField frictionMUTxt;
@@ -23,7 +23,7 @@ public class BuildView extends GameView {
 
         box = new Box(BoxLayout.X_AXIS);
         board = new BuildBoardView(model);
-        buttonsPnl = new JPanel();
+        JPanel buttonsPnl = new JPanel();
         buttonsPnl.setLayout(new BoxLayout(buttonsPnl, BoxLayout.Y_AXIS));
 
         ButtonGroup bg = new ButtonGroup();
@@ -88,6 +88,8 @@ public class BuildView extends GameView {
         buttonsPnl.add(frictionMUPnl);
         buttonsPnl.add(frictionMU2Pnl);
         buttonsPnl.add(Box.createGlue());
+
+        buttonsPnl.setPreferredSize(new Dimension(this.panelWidth, box.getHeight()));
 
         box.add(board);
         box.add(buttonsPnl);
