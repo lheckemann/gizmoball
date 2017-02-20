@@ -11,16 +11,12 @@ public class Ball implements ReadBall {
     private double y;
     private double velocityX;
     private double velocityY;
-    private boolean inAbsorber;
-    private boolean hasBeenFired;
 
     public Ball() {
         this.x = 0d;
         this.y = 0d;
         this.velocityX = 0d;
         this.velocityY = 0d;
-        this.inAbsorber = false;
-        this.hasBeenFired = false;
     }
 
     public Ball(Ball src) {
@@ -97,21 +93,4 @@ public class Ball implements ReadBall {
     public Set<Vect> getCells() {
         return Collections.singleton(new Vect((int) this.getX(), (int) this.getY()));
     }
-    
-    public void setInAbsorber(boolean inAbsorber) {
-        this.inAbsorber = inAbsorber;
-    }
-    
-    public boolean isInAbsorber() {
-        return this.inAbsorber;
-    }
-    
-    public void setHasBeenFired(boolean hasBeenFired) {
-        this.hasBeenFired = hasBeenFired;
-    }
-    
-    public boolean hasBeenFired() {
-        return this.hasBeenFired;
-    }
-
 }
