@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class GizmoBallView {
     private Model model;
@@ -81,6 +83,18 @@ public class GizmoBallView {
         gamePanel.add(gameView.getBox());
         runView.focus();
         this.frame.repaint();
+    }
+
+    public File getFileByChooser() {
+        JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
+        if (JFileChooser.APPROVE_OPTION == chooser.showOpenDialog(null)) {
+            return chooser.getSelectedFile();
+        }
+        return null;
+    }
+
+    public void displayErrorMessage(String message, String title) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
     public void updateBoard() {

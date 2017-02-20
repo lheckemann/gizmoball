@@ -15,14 +15,20 @@ public class ChangeGravityListener implements DocumentListener {
         this.view = view;
     }
 
+    private void setNewGravity() {
+        String grav = view.getGravityText();
+        if(!grav.equals(""))
+            model.setGravity(Double.parseDouble(grav));
+    }
+
     @Override
     public void insertUpdate(DocumentEvent e) {
-        model.setGravity(Double.parseDouble(view.getGravityText()));
+        setNewGravity();
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        model.setGravity(Double.parseDouble(view.getGravityText()));
+        setNewGravity();
     }
 
     @Override

@@ -15,16 +15,22 @@ public class ChangeFrictionListener implements DocumentListener {
         this.view = view;
     }
 
+    private void setNewFriction() {
+        String mu = view.getFrictionMuText();
+        String mu2 = view.getFrictionMu2Text();
+        if(!mu.equals("") && !mu2.equals(""))
+            model.setFriction(Double.parseDouble(view.getFrictionMuText()),
+                    Double.parseDouble(view.getFrictionMu2Text()));
+    }
+
     @Override
     public void insertUpdate(DocumentEvent e) {
-        model.setFriction(Double.parseDouble(view.getFrictionMuText()),
-                Double.parseDouble(view.getFrictionMu2Text()));
+        setNewFriction();
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        model.setFriction(Double.parseDouble(view.getFrictionMuText()),
-                Double.parseDouble(view.getFrictionMu2Text()));
+        setNewFriction();
     }
 
     @Override

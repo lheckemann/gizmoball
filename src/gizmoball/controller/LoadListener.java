@@ -1,14 +1,11 @@
 package gizmoball.controller;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import gizmoball.model.Model;
-import gizmoball.model.Loader;
 import gizmoball.model.SyntaxError;
 import gizmoball.view.GizmoBallView;
 
@@ -24,16 +21,13 @@ public class LoadListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
-            if (JFileChooser.APPROVE_OPTION == chooser.showOpenDialog(null)) {
-                model.load(new FileInputStream(chooser.getSelectedFile()));
-                view.updateBoard();
-            }
+            model.load(new FileInputStream(view.getFileByChooser()));
+            view.updateBoard();
         } catch (FileNotFoundException fnfe) {
-            JOptionPane.showMessageDialog(null, fnfe.getMessage(), "File not found", JOptionPane.ERROR_MESSAGE);
+            view.displayErrorMessage(fnfe.getMessage(), "File not found");
             //fnfe.printStackTrace();
         } catch (SyntaxError se) {
-            JOptionPane.showMessageDialog(null, se.getMessage(), "Syntax error", JOptionPane.ERROR_MESSAGE);
+            view.displayErrorMessage(se.getMessage(), "File not found");
             //se.printStackTrace();
         }
     }
