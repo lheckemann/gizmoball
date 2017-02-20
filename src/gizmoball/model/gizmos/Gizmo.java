@@ -73,7 +73,8 @@ public abstract class Gizmo implements ReadGizmo {
         return 1.0;
     }
 
-    public void trigger() {
+    public Ball trigger() {
+        return null;
     }
 
     @Override
@@ -87,6 +88,10 @@ public abstract class Gizmo implements ReadGizmo {
 
     public Set<physics.Circle> getCircles() {
         return Collections.emptySet();
+    }
+
+    public Ball ballHit(Ball ball) {
+        return ball;
     }
 
     @Override

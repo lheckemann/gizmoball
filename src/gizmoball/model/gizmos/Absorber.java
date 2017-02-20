@@ -57,14 +57,16 @@ public class Absorber extends Gizmo {
     /*
      * Makes the absorber fire a single ball
      */
-    public void trigger() {
+    public Ball trigger() {
         if (balls.size() > 0) {
             Ball ballToFire = this.balls.iterator().next();
             balls.remove(ballToFire);
             ballToFire.setPosition(new Vect(this.getX() + width - 0.25, this.getY() - 0.25));
             ballToFire.setVelocity(new Vect(0, -33));
             ballToFire.setHasBeenFired(true);
+            return ballToFire;
         }
+        return null;
     }
     
     public boolean containsBall() {

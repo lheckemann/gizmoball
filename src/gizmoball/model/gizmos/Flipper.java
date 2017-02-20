@@ -1,6 +1,7 @@
 package gizmoball.model.gizmos;
 
 import gizmoball.model.Model;
+import gizmoball.model.Ball;
 
 public class Flipper extends Gizmo {
 
@@ -29,8 +30,9 @@ public class Flipper extends Gizmo {
     }
 
     @Override
-    public void trigger() {
+    public Ball trigger() {
         active = !active;
+        return null;
     }
 
     private static final int ROTATION_SPEED = 1080; // Degrees per second
