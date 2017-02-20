@@ -35,6 +35,7 @@ public class Model implements BuildModel, RunModel {
 
     private Map<Gizmo, Set<Gizmo>> gizmoMap;
     private Set<Gizmo> wallTriggers;
+    private final double WALL_REFLECTION = 1.0;
 
     public Model(int width, int height) {
         this.width = width;
@@ -412,7 +413,7 @@ public class Model implements BuildModel, RunModel {
         // TODO: does not handle multiple balls or moving flippers.
         Vect ballVel = ball.getVelocity();
         CollisionFinder finder = new CollisionFinder(ball.getCircle(), ballVel);
-        walls.forEach(l -> finder.consumeLine(l));
+        walls.forEach(l -> finder.consumeLine(l, WALL_REFLECTION));
         boolean wallCollisionFound = finder.getTimeUntilCollision() < 1.0/TICKS_PER_SECOND;
         Gizmo gizmoBallCollidesWith = null;
         //If we find a wall collision, why bother checking if other gizmos have collided?
@@ -420,9 +421,9 @@ public class Model implements BuildModel, RunModel {
             for (Gizmo g : this.gizmos) {
                 AffineTransform t = g.getTransform();
                 g.getLineSegments().forEach(l ->
-                    finder.consumeLine(Geometry.transformThrough(t, l)));
+                    finder.consumeLine(Geometry.transformThrough(t, l), g.getReflectionCoefficient()));
                 g.getCircles().forEach(c ->
-                    finder.consumeCircle(Geometry.transformThrough(t, c)));
+                    finder.consumeCircle(Geometry.transformThrough(t, c), g.getReflectionCoefficient()));
             
                 if (finder.getTimeUntilCollision() < 1.0 / TICKS_PER_SECOND) {
                     gizmoBallCollidesWith = g;
@@ -431,10 +432,12 @@ public class Model implements BuildModel, RunModel {
             }
         }
         
+        double friction = (1 - mu * 1.0/Model.TICKS_PER_SECOND - mu2 * ball.getVelocity().length() * 1.0/Model.TICKS_PER_SECOND);
+        ball.setVelocity(ball.getVelocity().times(friction));
         //Need to check if the ball is outside the absorber because a ball 
         //will be colliding with the absorber if it's trying to move outside it
         if (finder.getTimeUntilCollision() < 1.0 / TICKS_PER_SECOND && !ball.isInAbsorber()) {
-           
+        
             if (wallCollisionFound || false == gizmoBallCollidesWith.getType().equals(GizmoType.ABSORBER)) {
                 ball.setPosition(finder.nextCollisionPosition());
                 ball.setVelocity(finder.getNewVelocity());

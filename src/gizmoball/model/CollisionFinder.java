@@ -14,17 +14,17 @@ public class CollisionFinder {
     private Vect nextCollisionPos;
     private Vect newBallVelocity;
 
-    public void consumeLine(LineSegment line) {
+    public void consumeLine(LineSegment line, double reflection) {
         double time = Geometry.timeUntilWallCollision(line, ball, ballVelocity);
         if (time < nextCollisionTime) {
             nextCollisionTime = time;
             nextCollisionPos = ball.getCenter().plus(ballVelocity.times(time));
-            // TODO: add reflection coefficient
             newBallVelocity = Geometry.reflectWall(line, ballVelocity);
+            newBallVelocity = Geometry.applyReflectionCoeff(ballVelocity, newBallVelocity, reflection);
         }
     }
 
-    public void consumeCircle(Circle circle) {
+    public void consumeCircle(Circle circle, double reflection) {
         double time = Geometry.timeUntilCircleCollision(circle, ball, ballVelocity);
         if (time < nextCollisionTime) {
             nextCollisionTime = time;
