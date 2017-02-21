@@ -20,6 +20,7 @@ public class GizmoBallView {
     private BuildView buildView;
     private RunView runView;
     private JPanel gamePanel;
+    private SwitchModeListener switchModeListener;
 
     public GizmoBallView(Model model) {
         this.model = model;
@@ -45,7 +46,8 @@ public class GizmoBallView {
                 System.exit(0);
             }
         });
-        this.modeBtn.addActionListener(new SwitchModeListener(this));
+        this.switchModeListener = new SwitchModeListener(this);
+        this.modeBtn.addActionListener(this.switchModeListener);
         actionBar.add(newBtn);
         actionBar.add(loadBtn);
         actionBar.add(saveBtn);
@@ -66,6 +68,10 @@ public class GizmoBallView {
 
     public JFrame getGUI() {
         return this.frame;
+    }
+
+    public SwitchModeListener getSwitchModeListener() {
+        return this.switchModeListener;
     }
 
     public void switchToBuildView() {
