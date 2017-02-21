@@ -459,12 +459,12 @@ public class Model implements BuildModel, RunModel {
 
         if (hitsWall) {
             ball.setPosition(finder.nextCollisionPosition());
-            this.wallHit();
             ball.setVelocity(finder.getNewVelocity());
+            this.wallHit();
         } else if (hitGizmo != null) {
             ball.setPosition(finder.nextCollisionPosition());
-            this.gizmoHit(hitGizmo, ball);
             ball.setVelocity(finder.getNewVelocity());
+            this.gizmoHit(hitGizmo, ball);
         } else {
             ball.setPosition(ball.getPosition().plus(ball.getVelocity().times(SECONDS_PER_TICK)));
         }
