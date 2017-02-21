@@ -1,7 +1,18 @@
 package gizmoball.view;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 
+import gizmoball.controller.ConnectGizmosListener;
+import gizmoball.controller.ConnectKeyPressGizmoListener;
+import gizmoball.controller.ConnectKeyReleaseGizmoListener;
+import gizmoball.controller.CreateGizmoListener;
+import gizmoball.controller.DeleteGizmoListener;
+import gizmoball.controller.MoveGizmoListener;
+import gizmoball.controller.RotateGizmoListener;
 import gizmoball.model.BuildModel;
+import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 
 import javax.swing.*;
 
@@ -25,4 +36,57 @@ public class BuildBoardView extends BoardView {
 
         super.paintGizmos(g);
     }
+    
+    private void clearListeners() {
+        for (MouseListener m: this.getMouseListeners()) {
+            this.removeMouseListener(m);
+        }
+        
+        for (KeyListener k: this.getKeyListeners()) {
+            this.removeKeyListener(k);
+        }
+    }
+    
+    public void switchToAddGizmo(GizmoType type, BuildView view, BuildModel model) {
+        this.clearListeners();
+        CreateGizmoListener createGizmoListener = new CreateGizmoListener(type, view, model);
+        this.addMouseListener(createGizmoListener);
+        this.addMouseMotionListener(createGizmoListener);
+    }
+    
+    public void switchToRotate(BuildView view, BuildModel model) {
+        this.clearListeners();
+        this.addMouseListener(new RotateGizmoListener(view, model));
+    }
+    
+    public void switchToDelete(BuildView view, BuildModel model) {
+        this.clearListeners();
+        this.addMouseListener(new DeleteGizmoListener(view, model));
+    }
+    
+    public void switchToMove(BuildView view, BuildModel model) {
+        this.clearListeners();
+        this.addMouseListener(new MoveGizmoListener(view, model));
+    }
+
+    public void switchToConnectGizmos(BuildView view, BuildModel model) {
+        this.clearListeners();
+        this.addMouseListener(new ConnectGizmosListener(view, model));
+    }
+
+    public void switchToConnectKeyPressGizmo(BuildModel model) {
+        this.clearListeners();
+        ConnectKeyPressGizmoListener keyPressGizmoListener = new ConnectKeyPressGizmoListener(model);
+        this.addKeyListener(keyPressGizmoListener);
+        this.addMouseListener(keyPressGizmoListener);
+    }
+    
+    public void switchToConnectKeyReleaseGizmo(BuildModel model) {
+        this.clearListeners();
+        ConnectKeyReleaseGizmoListener keyReleaseGizmoListener = new ConnectKeyReleaseGizmoListener(model);
+        this.addKeyListener((KeyAdapter)keyReleaseGizmoListener);
+        this.addMouseListener((MouseListener)keyReleaseGizmoListener);
+        this.requestFocusInWindow();
+    }
+   
 }

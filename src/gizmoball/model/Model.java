@@ -103,6 +103,11 @@ public class Model implements BuildModel, RunModel {
         this.selX = x;
         this.selY = y;
     }
+    
+    @Override
+    public boolean notEmpty(double x, double y) {
+        return (this.getGizmoAt((int) x, (int) y) != null || this.getBallAt(x, y) != null);
+    }
 
     @Override
     public void move(double dX, double dY) throws PositionOverlapException, PositionOutOfBoundsException {
@@ -304,6 +309,14 @@ public class Model implements BuildModel, RunModel {
 
         if (source != null && destination != null) {
             this.gizmoMap.computeIfAbsent(source, s -> new HashSet<>()).add(destination);
+        }
+    }
+    
+    @Override
+    public void triggerOnGizmoAt(double x, double y) {
+        Gizmo gizmo = this.getGizmoAt((int)x, (int)y);
+        if (gizmo != null) {
+            this.triggerOnGizmo(gizmo);
         }
     }
 

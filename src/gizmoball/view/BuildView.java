@@ -2,16 +2,22 @@ package gizmoball.view;
 
 import gizmoball.controller.ChangeFrictionListener;
 import gizmoball.controller.ChangeGravityListener;
-import gizmoball.controller.ToggleGizmoChoiceListener;
+import gizmoball.controller.SwitchToConnectGizmosListener;
+import gizmoball.controller.SwitchToConnectKeyPressGizmoListener;
+import gizmoball.controller.SwitchToConnectKeyReleaseGizmoListener;
+import gizmoball.controller.SwitchToCreateActionListener;
+import gizmoball.controller.SwitchToDeleteActionListener;
+import gizmoball.controller.SwitchToMoveActionListener;
+import gizmoball.controller.SwitchToRotateActionListener;
 import gizmoball.model.BuildModel;
+import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class BuildView extends GameView {
     private BuildModel model;
-
-    private JComboBox<String> gizmoList;
+    
     private JRadioButton addBtn;
 
     private JTextField gravityTxt;
@@ -28,25 +34,55 @@ public class BuildView extends GameView {
 
         ButtonGroup bg = new ButtonGroup();
         JRadioButton moveBtn = new JRadioButton();
+        moveBtn.setFocusable(false);
         moveBtn.setText("Move");
-        moveBtn.addActionListener(new ToggleGizmoChoiceListener(this));
+        moveBtn.addActionListener(new SwitchToMoveActionListener((BuildBoardView)this.board, this, this.model));
         JRadioButton deleteBtn = new JRadioButton();
+        deleteBtn.setFocusable(false);
         deleteBtn.setText("Delete");
-        deleteBtn.addActionListener(new ToggleGizmoChoiceListener(this));
+        deleteBtn.addActionListener(new SwitchToDeleteActionListener((BuildBoardView)this.board, this, this.model));
         JRadioButton rotateBtn = new JRadioButton();
+        rotateBtn.setFocusable(false);
         rotateBtn.setText("Rotate");
-        rotateBtn.addActionListener(new ToggleGizmoChoiceListener(this));
-        JRadioButton connectBtn = new JRadioButton();
-        connectBtn.setText("Connect");
-        connectBtn.addActionListener(new ToggleGizmoChoiceListener(this));
-        addBtn = new JRadioButton();
-        addBtn.setText("Add");
-        addBtn.addActionListener(new ToggleGizmoChoiceListener(this));
-        String[] gizmoTypes = new String[]{"Circle", "Triangle", "Square",
-                "Left Flipper", "Right Flipper", "Ball", "Absorber"};
-        gizmoList = new JComboBox<String>(gizmoTypes);
-        gizmoList.setEnabled(false);
-
+        rotateBtn.addActionListener(new SwitchToRotateActionListener((BuildBoardView)this.board, this, this.model));
+        
+        JRadioButton addTriangleBtn = new JRadioButton();
+        addTriangleBtn.setFocusable(false);
+        addTriangleBtn.setText("Add Triangle");
+        addTriangleBtn.addActionListener(new SwitchToCreateActionListener(GizmoType.TRIANGLE, (BuildBoardView)this.board, this, this.model));
+        JRadioButton addSquareBtn = new JRadioButton();
+        addSquareBtn.setFocusable(false);
+        addSquareBtn.setText("Add Square");
+        addSquareBtn.addActionListener(new SwitchToCreateActionListener(GizmoType.SQUARE, (BuildBoardView)this.board, this, this.model));
+        JRadioButton addCircleBtn = new JRadioButton();
+        addCircleBtn.setFocusable(false);
+        addCircleBtn.setText("Add Circle");
+        addCircleBtn.addActionListener(new SwitchToCreateActionListener(GizmoType.CIRCLE, (BuildBoardView)this.board, this, this.model));
+        JRadioButton addRightFlipperBtn = new JRadioButton();
+        addRightFlipperBtn.setFocusable(false);
+        addRightFlipperBtn.setText("Add Right Flipper");
+        addRightFlipperBtn.addActionListener(new SwitchToCreateActionListener(GizmoType.RIGHT_FLIPPER, (BuildBoardView)this.board, this, this.model));
+        JRadioButton addLeftFlipperBtn = new JRadioButton();
+        addLeftFlipperBtn.setFocusable(false);
+        addLeftFlipperBtn.setText("Add Left Flipper");
+        addLeftFlipperBtn.addActionListener(new SwitchToCreateActionListener(GizmoType.LEFT_FLIPPER, (BuildBoardView)this.board, this, this.model));
+        JRadioButton addAbsorberBtn = new JRadioButton("Add Absorber");
+        addAbsorberBtn.setFocusable(false);
+        addAbsorberBtn.setText("Add Absorber");
+        addAbsorberBtn.addActionListener(new SwitchToCreateActionListener(GizmoType.ABSORBER, (BuildBoardView)this.board, this, this.model));
+        JRadioButton connectGizmosBtn = new JRadioButton();
+        connectGizmosBtn.setFocusable(false);
+        connectGizmosBtn.setText("Connect Gizmo to Gizmo");
+        connectGizmosBtn.addActionListener(new SwitchToConnectGizmosListener((BuildBoardView)this.board, this, this.model));
+        JRadioButton connectKeyPressGizmoBtn = new JRadioButton();
+        connectKeyPressGizmoBtn.setFocusable(false);
+        connectKeyPressGizmoBtn.setText("Connect Key Press to Gizmo");
+        connectKeyPressGizmoBtn.addActionListener(new SwitchToConnectKeyPressGizmoListener((BuildBoardView)this.board, this.model));
+        JRadioButton connectKeyReleaseGizmoBtn = new JRadioButton();
+        connectKeyReleaseGizmoBtn.setFocusable(false);
+        connectKeyReleaseGizmoBtn.setText("Connect Key Release to Gizmo");
+        connectKeyReleaseGizmoBtn.addActionListener(new SwitchToConnectKeyReleaseGizmoListener((BuildBoardView)this.board, this.model));
+        
         JPanel gravityPnl = new JPanel();
         JLabel gravityLbl = new JLabel("Gravity: ");
         gravityTxt = new JTextField();
@@ -75,15 +111,28 @@ public class BuildView extends GameView {
         bg.add(moveBtn);
         bg.add(deleteBtn);
         bg.add(rotateBtn);
-        bg.add(connectBtn);
-        bg.add(addBtn);
+        bg.add(addTriangleBtn);
+        bg.add(addCircleBtn);
+        bg.add(addSquareBtn);
+        bg.add(addLeftFlipperBtn);
+        bg.add(addRightFlipperBtn);
+        bg.add(addAbsorberBtn);
+        bg.add(connectGizmosBtn);
+        bg.add(connectKeyPressGizmoBtn);
+        bg.add(connectKeyReleaseGizmoBtn);
         buttonsPnl.add(moveBtn);
         buttonsPnl.add(moveBtn);
         buttonsPnl.add(deleteBtn);
         buttonsPnl.add(rotateBtn);
-        buttonsPnl.add(connectBtn);
-        buttonsPnl.add(addBtn);
-        buttonsPnl.add(gizmoList);
+        buttonsPnl.add(addTriangleBtn);
+        buttonsPnl.add(addCircleBtn);
+        buttonsPnl.add(addSquareBtn);
+        buttonsPnl.add(addLeftFlipperBtn);
+        buttonsPnl.add(addRightFlipperBtn);
+        buttonsPnl.add(addAbsorberBtn);
+        buttonsPnl.add(connectGizmosBtn);
+        buttonsPnl.add(connectKeyPressGizmoBtn);
+        buttonsPnl.add(connectKeyReleaseGizmoBtn);
         buttonsPnl.add(gravityPnl);
         buttonsPnl.add(frictionMUPnl);
         buttonsPnl.add(frictionMU2Pnl);
@@ -93,13 +142,6 @@ public class BuildView extends GameView {
 
         box.add(board);
         box.add(buttonsPnl);
-    }
-
-    public void toggleGizmoChoiceVisibility() {
-        if (addBtn.isSelected())
-            gizmoList.setEnabled(true);
-        else
-            gizmoList.setEnabled(false);
     }
 
     @Override

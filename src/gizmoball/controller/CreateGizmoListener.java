@@ -1,21 +1,114 @@
 package gizmoball.controller;
 
 import gizmoball.model.BuildModel;
-import gizmoball.view.GizmoBallView;
+import gizmoball.model.PositionOutOfBoundsException;
+import gizmoball.model.PositionOverlapException;
+import gizmoball.model.gizmos.ReadGizmo.GizmoType;
+import gizmoball.view.BoardView;
+import gizmoball.view.BuildView;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public class CreateGizmoListener implements ActionListener {
-    //private final BuildModel model;
-    private final GizmoBallView view;
+public class CreateGizmoListener implements MouseListener, MouseMotionListener {
+    private final BuildModel model;
+    private final BuildView view;
+    private final GizmoType type;
+    private double absorberStartX;
+    private double absorberStartY;
 
-    public CreateGizmoListener(BuildModel model, GizmoBallView view) {
-        //this.model = new Model(20, 20);
+    public CreateGizmoListener(GizmoType type, BuildView view, BuildModel model) {
+        this.model = model;
         this.view = view;
+        this.type = type;
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void mouseClicked(MouseEvent e) {
+        double initialX = e.getX()/BoardView.L_TO_PIXELS;
+        double initialY = e.getY()/BoardView.L_TO_PIXELS;
+        model.select(initialX, initialY);
+        try {
+            switch (type) {
+                case SQUARE:
+                    model.addSquare();
+                    break;
+                case TRIANGLE:
+                    model.addTriangle();
+                    break;
+                case CIRCLE:
+                    model.addCircle();
+                    break;
+                case LEFT_FLIPPER:
+                    model.addLeftFlipper();
+                    break;
+                case RIGHT_FLIPPER:
+                    model.addRightFlipper();
+                    break;
+                default:
+            }
+            
+            view.updateBoard();
+        } catch (PositionOutOfBoundsException positionOutOfBounds){
+            
+        } catch (PositionOverlapException positionOverlap) {
+            
+        }
     }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if (type.equals(GizmoType.ABSORBER)) {
+            this.absorberStartX = e.getX()/BoardView.L_TO_PIXELS;
+            this.absorberStartY = e.getY()/BoardView.L_TO_PIXELS;
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if (type.equals(GizmoType.ABSORBER)) {
+            double currentAbsorberEndX = e.getX()/BoardView.L_TO_PIXELS;
+            double currentAbsorberEndY = e.getY()/BoardView.L_TO_PIXELS;
+            
+            int absorberWidth = (int)Math.max(currentAbsorberEndX, absorberStartX) - (int) Math.min(currentAbsorberEndX, absorberStartX);
+            int absorberHeight = (int)Math.max(currentAbsorberEndY, absorberStartY) - (int) Math.min(currentAbsorberEndY, absorberStartY);
+            this.model.select(Math.min(absorberStartX,currentAbsorberEndX), Math.min(currentAbsorberEndY, absorberStartY));
+            this.model.delete();
+            try {
+                this.model.addAbsorber(absorberWidth, absorberHeight);
+                this.view.updateBoard();
+            } catch (PositionOverlapException e1) {
+                
+            } catch (PositionOutOfBoundsException e1) {
+                
+            }
+        }
+       
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        
+    }
+
+    
 }
