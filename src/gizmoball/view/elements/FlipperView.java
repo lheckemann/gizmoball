@@ -6,6 +6,9 @@ import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 import gizmoball.view.BoardView;
 
 import java.awt.*;
+import java.awt.geom.CubicCurve2D;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.RoundRectangle2D;
 
 
 public class FlipperView {
@@ -18,39 +21,31 @@ public class FlipperView {
         performFlipperTransformations(graphics, flipper);
 
         // Draw body
-         graphics.fillRoundRect(
-                 0,
-                0,
-                flipper.getWidth() * BoardView.L_TO_PIXELS / 4,
-                flipper.getHeight() * BoardView.L_TO_PIXELS,
-                BoardView.L_TO_PIXELS / 2,
-                BoardView.L_TO_PIXELS / 2);
+        Shape body = new RoundRectangle2D.Double(0, 0, flipper.getWidth()/4.0, flipper.getHeight(), 0.5, 0.5);
+        graphics.fill(body);
 
         // Draw pivot
         graphics.setColor(Color.RED);
-        graphics.fillOval(
-                BoardView.L_TO_PIXELS/8,
-                BoardView.L_TO_PIXELS/8,
-                BoardView.L_TO_PIXELS/4,
-                BoardView.L_TO_PIXELS/4);
+        Shape pivot = new Ellipse2D.Double(1.0/8, 1.0/8, 1.0/4, 1.0/4);
+        graphics.fill(pivot);
     }
 
     private static void performFlipperTransformations(Graphics2D graphics, ReadGizmo flipper) {
-        graphics.translate(flipper.getWidth() * BoardView.L_TO_PIXELS / 2, 0);
+        graphics.translate(flipper.getWidth() / 2, 0);
         if (flipper.getType().equals(GizmoType.RIGHT_FLIPPER)) {
             graphics.scale(-1, 1);
         }
-        graphics.translate(-flipper.getWidth() * BoardView.L_TO_PIXELS / 2, 0);
+        graphics.translate(-flipper.getWidth() / 2, 0);
 
         // Translate to pivot point
-        graphics.translate(0.25 * BoardView.L_TO_PIXELS, 0.25 * BoardView.L_TO_PIXELS);
+        graphics.translate(0.25, 0.25);
         try {
             graphics.rotate(-Math.toRadians(flipper.getPivotAngle()));
         } catch (GizmoTypeException e1) {
             assert false : "This Gizmo should have a pivot angle, since it's a flipper";
         }
         // Translate back after rotation
-        graphics.translate(-0.25 * BoardView.L_TO_PIXELS, -0.25 * BoardView.L_TO_PIXELS);
+        graphics.translate(-0.25, -0.25);
     }
 }
 

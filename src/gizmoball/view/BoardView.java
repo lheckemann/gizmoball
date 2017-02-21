@@ -23,21 +23,14 @@ public class BoardView extends JPanel {
     public void paintGizmos(Graphics graphics) {
         Graphics2D g = (Graphics2D) graphics;
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.scale(L_TO_PIXELS, L_TO_PIXELS);
+        // So that lines are still 1 pixel thick
+        g.setStroke(new BasicStroke(1.0f/L_TO_PIXELS));
         AffineTransform originalTransform = g.getTransform();
 
         for (ReadGizmo gizmo: model.getGizmos()) {
 
-            // Translate to gizmo's position
-            g.translate(gizmo.getX() * L_TO_PIXELS, gizmo.getY() * L_TO_PIXELS);
-
-            // Apply gizmo rotation
-            g.translate(
-                    gizmo.getWidth() * L_TO_PIXELS / 2,
-                    gizmo.getHeight() * L_TO_PIXELS / 2);
-            g.rotate(gizmo.getRotation().getRadiansFromNorth());
-            g.translate(
-                    -gizmo.getWidth() * L_TO_PIXELS / 2,
-                    -gizmo.getHeight() * L_TO_PIXELS / 2);
+            g.transform(gizmo.getTransform());
 
             switch (gizmo.getType()) {
                 case SQUARE:

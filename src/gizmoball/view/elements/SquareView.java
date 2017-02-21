@@ -12,7 +12,7 @@ public class SquareView {
         graphics.fillRect(
                 0,
                 0,
-                square.getWidth() * BoardView.L_TO_PIXELS,
-                square.getHeight() * BoardView.L_TO_PIXELS);
+                square.getWidth(),
+                square.getHeight());
     }
 }

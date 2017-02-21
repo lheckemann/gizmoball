@@ -12,7 +12,7 @@ public class AbsorberView {
         graphics.fillRect(
                 0,
                 0,
-                absorber.getWidth() * BoardView.L_TO_PIXELS,
-                absorber.getHeight() * BoardView.L_TO_PIXELS);
+                absorber.getWidth(),
+                absorber.getHeight());
     }
 }

@@ -11,7 +11,7 @@ public class CircleView {
         graphics.fillOval(
                 0,
                 0,
-                circle.getWidth() * BoardView.L_TO_PIXELS,
-                circle.getHeight() * BoardView.L_TO_PIXELS);
+                circle.getWidth(),
+                circle.getHeight());
     }
 }
