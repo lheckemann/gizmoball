@@ -22,11 +22,12 @@ public class BoardView extends JPanel {
 
     public void paintGizmos(Graphics graphics) {
         Graphics2D g = (Graphics2D) graphics;
+        AffineTransform originalTransform = g.getTransform();
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.scale(L_TO_PIXELS, L_TO_PIXELS);
         // So that lines are still 1 pixel thick
         g.setStroke(new BasicStroke(1.0f/L_TO_PIXELS));
-        AffineTransform originalTransform = g.getTransform();
+        AffineTransform boardSpaceTransform = g.getTransform();
 
         for (ReadGizmo gizmo: model.getGizmos()) {
 
@@ -50,12 +51,13 @@ public class BoardView extends JPanel {
                     FlipperView.paint(g, gizmo);
                     break;
             }
-            g.setTransform(originalTransform);
+            g.setTransform(boardSpaceTransform);
         }
 
         for(ReadBall ball: model.getBalls()) {
             BallView.paint(g, ball);
         }
+        g.setTransform(originalTransform);
     }
 
     public Dimension getPreferredSize() {
