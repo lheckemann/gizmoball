@@ -57,8 +57,7 @@
 ## Number:  Test 7
    Purpose: Modify gravity
    Input:   Build Mode -> Modify input field next to label "Gravity: "
-   Output:  UI Changes     - "Gravity is successfully modified"
-                             message displayed to user
+   Output:  UI Changes     - Text field now shows the new gravity
             Error messages - if value is not a number, whole, decimal number or
                              not within range,
                              "Gravity must be a whole or decimal number within
@@ -66,17 +65,25 @@
                              error message
 
 ## Number:  Test 8
-   Purpose: Modify friction
-   Input:   Build Mode -> Modify input field next to label "Friction: "
-   Output:  UI Changes     - "Friction is successfully modified"
-                             message displayed to user
+   Purpose: Modify friction MU
+   Input:   Build Mode -> Modify input field next to label "Friction MU: "
+   Output:  UI Changes     - Text field now shows the new friction MU
             Error messages - if value is not a number, whole, decimal number or
                              not within range,
-                             "Friction must be a whole or decimal number within
-                             range {x1} and {x2}"
-                             error message
+                             "Friction MU must be a whole or decimal number
+                             within range {x1} and {x2}" error message
 
 ## Number:  Test 9
+   Purpose: Modify friction MU2
+   Input:   Build Mode -> Modify input field next to label "Friction MU2: "
+   Output:  UI Changes     - Text field now shows the new friction MU2
+            Error messages - if value is not a number, whole, decimal number or
+                             not within range,
+                             "Friction MU2 must be a whole or decimal number
+                             within range {x1} and {x2}" error message
+
+
+## Number:  Test 10
    Purpose: Connect key press to gizmo action
    Input:   Build Mode -> Connect -> List of connections displayed to user
                                   -> Click on "Add connection"
@@ -85,7 +92,7 @@
                                   -> Click "Done" to add connections
    Output:  UI Changes - "success" message displayed to user
 
-## Number:  Test 10
+## Number:  Test 11
    Purpose: Connect gizmo to gizmo action
    Input:   Build Mode -> Connect -> List of connections displayed to user
                                   -> Click on "Add connection"
@@ -94,7 +101,7 @@
                                   -> Click "Done" to add connections
    Output:  UI Changes - "success" message displayed to user
 
-## Number:  Test 11
+## Number:  Test 12
    Purpose: Remove connection
    Input:   Build Mode -> Connect -> List of connections displayed to user
                                   -> Click on "Remove connection"
@@ -105,56 +112,56 @@
                                   -> Decline changes
    Output:  UI Changes - "success" message displayed to user
 
-## Number:  Test 12
+## Number:  Test 13
    Purpose: Switch to run mode
    Input:   Build Mode -> Run
    Output:  UI Changes - the system switches to Run mode
 
-## Number:  Test 13
+## Number:  Test 14
    Purpose: Switch to build mode
    Input:   Run Mode -> Build
    Output:  UI Changes - the system switches to Build mode
 
-## Number:  Test 14
+## Number:  Test 15
    Purpose: Press key to active gizmo
    Input:   Run Mode -> Run -> Press Key
    Output:  UI Changes - any gizmos connected to the key are activated
 
-## Number:  Test 15
+## Number:  Test 16
    Purpose: Hit ball with flipper
    Input:   Run Mode -> Run -> Press Key to trigger flippers
    Output:  UI Changes - flippers hit ball and its velocity changes
 
-## Number:  Test 16
+## Number:  Test 17
    Purpose: Press stop button
    Input:   Run Mode -> Run -> Stop
    Output:  UI Changes - game pauses (i.e. ball(s) stops moving)
 
-## Number:  Test 17
+## Number:  Test 18
    Purpose: Press run button
    Input:   Run Mode -> Run
    Output:  UI Changes - game starts running (i.e. ball(s) start moving)
 
-## Number:  Test 18
+## Number:  Test 19
    Purpose: Press tick button
    Input:   Run Mode -> Run -> Tick
    Output:  UI Changes - Ball(s) moves for the duration of one tick
 
-## Number:  Test 19
+## Number:  Test 20
    Purpose: Load game board from file
    Input:   Build/Run Mode -> Load -> Select file
    Output:  UI Changes     - game board is loaded
             Error messages - if file is not valid, "File Syntax not valid"
                              error message
 
-## Number:  Test 20
+## Number:  Test 21
    Purpose: Save game board to file
    Input:   Build/Run Mode -> Save -> Select location and name
                     -> if file already exists, ask for overwriting or different name
    Output:  UI Changes     - "Game board is saved successfully" message
             File changes   - new file containing current game has been created
 
-## Number:  Test 21
+## Number:  Test 22
    Purpose: Quit system
    Input:   Build Mode -> Exit -> Decide whether to save or not current game board (system's
                                   message)
