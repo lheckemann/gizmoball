@@ -435,7 +435,7 @@ public class Model implements BuildModel, RunModel {
 
         walls.forEach(l -> finder.consumeLine(l, WALL_REFLECTION));
         double hitTime = finder.getTimeUntilCollision();
-        boolean hitsWall = hitTime < 1.0 / TICKS_PER_SECOND;
+        boolean hitsWall = hitTime < SECONDS_PER_TICK;
         Gizmo hitGizmo = null;
 
         for (Gizmo g : this.gizmos) {
@@ -450,7 +450,7 @@ public class Model implements BuildModel, RunModel {
                 finder.consumeCircle(Geometry.transformThrough(t, c), g.getReflectionCoefficient()));
 
             if (finder.getTimeUntilCollision() < hitTime
-                    && finder.getTimeUntilCollision() < 1.0 / TICKS_PER_SECOND) {
+                    && finder.getTimeUntilCollision() < SECONDS_PER_TICK) {
                 hitsWall = false;
                 hitTime = finder.getTimeUntilCollision();
                 hitGizmo = g;
@@ -466,11 +466,11 @@ public class Model implements BuildModel, RunModel {
             this.gizmoHit(hitGizmo, ball);
             ball.setVelocity(finder.getNewVelocity());
         } else {
-            ball.setPosition(ball.getPosition().plus(ball.getVelocity().times(1.0 / TICKS_PER_SECOND)));
+            ball.setPosition(ball.getPosition().plus(ball.getVelocity().times(SECONDS_PER_TICK)));
         }
-        double friction = (1 - mu * 1.0/Model.TICKS_PER_SECOND - mu2 * ball.getVelocity().length() * 1.0/Model.TICKS_PER_SECOND);
+        double friction = (1 - mu * SECONDS_PER_TICK - mu2 * ball.getVelocity().length() * SECONDS_PER_TICK);
         ball.setVelocity(ball.getVelocity().times(friction));
-        Vect gravity = this.gravity.times(1.0/Model.TICKS_PER_SECOND);
+        Vect gravity = this.gravity.times(SECONDS_PER_TICK);
         ball.setVelocity(ball.getVelocity().plus(gravity));
     }
 

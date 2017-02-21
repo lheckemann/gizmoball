@@ -1,6 +1,6 @@
 package gizmoball.model.gizmos;
 
-import gizmoball.model.Model;
+import gizmoball.model.ReadModel;
 import gizmoball.model.Ball;
 import physics.*;
 import physics.Circle;
@@ -49,10 +49,10 @@ public class Flipper extends Gizmo {
     public void tick() {
 
         if (active && pivotAngle < 90) {
-            pivotAngle += (ROTATION_SPEED / Model.TICKS_PER_SECOND);
+            pivotAngle += (ROTATION_SPEED * ReadModel.SECONDS_PER_TICK);
             pivotAngle = Math.min(90, pivotAngle);
         } else if (!active && pivotAngle > 0) {
-            pivotAngle -= (ROTATION_SPEED / Model.TICKS_PER_SECOND);
+            pivotAngle -= (ROTATION_SPEED * ReadModel.SECONDS_PER_TICK);
             pivotAngle = Math.max(0, pivotAngle);
         }
     }
