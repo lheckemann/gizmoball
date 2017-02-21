@@ -1,47 +1,26 @@
-
 package gizmoball.main;
 
-import gizmoball.model.gizmos.*;
 import gizmoball.model.Model;
-import gizmoball.model.PositionOutOfBoundsException;
-import gizmoball.model.PositionOverlapException;
 import gizmoball.view.GizmoBallView;
 
-import javax.swing.*;
-
-import static java.awt.event.KeyEvent.VK_SPACE;
-
-public class PrototypeOne {
+public class PrototypeOne extends Main {
     public static void main(String[] args) {
-        Model model = new Model(16, 16);
-        int x = 1;
-        for (Rotation rot : Rotation.values()) {
-            model.select(x, 2);
-                try {
-                    model.addRightFlipper();
-                } catch (PositionOutOfBoundsException | PositionOverlapException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                
-            for (int i = 0; i < rot.getTurns(); i++) {
-                model.rotateGizmo();
+        Model model = new Model(20, 20);
+        try {
+            for (int i = 0; i < 20; i += 4) {
+                model.select(i, i);
+                model.addRightFlipper();
+                model.triggerOnKeyPress(32);
+                model.triggerOnKeyRelease(32);
+                model.select(i+2, i+2);
+                model.addLeftFlipper();
+                model.triggerOnKeyPress(32);
+                model.triggerOnKeyRelease(32);
             }
-            model.triggerOnKeyPress(VK_SPACE);
-            model.triggerOnKeyRelease(VK_SPACE);
-            x += 3;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                GizmoBallView gui = new GizmoBallView(model);
-                JFrame frame = gui.getGUI();
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setVisible(true);
-            }
-        });
-
+        openGUI(model);
     }
 }
 

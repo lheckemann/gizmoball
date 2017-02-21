@@ -7,30 +7,19 @@ import gizmoball.view.GizmoBallView;
 
 import javax.swing.*;
 
-public class PrototypeTwo {
+public class PrototypeTwo extends Main {
     public static void main(String[] args) {
         Model model = new Model(20, 20);
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    model.addBall(0.0, 0.0);
-                    model.move(4, 4);
-                    model.addAbsorber(19, 2);
-                    model.move(0, 18);
-                } catch (PositionOverlapException e1) {
-                    e1.printStackTrace();
-                } catch (PositionOutOfBoundsException e) {
-                    e.printStackTrace();
-                }
-                model.triggerOnKeyPress(32);
-                GizmoBallView gui = new GizmoBallView(model);
-                JFrame frame = gui.getGUI();
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setVisible(true);
-            }
-        });
-
+        try {
+            model.setGravity(40);
+            model.select(0, 19);
+            model.addAbsorber(20, 1);
+            model.triggerOnKeyRelease(32);
+            model.select(1, 1);
+            model.addBall(0.0, 0.0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        openGUI(model);
     }
 }
