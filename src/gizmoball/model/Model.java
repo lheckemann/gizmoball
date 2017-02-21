@@ -330,12 +330,12 @@ public class Model implements BuildModel, RunModel {
     }
 
     public void gizmoHit(Gizmo gizmo, Ball ball) {
-        this.triggerGizmos(this.gizmoMap.get(gizmo));
         this.balls.remove(ball);
         Ball rBall = gizmo.ballHit(ball);
         if (rBall != null) {
             this.balls.add(rBall);
         }
+        this.triggerGizmos(this.gizmoMap.get(gizmo));
     }
 
     public void wallHit() {
