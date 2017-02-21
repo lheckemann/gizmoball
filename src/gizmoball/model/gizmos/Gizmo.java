@@ -77,11 +77,6 @@ public abstract class Gizmo implements ReadGizmo {
         return null;
     }
 
-    @Override
-    public int getPivotAngle() throws GizmoTypeException {
-        throw new GizmoTypeException();
-    }
-
     public Set<LineSegment> getLineSegments() {
         return Collections.emptySet();
     }

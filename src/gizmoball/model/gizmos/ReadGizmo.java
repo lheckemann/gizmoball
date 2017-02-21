@@ -14,7 +14,6 @@ public interface ReadGizmo {
     int getHeight();
     int getX();
     int getY();
-    int getPivotAngle() throws GizmoTypeException;
     boolean equals(Object obj);
     AffineTransform getTransform();
 }

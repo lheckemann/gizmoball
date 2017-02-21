@@ -3,6 +3,8 @@ package gizmoball.model.gizmos;
 import gizmoball.model.Model;
 import gizmoball.model.Ball;
 
+import java.awt.geom.AffineTransform;
+
 public class Flipper extends Gizmo {
 
     private boolean isLeftFlipper;
@@ -39,7 +41,7 @@ public class Flipper extends Gizmo {
 
     @Override
     public void tick() {
-   
+
         if (active && pivotAngle < 90) {
             pivotAngle += (ROTATION_SPEED / Model.TICKS_PER_SECOND);
             pivotAngle = Math.min(90, pivotAngle);
@@ -68,7 +70,21 @@ public class Flipper extends Gizmo {
     }
 
     @Override
-    public int getPivotAngle() throws GizmoTypeException {
-        return pivotAngle;
+    public AffineTransform getTransform() {
+        AffineTransform posAndRot = super.getTransform();
+        AffineTransform pivot = new AffineTransform();
+        pivot.translate(getWidth() / 2, 0);
+        if (getType().equals(GizmoType.RIGHT_FLIPPER)) {
+            pivot.scale(-1, 1);
+        }
+        pivot.translate(-getWidth() / 2, 0);
+
+        // Translate to pivot point
+        pivot.translate(0.25, 0.25);
+        pivot.rotate(-Math.toRadians(pivotAngle));
+        // Translate back after rotation
+        pivot.translate(-0.25, -0.25);
+        posAndRot.concatenate(pivot);
+        return posAndRot;
     }
 }
