@@ -1,3 +1,6 @@
+jars:
+	mvn package
+
 docs: docs/preliminary-design/report.pdf
 
 docs/preliminary-design/report.pdf:
