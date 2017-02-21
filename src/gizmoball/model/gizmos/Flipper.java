@@ -77,21 +77,19 @@ public class Flipper extends Gizmo {
 
     @Override
     public AffineTransform getTransform() {
-        AffineTransform posAndRot = super.getTransform();
-        AffineTransform pivot = new AffineTransform();
-        pivot.translate(getWidth() / 2, 0);
+        AffineTransform t = super.getTransform();
+        t.translate(getWidth() / 2, 0);
         if (getType().equals(GizmoType.RIGHT_FLIPPER)) {
-            pivot.scale(-1, 1);
+            t.scale(-1, 1);
         }
-        pivot.translate(-getWidth() / 2, 0);
+        t.translate(-getWidth() / 2, 0);
 
         // Translate to pivot point
-        pivot.translate(0.25, 0.25);
-        pivot.rotate(-Math.toRadians(pivotAngle));
+        t.translate(0.25, 0.25);
+        t.rotate(-Math.toRadians(pivotAngle));
         // Translate back after rotation
-        pivot.translate(-0.25, -0.25);
-        posAndRot.concatenate(pivot);
-        return posAndRot;
+        t.translate(-0.25, -0.25);
+        return t;
     }
 
     private static final Set<LineSegment> lines = Collections.unmodifiableSet(Stream.of(
