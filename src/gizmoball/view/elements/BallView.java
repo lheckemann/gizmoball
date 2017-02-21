@@ -16,5 +16,13 @@ public class BallView {
                 ball.getY() * BoardView.L_TO_PIXELS - radius,
                 radius*2,
                 radius*2));
+
+        // Draw velocity vector
+        g.setColor(Color.RED);
+        int x = (int) (ball.getX() * BoardView.L_TO_PIXELS),
+                y = (int) (ball.getY() * BoardView.L_TO_PIXELS);
+        g.drawLine(x, y,
+                x + (int)ball.getVelocityX(),
+                y + (int)ball.getVelocityY());
     }
 }
