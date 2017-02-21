@@ -2,8 +2,14 @@ package gizmoball.model.gizmos;
 
 import gizmoball.model.Model;
 import gizmoball.model.Ball;
+import physics.*;
+import physics.Circle;
 
 import java.awt.geom.AffineTransform;
+import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Flipper extends Gizmo {
 
@@ -86,5 +92,23 @@ public class Flipper extends Gizmo {
         pivot.translate(-0.25, -0.25);
         posAndRot.concatenate(pivot);
         return posAndRot;
+    }
+
+    private static final Set<LineSegment> lines = Collections.unmodifiableSet(Stream.of(
+            new LineSegment(0, 0.25, 0, 1.75),
+            new LineSegment(0.5, 0.25, 0.5, 1.75)
+    ).collect(Collectors.toSet()));
+    @Override
+    public Set<LineSegment> getLineSegments() {
+        return lines;
+    }
+
+    private static final Set<Circle> circles = Collections.unmodifiableSet(Stream.of(
+            new Circle(0.25, 0.25, 0.5),
+            new Circle(0.25, 1.75, 0.5)
+    ).collect(Collectors.toSet()));
+    @Override
+    public Set<Circle> getCircles() {
+        return circles;
     }
 }

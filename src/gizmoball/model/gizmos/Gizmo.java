@@ -77,13 +77,9 @@ public abstract class Gizmo implements ReadGizmo {
         return null;
     }
 
-    public Set<LineSegment> getLineSegments() {
-        return Collections.emptySet();
-    }
+    public abstract Set<LineSegment> getLineSegments();
 
-    public Set<physics.Circle> getCircles() {
-        return Collections.emptySet();
-    }
+    public abstract Set<physics.Circle> getCircles();
 
     public boolean containsBall(Ball ball) {
         return false;
