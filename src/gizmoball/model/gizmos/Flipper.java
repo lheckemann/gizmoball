@@ -102,8 +102,8 @@ public class Flipper extends Gizmo {
     }
 
     private static final Set<Circle> circles = Collections.unmodifiableSet(Stream.of(
-            new Circle(0.25, 0.25, 0.5),
-            new Circle(0.25, 1.75, 0.5)
+            new Circle(0.25, 0.25, 0.25),
+            new Circle(0.25, 1.75, 0.25)
     ).collect(Collectors.toSet()));
     @Override
     public Set<Circle> getCircles() {
