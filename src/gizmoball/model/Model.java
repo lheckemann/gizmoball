@@ -15,6 +15,7 @@ import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Model implements BuildModel, RunModel {
     private final Set<LineSegment> walls = new HashSet<>();
@@ -103,7 +104,7 @@ public class Model implements BuildModel, RunModel {
         this.selX = x;
         this.selY = y;
     }
-    
+
     @Override
     public boolean notEmpty(double x, double y) {
         return (this.getGizmoAt((int) x, (int) y) != null || this.getBallAt(x, y) != null);
@@ -135,7 +136,7 @@ public class Model implements BuildModel, RunModel {
             double y = ball.getY();
             ball.setX(dX);
             ball.setY(dY);
-            
+
             try {
                 this.checkPlacement(ball);
             } catch (PositionOverlapException|PositionOutOfBoundsException e) {
@@ -311,7 +312,7 @@ public class Model implements BuildModel, RunModel {
             this.gizmoMap.computeIfAbsent(source, s -> new HashSet<>()).add(destination);
         }
     }
-    
+
     @Override
     public void triggerOnGizmoAt(double x, double y) {
         Gizmo gizmo = this.getGizmoAt((int)x, (int)y);
@@ -358,7 +359,7 @@ public class Model implements BuildModel, RunModel {
     @Override
     public void tick() {
         this.gizmos.forEach(Gizmo::tick);
-        this.balls.forEach(this::tickBall);
+        this.balls.stream().collect(Collectors.toSet()).forEach(this::tickBall);
     }
 
     @Override
