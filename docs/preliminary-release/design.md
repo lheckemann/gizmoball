@@ -34,5 +34,3 @@ these extend `BoardView`, which is the view responsible for rendering the
 gizmos. The "run" views hold a reference to a `RunModel` model, while the
 "build" views hold a reference to a `BuildModel` model. These views handle the
 `BoardView` a `ReadModel` model.
-
-![Class diagram](design.png)
