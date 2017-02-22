@@ -17,8 +17,10 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
     private final GizmoType type;
     private double absorberStartX;
     private double absorberStartY;
-    private double oldAbsorberStartX;
-    private double oldAbsorberStartY;
+    private double oldAbsorberX;
+    private double oldAbsorberY;
+    private int oldAbsorberWidth;
+    private int oldAbsorberHeight;
 
     public CreateGizmoListener(GizmoType type, BuildView view, BuildModel model) {
         this.model = model;
@@ -64,8 +66,8 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
         if (type.equals(GizmoType.ABSORBER)) {
             this.absorberStartX = e.getX()/BoardView.L_TO_PIXELS;
             this.absorberStartY = e.getY()/BoardView.L_TO_PIXELS;
-            this.oldAbsorberStartX = this.absorberStartX;
-            this.oldAbsorberStartY = this.absorberStartY;
+            this.oldAbsorberX = this.absorberStartX;
+            this.oldAbsorberY = this.absorberStartY;
         }
     }
 
@@ -101,22 +103,33 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
             int width = (int)endX - (int)startX;
             int height = (int)endY - (int)startY;
         
-            model.select(this.oldAbsorberStartX, this.oldAbsorberStartY);
+            model.select(this.oldAbsorberX, this.oldAbsorberY);
             model.delete();
             model.select(startX, startY);
-            this.oldAbsorberStartX = startX;
-            this.oldAbsorberStartY = startY;
             try {
                 this.model.addAbsorber(width, height);
+                this.oldAbsorberX = startX;
+                this.oldAbsorberY = startY; 
+                this.oldAbsorberWidth = width;
+                this.oldAbsorberHeight = height;
                 this.view.updateBoard();
             } catch (PositionOverlapException e1) {
-                
+                this.drawOldAbsorber();
             } catch (PositionOutOfBoundsException e1) {
-                
+                this.drawOldAbsorber();
             }
          
         }
-       
+    }
+    
+    private void drawOldAbsorber() {
+        this.model.select(this.oldAbsorberX, this.oldAbsorberY);
+        try {
+            this.model.addAbsorber(this.oldAbsorberWidth, this.oldAbsorberHeight);
+        } catch (PositionOverlapException | PositionOutOfBoundsException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Override
