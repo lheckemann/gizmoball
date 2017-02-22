@@ -2,6 +2,7 @@ package gizmoball.view;
 
 import gizmoball.controller.ChangeFrictionListener;
 import gizmoball.controller.ChangeGravityListener;
+import gizmoball.controller.SwitchToAddBallListener;
 import gizmoball.controller.SwitchToConnectGizmosListener;
 import gizmoball.controller.SwitchToConnectKeyPressGizmoListener;
 import gizmoball.controller.SwitchToConnectKeyReleaseGizmoListener;
@@ -23,6 +24,9 @@ public class BuildView extends GameView {
     private JTextField gravityTxt;
     private JTextField frictionMUTxt;
     private JTextField frictionMU2Txt;
+    
+    private double promptedVelocityX = 0;
+    private double promptedVelocityY = 0;
 
     public BuildView(BuildModel model) {
         this.model = model;
@@ -70,6 +74,10 @@ public class BuildView extends GameView {
         addAbsorberBtn.setFocusable(false);
         addAbsorberBtn.setText("Add Absorber");
         addAbsorberBtn.addActionListener(new SwitchToCreateActionListener(GizmoType.ABSORBER, (BuildBoardView)this.board, this, this.model));
+        JRadioButton addBallBtn = new JRadioButton("Add ball");
+        addBallBtn.setFocusable(false);
+        addBallBtn.setText("Add Ball");
+        addBallBtn.addActionListener(new SwitchToAddBallListener((BuildBoardView)this.board, this, this.model));
         JRadioButton connectGizmosBtn = new JRadioButton();
         connectGizmosBtn.setFocusable(false);
         connectGizmosBtn.setText("Connect Gizmo to Gizmo");
@@ -117,6 +125,7 @@ public class BuildView extends GameView {
         bg.add(addLeftFlipperBtn);
         bg.add(addRightFlipperBtn);
         bg.add(addAbsorberBtn);
+        bg.add(addBallBtn);
         bg.add(connectGizmosBtn);
         bg.add(connectKeyPressGizmoBtn);
         bg.add(connectKeyReleaseGizmoBtn);
@@ -130,6 +139,7 @@ public class BuildView extends GameView {
         buttonsPnl.add(addLeftFlipperBtn);
         buttonsPnl.add(addRightFlipperBtn);
         buttonsPnl.add(addAbsorberBtn);
+        buttonsPnl.add(addBallBtn);
         buttonsPnl.add(connectGizmosBtn);
         buttonsPnl.add(connectKeyPressGizmoBtn);
         buttonsPnl.add(connectKeyReleaseGizmoBtn);
@@ -154,6 +164,29 @@ public class BuildView extends GameView {
         frictionMU2Txt.setText(String.valueOf(model.getFrictionMu2()));
     }
 
+    //Used to prompt the user to enter a velocity value
+    public void promptVelocity() {
+        JTextField velocityXField = new JTextField();
+        JTextField velocityYField = new JTextField();
+        Object[] message = {"Enter the velocity x value: ", velocityXField,
+                            "Enter the velocity y value: ", velocityYField};
+        JOptionPane.showConfirmDialog(null, message, "Set ball velocity", JOptionPane.OK_OPTION);
+        this.promptedVelocityX = Double.parseDouble(velocityXField.getText());
+        this.promptedVelocityX = Double.parseDouble(velocityYField.getText());
+    }
+    
+    //Gets the x value for velocity entered by the user
+    //The default value if no prompt has been made is 0
+    public double getPromptedVelocityX() {
+        return this.promptedVelocityX;
+    }
+    
+    //Gets the y value for velocity entered by the user
+    //The default value if no prompt has been made is 0
+    public double getPromptedVelocityY() {
+        return this.promptedVelocityY;
+    }
+    
     // no checks are being made (text must be a number)
     public String getGravityText() {
         return gravityTxt.getText();

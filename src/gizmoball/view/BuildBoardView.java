@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import gizmoball.controller.AddBallListener;
 import gizmoball.controller.ConnectGizmosListener;
 import gizmoball.controller.ConnectKeyPressGizmoListener;
 import gizmoball.controller.ConnectKeyReleaseGizmoListener;
@@ -92,6 +93,11 @@ public class BuildBoardView extends BoardView {
         this.addKeyListener((KeyAdapter)keyReleaseGizmoListener);
         this.addMouseListener((MouseListener)keyReleaseGizmoListener);
         this.requestFocusInWindow();
+    }
+
+    public void switchToAddBall(BuildView view, BuildModel model) {
+        this.clearListeners();
+        this.addMouseListener(new AddBallListener(view, model));
     }
    
 }
