@@ -18,8 +18,6 @@ import java.awt.*;
 
 public class BuildView extends GameView {
     private BuildModel model;
-    
-    private JRadioButton addBtn;
 
     private JTextField gravityTxt;
     private JTextField frictionMUTxt;

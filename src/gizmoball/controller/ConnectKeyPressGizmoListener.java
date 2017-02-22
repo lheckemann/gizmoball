@@ -8,7 +8,7 @@ import java.awt.event.MouseListener;
 import gizmoball.model.BuildModel;
 import gizmoball.view.BoardView;
 
-public class ConnectKeyPressGizmoListener extends KeyAdapter implements MouseListener{
+public class ConnectKeyPressGizmoListener extends KeyAdapter implements MouseListener {
     
     private BuildModel model;
     private boolean componentSelected;
@@ -28,8 +28,8 @@ public class ConnectKeyPressGizmoListener extends KeyAdapter implements MouseLis
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        double chosenX = e.getX()/BoardView.L_TO_PIXELS;
-        double chosenY = e.getY()/BoardView.L_TO_PIXELS;
+        double chosenX = e.getX()/(double)BoardView.L_TO_PIXELS;
+        double chosenY = e.getY()/(double)BoardView.L_TO_PIXELS;
         if (model.notEmpty(chosenX, chosenY)) {
             model.select(chosenX, chosenY);
             componentSelected = true;

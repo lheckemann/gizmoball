@@ -84,15 +84,18 @@ public class BuildBoardView extends BoardView {
         this.clearListeners();
         ConnectKeyPressGizmoListener keyPressGizmoListener = new ConnectKeyPressGizmoListener(model);
         this.addKeyListener(keyPressGizmoListener);
+        this.setFocusable(true);
+        this.requestFocusInWindow();
         this.addMouseListener(keyPressGizmoListener);
     }
     
     public void switchToConnectKeyReleaseGizmo(BuildModel model) {
         this.clearListeners();
         ConnectKeyReleaseGizmoListener keyReleaseGizmoListener = new ConnectKeyReleaseGizmoListener(model);
-        this.addKeyListener((KeyAdapter)keyReleaseGizmoListener);
-        this.addMouseListener((MouseListener)keyReleaseGizmoListener);
+        this.addKeyListener(keyReleaseGizmoListener);
+        this.setFocusable(true);
         this.requestFocusInWindow();
+        this.addMouseListener((MouseListener)keyReleaseGizmoListener);
     }
 
     public void switchToAddBall(BuildView view, BuildModel model) {

@@ -21,7 +21,6 @@ public class ConnectKeyReleaseGizmoListener extends KeyAdapter implements MouseL
     @Override
     public void keyPressed(KeyEvent e) {
         if (componentSelected) {
-            e.getKeyChar();
             model.triggerOnKeyRelease(e.getKeyCode());
             componentSelected = false;
         }
