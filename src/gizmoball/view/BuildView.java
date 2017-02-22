@@ -164,8 +164,8 @@ public class BuildView extends GameView {
 
     //Used to prompt the user to enter a velocity value
     public void promptVelocity() {
-        JTextField velocityXField = new JTextField();
-        JTextField velocityYField = new JTextField();
+        JTextField velocityXField = new JTextField("0");
+        JTextField velocityYField = new JTextField("0");
         Object[] message = {"Enter the velocity x value: ", velocityXField,
                             "Enter the velocity y value: ", velocityYField};
         JOptionPane.showConfirmDialog(null, message, "Set ball velocity", JOptionPane.OK_OPTION);
