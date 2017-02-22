@@ -92,27 +92,15 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
         if (type.equals(GizmoType.ABSORBER)) {
             double currentAbsorberEndX = e.getX()/BoardView.L_TO_PIXELS;
             double currentAbsorberEndY = e.getY()/BoardView.L_TO_PIXELS;
-            
-            System.out.println("current absorber end x: " + currentAbsorberEndX);
-            System.out.println("current absorber end y: " + currentAbsorberEndX);
-            System.out.println("start x: " + absorberStartX);
-            System.out.println("start y: " + absorberStartY);
            
             double startX = Math.min(currentAbsorberEndX, absorberStartX);
             double startY = Math.min(currentAbsorberEndY, absorberStartY);
             double endX = Math.max(currentAbsorberEndX, absorberStartX);
             double endY = Math.max(currentAbsorberEndY, absorberStartY);
             
-            System.out.println("actual start x: " + startX);
-            System.out.println("actual start y: " + startY);
-            System.out.println("actual end x: " + endX);
-            System.out.println("actual end y: " + endY);
-            
             int width = (int)endX - (int)startX;
             int height = (int)endY - (int)startY;
-            System.out.println("width: " + width);
-            System.out.println("height: " + height);
-            
+        
             model.select(this.oldAbsorberStartX, this.oldAbsorberStartY);
             model.delete();
             model.select(startX, startY);
