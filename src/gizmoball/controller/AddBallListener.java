@@ -26,8 +26,6 @@ public class AddBallListener implements MouseListener {
        double velocityY = view.getPromptedVelocityY();
        double ballX = e.getX()/(double)BoardView.L_TO_PIXELS;
        double ballY = e.getY()/(double)BoardView.L_TO_PIXELS;
-       System.out.println("ballX: " + ballX);
-       System.out.println("ballY: " + ballY);
        model.select(ballX, ballY);
        try {
            this.model.addBall(velocityX, velocityY);
