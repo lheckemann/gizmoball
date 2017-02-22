@@ -52,6 +52,7 @@ public class Saver {
         Map<ReadGizmo,String> tagged = new HashMap<>();
         for (ReadGizmo gizmo : gizmos) {
             tagged.put(gizmo, this.getTypeIdPrefix(gizmo.getType()) + i);
+            i++;
         }
         return tagged;
     }
@@ -61,6 +62,7 @@ public class Saver {
         Map<ReadBall,String> tagged = new HashMap<>();
         for (ReadBall ball : balls) {
             tagged.put(ball, "B" + i);
+            i++;
         }
         return tagged;
     }
