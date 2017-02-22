@@ -1,6 +1,7 @@
 package gizmoball.view;
 
 import gizmoball.controller.LoadListener;
+import gizmoball.controller.NewListener;
 import gizmoball.controller.SaveListener;
 import gizmoball.controller.SwitchModeListener;
 import gizmoball.model.Model;
@@ -37,7 +38,7 @@ public class GizmoBallView {
         exitBtn.setFocusable(false);
         this.modeBtn = new JButton("Run");
         this.modeBtn.setFocusable(false);
-        //newBtn.addActionListener(new CreateGizmoListener(model, this));
+        newBtn.addActionListener(new NewListener(model, this));
         loadBtn.addActionListener(new LoadListener(model, this));
         saveBtn.addActionListener(new SaveListener(model));
         exitBtn.addActionListener(new ActionListener() {
