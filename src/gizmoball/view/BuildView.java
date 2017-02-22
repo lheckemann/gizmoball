@@ -170,7 +170,7 @@ public class BuildView extends GameView {
                             "Enter the velocity y value: ", velocityYField};
         JOptionPane.showConfirmDialog(null, message, "Set ball velocity", JOptionPane.OK_OPTION);
         this.promptedVelocityX = Double.parseDouble(velocityXField.getText());
-        this.promptedVelocityX = Double.parseDouble(velocityYField.getText());
+        this.promptedVelocityY = Double.parseDouble(velocityYField.getText());
     }
     
     //Gets the x value for velocity entered by the user
