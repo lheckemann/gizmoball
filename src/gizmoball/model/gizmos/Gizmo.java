@@ -104,7 +104,7 @@ public abstract class Gizmo implements ReadGizmo {
                 break;
             case SOUTH:
                 m00 = -1; m01 =  0; m02 = this.getWidth() + this.getX();
-                m10 =  0; m11 =  1; m12 = this.getHeight() + this.getY();
+                m10 =  0; m11 =  -1; m12 = this.getHeight() + this.getY();
                 break;
             case WEST:
                 m00 =  0; m01 =  1; m02 = this.getX();
