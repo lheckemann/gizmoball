@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import gizmoball.controller.ConnectGizmosListener;
 import gizmoball.controller.ConnectKeyPressGizmoListener;
@@ -40,6 +41,10 @@ public class BuildBoardView extends BoardView {
     private void clearListeners() {
         for (MouseListener m: this.getMouseListeners()) {
             this.removeMouseListener(m);
+        }
+        
+        for (MouseMotionListener m: this.getMouseMotionListeners()) {
+            this.removeMouseMotionListener(m);
         }
         
         for (KeyListener k: this.getKeyListeners()) {
