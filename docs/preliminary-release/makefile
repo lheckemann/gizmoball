@@ -1,6 +1,6 @@
 
 release.zip: testing.pdf design.pdf diagram.pdf gantt.png jars
-	zip release.zip testing.pdf design.pdf gantt.png gizmoball-?.?.?-*.jar
+	zip release.zip testing.pdf design.pdf diagram.pdf gantt.png gizmoball-?.?.?-*.jar
 
 testing.pdf: validation.md junit.md
 	printf "%% Testing strategy\n%% Group JS8\n" > testing.md
