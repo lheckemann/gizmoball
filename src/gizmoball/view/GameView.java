@@ -13,6 +13,6 @@ public class GameView {
     }
 
     public void updateBoard() {
-        this.board.repaint();
+        this.board.updateUI();
     }
 }
