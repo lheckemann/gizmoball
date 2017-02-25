@@ -68,11 +68,17 @@ public class CollisionFinder {
             av = c.againstGizmo.getAngularVelocity();
         }
         if (c.line != null) {
-            v = reflectRotatingWall(c.line, p, av,
-                    c.ball.getCircle(), v, r);
+            if (av != 0) {
+                v = reflectRotatingWall(c.line, p, av, c.ball.getCircle(), v, r);
+            } else {
+                v = reflectWall(c.line, v, r);
+            }
         } else if (c.circle != null) {
-            v = reflectRotatingCircle(c.circle, p, av,
-                    c.ball.getCircle(), v, r);
+            if (av != 0) {
+                v = reflectRotatingCircle(c.circle, p, av, c.ball.getCircle(), v, r);
+            } else {
+                v = reflectCircle(c.circle.getCenter(), c.ball.getCircle().getCenter(), c.ball.getVelocity(), r);
+            }
         }
         return v;
     }
