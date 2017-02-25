@@ -55,16 +55,22 @@ public class CollisionFinder {
 
     public Vect getCollisionVelocity(Collision c) {
         Vect v = new Vect(c.ball.getVelocityX(), c.ball.getVelocityY());
-        double reflection = this.wallReflection;
+        Vect p = new Vect(0, 0);
+        Double av = 0d;
+        double r = this.wallReflection;
         if (c.againstGizmo != null) {
-            reflection = c.againstGizmo.getReflectionCoefficient();
+            r = c.againstGizmo.getReflectionCoefficient();
+            p = transformThrough(c.againstGizmo.getTransform(), c.againstGizmo.getPivot());
+            av = c.againstGizmo.getAngularVelocity();
         } else if (c.againstBall != null) {
-            reflection = 1.0;  // TODO: delegate to ball
+            // TODO: delegate to ball?
         }
         if (c.line != null) {
-            v = reflectWall(c.line, v, reflection);
+            v = reflectRotatingWall(c.line, p, av,
+                    c.ball.getCircle(), v, r);
         } else if (c.circle != null) {
-            v = reflectCircle(c.circle.getCenter(), c.ball.getCircle().getCenter(), v, reflection);
+            v = reflectRotatingCircle(c.circle, p, av,
+                    c.ball.getCircle(), v, r);
         }
         return v;
     }
@@ -99,15 +105,21 @@ public class CollisionFinder {
         Set<Collision> collisions = new HashSet<>();
         for (Gizmo g : this.gizmos) {
             if (g.containsBall(ball)) { continue; }
+
             AffineTransform transform = g.getTransform();
+            Vect p = transformThrough(transform, g.getPivot());
+            Double av = g.getAngularVelocity();
+
             for (LineSegment l : g.getLineSegments()) {
                 l = transformThrough(transform, l);
-                double t = timeUntilWallCollision(l, ball.getCircle(), ball.getVelocity());
+                double t = timeUntilRotatingWallCollision(l, p, av,
+                        ball.getCircle(), ball.getVelocity());
                 collisions.add(new Collision(ball, t, l, null, null, g));
             }
             for (Circle c : g.getCircles()) {
                 c = transformThrough(transform, c);
-                double t = timeUntilCircleCollision(c, ball.getCircle(), ball.getVelocity());
+                double t = timeUntilRotatingCircleCollision(c, p, av,
+                        ball.getCircle(), ball.getVelocity());
                 collisions.add(new Collision(ball, t, null, c, null, g));
             }
         }
