@@ -54,6 +54,10 @@ public class CollisionFinder {
     }
 
     public Vect getCollisionVelocity(Collision c) {
+        if (c.againstBall != null) {
+            return reflectBalls(c.ball.getCircle().getCenter(), 1, c.ball.getVelocity(),
+                                c.againstBall.getCircle().getCenter(), 1, c.againstBall.getVelocity()).v1;
+        }
         Vect v = new Vect(c.ball.getVelocityX(), c.ball.getVelocityY());
         Vect p = new Vect(0, 0);
         Double av = 0d;
@@ -62,8 +66,6 @@ public class CollisionFinder {
             r = c.againstGizmo.getReflectionCoefficient();
             p = transformThrough(c.againstGizmo.getTransform(), c.againstGizmo.getPivot());
             av = c.againstGizmo.getAngularVelocity();
-        } else if (c.againstBall != null) {
-            // TODO: delegate to ball?
         }
         if (c.line != null) {
             v = reflectRotatingWall(c.line, p, av,
@@ -133,6 +135,7 @@ public class CollisionFinder {
             double t = timeUntilBallBallCollision(ball.getCircle(), ball.getVelocity(),
                                                   b.getCircle(), b.getVelocity());
             collisions.add(new Collision(ball, t, null, b.getCircle(), b, null));
+            collisions.add(new Collision(b, t, null, ball.getCircle(), ball, null));
         }
         return collisions;
     }
