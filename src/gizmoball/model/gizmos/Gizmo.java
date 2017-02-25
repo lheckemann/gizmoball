@@ -114,6 +114,14 @@ public abstract class Gizmo implements ReadGizmo {
         return new AffineTransform(m00, m10, m01, m11, m02, m12);
     }
 
+    public Vect getPivot() {
+        return new Vect(0, 0);
+    }
+
+    public Double getAngularVelocity() {
+        return 0d;
+    }
+
     public Set<Vect> getCells() {
         Set<Vect> cells = new HashSet<>();
         for (int x = 0; x < this.getWidth(); x++) {
