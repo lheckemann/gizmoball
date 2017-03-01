@@ -17,34 +17,44 @@ public class BallTest {
 
 	private final double DELTA = 1e-15;
 
+	private final double firstBallPositionX = 0;
+    private final double firstBallPositionY = 0;
+    private final double firstBallVelocityX = 0;
+    private final double firstBallVelocityY = 0;
+
+    private final double secondBallPositionX = 10;
+    private final double secondBallPositionY = 12;
+	private final double secondBallVelocityX = 5;
+	private final double secondBallVelocityY = 6;
+
 	@Before
 	public void setUp() {
 		myBall = new Ball();
 
 		Ball newBall = new Ball();
-		newBall.setPosition(new Vect(10, 12));
-		newBall.setVelocity(new Vect(5, 6));
+		newBall.setPosition(new Vect(secondBallPositionX, secondBallPositionY));
+		newBall.setVelocity(new Vect(secondBallVelocityX, secondBallVelocityY));
 		mySecondBall = new Ball(newBall);
 	}
 
 	@Test
 	public void getXMyBall() {
-		assertEquals(myBall.getX(), 0, DELTA);
+		assertEquals(myBall.getX(), firstBallPositionX, DELTA);
 	}
 
 	@Test
 	public void getXMySecondBall() {
-		assertEquals(mySecondBall.getX(), 10, DELTA);
+		assertEquals(mySecondBall.getX(), secondBallPositionX, DELTA);
 	}
 
 	@Test
 	public void getYMyBall() {
-		assertEquals(myBall.getY(), 0, DELTA);
+		assertEquals(myBall.getY(), firstBallPositionY, DELTA);
 	}
 
 	@Test
 	public void getYMySecondBall() {
-		assertEquals(mySecondBall.getY(), 12, DELTA);
+		assertEquals(mySecondBall.getY(), secondBallPositionY, DELTA);
 	}
 
 	@Test
@@ -54,63 +64,76 @@ public class BallTest {
 
 	@Test
 	public void getPositionMyBall() {
-		assertEquals(myBall.getPosition(), new Vect(0, 0));
+		assertEquals(myBall.getPosition(), new Vect(firstBallPositionX, firstBallPositionY));
 	}
 
 	@Test
 	public void getPositionMySecondBall() {
-		assertEquals(mySecondBall.getPosition(), new Vect(10, 12));
+		assertEquals(mySecondBall.getPosition(), new Vect(secondBallPositionX, secondBallVelocityY));
 	}
 
 	@Test
 	public void setX() {
-		myBall.setX(1);
-		assertEquals(myBall.getX(), 1, DELTA);
+	    int newX = 1;
+
+		myBall.setX(newX);
+		assertEquals(myBall.getX(), newX, DELTA);
 	}
 
 	@Test
 	public void setY() {
-		myBall.setY(1);
-		assertEquals(myBall.getY(), 1, DELTA);
+	    int newY = 1;
+
+		myBall.setY(newY);
+		assertEquals(myBall.getY(), newY, DELTA);
 	}
 
 	@Test
 	public void setPosition() {
-		myBall.setPosition(new Vect(2, 3));
-		assertEquals(myBall.getPosition(), new Vect(2, 3));
+	    int newX = 2;
+	    int newY = 3;
+
+		myBall.setPosition(new Vect(newX, newY));
+		assertEquals(myBall.getPosition(), new Vect(newX, newY));
 	}
 
 	@Test
 	public void getVelocityX() {
-		assertEquals(mySecondBall.getVelocityX(), 5, DELTA);
+		assertEquals(mySecondBall.getVelocityX(), secondBallVelocityX, DELTA);
 	}
 
 	@Test
 	public void getVelocityY() {
-		assertEquals(mySecondBall.getVelocityY(), 6, DELTA);
+		assertEquals(mySecondBall.getVelocityY(), secondBallVelocityY, DELTA);
 	}
 
 	@Test
 	public void getVelocity() {
-		assertEquals(mySecondBall.getVelocity(), new Vect(5, 6));
+		assertEquals(mySecondBall.getVelocity(), new Vect(secondBallVelocityX, secondBallPositionY));
 	}
 
 	@Test
 	public void setVelocityX() {
-		myBall.setVelocityX(4);
-		assertEquals(myBall.getVelocityX(), 4, DELTA);
+	    int newVeloX = 4;
+
+		myBall.setVelocityX(newVeloX);
+		assertEquals(myBall.getVelocityX(), newVeloX, DELTA);
 	}
 
 	@Test
 	public void setVelocityY() {
-		myBall.setVelocityY(4);
-		assertEquals(myBall.getVelocityY(), 4, DELTA);
+	    int newVeloY = 4;
+
+		myBall.setVelocityY(newVeloY);
+		assertEquals(myBall.getVelocityY(), newVeloY, DELTA);
 	}
 
 	@Test
 	public void setVelocity() {
-		myBall.setVelocity(new Vect(4, 5));
-		assertEquals(myBall.getVelocity(), new Vect(4, 5));
+	    Vect newVelo = new Vect(4, 5);
+
+		myBall.setVelocity(newVelo);
+		assertEquals(myBall.getVelocity(), newVelo);
 	}
 
 	@Test

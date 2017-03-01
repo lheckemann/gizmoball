@@ -37,12 +37,12 @@ public class AbsorberTest {
 
     @Test
     public void getWidth() {
-        assertEquals(myAbsorber.getWidth(), 5);
+        assertEquals(myAbsorber.getWidth(), width);
     }
 
     @Test
     public void getHeight() {
-        assertEquals(myAbsorber.getHeight(), 10);
+        assertEquals(myAbsorber.getHeight(), height);
     }
 
     @Test

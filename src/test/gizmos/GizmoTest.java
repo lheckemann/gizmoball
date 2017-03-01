@@ -19,6 +19,7 @@ public class GizmoTest {
         myRightFlipper = new Flipper(false);
     }
 
+
     @Test
     public void getRotationAtBeginning() {
         Assert.assertEquals(myLeftFlipper.getRotation(), Rotation.NORTH);

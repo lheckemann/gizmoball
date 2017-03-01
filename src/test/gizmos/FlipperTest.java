@@ -19,6 +19,8 @@ public class FlipperTest {
     private Gizmo myLeftFlipper;
     private Gizmo myRightFlipper;
 
+    private final double DELTA = 1e-15;
+
     @Before
     public void setUp() {
         myLeftFlipper = new Flipper(true);
@@ -27,7 +29,7 @@ public class FlipperTest {
 
     @Test
     public void getReflectionCoefficient() {
-        assertEquals(myLeftFlipper.getReflectionCoefficient(), 0.95f, 1e-15);
+        assertEquals(myLeftFlipper.getReflectionCoefficient(), 0.95f, DELTA);
     }
 
     @Test
