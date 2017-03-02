@@ -1,0 +1,6 @@
+RightFlipper RF0 6 5
+Ball B0 6.531250 6.648728 0.000000 14.061593
+KeyConnect key 32 down RF0
+KeyConnect key 32 up RF0
+Gravity 40.000000
+Friction 0.025000 0.025000

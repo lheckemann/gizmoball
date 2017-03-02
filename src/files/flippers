@@ -1,0 +1,38 @@
+LeftFlipper LF0 2 3
+RightFlipper RF1 14 6
+LeftFlipper LF2 6 3
+LeftFlipper LF3 10 3
+RightFlipper RF4 2 6
+RightFlipper RF5 6 6
+LeftFlipper LF6 14 3
+RightFlipper RF7 10 6
+Rotate RF1
+Rotate RF1
+Rotate RF1
+Rotate LF2
+Rotate LF3
+Rotate LF3
+Rotate RF5
+Rotate LF6
+Rotate LF6
+Rotate LF6
+Rotate RF7
+Rotate RF7
+KeyConnect key 32 down LF0
+KeyConnect key 32 down RF1
+KeyConnect key 32 down LF2
+KeyConnect key 32 down LF3
+KeyConnect key 32 down RF4
+KeyConnect key 32 down RF5
+KeyConnect key 32 down RF7
+KeyConnect key 32 down LF6
+KeyConnect key 32 up LF0
+KeyConnect key 32 up RF1
+KeyConnect key 32 up LF2
+KeyConnect key 32 up LF3
+KeyConnect key 32 up RF4
+KeyConnect key 32 up RF5
+KeyConnect key 32 up RF7
+KeyConnect key 32 up LF6
+Gravity 25.000000
+Friction 0.025000 0.025000
