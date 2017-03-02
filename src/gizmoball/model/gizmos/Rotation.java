@@ -23,6 +23,7 @@ public enum Rotation {
             case EAST: return SOUTH;
             case SOUTH: return WEST;
             case WEST: return NORTH;
+            default: return null;
         }
     }
 }
