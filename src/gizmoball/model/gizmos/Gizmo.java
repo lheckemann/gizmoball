@@ -25,19 +25,7 @@ public abstract class Gizmo implements ReadGizmo {
     }
 
     public void rotate() {
-        switch (this.rotation) {
-            case NORTH:
-                this.rotation = Rotation.EAST;
-                break;
-            case EAST:
-                this.rotation = Rotation.SOUTH;
-                break;
-            case SOUTH:
-                this.rotation = Rotation.WEST;
-                break;
-            default:
-                this.rotation = Rotation.NORTH;
-        }
+        this.rotation = this.rotation.nextCW();
     }
 
     public void setRotation(Rotation rotation) {
