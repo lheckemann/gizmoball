@@ -4,12 +4,15 @@ import gizmoball.model.Model;
 import gizmoball.model.PositionOutOfBoundsException;
 import gizmoball.model.PositionOverlapException;
 import gizmoball.model.ReadBall;
+import gizmoball.model.gizmos.Circle;
+import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.model.gizmos.Rotation;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
@@ -397,57 +400,116 @@ public class ModelTest {
     }
 
     @Test
-    public void triggerOnKeyPress() throws Exception {
+    public void triggerOnKeyPressExistingGizmo() {
+        myModel.select(10, 13);
+        myModel.triggerOnKeyPress(30);
+
+        assertTrue(myModel.getKeyPressToGizmoMap().containsKey(30));
+    }
+
+    @Test
+    public void triggerOnKeyPressNonExistingGizmo() {
+        myModel.select(6, 6);
+        myModel.triggerOnKeyPress(30);
+
+        assertFalse(myModel.getKeyPressToGizmoMap().containsKey(30));
+    }
+
+    @Test
+    public void triggerOnKeyReleaseExistingGizmo() {
+        myModel.select(10, 13);
+        myModel.triggerOnKeyRelease(30);
+
+        assertTrue(myModel.getKeyReleaseToGizmoMap().containsKey(30));
+    }
+
+    @Test
+    public void triggerOnKeyReleaseNonExistingGizmo() {
+        myModel.select(6, 6);
+        myModel.triggerOnKeyPress(30);
+
+        assertFalse(myModel.getKeyReleaseToGizmoMap().containsKey(30));
+    }
+
+    @Test
+    public void triggerOnOuterWalls() {
+        // Can't test it
+    }
+
+    @Test
+    public void triggerOnGizmoExistingDestinationAndSource() {
+        ReadGizmo g = myModel.getGizmos().iterator().next();
+
+        myModel.select(10, 13);
+        myModel.triggerOnGizmo(g);
+
+        assertTrue(myModel.getGizmoToGizmoMap().containsKey(g));
+    }
+
+    @Test
+    public void triggerOnGizmoExistingDestinationAndNotExistingSource() {
+        ReadGizmo g = myModel.getGizmos().iterator().next();
+
+        myModel.select(6, 6);
+        myModel.triggerOnGizmo(g);
+
+        assertFalse(myModel.getGizmoToGizmoMap().containsKey(g));
+    }
+
+    @Test
+    public void triggerOnGizmoNotExistingDestinationAndNotExistingSource() {
+        ReadGizmo g = new Circle();
+
+        myModel.select(6, 6);
+        myModel.triggerOnGizmo(g);
+
+        assertFalse(myModel.getGizmoToGizmoMap().containsKey(g));
+    }
+
+    @Test
+    public void triggerOnGizmoNotExistingDestinationAndExistingSource() {
+        ReadGizmo g = new Circle();
+
+        myModel.select(10, 13);
+        myModel.triggerOnGizmo(g);
+        //
+        // NEED TO DISCUSS -> SHOULD BE FALSE
+        //
+        assertTrue(myModel.getGizmoToGizmoMap().containsKey(g));
+    }
+
+    @Test
+    public void keyPressed() {
 
     }
 
     @Test
-    public void triggerOnKeyRelease() throws Exception {
+    public void keyReleased() {
 
     }
 
     @Test
-    public void triggerOnOuterWalls() throws Exception {
+    public void gizmoHit() {
 
     }
 
     @Test
-    public void triggerOnGizmo() throws Exception {
+    public void wallHit() {
 
     }
 
     @Test
-    public void keyPressed() throws Exception {
+    public void getGizmos() {
 
     }
 
     @Test
-    public void keyReleased() throws Exception {
+    public void getBalls() {
 
     }
 
     @Test
-    public void gizmoHit() throws Exception {
-
-    }
-
-    @Test
-    public void wallHit() throws Exception {
-
-    }
-
-    @Test
-    public void getGizmos() throws Exception {
-
-    }
-
-    @Test
-    public void getBalls() throws Exception {
-
-    }
-
-    @Test
-    public void getWidth() throws Exception {
+    public void getWidth() {
         assertEquals(myModel.getWidth(), 20);
     }
 
@@ -457,32 +519,32 @@ public class ModelTest {
     }
 
     @Test
-    public void getKeyPressToGizmoMap() throws Exception {
+    public void getKeyPressToGizmoMap() {
 
     }
 
     @Test
-    public void getKeyReleaseToGizmoMap() throws Exception {
+    public void getKeyReleaseToGizmoMap() {
 
     }
 
     @Test
-    public void getGizmoToGizmoMap() throws Exception {
+    public void getGizmoToGizmoMap() {
 
     }
 
     @Test
-    public void load() throws Exception {
+    public void load() {
 
     }
 
     @Test
-    public void tick() throws Exception {
+    public void tick() {
 
     }
 
     @Test
-    public void save() throws Exception {
+    public void save() {
 
     }
 }
