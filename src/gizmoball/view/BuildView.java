@@ -1,15 +1,6 @@
 package gizmoball.view;
 
-import gizmoball.controller.ChangeFrictionListener;
-import gizmoball.controller.ChangeGravityListener;
-import gizmoball.controller.SwitchToAddBallListener;
-import gizmoball.controller.SwitchToConnectGizmosListener;
-import gizmoball.controller.SwitchToConnectKeyPressGizmoListener;
-import gizmoball.controller.SwitchToConnectKeyReleaseGizmoListener;
-import gizmoball.controller.SwitchToCreateActionListener;
-import gizmoball.controller.SwitchToDeleteActionListener;
-import gizmoball.controller.SwitchToMoveActionListener;
-import gizmoball.controller.SwitchToRotateActionListener;
+import gizmoball.controller.*;
 import gizmoball.model.BuildModel;
 import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 
@@ -26,11 +17,11 @@ public class BuildView extends GameView implements IBuildView {
     private double promptedVelocityX = 0;
     private double promptedVelocityY = 0;
 
-    public BuildView(BuildModel model) {
+    public BuildView(BuildModel model, Controller controller) {
         this.model = model;
 
         box = new Box(BoxLayout.X_AXIS);
-        board = new BuildBoardView(model);
+        board = new BuildBoardView(model, controller);
         JPanel buttonsPnl = new JPanel();
         buttonsPnl.setLayout(new BoxLayout(buttonsPnl, BoxLayout.Y_AXIS));
 
@@ -38,74 +29,74 @@ public class BuildView extends GameView implements IBuildView {
         JRadioButton moveBtn = new JRadioButton();
         moveBtn.setFocusable(false);
         moveBtn.setText("Move");
-        moveBtn.addActionListener(new SwitchToMoveActionListener((BuildBoardView)this.board, this, this.model));
+        moveBtn.addActionListener(controller.getSwitchToMoveActionListener((BuildBoardView)this.board, this, this.model));
         JRadioButton deleteBtn = new JRadioButton();
         deleteBtn.setFocusable(false);
         deleteBtn.setText("Delete");
-        deleteBtn.addActionListener(new SwitchToDeleteActionListener((BuildBoardView)this.board, this, this.model));
+        deleteBtn.addActionListener(controller.getSwitchToDeleteActionListener((BuildBoardView)this.board, this, this.model));
         JRadioButton rotateBtn = new JRadioButton();
         rotateBtn.setFocusable(false);
         rotateBtn.setText("Rotate");
-        rotateBtn.addActionListener(new SwitchToRotateActionListener((BuildBoardView)this.board, this, this.model));
+        rotateBtn.addActionListener(controller.getSwitchToRotateActionListener((BuildBoardView)this.board, this, this.model));
         
         JRadioButton addTriangleBtn = new JRadioButton();
         addTriangleBtn.setFocusable(false);
         addTriangleBtn.setText("Add Triangle");
-        addTriangleBtn.addActionListener(new SwitchToCreateActionListener(GizmoType.TRIANGLE, (BuildBoardView)this.board, this, this.model));
+        addTriangleBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.TRIANGLE, (BuildBoardView)this.board, this, this.model));
         JRadioButton addSquareBtn = new JRadioButton();
         addSquareBtn.setFocusable(false);
         addSquareBtn.setText("Add Square");
-        addSquareBtn.addActionListener(new SwitchToCreateActionListener(GizmoType.SQUARE, (BuildBoardView)this.board, this, this.model));
+        addSquareBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.SQUARE, (BuildBoardView)this.board, this, this.model));
         JRadioButton addCircleBtn = new JRadioButton();
         addCircleBtn.setFocusable(false);
         addCircleBtn.setText("Add Circle");
-        addCircleBtn.addActionListener(new SwitchToCreateActionListener(GizmoType.CIRCLE, (BuildBoardView)this.board, this, this.model));
+        addCircleBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.CIRCLE, (BuildBoardView)this.board, this, this.model));
         JRadioButton addRightFlipperBtn = new JRadioButton();
         addRightFlipperBtn.setFocusable(false);
         addRightFlipperBtn.setText("Add Right Flipper");
-        addRightFlipperBtn.addActionListener(new SwitchToCreateActionListener(GizmoType.RIGHT_FLIPPER, (BuildBoardView)this.board, this, this.model));
+        addRightFlipperBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.RIGHT_FLIPPER, (BuildBoardView)this.board, this, this.model));
         JRadioButton addLeftFlipperBtn = new JRadioButton();
         addLeftFlipperBtn.setFocusable(false);
         addLeftFlipperBtn.setText("Add Left Flipper");
-        addLeftFlipperBtn.addActionListener(new SwitchToCreateActionListener(GizmoType.LEFT_FLIPPER, (BuildBoardView)this.board, this, this.model));
+        addLeftFlipperBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.LEFT_FLIPPER, (BuildBoardView)this.board, this, this.model));
         JRadioButton addAbsorberBtn = new JRadioButton("Add Absorber");
         addAbsorberBtn.setFocusable(false);
         addAbsorberBtn.setText("Add Absorber");
-        addAbsorberBtn.addActionListener(new SwitchToCreateActionListener(GizmoType.ABSORBER, (BuildBoardView)this.board, this, this.model));
+        addAbsorberBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.ABSORBER, (BuildBoardView)this.board, this, this.model));
         JRadioButton addBallBtn = new JRadioButton("Add ball");
         addBallBtn.setFocusable(false);
         addBallBtn.setText("Add Ball");
-        addBallBtn.addActionListener(new SwitchToAddBallListener((BuildBoardView)this.board, this, this.model));
+        addBallBtn.addActionListener(controller.getSwitchToAddBallListener((BuildBoardView)this.board, this, this.model));
         JRadioButton connectGizmosBtn = new JRadioButton();
         connectGizmosBtn.setFocusable(false);
         connectGizmosBtn.setText("Connect Gizmo to Gizmo");
-        connectGizmosBtn.addActionListener(new SwitchToConnectGizmosListener((BuildBoardView)this.board, this, this.model));
+        connectGizmosBtn.addActionListener(controller.getSwitchToConnectGizmosListener((BuildBoardView)this.board, this, this.model));
         JRadioButton connectKeyPressGizmoBtn = new JRadioButton();
         connectKeyPressGizmoBtn.setFocusable(false);
         connectKeyPressGizmoBtn.setText("Connect Key Press to Gizmo");
-        connectKeyPressGizmoBtn.addActionListener(new SwitchToConnectKeyPressGizmoListener((BuildBoardView)this.board, this.model));
+        connectKeyPressGizmoBtn.addActionListener(controller.getSwitchToConnectKeyPressListener((BuildBoardView)this.board, this.model));
         JRadioButton connectKeyReleaseGizmoBtn = new JRadioButton();
         connectKeyReleaseGizmoBtn.setFocusable(false);
         connectKeyReleaseGizmoBtn.setText("Connect Key Release to Gizmo");
-        connectKeyReleaseGizmoBtn.addActionListener(new SwitchToConnectKeyReleaseGizmoListener((BuildBoardView)this.board, this.model));
+        connectKeyReleaseGizmoBtn.addActionListener(controller.getSwitchToConnectKeyReleaseListener((BuildBoardView)this.board, this.model));
         
         JPanel gravityPnl = new JPanel();
         JLabel gravityLbl = new JLabel("Gravity: ");
         gravityTxt = new JTextField();
         gravityTxt.setColumns(5);
-        gravityTxt.getDocument().addDocumentListener(new ChangeGravityListener(model, this));
+        gravityTxt.getDocument().addDocumentListener(controller.getChangeGravityListener(model, this));
 
         JPanel frictionMUPnl = new JPanel();
         JLabel frictionMULbl = new JLabel("Friction MU: ");
         frictionMUTxt = new JTextField();
         frictionMUTxt.setColumns(5);
-        frictionMUTxt.getDocument().addDocumentListener(new ChangeFrictionListener(model, this));
+        frictionMUTxt.getDocument().addDocumentListener(controller.getChangeFrictionListener(model, this));
 
         JPanel frictionMU2Pnl = new JPanel();
         JLabel frictionMU2Lbl = new JLabel("Friction MU2: ");
         frictionMU2Txt = new JTextField();
         frictionMU2Txt.setColumns(5);
-        frictionMU2Txt.getDocument().addDocumentListener(new ChangeFrictionListener(model, this));
+        frictionMU2Txt.getDocument().addDocumentListener(controller.getChangeFrictionListener(model, this));
 
         gravityPnl.add(gravityLbl);
         gravityPnl.add(gravityTxt);

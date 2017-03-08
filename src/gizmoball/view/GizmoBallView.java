@@ -1,9 +1,6 @@
 package gizmoball.view;
 
-import gizmoball.controller.LoadListener;
-import gizmoball.controller.NewListener;
-import gizmoball.controller.SaveListener;
-import gizmoball.controller.SwitchModeListener;
+import gizmoball.controller.*;
 import gizmoball.model.Model;
 
 import javax.swing.*;
@@ -19,9 +16,12 @@ public class GizmoBallView implements IGizmoBallView {
     private BuildView buildView;
     private RunView runView;
     private JPanel gamePanel;
-    private SwitchModeListener switchModeListener;
+
+    private Controller controller;
 
     public GizmoBallView(Model model) {
+        controller = new Controller();
+
         this.frame = new JFrame("Gizmoball");
         Box actionBar = new Box(BoxLayout.X_AXIS);
         JButton newBtn = new JButton("New");
@@ -32,28 +32,29 @@ public class GizmoBallView implements IGizmoBallView {
         saveBtn.setFocusable(false);
         JButton exitBtn = new JButton("Exit");
         exitBtn.setFocusable(false);
-        this.modeBtn = new JButton("Run");
+        this.modeBtn = new JButton("Build");
         this.modeBtn.setFocusable(false);
-        newBtn.addActionListener(new NewListener(model, this));
-        loadBtn.addActionListener(new LoadListener(model, this));
-        saveBtn.addActionListener(new SaveListener(model, this));
+        newBtn.addActionListener(controller.getNewListener(model, this));
+        loadBtn.addActionListener(controller.getLoadListener(model, this));
+        saveBtn.addActionListener(controller.getSaveListener(model, this));
         exitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
-        this.switchModeListener = new SwitchModeListener(this);
-        this.modeBtn.addActionListener(this.switchModeListener);
+
+        this.modeBtn.addActionListener(controller.getSwitchModeListener(this));
+
         actionBar.add(newBtn);
         actionBar.add(loadBtn);
         actionBar.add(saveBtn);
         actionBar.add(modeBtn);
         actionBar.add(Box.createGlue());
         actionBar.add(exitBtn);
-        this.buildView = new BuildView(model);
-        this.runView = new RunView(model);
-        this.gameView = buildView;
+        this.buildView = new BuildView(model, controller);
+        this.runView = new RunView(model, controller);
+        this.gameView = runView;
         this.frame.add(actionBar, BorderLayout.NORTH);
         gamePanel = new JPanel();
         gamePanel.add(gameView.getBox());
@@ -65,10 +66,6 @@ public class GizmoBallView implements IGizmoBallView {
 
     public JFrame getGUI() {
         return this.frame;
-    }
-
-    public SwitchModeListener getSwitchModeListener() {
-        return this.switchModeListener;
     }
 
     @Override

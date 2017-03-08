@@ -11,7 +11,7 @@ public class SwitchModeListener implements ActionListener
     private final IGizmoBallView view;
     public SwitchModeListener(IGizmoBallView view) {
         this.view = view;
-        currMode = CurrentMode.RUN;
+        currMode = CurrentMode.BUILD;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
