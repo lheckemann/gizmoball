@@ -5,7 +5,7 @@ import gizmoball.model.PositionOutOfBoundsException;
 import gizmoball.model.PositionOverlapException;
 import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 import gizmoball.view.BoardView;
-import gizmoball.view.BuildView;
+import gizmoball.view.IBuildView;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -13,7 +13,7 @@ import java.awt.event.MouseMotionListener;
 
 public class CreateGizmoListener implements MouseListener, MouseMotionListener {
     private final BuildModel model;
-    private final BuildView view;
+    private final IBuildView view;
     private final GizmoType type;
     private double absorberStartX;
     private double absorberStartY;
@@ -22,7 +22,7 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
     private int oldAbsorberWidth;
     private int oldAbsorberHeight;
 
-    public CreateGizmoListener(GizmoType type, BuildView view, BuildModel model) {
+    public CreateGizmoListener(GizmoType type, IBuildView view, BuildModel model) {
         this.model = model;
         this.view = view;
         this.type = type;

@@ -1,7 +1,6 @@
 package gizmoball.controller;
 
-import gizmoball.model.Model;
-import gizmoball.view.GizmoBallView;
+import gizmoball.view.IGizmoBallView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,8 +8,8 @@ import java.awt.event.ActionListener;
 public class SwitchModeListener implements ActionListener
 {
     private CurrentMode currMode;
-    private final GizmoBallView view;
-    public SwitchModeListener(GizmoBallView view) {
+    private final IGizmoBallView view;
+    public SwitchModeListener(IGizmoBallView view) {
         this.view = view;
         currMode = CurrentMode.RUN;
     }

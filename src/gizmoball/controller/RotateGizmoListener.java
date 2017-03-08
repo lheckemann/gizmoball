@@ -4,16 +4,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import gizmoball.model.BuildModel;
-import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 import gizmoball.view.BoardView;
-import gizmoball.view.BuildView;
+import gizmoball.view.IBuildView;
 
 public class RotateGizmoListener implements MouseListener {
 
     private final BuildModel model;
-    private final BuildView view;
+    private final IBuildView view;
 
-    public RotateGizmoListener(BuildView view, BuildModel model) {
+    public RotateGizmoListener(IBuildView view, BuildModel model) {
         this.model = model;
         this.view = view;
     }

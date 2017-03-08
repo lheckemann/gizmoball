@@ -4,15 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import gizmoball.model.BuildModel;
-import gizmoball.view.BuildBoardView;
-import gizmoball.view.BuildView;
+import gizmoball.view.IBuildBoardView;
 
 public class SwitchToConnectKeyReleaseGizmoListener implements ActionListener {
     
-    private BuildBoardView board;
+    private IBuildBoardView board;
     private BuildModel model;
 
-    public SwitchToConnectKeyReleaseGizmoListener(BuildBoardView board, BuildModel model) {
+    public SwitchToConnectKeyReleaseGizmoListener(IBuildBoardView board, BuildModel model) {
         this.board = board;
         this.model = model;
     }

@@ -7,15 +7,15 @@ import gizmoball.model.BuildModel;
 import gizmoball.model.PositionOutOfBoundsException;
 import gizmoball.model.PositionOverlapException;
 import gizmoball.view.BoardView;
-import gizmoball.view.BuildView;
+import gizmoball.view.IBuildView;
 
 public class MoveGizmoListener implements MouseListener {
 
     private final BuildModel model;
-    private final BuildView view;
+    private final IBuildView view;
     private boolean componentSelected;
 
-    public MoveGizmoListener(BuildView view, BuildModel model) {
+    public MoveGizmoListener(IBuildView view, BuildModel model) {
         this.model = model;
         this.view = view;
         this.componentSelected = false;

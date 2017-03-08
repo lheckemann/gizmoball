@@ -4,18 +4,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import gizmoball.model.BuildModel;
-import gizmoball.model.PositionOutOfBoundsException;
-import gizmoball.model.PositionOverlapException;
 import gizmoball.view.BoardView;
-import gizmoball.view.BuildView;
+import gizmoball.view.IBuildView;
 
 public class ConnectGizmosListener implements MouseListener {
 
     private final BuildModel model;
-    private final BuildView view;
+    private final IBuildView view;
     private boolean componentSelected;
 
-    public ConnectGizmosListener(BuildView view, BuildModel model) {
+    public ConnectGizmosListener(IBuildView view, BuildModel model) {
         this.model = model;
         this.view = view;
         this.componentSelected = false;

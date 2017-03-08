@@ -16,7 +16,7 @@ import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 import javax.swing.*;
 import java.awt.*;
 
-public class BuildView extends GameView {
+public class BuildView extends GameView implements IBuildView {
     private BuildModel model;
 
     private JTextField gravityTxt;
@@ -163,6 +163,7 @@ public class BuildView extends GameView {
     }
 
     //Used to prompt the user to enter a velocity value
+    @Override
     public void promptVelocity() {
         JTextField velocityXField = new JTextField("0");
         JTextField velocityYField = new JTextField("0");
@@ -175,25 +176,30 @@ public class BuildView extends GameView {
     
     //Gets the x value for velocity entered by the user
     //The default value if no prompt has been made is 0
+    @Override
     public double getPromptedVelocityX() {
         return this.promptedVelocityX;
     }
     
     //Gets the y value for velocity entered by the user
     //The default value if no prompt has been made is 0
+    @Override
     public double getPromptedVelocityY() {
         return this.promptedVelocityY;
     }
     
     // no checks are being made (text must be a number)
+    @Override
     public String getGravityText() {
         return gravityTxt.getText();
     }
 
+    @Override
     public String getFrictionMuText() {
         return frictionMUTxt.getText();
     }
 
+    @Override
     public String getFrictionMu2Text() {
         return frictionMU2Txt.getText();
     }

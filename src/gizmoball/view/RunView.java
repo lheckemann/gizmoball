@@ -8,7 +8,7 @@ import gizmoball.model.RunModel;
 import javax.swing.*;
 import java.awt.*;
 
-public class RunView extends GameView {
+public class RunView extends GameView implements IRunView {
     private JButton stateBtn;
     private JButton tickBtn;
 
@@ -39,6 +39,7 @@ public class RunView extends GameView {
         board.setFocusable(true);
     }
 
+    @Override
     public void changeButtonState() {
         if (stateBtn.getText().equals("Run")) {
             stateBtn.setText("Stop");

@@ -1,16 +1,16 @@
 package gizmoball.controller;
 
 import gizmoball.model.RunModel;
-import gizmoball.view.RunView;
+import gizmoball.view.IRunView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TickListener implements ActionListener {
     private RunModel model;
-    private RunView view;
+    private IRunView view;
 
-    public TickListener(RunModel model, RunView view) {
+    public TickListener(RunModel model, IRunView view) {
         this.model = model;
         this.view = view;
     }

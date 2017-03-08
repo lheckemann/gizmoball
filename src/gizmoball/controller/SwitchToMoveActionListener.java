@@ -4,16 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import gizmoball.model.BuildModel;
-import gizmoball.view.BuildBoardView;
-import gizmoball.view.BuildView;
+import gizmoball.view.IBuildBoardView;
+import gizmoball.view.IBuildView;
 
 public class SwitchToMoveActionListener implements ActionListener {
-
-    private BuildBoardView board;
-    private BuildView view;
+    private IBuildBoardView board;
+    private IBuildView view;
     private BuildModel model;
    
-    public SwitchToMoveActionListener(BuildBoardView board, BuildView buildView, BuildModel model) {
+    public SwitchToMoveActionListener(IBuildBoardView board, IBuildView buildView, BuildModel model) {
         this.board = board;
         this.view = buildView;
         this.model = model;

@@ -6,15 +6,14 @@ import java.awt.event.MouseListener;
 import gizmoball.model.BuildModel;
 import gizmoball.model.PositionOutOfBoundsException;
 import gizmoball.model.PositionOverlapException;
-import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 import gizmoball.view.BoardView;
-import gizmoball.view.BuildView;
+import gizmoball.view.IBuildView;
 
 public class AddBallListener implements MouseListener {
 
-    private BuildView view;
+    private IBuildView view;
     private BuildModel model;
-    public AddBallListener(BuildView view, BuildModel model) {
+    public AddBallListener(IBuildView view, BuildModel model) {
         this.model = model;
         this.view = view;
     }

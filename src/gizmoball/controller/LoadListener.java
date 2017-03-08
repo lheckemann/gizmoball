@@ -7,13 +7,13 @@ import java.io.FileNotFoundException;
 
 import gizmoball.model.Model;
 import gizmoball.model.SyntaxError;
-import gizmoball.view.GizmoBallView;
+import gizmoball.view.IGizmoBallView;
 
 public class LoadListener implements ActionListener {
     private final Model model;
-    private final GizmoBallView view;
+    private final IGizmoBallView view;
 
-    public LoadListener(Model model, GizmoBallView view) {
+    public LoadListener(Model model, IGizmoBallView view) {
         this.model = model;
         this.view = view;
     }
@@ -25,10 +25,8 @@ public class LoadListener implements ActionListener {
             view.updateBoard();
         } catch (FileNotFoundException fnfe) {
             view.displayErrorMessage(fnfe.getMessage(), "File not found");
-            //fnfe.printStackTrace();
         } catch (SyntaxError se) {
             view.displayErrorMessage(se.getMessage(), "File not found");
-            //se.printStackTrace();
         }
     }
 }

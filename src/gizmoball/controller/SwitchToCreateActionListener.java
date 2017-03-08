@@ -5,17 +5,17 @@ import java.awt.event.ActionListener;
 
 import gizmoball.model.BuildModel;
 import gizmoball.model.gizmos.ReadGizmo.GizmoType;
-import gizmoball.view.BuildBoardView;
-import gizmoball.view.BuildView;
+import gizmoball.view.IBuildBoardView;
+import gizmoball.view.IBuildView;
 
 public class SwitchToCreateActionListener implements ActionListener {
     
     private GizmoType type;
-    private BuildBoardView board;
-    private BuildView view;
+    private IBuildBoardView board;
+    private IBuildView view;
     private BuildModel model;
     
-    public SwitchToCreateActionListener(GizmoType type, BuildBoardView board, BuildView buildView,
+    public SwitchToCreateActionListener(GizmoType type, IBuildBoardView board, IBuildView buildView,
             BuildModel model) {
         this.type = type;
         this.board = board;
