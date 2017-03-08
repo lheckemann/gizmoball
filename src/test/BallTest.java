@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class BallTest {
 	private Ball myBall;
@@ -19,8 +21,6 @@ public class BallTest {
 
 	private final double firstBallPositionX = 0;
     private final double firstBallPositionY = 0;
-    private final double firstBallVelocityX = 0;
-    private final double firstBallVelocityY = 0;
 
     private final double secondBallPositionX = 10;
     private final double secondBallPositionY = 12;
@@ -69,7 +69,7 @@ public class BallTest {
 
 	@Test
 	public void getPositionMySecondBall() {
-		assertEquals(mySecondBall.getPosition(), new Vect(secondBallPositionX, secondBallVelocityY));
+		assertEquals(mySecondBall.getPosition(), new Vect(secondBallPositionX, secondBallPositionY));
 	}
 
 	@Test
@@ -109,7 +109,7 @@ public class BallTest {
 
 	@Test
 	public void getVelocity() {
-		assertEquals(mySecondBall.getVelocity(), new Vect(secondBallVelocityX, secondBallPositionY));
+		assertEquals(mySecondBall.getVelocity(), new Vect(secondBallVelocityX, secondBallVelocityY));
 	}
 
 	@Test
@@ -137,8 +137,23 @@ public class BallTest {
 	}
 
 	@Test
-	public void contains() {
-		// TODO
+	public void containsCenterCoordinates() {
+		assertTrue(mySecondBall.contains(secondBallPositionX, secondBallPositionY));
+	}
+
+	@Test
+	public void containsBorderCoordinates() {
+		assertTrue(mySecondBall.contains(secondBallPositionX + 0.24, secondBallPositionY));
+	}
+
+	@Test
+	public void notContainsBitMoreThanBorderCoordinates() {
+		assertFalse(mySecondBall.contains(secondBallPositionX + 0.25, secondBallPositionY + 0.25));
+	}
+
+	@Test
+	public void notContainsGreaterCoordinates() {
+		assertFalse(mySecondBall.contains(secondBallPositionX + 0.26, secondBallPositionY + 0.26));
 	}
 
 	@Test
