@@ -128,10 +128,10 @@ public abstract class Gizmo implements ReadGizmo {
         if (null == obj) {
             return false;
          }
-        if (this.getClass() != obj.getClass()) {
+        if (!(obj instanceof ReadGizmo)) {
             return false;
         }
-        Gizmo other = (Gizmo) obj;
+        ReadGizmo other = (ReadGizmo) obj;
         return (this.getX() == other.getX() && this.getY() == other.getY());
     }
 }

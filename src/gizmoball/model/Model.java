@@ -299,10 +299,14 @@ public class Model implements BuildModel, RunModel {
     @Override
     public void triggerOnGizmo(ReadGizmo gizmo) {
         Gizmo destination = this.getGizmoAt((int)this.selX, (int)this.selY);
-        Gizmo source = (Gizmo)gizmo;
-
-        if (source != null && destination != null) {
-            this.gizmoMap.computeIfAbsent(source, s -> new HashSet<>()).add(destination);
+        if (destination == null) {
+            return;
+        }
+        for (Gizmo source : this.gizmos) {
+            if (source.equals(gizmo)) {
+                this.gizmoMap.computeIfAbsent(source, s -> new HashSet<>()).add(destination);
+                return;
+            }
         }
     }
 
