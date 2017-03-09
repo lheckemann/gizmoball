@@ -465,7 +465,6 @@ public class Model implements BuildModel, RunModel {
 
             c.ball.setPosition(finder.getCollisionPosition(c));
             c.ball.setVelocity(finder.getCollisionVelocity(c));
-            this.applyGlobalForces(c.ball);
 
             if (c.againstGizmo != null) {
                 this.gizmoHit(c.againstGizmo, c.ball);
@@ -480,8 +479,8 @@ public class Model implements BuildModel, RunModel {
         }
         for (Ball b : unhandled) {
             b.setPosition(b.getPosition().plus(b.getVelocity().times(SECONDS_PER_TICK)));
-            this.applyGlobalForces(b);
         }
+        balls.forEach(this::applyGlobalForces);
     }
 
     public void save(OutputStream output) {
