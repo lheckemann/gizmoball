@@ -1,12 +1,20 @@
 package gizmoball.model;
 
-import physics.Circle;
-import physics.LineSegment;
-
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 
+import physics.Circle;
+import physics.LineSegment;
+import physics.Vect;
+
+
 public abstract class Geometry {
+    public static Vect transformThrough(AffineTransform t, Vect v) {
+        double points[] = {v.x(), v.y()};
+        t.transform(points, 0, points, 0, 1);
+        return new Vect(points[0], points[1]);
+    }
+
     public static LineSegment transformThrough(AffineTransform t, LineSegment src) {
         double points[] = {
                 src.p1().x(),

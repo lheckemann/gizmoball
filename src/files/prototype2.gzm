@@ -1,3 +1,4 @@
-Ball B0 9.0 2.0 
-Absorber A0 0 19 20 20
-KeyConnect key 32 down A0
+Triangle T0 0 0 
+Triangle T1 1 0
+Rotate T1
+Rotate T1

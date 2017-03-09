@@ -1,21 +1,20 @@
 package gizmoball.model;
 
-import physics.LineSegment;
-import physics.Vect;
-import physics.Angle;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.*;
 import java.awt.geom.AffineTransform;
 
+import physics.LineSegment;
+import physics.Vect;
+import physics.Angle;
+
 import gizmoball.model.gizmos.*;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.model.gizmos.ReadGizmo.GizmoType;
+import static gizmoball.model.CollisionFinder.Collision;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class Model implements BuildModel, RunModel {
     private final Set<LineSegment> walls = new HashSet<>();
@@ -306,10 +305,14 @@ public class Model implements BuildModel, RunModel {
     @Override
     public void triggerOnGizmo(ReadGizmo gizmo) {
         Gizmo destination = this.getGizmoAt((int)this.selX, (int)this.selY);
-        Gizmo source = (Gizmo)gizmo;
-
-        if (source != null && destination != null) {
-            this.gizmoMap.computeIfAbsent(source, s -> new HashSet<>()).add(destination);
+        if (destination == null) {
+            return;
+        }
+        for (Gizmo source : this.gizmos) {
+            if (source.equals(gizmo)) {
+                this.gizmoMap.computeIfAbsent(source, s -> new HashSet<>()).add(destination);
+                return;
+            }
         }
     }
 
@@ -354,12 +357,6 @@ public class Model implements BuildModel, RunModel {
 
     public void wallHit() {
         this.triggerGizmos(this.wallTriggers);
-    }
-
-    @Override
-    public void tick() {
-        this.gizmos.forEach(Gizmo::tick);
-        this.balls.stream().collect(Collectors.toSet()).forEach(this::tickBall);
     }
 
     @Override
@@ -442,50 +439,49 @@ public class Model implements BuildModel, RunModel {
         }
     }
 
-    private void tickBall(Ball ball) {
-        // TODO: does not handle multiple balls or moving flippers.
-        Vect ballVel = ball.getVelocity();
-        CollisionFinder finder = new CollisionFinder(ball.getCircle(), ballVel);
-
-        walls.forEach(l -> finder.consumeLine(l, WALL_REFLECTION));
-        double hitTime = finder.getTimeUntilCollision();
-        boolean hitsWall = hitTime < SECONDS_PER_TICK;
-        Gizmo hitGizmo = null;
-
-        for (Gizmo g : this.gizmos) {
-            if (g.containsBall(ball)) {
-                continue;
-            }
-
-            AffineTransform t = g.getTransform();
-            g.getLineSegments().forEach(l ->
-                finder.consumeLine(Geometry.transformThrough(t, l), g.getReflectionCoefficient()));
-            g.getCircles().forEach(c ->
-                finder.consumeCircle(Geometry.transformThrough(t, c), g.getReflectionCoefficient()));
-
-            if (finder.getTimeUntilCollision() < hitTime
-                    && finder.getTimeUntilCollision() < SECONDS_PER_TICK) {
-                hitsWall = false;
-                hitTime = finder.getTimeUntilCollision();
-                hitGizmo = g;
-            }
-        }
-
-        if (hitsWall) {
-            ball.setPosition(finder.nextCollisionPosition());
-            ball.setVelocity(finder.getNewVelocity());
-            this.wallHit();
-        } else if (hitGizmo != null) {
-            ball.setPosition(finder.nextCollisionPosition());
-            ball.setVelocity(finder.getNewVelocity());
-            this.gizmoHit(hitGizmo, ball);
-        } else {
-            ball.setPosition(ball.getPosition().plus(ball.getVelocity().times(SECONDS_PER_TICK)));
-        }
+    private void applyGlobalForces(Ball ball) {
         double friction = (1 - mu * SECONDS_PER_TICK - mu2 * ball.getVelocity().length() * SECONDS_PER_TICK);
         ball.setVelocity(ball.getVelocity().times(friction));
         Vect gravity = this.gravity.times(SECONDS_PER_TICK);
         ball.setVelocity(ball.getVelocity().plus(gravity));
+    }
+
+    @Override
+    public void tick() {
+        this.gizmos.forEach(Gizmo::tick);
+
+        CollisionFinder finder = new CollisionFinder();
+        finder.setWalls(this.walls, this.WALL_REFLECTION);
+        finder.setGizmos(this.gizmos);
+        finder.setBalls(this.balls);
+
+        Set<Collision> handled = new HashSet<>();
+        Set<Ball> unhandled = new HashSet<>(this.balls);
+        for (;;) {
+            Collision c = finder.getCollision(SECONDS_PER_TICK, handled);
+            if (c == null) {
+                break;
+            }
+
+            c.ball.setPosition(finder.getCollisionPosition(c));
+            c.ball.setVelocity(finder.getCollisionVelocity(c));
+            this.applyGlobalForces(c.ball);
+
+            if (c.againstGizmo != null) {
+                this.gizmoHit(c.againstGizmo, c.ball);
+            } else if (c.againstBall != null) {
+                // TODO ball hit
+            } else {
+                this.wallHit();
+            }
+
+            handled.add(c);
+            unhandled.remove(c.ball);
+        }
+        for (Ball b : unhandled) {
+            b.setPosition(b.getPosition().plus(b.getVelocity().times(SECONDS_PER_TICK)));
+            this.applyGlobalForces(b);
+        }
     }
 
     public void save(OutputStream output) {

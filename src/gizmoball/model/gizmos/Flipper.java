@@ -12,22 +12,17 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Flipper extends Gizmo {
-
+    private static final double ANGULAR_VELOCITY = 6d * Math.PI;
     private boolean isLeftFlipper;
-
     private boolean active;
-
-    // Between 0 and 90, indicates how far along the animation it is (current
-    // angle)
-    // 0 = at rest
-    // in between = in animation
-    // 90 = active
-    private int pivotAngle;
+    private static final double MAX_ANGLE = Math.PI / 2;
+    private static final double MIN_ANGLE = 0;
+    private double pivotAngle;
 
     public Flipper(boolean isLeft) {
         super();
         active = false;
-        pivotAngle = 0;
+        pivotAngle = 0d;
         isLeftFlipper = isLeft;
     }
 
@@ -43,17 +38,14 @@ public class Flipper extends Gizmo {
         return null;
     }
 
-    private static final int ROTATION_SPEED = 1080; // Degrees per second
-
     @Override
     public void tick() {
-
-        if (active && pivotAngle < 90) {
-            pivotAngle += (ROTATION_SPEED * ReadModel.SECONDS_PER_TICK);
-            pivotAngle = Math.min(90, pivotAngle);
-        } else if (!active && pivotAngle > 0) {
-            pivotAngle -= (ROTATION_SPEED * ReadModel.SECONDS_PER_TICK);
-            pivotAngle = Math.max(0, pivotAngle);
+        if (active && pivotAngle < MAX_ANGLE) {
+            pivotAngle += (ANGULAR_VELOCITY * ReadModel.SECONDS_PER_TICK);
+            pivotAngle = Math.min(MAX_ANGLE, pivotAngle);
+        } else if (!active && pivotAngle > MIN_ANGLE) {
+            pivotAngle -= (ANGULAR_VELOCITY * ReadModel.SECONDS_PER_TICK);
+            pivotAngle = Math.max(MIN_ANGLE, pivotAngle);
         }
     }
 
@@ -86,10 +78,23 @@ public class Flipper extends Gizmo {
 
         // Translate to pivot point
         t.translate(0.25, 0.25);
-        t.rotate(-Math.toRadians(pivotAngle));
+        t.rotate(-pivotAngle);
         // Translate back after rotation
         t.translate(-0.25, -0.25);
         return t;
+    }
+
+    @Override
+    public Vect getPivot() {
+        return new Vect(0.25, 0.25);
+    }
+
+    @Override
+    public Double getAngularVelocity() {
+        if (MIN_ANGLE < pivotAngle && pivotAngle < MAX_ANGLE) {
+            return isLeftFlipper ? -ANGULAR_VELOCITY : ANGULAR_VELOCITY;
+        }
+        return 0.0;
     }
 
     private static final Set<LineSegment> lines = Collections.unmodifiableSet(Stream.of(
@@ -102,8 +107,12 @@ public class Flipper extends Gizmo {
     }
 
     private static final Set<Circle> circles = Collections.unmodifiableSet(Stream.of(
-            new Circle(0.25, 0.25, 0.5),
-            new Circle(0.25, 1.75, 0.5)
+            new Circle(0.25, 0.25, 0.25),
+            new Circle(0.25, 1.75, 0.25),
+            new Circle(0, 0.25, 0.05),
+            new Circle(0, 1.75, 0.05),
+            new Circle(0.5, 0.25, 0.05),
+            new Circle(0.5, 1.75, 0.05)
     ).collect(Collectors.toSet()));
     @Override
     public Set<Circle> getCircles() {
