@@ -32,7 +32,7 @@ public abstract class Geometry {
         // NOTE: an AffineTransform will not necessarily preserve the circle-ness of a circle;
         // As an approximation, we take the average of the X and Y scaling factor as a scaling
         // factor for the radius.
-        double newRadius = src.getRadius() * (t.getScaleX() + t.getScaleY()) / 2;
+        double newRadius = src.getRadius() * (Math.abs(t.getScaleX()) + Math.abs(t.getScaleY())) / 2;
         return new Circle(dest, newRadius);
     }
 }
