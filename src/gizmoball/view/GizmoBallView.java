@@ -51,15 +51,17 @@ public class GizmoBallView implements IGizmoBallView {
         actionBar.add(modeBtn);
         actionBar.add(Box.createGlue());
         actionBar.add(exitBtn);
+
         this.buildView = new BuildView(model, controller);
         this.runView = new RunView(model, controller);
-        this.frame.add(actionBar, BorderLayout.NORTH);
+        frame.add(actionBar, BorderLayout.NORTH);
         gamePanel = new JPanel();
         gamePanel.add(runView.getBox()); // we start with runView
         frame.add(gamePanel);
-        this.frame.setResizable(false);
-        this.frame.pack();
-        this.frame.setLocationRelativeTo(null);
+
+        frame.setResizable(false);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
     }
 
     public JFrame getGUI() {
@@ -108,9 +110,9 @@ public class GizmoBallView implements IGizmoBallView {
 
     @Override
     public void updateBoard() {
-        if(runView.getBox().isFocusOwner())
-            this.runView.updateBoard();
-        else
+        if(buildView.getBox().isFocusOwner())
             this.buildView.updateBoard();
+        else
+            this.runView.updateBoard();
     }
 }
