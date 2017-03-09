@@ -472,10 +472,8 @@ public class ModelTest {
 
         myModel.select(10, 13);
         myModel.triggerOnGizmo(g);
-        //
-        // NEED TO DISCUSS -> SHOULD BE FALSE
-        //
-        assertTrue(myModel.getGizmoToGizmoMap().containsKey(g));
+
+        assertFalse(myModel.getGizmoToGizmoMap().containsKey(g));
     }
 
     @Test
