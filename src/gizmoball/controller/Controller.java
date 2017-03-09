@@ -105,7 +105,7 @@ public class Controller {
     }
 
     public ActionListener getSwitchToRotateActionListener(IBuildBoardView board, IBuildView view, BuildModel model) {
-        return new SwitchToMoveActionListener(board, view, model);
+        return new SwitchToRotateActionListener(board, view, model);
     }
 
     public ActionListener getTickListener(RunModel model, IRunView view) {
