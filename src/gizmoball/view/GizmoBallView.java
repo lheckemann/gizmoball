@@ -12,7 +12,6 @@ import java.io.File;
 public class GizmoBallView implements IGizmoBallView {
     private JFrame frame;
     private JButton modeBtn;
-    private GameView gameView;
     private BuildView buildView;
     private RunView runView;
     private JPanel gamePanel;
@@ -54,10 +53,9 @@ public class GizmoBallView implements IGizmoBallView {
         actionBar.add(exitBtn);
         this.buildView = new BuildView(model, controller);
         this.runView = new RunView(model, controller);
-        this.gameView = runView;
         this.frame.add(actionBar, BorderLayout.NORTH);
         gamePanel = new JPanel();
-        gamePanel.add(gameView.getBox());
+        gamePanel.add(runView.getBox()); // we start with runView
         frame.add(gamePanel);
         this.frame.setResizable(false);
         this.frame.pack();
@@ -72,8 +70,7 @@ public class GizmoBallView implements IGizmoBallView {
     public void switchToBuildView() {
         this.modeBtn.setText("Run");
         gamePanel.removeAll();
-        this.gameView = buildView;
-        gamePanel.add(gameView.getBox());
+        gamePanel.add(buildView.getBox());
         this.frame.repaint();
     }
 
@@ -81,16 +78,24 @@ public class GizmoBallView implements IGizmoBallView {
     public void switchToRunView() {
         this.modeBtn.setText("Build");
         gamePanel.removeAll();
-        this.gameView = runView;
-        gamePanel.add(gameView.getBox());
+        gamePanel.add(runView.getBox());
         runView.focus();
         this.frame.repaint();
     }
 
     @Override
-    public File getFileByChooser() {
+    public File getFileByChooserLoad() {
         JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
         if (JFileChooser.APPROVE_OPTION == chooser.showOpenDialog(null)) {
+            return chooser.getSelectedFile();
+        }
+        return null;
+    }
+
+    @Override
+    public File getFileByChooserSave() {
+        JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
+        if (JFileChooser.APPROVE_OPTION == chooser.showSaveDialog(null)) {
             return chooser.getSelectedFile();
         }
         return null;
@@ -103,6 +108,9 @@ public class GizmoBallView implements IGizmoBallView {
 
     @Override
     public void updateBoard() {
-        this.gameView.updateBoard();
+        if(runView.getBox().isFocusOwner())
+            this.runView.updateBoard();
+        else
+            this.buildView.updateBoard();
     }
 }

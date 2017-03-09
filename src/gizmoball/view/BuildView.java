@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BuildView extends GameView implements IBuildView {
+    private BuildBoardView board;
     private BuildModel model;
 
     private JTextField gravityTxt;
@@ -29,7 +30,7 @@ public class BuildView extends GameView implements IBuildView {
         JRadioButton moveBtn = new JRadioButton();
         moveBtn.setFocusable(false);
         moveBtn.setText("Move");
-        moveBtn.addActionListener(controller.getSwitchToMoveActionListener((BuildBoardView)this.board, this, this.model));
+        moveBtn.addActionListener(controller.getSwitchToMoveActionListener(this.board, this, this.model));
         JRadioButton deleteBtn = new JRadioButton();
         deleteBtn.setFocusable(false);
         deleteBtn.setText("Delete");
@@ -37,48 +38,48 @@ public class BuildView extends GameView implements IBuildView {
         JRadioButton rotateBtn = new JRadioButton();
         rotateBtn.setFocusable(false);
         rotateBtn.setText("Rotate");
-        rotateBtn.addActionListener(controller.getSwitchToRotateActionListener((BuildBoardView)this.board, this, this.model));
+        rotateBtn.addActionListener(controller.getSwitchToRotateActionListener(this.board, this, this.model));
         
         JRadioButton addTriangleBtn = new JRadioButton();
         addTriangleBtn.setFocusable(false);
         addTriangleBtn.setText("Add Triangle");
-        addTriangleBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.TRIANGLE, (BuildBoardView)this.board, this, this.model));
+        addTriangleBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.TRIANGLE, this.board, this, this.model));
         JRadioButton addSquareBtn = new JRadioButton();
         addSquareBtn.setFocusable(false);
         addSquareBtn.setText("Add Square");
-        addSquareBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.SQUARE, (BuildBoardView)this.board, this, this.model));
+        addSquareBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.SQUARE, this.board, this, this.model));
         JRadioButton addCircleBtn = new JRadioButton();
         addCircleBtn.setFocusable(false);
         addCircleBtn.setText("Add Circle");
-        addCircleBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.CIRCLE, (BuildBoardView)this.board, this, this.model));
+        addCircleBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.CIRCLE, this.board, this, this.model));
         JRadioButton addRightFlipperBtn = new JRadioButton();
         addRightFlipperBtn.setFocusable(false);
         addRightFlipperBtn.setText("Add Right Flipper");
-        addRightFlipperBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.RIGHT_FLIPPER, (BuildBoardView)this.board, this, this.model));
+        addRightFlipperBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.RIGHT_FLIPPER, this.board, this, this.model));
         JRadioButton addLeftFlipperBtn = new JRadioButton();
         addLeftFlipperBtn.setFocusable(false);
         addLeftFlipperBtn.setText("Add Left Flipper");
-        addLeftFlipperBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.LEFT_FLIPPER, (BuildBoardView)this.board, this, this.model));
+        addLeftFlipperBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.LEFT_FLIPPER, this.board, this, this.model));
         JRadioButton addAbsorberBtn = new JRadioButton("Add Absorber");
         addAbsorberBtn.setFocusable(false);
         addAbsorberBtn.setText("Add Absorber");
-        addAbsorberBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.ABSORBER, (BuildBoardView)this.board, this, this.model));
+        addAbsorberBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.ABSORBER, this.board, this, this.model));
         JRadioButton addBallBtn = new JRadioButton("Add ball");
         addBallBtn.setFocusable(false);
         addBallBtn.setText("Add Ball");
-        addBallBtn.addActionListener(controller.getSwitchToAddBallListener((BuildBoardView)this.board, this, this.model));
+        addBallBtn.addActionListener(controller.getSwitchToAddBallListener(this.board, this, this.model));
         JRadioButton connectGizmosBtn = new JRadioButton();
         connectGizmosBtn.setFocusable(false);
         connectGizmosBtn.setText("Connect Gizmo to Gizmo");
-        connectGizmosBtn.addActionListener(controller.getSwitchToConnectGizmosListener((BuildBoardView)this.board, this, this.model));
+        connectGizmosBtn.addActionListener(controller.getSwitchToConnectGizmosListener(this.board, this, this.model));
         JRadioButton connectKeyPressGizmoBtn = new JRadioButton();
         connectKeyPressGizmoBtn.setFocusable(false);
         connectKeyPressGizmoBtn.setText("Connect Key Press to Gizmo");
-        connectKeyPressGizmoBtn.addActionListener(controller.getSwitchToConnectKeyPressListener((BuildBoardView)this.board, this.model));
+        connectKeyPressGizmoBtn.addActionListener(controller.getSwitchToConnectKeyPressListener(this.board, this.model));
         JRadioButton connectKeyReleaseGizmoBtn = new JRadioButton();
         connectKeyReleaseGizmoBtn.setFocusable(false);
         connectKeyReleaseGizmoBtn.setText("Connect Key Release to Gizmo");
-        connectKeyReleaseGizmoBtn.addActionListener(controller.getSwitchToConnectKeyReleaseListener((BuildBoardView)this.board, this.model));
+        connectKeyReleaseGizmoBtn.addActionListener(controller.getSwitchToConnectKeyReleaseListener(this.board, this.model));
         
         JPanel gravityPnl = new JPanel();
         JLabel gravityLbl = new JLabel("Gravity: ");
@@ -146,7 +147,7 @@ public class BuildView extends GameView implements IBuildView {
     @Override
     public void updateBoard()
     {
-        this.board.repaint();
+        this.board.updateUI();
 
         gravityTxt.setText(String.valueOf(model.getGravity()));
         frictionMUTxt.setText(String.valueOf(model.getFrictionMu()));

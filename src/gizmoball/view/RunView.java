@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class RunView extends GameView implements IRunView {
+    private RunBoardView board;
     private JButton stateBtn;
     private JButton tickBtn;
 
@@ -51,5 +52,9 @@ public class RunView extends GameView implements IRunView {
 
     public void focus() {
         board.requestFocusInWindow();
+    }
+
+    public void updateBoard() {
+        this.board.updateUI();
     }
 }

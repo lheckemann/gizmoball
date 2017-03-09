@@ -18,7 +18,10 @@ public class SaveListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            model.save(new FileOutputStream(view.getFileByChooser()));
+            File newFile = view.getFileByChooserSave();
+            if(newFile != null) {
+                model.save(new FileOutputStream(newFile));
+            }
         } catch (FileNotFoundException fnfe) {
             view.displayErrorMessage(fnfe.getMessage(), "File not found");
         }

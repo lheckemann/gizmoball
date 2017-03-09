@@ -5,7 +5,7 @@ import java.util.Set;
 import gizmoball.model.gizmos.ReadGizmo;
 
 public interface ReadModel {
-    double SECONDS_PER_TICK = 1.0/120;
+    double SECONDS_PER_TICK = 1.0/60;
 
     // TODO docs
     Set<ReadGizmo> getGizmos();

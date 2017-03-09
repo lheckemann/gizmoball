@@ -4,10 +4,7 @@ import gizmoball.model.BuildModel;
 import gizmoball.model.Model;
 import gizmoball.model.RunModel;
 import gizmoball.model.gizmos.ReadGizmo;
-import gizmoball.view.IBuildBoardView;
-import gizmoball.view.IBuildView;
-import gizmoball.view.IGizmoBallView;
-import gizmoball.view.IRunView;
+import gizmoball.view.*;
 
 import javax.swing.event.DocumentListener;
 import java.awt.event.ActionListener;
