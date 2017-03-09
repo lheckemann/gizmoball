@@ -1,0 +1,8 @@
+Triangle T0 3 3
+LeftFlipper LF0 4 4
+Absorber A0 0 19 20 20
+
+Connect A0 A0 
+Connect T0 A0
+Connect T0 LF0
+Connect LF0 T0
