@@ -26,7 +26,7 @@ public class CircleTest {
 
     @Test
     public void getWidth() {
-        assertEquals(myCircle.getHeight(), 1);
+        assertEquals(myCircle.getWidth(), 1);
     }
 
     @Test
