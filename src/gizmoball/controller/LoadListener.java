@@ -25,11 +25,13 @@ public class LoadListener implements ActionListener {
         try {
             File loadedFile = view.getFileByChooserLoad();
             if(loadedFile != null) {
-                model.save(new FileOutputStream(loadedFile));
+                model.load(new FileInputStream(loadedFile));
             }
             view.updateBoard();
         } catch (FileNotFoundException fnfe) {
             view.displayErrorMessage(fnfe.getMessage(), "File not found");
+        } catch (SyntaxError err) {
+            view.displayErrorMessage(err.getMessage(), "Syntax error in file");
         }
     }
 }
