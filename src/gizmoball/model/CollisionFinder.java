@@ -34,6 +34,15 @@ public class CollisionFinder {
             this.againstBall = againstBall;
             this.againstGizmo = againstGizmo;
         }
+
+        public boolean equivalent(Collision other) {
+            if (other == null) {
+                return false;
+            }
+            return this.ball.equals(other.ball) && (
+                    (this.circle != null && this.circle.equals(other.circle)) ||
+                    (this.line != null && this.line.equals(other.line)));
+        }
     }
 
     public void setGizmos(Set<Gizmo> gizmos) {
@@ -83,21 +92,18 @@ public class CollisionFinder {
         return v;
     }
 
-    public Set<Collision> getCollisions(double time) {
-        Set<Collision> collisions = new HashSet<>();
-        for (Ball ball : this.balls) {
-            Stream.of(
-                    this.getWallCollisions(ball),
-                    this.getGizmoCollisions(ball),
-                    this.getBallCollisions(ball)
-                    )
-                .flatMap(Set::stream)
-                .filter(c -> c.time < time)
-                .sorted(Comparator.comparing(c -> c.time))
-                .findFirst()
-                .ifPresent(c -> collisions.add(c));
-        }
-        return collisions;
+    public Collision getCollision(double time, Set<Collision> exclude) {
+        return this.balls.stream()
+            .flatMap(b -> Stream.of(
+                        this.getWallCollisions(b),
+                        this.getGizmoCollisions(b),
+                        this.getBallCollisions(b)))
+            .flatMap(Set::stream)
+            .filter(c -> !exclude.stream().anyMatch(o -> o.equivalent(c)))
+            .filter(c -> c.time < time)
+            .sorted(Comparator.comparing(c -> c.time))
+            .findFirst()
+            .orElse(null);
     }
 
     public Set<Collision> getWallCollisions(Ball ball) {

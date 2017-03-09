@@ -437,9 +437,14 @@ public class Model implements BuildModel, RunModel {
         finder.setGizmos(this.gizmos);
         finder.setBalls(this.balls);
 
+        Set<Collision> handled = new HashSet<>();
         Set<Ball> unhandled = new HashSet<>(this.balls);
-        for (Collision c : finder.getCollisions(SECONDS_PER_TICK)) {
-            unhandled.remove(c.ball);
+        for (;;) {
+            Collision c = finder.getCollision(SECONDS_PER_TICK, handled);
+            if (c == null) {
+                break;
+            }
+
             c.ball.setPosition(finder.getCollisionPosition(c));
             c.ball.setVelocity(finder.getCollisionVelocity(c));
             this.applyGlobalForces(c.ball);
@@ -451,6 +456,9 @@ public class Model implements BuildModel, RunModel {
             } else {
                 this.wallHit();
             }
+
+            handled.add(c);
+            unhandled.remove(c.ball);
         }
         for (Ball b : unhandled) {
             b.setPosition(b.getPosition().plus(b.getVelocity().times(SECONDS_PER_TICK)));
