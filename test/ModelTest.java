@@ -85,25 +85,23 @@ public class ModelTest {
     }
 
     @Test
-    public void select() {
-        // not possible to test it directly
-    }
-
-    @Test
-    public void moveAlreadyPresentToUnoccupiedSquare() throws PositionOverlapException, PositionOutOfBoundsException {
-        myModel.select(19, 19);
-        myModel.move(15, 18);
+    public void moveAlreadyPresentGizmoToUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
+    	boolean result = false;
+    	myModel.select(15, 18);
+        myModel.move(19, 19);
 
         for(ReadGizmo g :  myModel.getGizmos()) {
-            if(g.getX() == 19 && g.getY() == 19)
-                fail();
+            if(g.getX() == 19 && g.getY() == 19) {
+            	result = true;
+            	break;
+            }
         }
-
-        assertTrue(true);
+        
+        assertTrue(result);
     }
 
     @Test(expected=PositionOverlapException.class)
-    public void moveAlreadyPresentToOccupiedSquare() throws PositionOverlapException, PositionOutOfBoundsException {
+    public void moveAlreadyPresentGizmoToOccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         myModel.select(5, 18);
         myModel.move(15, 18);
 
@@ -111,7 +109,7 @@ public class ModelTest {
     }
 
     @Test(expected=PositionOutOfBoundsException.class)
-    public void moveAlreadyPresentToOutOfBounds() throws PositionOverlapException, PositionOutOfBoundsException {
+    public void moveAlreadyPresentGizmoToOutOfBounds() throws PositionOverlapException, PositionOutOfBoundsException {
         myModel.select(5, 18);
         myModel.move(20, 20);
 
@@ -120,34 +118,75 @@ public class ModelTest {
 
     @Test
     public void moveNotPresent() throws PositionOverlapException, PositionOutOfBoundsException {
+    	boolean result = true;
         myModel.select(6, 6);
         myModel.move(10, 10);
 
         for(ReadGizmo g :  myModel.getGizmos()) {
-            if(g.getX() == 10 && g.getY() == 10)
-                fail();
+            if(g.getX() == 10 && g.getY() == 10) {
+            	result = false;
+            	break;
+            }
         }
 
-        assertTrue(true);
+        assertTrue(result);
     }
 
     @Test
-    public void moveBall() throws PositionOverlapException, PositionOutOfBoundsException {
-        /*myModel.select(1.5, 1);
+    public void moveBallToUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
+    	boolean result = false;
+        myModel.select(1.5, 1);
         myModel.move(6, 6);
 
         for(ReadBall g :  myModel.getBalls()) {
-            if(g.getX() > 5.9999 && g.getX() < 6.0001 && g.getY() > 5.9999 && g.getY() < 6.0001)
-                assertTrue(true);
+        	System.out.println("x: " + g.getX() + " y:" + g.getY());
+        	if((g.getX() - 6.0) <= 0.01 && (g.getY() - 6.0) <= 0.01) {
+        		result = true;
+        		break;
+        	}
         }
+        
+        assertTrue(result);
+    }
+    
+    @Test(expected=PositionOverlapException.class)
+    public void moveBallToOccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
+    	myModel.select(1.5, 1);
+        myModel.move(15, 18);
 
-        fail();*/
+        fail();
     }
 
     @Test
-    public void delete() throws Exception {
+    public void deleteNotPresent() {
+    	int size = myModel.getGizmos().size();
+        myModel.select(6, 6);
+        myModel.delete();
 
+        assertEquals(size, myModel.getGizmos().size());
     }
+    
+    @Test
+    public void deleteExistingBall() {
+    	int size = myModel.getBalls().size();
+        myModel.select(1.5, 1);
+        myModel.delete();
+
+        assertEquals(size - 1, myModel.getBalls().size());
+    }
+    
+    @Test
+    public void deleteExistingGizmoCheckNumberOfGizmosLeft() {
+    	int size = myModel.getGizmos().size();
+        myModel.select(10, 13);
+        myModel.delete();
+
+        assertEquals(size - 1, myModel.getGizmos().size());
+    }
+    
+    //
+    // TODO : check connections are removed from all the maps !!
+    //
 
     @Test
     public void addAbsorberUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
@@ -311,11 +350,32 @@ public class ModelTest {
         fail();
     }
 
-
-    // TODO
+    @Test
+    public void rotateNonPresent() {
+    	Set<ReadGizmo> gizmos = myModel.getGizmos();
+    	myModel.select(6, 6);
+    	myModel.rotateGizmo();
+    	
+    	assertEquals(myModel.getGizmos(),  gizmos);
+    }
+    
     @Test
     public void rotatePresentGizmo() {
-
+    	Set<ReadGizmo> gizmos = myModel.getGizmos();
+    	myModel.select(1, 10);
+    	
+    	ReadGizmo selectedGizmo = null;
+    	Rotation before = null;
+    	for(ReadGizmo g : gizmos) {
+    		if(g.getX() == 1 && g.getY() == 10) {
+    			selectedGizmo = g;
+    			before = g.getRotation();
+    		}
+    	}
+    	
+    	myModel.rotateGizmo();
+    	
+    	assertEquals(selectedGizmo.getRotation(),  before.nextCW());
     }
 
     @Test
@@ -426,14 +486,25 @@ public class ModelTest {
     @Test
     public void triggerOnKeyReleaseNonExistingGizmo() {
         myModel.select(6, 6);
-        myModel.triggerOnKeyPress(30);
+        myModel.triggerOnKeyRelease(30);
 
         assertFalse(myModel.getKeyReleaseToGizmoMap().containsKey(30));
     }
 
     @Test
-    public void triggerOnOuterWalls() {
-        // Can't test it
+    public void triggerOnOuterWallsNotPresentGizmo() {
+    	// not really possible to test it
+    	myModel.select(6, 6);
+    	myModel.triggerOnOuterWalls();
+        assertTrue(true);
+    }
+    
+    @Test
+    public void triggerOnOuterWallsExistingGizmo() {
+    	// not really possible to test it
+    	myModel.select(5, 18);
+    	myModel.triggerOnOuterWalls();
+        assertTrue(true);
     }
 
     @Test
@@ -513,7 +584,7 @@ public class ModelTest {
 
     @Test
     public void getHeight() {
-        assertEquals(myModel.getWidth(), 20);
+        assertEquals(myModel.getHeight(), 20);
     }
 
     @Test

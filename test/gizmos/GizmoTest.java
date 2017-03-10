@@ -20,7 +20,6 @@ import java.util.Set;
 public class GizmoTest {
     private Gizmo myLeftFlipper;
     private Gizmo myRightFlipper;
-    private Gizmo myCircle;
 
     @Before
     public void setUp() {
