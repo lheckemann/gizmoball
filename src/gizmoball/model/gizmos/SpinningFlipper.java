@@ -1,8 +1,13 @@
 package gizmoball.model.gizmos;
 
 import gizmoball.model.ReadModel;
+import physics.LineSegment;
 
 import java.awt.geom.AffineTransform;
+import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SpinningFlipper extends Flipper {
     public SpinningFlipper(boolean isLeft) {
@@ -37,5 +42,27 @@ public class SpinningFlipper extends Flipper {
     @Override
     public Double getAngularVelocity() {
         return isLeftFlipper ? -ANGULAR_VELOCITY : ANGULAR_VELOCITY;
+    }
+
+    private static final Set<LineSegment> lines = Collections.unmodifiableSet(Stream.of(
+            new LineSegment(0, 0.25, 0, 1),
+            new LineSegment(0.5, 0.25, 0.5, 1)
+    ).collect(Collectors.toSet()));
+    @Override
+    public Set<LineSegment> getLineSegments() {
+        return lines;
+    }
+
+    private static final Set<physics.Circle> circles = Collections.unmodifiableSet(Stream.of(
+            new physics.Circle(0.25, 0.25, 0.25),
+            new physics.Circle(0.25, 1, 0.25),
+            new physics.Circle(0, 0.25, 0.05),
+            new physics.Circle(0, 0.75, 0.05),
+            new physics.Circle(0.5, 0.25, 0.05),
+            new physics.Circle(0.5, 1, 0.05)
+    ).collect(Collectors.toSet()));
+    @Override
+    public Set<physics.Circle> getCircles() {
+        return circles;
     }
 }
