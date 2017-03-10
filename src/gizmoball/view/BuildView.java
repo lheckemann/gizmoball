@@ -14,7 +14,7 @@ public class BuildView extends GameView implements IBuildView {
     private JTextField gravityTxt;
     private JTextField frictionMUTxt;
     private JTextField frictionMU2Txt;
-    
+
     private double promptedVelocityX = 0;
     private double promptedVelocityY = 0;
 
@@ -73,6 +73,11 @@ public class BuildView extends GameView implements IBuildView {
         addAbsorberBtn.setText("Add Absorber");
         addAbsorberBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.ABSORBER, this.board, this, this.model));
 
+        JRadioButton addSpawnerBtn = new JRadioButton("Add spawner");
+        addSpawnerBtn.setFocusable(false);
+        addSpawnerBtn.setText("Add Spawner");
+        addSpawnerBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.SPAWNER, this.board, this, this.model));
+
         JRadioButton addBallBtn = new JRadioButton("Add ball");
         addBallBtn.setFocusable(false);
         addBallBtn.setText("Add Ball");
@@ -127,6 +132,7 @@ public class BuildView extends GameView implements IBuildView {
         bg.add(addLeftFlipperBtn);
         bg.add(addRightFlipperBtn);
         bg.add(addAbsorberBtn);
+        bg.add(addSpawnerBtn);
         bg.add(addBallBtn);
         bg.add(connectGizmosBtn);
         bg.add(connectKeyPressGizmoBtn);
@@ -141,6 +147,7 @@ public class BuildView extends GameView implements IBuildView {
         buttonsPnl.add(addLeftFlipperBtn);
         buttonsPnl.add(addRightFlipperBtn);
         buttonsPnl.add(addAbsorberBtn);
+        buttonsPnl.add(addSpawnerBtn);
         buttonsPnl.add(addBallBtn);
         buttonsPnl.add(connectGizmosBtn);
         buttonsPnl.add(connectKeyPressGizmoBtn);
@@ -177,21 +184,21 @@ public class BuildView extends GameView implements IBuildView {
         this.promptedVelocityX = Double.parseDouble(velocityXField.getText());
         this.promptedVelocityY = Double.parseDouble(velocityYField.getText());
     }
-    
+
     //Gets the x value for velocity entered by the user
     //The default value if no prompt has been made is 0
     @Override
     public double getPromptedVelocityX() {
         return this.promptedVelocityX;
     }
-    
+
     //Gets the y value for velocity entered by the user
     //The default value if no prompt has been made is 0
     @Override
     public double getPromptedVelocityY() {
         return this.promptedVelocityY;
     }
-    
+
     // no checks are being made (text must be a number)
     @Override
     public String getGravityText() {

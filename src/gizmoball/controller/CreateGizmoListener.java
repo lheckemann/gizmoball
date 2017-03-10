@@ -50,14 +50,15 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
                 case RIGHT_FLIPPER:
                     model.addRightFlipper();
                     break;
-                default:
+                case SPAWNER:
+                    model.addSpawner();
             }
-            
+
             view.updateBoard();
         } catch (PositionOutOfBoundsException positionOutOfBounds){
-            
+
         } catch (PositionOverlapException positionOverlap) {
-            
+
         }
     }
 
@@ -74,19 +75,19 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
     @Override
     public void mouseReleased(MouseEvent e) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -94,22 +95,22 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
         if (type.equals(GizmoType.ABSORBER)) {
             double currentAbsorberEndX = e.getX()/BoardView.L_TO_PIXELS;
             double currentAbsorberEndY = e.getY()/BoardView.L_TO_PIXELS;
-           
+
             double startX = Math.min(currentAbsorberEndX, absorberStartX);
             double startY = Math.min(currentAbsorberEndY, absorberStartY);
             double endX = Math.max(currentAbsorberEndX, absorberStartX);
             double endY = Math.max(currentAbsorberEndY, absorberStartY);
-            
+
             int width = (int)endX - (int)startX;
             int height = (int)endY - (int)startY;
-        
+
             model.select(this.oldAbsorberX, this.oldAbsorberY);
             model.delete();
             model.select(startX, startY);
             try {
                 this.model.addAbsorber(width, height);
                 this.oldAbsorberX = startX;
-                this.oldAbsorberY = startY; 
+                this.oldAbsorberY = startY;
                 this.oldAbsorberWidth = width;
                 this.oldAbsorberHeight = height;
                 this.view.updateBoard();
@@ -118,10 +119,10 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
             } catch (PositionOutOfBoundsException e1) {
                 this.drawOldAbsorber();
             }
-         
+
         }
     }
-    
+
     private void drawOldAbsorber() {
         this.model.select(this.oldAbsorberX, this.oldAbsorberY);
         try {
@@ -134,8 +135,8 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        
+
     }
 
-    
+
 }

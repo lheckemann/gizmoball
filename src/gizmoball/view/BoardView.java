@@ -47,6 +47,8 @@ public class BoardView extends JPanel {
                 case RIGHT_FLIPPER:
                     FlipperView.paint(g, gizmo);
                     break;
+                case SPAWNER:
+                    SpawnerView.paint(g, gizmo);
             }
             g.setTransform(boardSpaceTransform);
         }
