@@ -26,10 +26,6 @@ public abstract class Gizmo implements ReadGizmo {
         this.rotation = this.rotation.nextCW();
     }
 
-    /*public void setRotation(Rotation rotation) {
-        this.rotation = rotation;
-    }*/
-
     public abstract GizmoType getType();
 
     public abstract int getWidth();
