@@ -13,9 +13,9 @@ public enum Rotation {
         return this.turns;
     }
 
-    public double getRadiansFromNorth() {
+    /*public double getRadiansFromNorth() {
         return Math.PI / 2 * turns;
-    }
+    } */
 
     public Rotation nextCW() {
         switch(this) {

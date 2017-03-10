@@ -7,6 +7,7 @@ import gizmoball.model.gizmos.ReadGizmo;
 import org.junit.Before;
 import org.junit.Test;
 import physics.LineSegment;
+import physics.Vect;
 
 import java.util.Collections;
 import java.util.Set;
@@ -21,6 +22,8 @@ public class AbsorberTest {
     private int width;
     private int height;
     private Ball myBall;
+    
+    private final double DELTA = 1e-15;
 
     @Before
     public void setUp() {
@@ -60,7 +63,6 @@ public class AbsorberTest {
 
     @Test
     public void getCircles() {
-        // TODO
         assertEquals(myAbsorber.getCircles(), Collections.emptySet());
     }
 
@@ -93,8 +95,8 @@ public class AbsorberTest {
     @Test
     public void containsBallFalse() {
         Ball newBall = new Ball();
-        // assertFalse(myAbsorber.containsBall(newBall));
-        assertTrue(myAbsorber.containsBall(newBall));
+        newBall.setPosition(new Vect(19, 19));
+        assertFalse(myAbsorber.containsBall(newBall));
     }
 
     @Test
@@ -120,5 +122,15 @@ public class AbsorberTest {
     @Test
     public void getReflectionCoefficient() {
         assertEquals(myAbsorber.getReflectionCoefficient(), 1, 0);
+    }
+    
+    @Test
+    public void getPivot() {
+    	assertEquals(myAbsorber.getPivot(), new Vect(0, 0));
+    }
+    
+    @Test
+    public void getAngularVelocity() {
+    	assertEquals(myAbsorber.getAngularVelocity(), 0d, DELTA);
     }
 }

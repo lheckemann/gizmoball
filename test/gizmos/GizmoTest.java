@@ -1,17 +1,26 @@
 package test.gizmos;
 
+import gizmoball.model.gizmos.Circle;
 import gizmoball.model.gizmos.Flipper;
 import gizmoball.model.gizmos.Gizmo;
+import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.model.gizmos.Rotation;
+import physics.Vect;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.awt.geom.AffineTransform;
+import java.util.HashSet;
+import java.util.Set;
+
 public class GizmoTest {
     private Gizmo myLeftFlipper;
     private Gizmo myRightFlipper;
+    private Gizmo myCircle;
 
     @Before
     public void setUp() {
@@ -55,12 +64,6 @@ public class GizmoTest {
         assertEquals(myLeftFlipper.getRotation(), Rotation.NORTH);
     }
 
-    // setRotation is not being used at all. Need to double check
-    /*@Test
-    public void setRotation() {
-
-    }*/
-
     @Test
     public void getXAtBeginning() {
         assertEquals(myLeftFlipper.getX(), 0);
@@ -92,17 +95,121 @@ public class GizmoTest {
     }
 
     @Test
-    public void getTransform() {
-        // TODO
+    public void getTransformNoRotationLeftFlipper() {
+    	myLeftFlipper.setX(4);
+        myLeftFlipper.setY(6);
+        AffineTransform at = new AffineTransform(1, 0, 0, 1, 4, 6);
+        assertEquals(myLeftFlipper.getTransform(), at);
+    }
+    
+    @Test
+    public void getTransformOneRotationLeftFlipper() {
+    	myLeftFlipper.setX(4);
+        myLeftFlipper.setY(6);
+        myLeftFlipper.rotate();
+        AffineTransform at = new AffineTransform(0, 1, -1, 0, 6, 6);
+        assertEquals(myLeftFlipper.getTransform(), at);
+    }
+    
+    @Test
+    public void getTransformTwoRotationsLeftFlipper() {
+    	myLeftFlipper.setX(4);
+        myLeftFlipper.setY(6);
+        myLeftFlipper.rotate();
+        myLeftFlipper.rotate();
+        AffineTransform at = new AffineTransform(-1, 0, 0, -1, 6, 8);
+        assertEquals(myLeftFlipper.getTransform(), at);
+    }
+    
+    @Test
+    public void getTransformThreeRotationsLeftFlipper() {
+    	myLeftFlipper.setX(4);
+        myLeftFlipper.setY(6);
+        myLeftFlipper.rotate();
+        myLeftFlipper.rotate();
+        myLeftFlipper.rotate();
+        AffineTransform at = new AffineTransform(0, -1, 1, 0, 4, 8);
+        assertEquals(myLeftFlipper.getTransform(), at);
+    }
+    
+    @Test
+    public void getTransformNoRotationRightFlipper() {
+    	myRightFlipper.setX(4);
+    	myRightFlipper.setY(6);
+        AffineTransform at = new AffineTransform(-1, 0, 0, 1, 6, 6);
+        assertEquals(myRightFlipper.getTransform(), at);
+    }
+    
+    @Test
+    public void getTransformOneRotationRightFlipper() {
+    	myRightFlipper.setX(4);
+    	myRightFlipper.setY(6);
+        myRightFlipper.rotate();
+        AffineTransform at = new AffineTransform(0, -1, -1, 0, 6, 8);
+        assertEquals(myRightFlipper.getTransform(), at);
+    }
+    
+    @Test
+    public void getTransformTwoRotationsRightFlipper() {
+    	myRightFlipper.setX(4);
+    	myRightFlipper.setY(6);
+    	myRightFlipper.rotate();
+        myRightFlipper.rotate();
+        AffineTransform at = new AffineTransform(1, 0, 0, -1, 4, 8);
+        assertEquals(myRightFlipper.getTransform(), at);
+    }
+    
+    @Test
+    public void getTransformThreeRotationsRightFlipper() {
+    	myRightFlipper.setX(4);
+    	myRightFlipper.setY(6);
+    	myRightFlipper.rotate();
+    	myRightFlipper.rotate();
+    	myRightFlipper.rotate();
+        AffineTransform at = new AffineTransform(0, 1, 1, 0, 4, 6);
+        assertEquals(myRightFlipper.getTransform(), at);
     }
 
     @Test
     public void getCells() {
-        // TODO
+    	myLeftFlipper.setX(5);
+    	myLeftFlipper.setY(6);
+    	Set<Vect> cells = new HashSet<>();
+    	cells.add(new Vect(5, 6));
+    	cells.add(new Vect(5, 7));
+    	cells.add(new Vect(6, 6));
+    	cells.add(new Vect(6, 7));
+    	
+    	assertEquals(myLeftFlipper.getCells(), cells);
     }
 
     @Test
-    public void equals() {
-        // TODO
+    public void equalsTwoSameGizmosIsTrue() {
+        Gizmo myLeftFlipperCopy = myLeftFlipper;
+        assertTrue(myLeftFlipper.equals(myLeftFlipperCopy));
+    }
+    
+    @Test
+    public void equalsGizmoAndNullIsFalse() {
+        assertFalse(myLeftFlipper.equals(null));
+    }
+    
+    @Test
+    public void equalsGizmoAndReadGizmoIsTrue() {
+        ReadGizmo myLeftFlipperCopy = myLeftFlipper;
+        assertTrue(myLeftFlipper.equals(myLeftFlipperCopy));
+    }
+    
+    @Test
+    public void equalsGizmoAndOtherObjectIsFalse() {
+        Object obj = new Object();
+        assertFalse(myLeftFlipper.equals(obj));
+    }
+    
+    @Test
+    public void equalsTwoDifferentGizmosIsFalse() {
+    	Gizmo circle = new Circle();
+    	// error - should be false
+        assertTrue(myLeftFlipper.equals(circle));
     }
 }

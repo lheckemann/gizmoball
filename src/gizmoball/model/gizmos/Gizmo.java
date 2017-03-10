@@ -6,8 +6,6 @@ import java.util.*;
 import physics.*;
 
 import gizmoball.model.*;
-import gizmoball.model.Geometry;
-
 
 public abstract class Gizmo implements ReadGizmo {
     private Rotation rotation;
@@ -28,9 +26,9 @@ public abstract class Gizmo implements ReadGizmo {
         this.rotation = this.rotation.nextCW();
     }
 
-    public void setRotation(Rotation rotation) {
+    /*public void setRotation(Rotation rotation) {
         this.rotation = rotation;
-    }
+    }*/
 
     public abstract GizmoType getType();
 

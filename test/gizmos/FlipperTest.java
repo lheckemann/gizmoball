@@ -1,5 +1,6 @@
 package test.gizmos;
 
+import gizmoball.model.Ball;
 import gizmoball.model.gizmos.Flipper;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
@@ -7,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import physics.Circle;
 import physics.LineSegment;
+import physics.Vect;
 
 import java.util.Collections;
 import java.util.Set;
@@ -66,6 +68,64 @@ public class FlipperTest {
     public void getTransform() {
         // TODO
     }
+    
+    @Test
+    public void getPivot() {
+    	assertEquals(new Vect(0.25, 0.25), myLeftFlipper.getPivot());
+    }
+    
+    @Test
+    public void getAngularVelocityLeftFlipperNoTick() {
+    	assertEquals(myLeftFlipper.getAngularVelocity(), 0.0, DELTA);
+    }
+    
+    @Test
+    public void getAngularVelocityLeftFlipperOneTick() {
+    	myLeftFlipper.tick();
+    	assertEquals(myLeftFlipper.getAngularVelocity(), 0.0, DELTA);
+    }
+    
+    @Test
+    public void getAngularVelocityLeftFlipperOneTickAndActive() {
+    	myLeftFlipper.trigger();
+    	myLeftFlipper.tick();
+    	assertEquals(myLeftFlipper.getAngularVelocity(), -6d * Math.PI, DELTA);
+    }
+    
+    @Test
+    public void getAngularVelocityLeftFlipperOneTickAndThenNotActive() {
+    	myLeftFlipper.trigger();
+    	myLeftFlipper.tick();
+    	myLeftFlipper.trigger();
+    	assertNotEquals(myLeftFlipper.getAngularVelocity(), 6d * Math.PI, DELTA);
+    }
+    
+    //
+    @Test
+    public void getAngularVelocityRightFlipperNoTick() {
+    	assertEquals(myRightFlipper.getAngularVelocity(), 0.0, DELTA);
+    }
+    
+    @Test
+    public void getAngularVelocityRightFlipperOneTick() {
+    	myRightFlipper.tick();
+    	assertEquals(myRightFlipper.getAngularVelocity(), 0.0, DELTA);
+    }
+    
+    @Test
+    public void getAngularVelocityRightFlipperOneTickAndActive() {
+    	myRightFlipper.trigger();
+    	myRightFlipper.tick();
+    	assertEquals(myRightFlipper.getAngularVelocity(), 6d * Math.PI, DELTA);
+    }
+    
+    @Test
+    public void getAngularVelocityRightFlipperOneTickAndThenNotActive() {
+    	myRightFlipper.trigger();
+    	myRightFlipper.tick();
+    	myRightFlipper.trigger();
+    	assertNotEquals(myRightFlipper.getAngularVelocity(), -6d * Math.PI, DELTA);
+    }
 
     @Test
     public void getLineSegments() {
@@ -89,5 +149,16 @@ public class FlipperTest {
         ).collect(Collectors.toSet()));
 
         assertEquals(myLeftFlipper.getCircles(), circles);
+    }
+    
+    @Test
+    public void containsBall() {
+    	assertFalse(myLeftFlipper.containsBall(new Ball()));
+    }
+    
+    @Test
+    public void ballHit() {
+    	Ball ball = new Ball();
+    	assertEquals(myLeftFlipper.ballHit(ball), ball);
     }
 }

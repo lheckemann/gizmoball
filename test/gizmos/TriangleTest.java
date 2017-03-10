@@ -1,5 +1,6 @@
 package test.gizmos;
 
+import gizmoball.model.Ball;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.model.gizmos.Triangle;
@@ -7,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import physics.Circle;
 import physics.LineSegment;
+import physics.Vect;
 
 import java.util.Collections;
 import java.util.Set;
@@ -17,6 +19,8 @@ import static org.junit.Assert.*;
 
 public class TriangleTest {
     private Gizmo myTriangle;
+    
+    private final double DELTA = 1e-15;
 
     @Before
     public void setUp() {
@@ -64,5 +68,31 @@ public class TriangleTest {
     @Test
     public void getReflectionCoefficient() {
         assertEquals(myTriangle.getReflectionCoefficient(), 1, 0);
+    }
+    
+    @Test
+    public void trigger() {
+    	assertNull(myTriangle.trigger());
+    }
+    
+    @Test
+    public void containsBall() {
+    	assertFalse(myTriangle.containsBall(new Ball()));
+    }
+    
+    @Test
+    public void ballHit() {
+    	Ball ball = new Ball();
+    	assertEquals(myTriangle.ballHit(ball), ball);
+    }
+    
+    @Test
+    public void getPivot() {
+    	assertEquals(myTriangle.getPivot(), new Vect(0, 0));
+    }
+    
+    @Test
+    public void getAngularVelocity() {
+    	assertEquals(myTriangle.getAngularVelocity(), 0d, DELTA);
     }
 }
