@@ -47,8 +47,12 @@ public interface BuildModel extends ReadModel {
     // TODO
     void addRightFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
 
+    void addRightSpinningFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
+
     // TODO
     void addLeftFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
+
+    void addLeftSpinningFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
 
     void addSpawner() throws PositionOverlapException, PositionOutOfBoundsException;
 

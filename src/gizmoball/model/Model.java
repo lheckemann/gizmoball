@@ -3,16 +3,14 @@ package gizmoball.model;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.*;
-import java.awt.geom.AffineTransform;
 
 import physics.LineSegment;
 import physics.Vect;
-import physics.Angle;
 
 import gizmoball.model.gizmos.*;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
-import gizmoball.model.gizmos.ReadGizmo.GizmoType;
+
 import static gizmoball.model.CollisionFinder.Collision;
 
 
@@ -208,7 +206,16 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void addRightFlipper() throws PositionOverlapException, PositionOutOfBoundsException {
-        Gizmo gizmo = new Flipper(false);
+        Gizmo gizmo = new StandardFlipper(false);
+        gizmo.setX((int)this.selX);
+        gizmo.setY((int)this.selY);
+        this.checkPlacement(gizmo);
+        this.gizmos.add(gizmo);
+    }
+
+    @Override
+    public void addRightSpinningFlipper() throws PositionOverlapException, PositionOutOfBoundsException {
+        Gizmo gizmo = new SpinningFlipper(false);
         gizmo.setX((int)this.selX);
         gizmo.setY((int)this.selY);
         this.checkPlacement(gizmo);
@@ -217,7 +224,16 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void addLeftFlipper() throws PositionOverlapException, PositionOutOfBoundsException {
-        Gizmo gizmo = new Flipper(true);
+        Gizmo gizmo = new StandardFlipper(true);
+        gizmo.setX((int)this.selX);
+        gizmo.setY((int)this.selY);
+        this.checkPlacement(gizmo);
+        this.gizmos.add(gizmo);
+    }
+
+    @Override
+    public void addLeftSpinningFlipper() throws PositionOverlapException, PositionOutOfBoundsException {
+        Gizmo gizmo = new SpinningFlipper(true);
         gizmo.setX((int)this.selX);
         gizmo.setY((int)this.selY);
         this.checkPlacement(gizmo);

@@ -47,8 +47,14 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
                 case LEFT_FLIPPER:
                     model.addLeftFlipper();
                     break;
+                case LEFT_SPINNING_FLIPPER:
+                    model.addLeftSpinningFlipper();
+                    break;
                 case RIGHT_FLIPPER:
                     model.addRightFlipper();
+                    break;
+                case RIGHT_SPINNING_FLIPPER:
+                    model.addRightSpinningFlipper();
                     break;
                 case SPAWNER:
                     model.addSpawner();
