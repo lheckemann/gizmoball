@@ -16,7 +16,10 @@ public class SpinningFlipper extends Flipper {
 
     @Override
     public void tick() {
-        pivotAngle += (ANGULAR_VELOCITY * ReadModel.SECONDS_PER_TICK);
+        if(getType() == GizmoType.LEFT_SPINNING_FLIPPER)
+            pivotAngle += (ANGULAR_VELOCITY * ReadModel.SECONDS_PER_TICK);
+        else
+            pivotAngle -= (ANGULAR_VELOCITY * ReadModel.SECONDS_PER_TICK);
     }
 
     @Override
@@ -45,8 +48,8 @@ public class SpinningFlipper extends Flipper {
     }
 
     private static final Set<LineSegment> lines = Collections.unmodifiableSet(Stream.of(
-            new LineSegment(0, 0.25, 0, 1),
-            new LineSegment(0.5, 0.25, 0.5, 1)
+            new LineSegment(0, 0.25, 0, 0.75),
+            new LineSegment(0.5, 0.25, 0.5, 0.75)
     ).collect(Collectors.toSet()));
     @Override
     public Set<LineSegment> getLineSegments() {
@@ -55,11 +58,11 @@ public class SpinningFlipper extends Flipper {
 
     private static final Set<physics.Circle> circles = Collections.unmodifiableSet(Stream.of(
             new physics.Circle(0.25, 0.25, 0.25),
-            new physics.Circle(0.25, 1, 0.25),
+            new physics.Circle(0.25, 0.75, 0.25),
             new physics.Circle(0, 0.25, 0.05),
             new physics.Circle(0, 0.75, 0.05),
             new physics.Circle(0.5, 0.25, 0.05),
-            new physics.Circle(0.5, 1, 0.05)
+            new physics.Circle(0.5, 0.75, 0.05)
     ).collect(Collectors.toSet()));
     @Override
     public Set<physics.Circle> getCircles() {

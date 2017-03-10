@@ -2,17 +2,12 @@ package gizmoball.model.gizmos;
 
 import physics.*;
 
-import java.util.Collections;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 public abstract class Flipper extends Gizmo {
     protected static final double ANGULAR_VELOCITY = 6d * Math.PI;
     protected boolean isLeftFlipper;
     protected double pivotAngle;
 
-    protected Flipper(boolean isLeft) {
+    public Flipper(boolean isLeft) {
         pivotAngle = 0d;
         isLeftFlipper = isLeft;
     }
