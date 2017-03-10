@@ -1,7 +1,6 @@
 package gizmoball.view.elements;
 
 import gizmoball.model.ReadBall;
-import gizmoball.view.BoardView;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;

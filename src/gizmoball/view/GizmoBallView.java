@@ -10,10 +10,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 
 public class GizmoBallView {
-    private Model model;
     private JFrame frame;
     private JButton modeBtn;
     private GameView gameView;
@@ -23,8 +21,6 @@ public class GizmoBallView {
     private SwitchModeListener switchModeListener;
 
     public GizmoBallView(Model model) {
-        this.model = model;
-
         this.frame = new JFrame("Gizmoball");
         Box actionBar = new Box(BoxLayout.X_AXIS);
         JButton newBtn = new JButton("New");

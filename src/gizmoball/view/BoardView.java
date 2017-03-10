@@ -1,16 +1,13 @@
 package gizmoball.view;
 
-import gizmoball.model.Model;
 import gizmoball.model.ReadBall;
 import gizmoball.model.ReadModel;
 import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.view.elements.*;
-import physics.Vect;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.util.Map;
 
 public class BoardView extends JPanel {
     public static final int L_TO_PIXELS = 32;

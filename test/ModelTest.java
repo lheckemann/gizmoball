@@ -5,7 +5,6 @@ import gizmoball.model.PositionOutOfBoundsException;
 import gizmoball.model.PositionOverlapException;
 import gizmoball.model.ReadBall;
 import gizmoball.model.gizmos.Circle;
-import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.model.gizmos.Rotation;
 import org.junit.Before;

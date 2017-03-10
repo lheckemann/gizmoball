@@ -3,7 +3,6 @@ package gizmoball.model.gizmos;
 import physics.*;
 import physics.Circle;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;

@@ -1,11 +1,6 @@
 package gizmoball.main;
 
 import gizmoball.model.Model;
-import gizmoball.model.PositionOutOfBoundsException;
-import gizmoball.model.PositionOverlapException;
-import gizmoball.view.GizmoBallView;
-
-import javax.swing.*;
 
 public class PrototypeTwo extends Main {
     public static void main(String[] args) {

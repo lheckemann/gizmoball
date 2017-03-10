@@ -1,7 +1,6 @@
 package gizmoball.view.elements;
 
 import gizmoball.model.gizmos.ReadGizmo;
-import gizmoball.view.BoardView;
 
 import java.awt.*;
 

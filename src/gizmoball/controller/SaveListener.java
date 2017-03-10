@@ -6,11 +6,8 @@ import java.io.*;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import gizmoball.model.Model;
-import gizmoball.model.Saver;
-import gizmoball.model.ReadModel;
 
 public class SaveListener implements ActionListener {
 

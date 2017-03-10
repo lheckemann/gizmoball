@@ -1,7 +1,6 @@
 package gizmoball.main;
 
 import gizmoball.model.Model;
-import gizmoball.view.GizmoBallView;
 
 public class PrototypeThree extends Main {
     public static void main(String[] args) {

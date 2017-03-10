@@ -2,16 +2,13 @@ package gizmoball.model;
 
 import physics.LineSegment;
 import physics.Vect;
-import physics.Angle;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.*;
-import java.awt.geom.AffineTransform;
 
 import gizmoball.model.gizmos.*;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
-import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 import static gizmoball.model.CollisionFinder.Collision;
 
 
