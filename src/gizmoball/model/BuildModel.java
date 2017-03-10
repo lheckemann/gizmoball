@@ -52,6 +52,8 @@ public interface BuildModel extends ReadModel {
 
     void addSpawner() throws PositionOverlapException, PositionOutOfBoundsException;
 
+    void addSink() throws PositionOverlapException, PositionOutOfBoundsException;
+
     /**
      * Rotates the gizmo at the selected location clockwise.
      * If there is no selection or the selected location is not a gizmo, this

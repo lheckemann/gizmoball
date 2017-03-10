@@ -5,7 +5,7 @@ import java.awt.geom.AffineTransform;
 public interface ReadGizmo {
 
     enum GizmoType {
-        ABSORBER, SQUARE, CIRCLE, TRIANGLE, RIGHT_FLIPPER, LEFT_FLIPPER, SPAWNER,
+        ABSORBER, SQUARE, CIRCLE, TRIANGLE, RIGHT_FLIPPER, LEFT_FLIPPER, SPAWNER, SINK,
     }
 
     GizmoType getType();

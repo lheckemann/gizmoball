@@ -52,6 +52,10 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
                     break;
                 case SPAWNER:
                     model.addSpawner();
+                    break;
+                case SINK:
+                    model.addSink();
+                    break;
             }
 
             view.updateBoard();

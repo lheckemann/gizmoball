@@ -78,6 +78,11 @@ public class BuildView extends GameView implements IBuildView {
         addSpawnerBtn.setText("Add Spawner");
         addSpawnerBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.SPAWNER, this.board, this, this.model));
 
+        JRadioButton addSinkBtn = new JRadioButton("Add spawner");
+        addSinkBtn.setFocusable(false);
+        addSinkBtn.setText("Add Sink");
+        addSinkBtn.addActionListener(controller.getSwitchToCreateActionListener(GizmoType.SINK, this.board, this, this.model));
+
         JRadioButton addBallBtn = new JRadioButton("Add ball");
         addBallBtn.setFocusable(false);
         addBallBtn.setText("Add Ball");
@@ -133,6 +138,7 @@ public class BuildView extends GameView implements IBuildView {
         bg.add(addRightFlipperBtn);
         bg.add(addAbsorberBtn);
         bg.add(addSpawnerBtn);
+        bg.add(addSinkBtn);
         bg.add(addBallBtn);
         bg.add(connectGizmosBtn);
         bg.add(connectKeyPressGizmoBtn);
@@ -148,6 +154,7 @@ public class BuildView extends GameView implements IBuildView {
         buttonsPnl.add(addRightFlipperBtn);
         buttonsPnl.add(addAbsorberBtn);
         buttonsPnl.add(addSpawnerBtn);
+        buttonsPnl.add(addSinkBtn);
         buttonsPnl.add(addBallBtn);
         buttonsPnl.add(connectGizmosBtn);
         buttonsPnl.add(connectKeyPressGizmoBtn);

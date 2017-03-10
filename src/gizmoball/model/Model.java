@@ -234,6 +234,15 @@ public class Model implements BuildModel, RunModel {
     }
 
     @Override
+    public void addSink() throws PositionOverlapException, PositionOutOfBoundsException {
+        Gizmo gizmo = new Sink();
+        gizmo.setX((int) this.selX);
+        gizmo.setY((int) this.selY);
+        this.checkPlacement(gizmo);
+        this.gizmos.add(gizmo);
+    }
+
+    @Override
     public void rotateGizmo() {
         Gizmo gizmo = this.getGizmoAt((int)this.selX, (int)this.selY);
         if (gizmo != null) {

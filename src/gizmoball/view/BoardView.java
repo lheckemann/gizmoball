@@ -49,6 +49,10 @@ public class BoardView extends JPanel {
                     break;
                 case SPAWNER:
                     SpawnerView.paint(g, gizmo);
+                    break;
+                case SINK:
+                    SinkView.paint(g, gizmo);
+                    break;
             }
             g.setTransform(boardSpaceTransform);
         }
