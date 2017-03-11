@@ -7,7 +7,7 @@ import java.awt.*;
 public class AbsorberView {
 
     public static void paint(Graphics2D graphics, ReadGizmo absorber) {
-        graphics.setColor(Color.cyan);
+        graphics.setColor(Color.ORANGE);
         graphics.fillRect(
                 0,
                 0,

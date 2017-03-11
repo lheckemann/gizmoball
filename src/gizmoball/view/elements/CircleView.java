@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class CircleView {
     public static void paint(Graphics2D graphics, ReadGizmo circle) {
-        graphics.setColor(Color.pink);
+        graphics.setColor(Color.LIGHT_GRAY);
         graphics.fillOval(
                 0,
                 0,
