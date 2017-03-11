@@ -168,94 +168,61 @@ public class Model implements BuildModel, RunModel {
         }
     }
 
-    @Override
-    public void addAbsorber(int width, int height) throws PositionOverlapException, PositionOutOfBoundsException {
-        Gizmo gizmo = new Absorber(width, height);
-        gizmo.setX((int)this.selX);
-        gizmo.setY((int)this.selY);
+    private void addGizmo(Gizmo gizmo) throws PositionOverlapException, PositionOutOfBoundsException {
+        gizmo.setX((int) this.selX);
+        gizmo.setY((int) this.selY);
         this.checkPlacement(gizmo);
         this.gizmos.add(gizmo);
+    }
+
+    @Override
+    public void addAbsorber(int width, int height) throws PositionOverlapException, PositionOutOfBoundsException {
+        addGizmo(new Absorber(width, height));
     }
 
     @Override
     public void addSquare() throws PositionOverlapException, PositionOutOfBoundsException {
-        Gizmo gizmo = new Square();
-        gizmo.setX((int)this.selX);
-        gizmo.setY((int)this.selY);
-        this.checkPlacement(gizmo);
-        this.gizmos.add(gizmo);
+        addGizmo(new Square());
     }
 
     @Override
     public void addCircle() throws PositionOverlapException, PositionOutOfBoundsException {
-        Gizmo gizmo = new Circle();
-        gizmo.setX((int)this.selX);
-        gizmo.setY((int)this.selY);
-        this.checkPlacement(gizmo);
-        this.gizmos.add(gizmo);
+        addGizmo(new Circle());
     }
 
     @Override
     public void addTriangle() throws PositionOverlapException, PositionOutOfBoundsException {
-        Gizmo gizmo = new Triangle();
-        gizmo.setX((int)this.selX);
-        gizmo.setY((int)this.selY);
-        this.checkPlacement(gizmo);
-        this.gizmos.add(gizmo);
+        addGizmo(new Triangle());
     }
 
     @Override
     public void addRightFlipper() throws PositionOverlapException, PositionOutOfBoundsException {
-        Gizmo gizmo = new StandardFlipper(false);
-        gizmo.setX((int)this.selX);
-        gizmo.setY((int)this.selY);
-        this.checkPlacement(gizmo);
-        this.gizmos.add(gizmo);
+        addGizmo(new StandardFlipper(false));
     }
 
     @Override
     public void addRightSpinningFlipper() throws PositionOverlapException, PositionOutOfBoundsException {
-        Gizmo gizmo = new SpinningFlipper(false);
-        gizmo.setX((int)this.selX);
-        gizmo.setY((int)this.selY);
-        this.checkPlacement(gizmo);
-        this.gizmos.add(gizmo);
+        addGizmo(new SpinningFlipper(false));
     }
 
     @Override
     public void addLeftFlipper() throws PositionOverlapException, PositionOutOfBoundsException {
-        Gizmo gizmo = new StandardFlipper(true);
-        gizmo.setX((int)this.selX);
-        gizmo.setY((int)this.selY);
-        this.checkPlacement(gizmo);
-        this.gizmos.add(gizmo);
+        addGizmo(new StandardFlipper(true));
     }
 
     @Override
     public void addLeftSpinningFlipper() throws PositionOverlapException, PositionOutOfBoundsException {
-        Gizmo gizmo = new SpinningFlipper(true);
-        gizmo.setX((int)this.selX);
-        gizmo.setY((int)this.selY);
-        this.checkPlacement(gizmo);
-        this.gizmos.add(gizmo);
+        addGizmo(new SpinningFlipper(true));
     }
 
     @Override
     public void addSpawner() throws PositionOverlapException, PositionOutOfBoundsException {
-        Gizmo gizmo = new Spawner();
-        gizmo.setX((int) this.selX);
-        gizmo.setY((int) this.selY);
-        this.checkPlacement(gizmo);
-        this.gizmos.add(gizmo);
+        addGizmo(new Spawner());
     }
 
     @Override
     public void addSink() throws PositionOverlapException, PositionOutOfBoundsException {
-        Gizmo gizmo = new Sink();
-        gizmo.setX((int) this.selX);
-        gizmo.setY((int) this.selY);
-        this.checkPlacement(gizmo);
-        this.gizmos.add(gizmo);
+        addGizmo(new Sink());
     }
 
     @Override
