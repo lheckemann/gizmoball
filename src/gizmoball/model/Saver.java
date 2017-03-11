@@ -28,30 +28,11 @@ public class Saver {
         }
     }
 
-    private String getTypeIdPrefix(GizmoType type) {
-        switch (type) {
-            case TRIANGLE:
-                return "T";
-            case SQUARE:
-                return "S";
-            case CIRCLE:
-                return "C";
-            case ABSORBER:
-                return "A";
-            case LEFT_FLIPPER:
-                return "LF";
-            case RIGHT_FLIPPER:
-                return "RF";
-            default:
-                return "";
-        }
-    }
-
     private Map<ReadGizmo,String> getTaggedGizmos(Collection<ReadGizmo> gizmos) {
         int i = 0;
         Map<ReadGizmo,String> tagged = new HashMap<>();
         for (ReadGizmo gizmo : gizmos) {
-            tagged.put(gizmo, this.getTypeIdPrefix(gizmo.getType()) + i);
+            tagged.put(gizmo, gizmo.getType().saveName() + i);
             i++;
         }
         return tagged;
@@ -72,7 +53,7 @@ public class Saver {
             String id = this.taggedGizmos.get(gizmo);
             if (gizmo.getType() == GizmoType.ABSORBER) {
                 writer.format("%s %s %d %d %d %d\n",
-                        this.convertGizmoTypeToString(gizmo.getType()),
+                        gizmo.getType().saveName(),
                         id,
                         gizmo.getX(),
                         gizmo.getY(),
@@ -80,30 +61,11 @@ public class Saver {
                         gizmo.getY() + gizmo.getHeight());
             } else {
                 writer.format("%s %s %d %d\n",
-                        this.convertGizmoTypeToString(gizmo.getType()),
+                        gizmo.getType().saveName(),
                         id,
                         gizmo.getX(),
                         gizmo.getY());
             }
-        }
-    }
-
-    private String convertGizmoTypeToString(GizmoType type) {
-        switch (type) {
-            case SQUARE:
-                return "Square";
-            case TRIANGLE:
-                return "Triangle";
-            case CIRCLE:
-                return "Circle";
-            case ABSORBER:
-                return "Absorber";
-            case RIGHT_FLIPPER:
-                return "RightFlipper";
-            case LEFT_FLIPPER:
-                return "LeftFlipper";
-            default:
-                return "";
         }
     }
 

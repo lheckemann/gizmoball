@@ -60,7 +60,11 @@ public class RunView extends GameView implements IRunView {
     }
 
     public void pause() {
-        if(stateBtn.getText().equals("Stop"))
+        if (stateBtn.getText().equals("Stop"))
             toggleRunning.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+    }
+
+    public void focus() {
+        board.requestFocusInWindow();
     }
 }
