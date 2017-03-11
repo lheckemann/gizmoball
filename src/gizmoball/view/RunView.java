@@ -5,6 +5,7 @@ import gizmoball.model.RunModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RunView extends GameView implements IRunView {
@@ -53,5 +54,13 @@ public class RunView extends GameView implements IRunView {
     @Override
     public void updateBoard() {
         this.board.updateUI();
+    }
+
+    public void pause() {
+        if(stateBtn.getText().equals("Stop")) {
+            for(ActionListener a : stateBtn.getActionListeners()) {
+                a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+            }
+        }
     }
 }
