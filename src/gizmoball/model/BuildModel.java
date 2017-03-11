@@ -7,21 +7,23 @@ import gizmoball.model.gizmos.ReadGizmo;
 
 public interface BuildModel extends ReadModel {
     /**
-     * Selects the ball or gizmo at the provided location as an operand in
-     * future operations. Gizmos are selected by their bounding boxes.
+     * Set the ball or gizmo at the provided location as an operand for future
+     * operations.
+     * Gizmos are selected by their bounding boxes.
+     * Balls are selected by their occupied surface.
      */
     void select(double x, double y);
 
     /**
-     * Moves the selection to the given location.
-     * If a gizmo is selected, the destination will be obtained from the integer
-     * parts of the coordinates.
+     * Moves the selected element to the given location.
+     * Gizmos are selected by their bounding boxes. The cell that contains the
+     * given destination is their new anchor point.
      * If there is no selection or there is no ball or gizmo at the selected
-     * location, this will effectively be a noop.
-     * TODO: moving outside of the arena (noop or a deletion?)
-     * TODO: moving to an already occupied location
-     * @throws PositionOverlapException
-     * @throws PositionOutOfBoundsException
+     * location, this is effectively a noop.
+     * @throws PositionOverlapException if an elements destination location is
+     * occupied by another element.
+     * @throws PositionOutOfBoundsException if the destination is outside the
+     * arena.
      */
     void move(double dX, double dY) throws PositionOverlapException, PositionOutOfBoundsException;
 
@@ -32,44 +34,111 @@ public interface BuildModel extends ReadModel {
      */
     void delete();
 
-    // TODO
+    /**
+     * Adds an absorber with the given width and height to the selected
+     * location.
+     * @throws PositionOverlapException if the selected location is occupied by
+     * another element.
+     * @throws PositionOutOfBoundsException if the selected location is outside
+     * of the arena.
+     */
     void addAbsorber(int width, int height) throws PositionOverlapException, PositionOutOfBoundsException;
 
-    // TODO
+    /**
+     * Adds a square to the selected location.
+     * @throws PositionOverlapException if the selected location is occupied by
+     * another element.
+     * @throws PositionOutOfBoundsException if the selected location is outside
+     * of the arena.
+     */
     void addSquare() throws PositionOverlapException, PositionOutOfBoundsException;
 
-    // TODO
+    /**
+     * Adds a circle to the selected location.
+     * @throws PositionOverlapException if the selected location is occupied by
+     * another element.
+     * @throws PositionOutOfBoundsException if the selected location is outside
+     * of the arena.
+     */
     void addCircle() throws PositionOverlapException, PositionOutOfBoundsException;
 
-    // TODO
+    /**
+     * Adds a triangle to the selected location.
+     * @throws PositionOverlapException if the selected location is occupied by
+     * another element.
+     * @throws PositionOutOfBoundsException if the selected location is outside
+     * of the arena.
+     */
     void addTriangle() throws PositionOverlapException, PositionOutOfBoundsException;
 
-    // TODO
+    /**
+     * Adds a right flipper to the selected location.
+     * @throws PositionOverlapException if the selected location is occupied by
+     * another element.
+     * @throws PositionOutOfBoundsException if the selected location is outside
+     * of the arena.
+     */
     void addRightFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
 
+    /**
+     * Adds a right spinning flipper to the selected location.
+     * @throws PositionOverlapException if the selected location is occupied by
+     * another element.
+     * @throws PositionOutOfBoundsException if the selected location is outside
+     * of the arena.
+     */
     void addRightSpinningFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
 
-    // TODO
+    /**
+     * Adds a left flipper to the selected location.
+     * @throws PositionOverlapException if the selected location is occupied by
+     * another element.
+     * @throws PositionOutOfBoundsException if the selected location is outside
+     * of the arena.
+     */
     void addLeftFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
 
+    /**
+     * Adds a left spinning flipper to the selected location.
+     * @throws PositionOverlapException if the selected location is occupied by
+     * another element.
+     * @throws PositionOutOfBoundsException if the selected location is outside
+     * of the arena.
+     */
     void addLeftSpinningFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
 
+    /**
+     * Adds a spawner to the selected location.
+     * @throws PositionOverlapException if the selected location is occupied by
+     * another element.
+     * @throws PositionOutOfBoundsException if the selected location is outside
+     * of the arena.
+     */
     void addSpawner() throws PositionOverlapException, PositionOutOfBoundsException;
 
+    /**
+     * Adds a sink to the selected location.
+     * @throws PositionOverlapException if the selected location is occupied by
+     * another element.
+     * @throws PositionOutOfBoundsException if the selected location is outside
+     * of the arena.
+     */
     void addSink() throws PositionOverlapException, PositionOutOfBoundsException;
 
     /**
      * Rotates the gizmo at the selected location clockwise.
      * If there is no selection or the selected location is not a gizmo, this
-     * will effectively be a noop.
+     * is effectively a noop.
      */
     void rotateGizmo();
 
     /**
      * Creates a new ball at the selected location.
-     * If there is no selection or the selected location is already occupied by
-     * some other item, this will effectively be a noop.
-     * @throws PositionOutOfBoundsException
+     * If there is no selection this is effectively a noop.
+     * @throws PositionOutOfBoundsException if the selected location is occupied
+     * by another element.
+     * @throws PositionOutOfBoundsException if the selected location is outside
+     * of the arena.
      */
     void addBall(double vX, double vY) throws PositionOverlapException, PositionOutOfBoundsException;
 
@@ -77,7 +146,7 @@ public interface BuildModel extends ReadModel {
      * Sets the velocity of the ball at the selected location.
      * If not set, the default initial velocity for a ball is 50L/s.
      * If there is no selection or the selected location is not a ball, this
-     * will effectively be a noop.
+     * is effectively a noop.
      */
     void setBallVelocity(double vX, double vY);
 
@@ -118,7 +187,7 @@ public interface BuildModel extends ReadModel {
      * Connects key presses of the given key to the triggering of the currently
      * selected gizmo.
      * If there is no selection or the selected location is not a gizmo, this
-     * will effectively be a noop.
+     * is effectively a noop.
      */
     void triggerOnKeyPress(int key);
 
@@ -126,28 +195,36 @@ public interface BuildModel extends ReadModel {
      * Connects key releases of the given key to the triggering of the currently
      * selected gizmo.
      * If there is no selection or the selected location is not a gizmo, this
-     * will effectively be a noop.
+     * is effectively a noop.
      */
     void triggerOnKeyRelease(int key);
 
-    // TODO
+    /**
+     * Connects ball hits on the outer walls to the triggering of the currently
+     * selected gizmo.
+     * If there is no selection or the selected location is not a gizmo, this
+     * is effectively a noop.
+     */
     void triggerOnOuterWalls();
 
-    /***
-     * Connects the bumping of the given Gizmo to the triggering of the currently
-     * selected Gizmo
+    /**
+     * Connects ball hits on the given gizmo to the triggering of the currently
+     * selected gizmo.
+     * If there is no selection, the selected location is not a gizmo, or the
+     * given gizmo is not in the model, this is effectively a noop.
      */
     void triggerOnGizmo(ReadGizmo gizmo);
 
-    /***
-     * Connects the bumping of the gizmo at the given location to the triggering of the currently
-     * selected Gizmo.
-     * If there is no Gizmo at this location, this operation will effectively be a no op
+    /**
+     * Connects ball hits on the gizmo at the given location to the triggering
+     * of the currently selected gizmo.
+     * If there is no selection, the selected location is not a gizmo, or the
+     * given location is not a gizmo, this is effectively a noop.
      */
     void triggerOnGizmoAt(double x, double y);
 
-    /***
-     * Checks if there is something at the given space
+    /**
+     * Checks if there is some element at the given location.
      */
     boolean notEmpty(double x, double y);
 
@@ -158,19 +235,18 @@ public interface BuildModel extends ReadModel {
      */
     void reset();
 
-    /***
-     * Returns a mapping from a Gizmo to the Gizmos it trigger
+    /**
+     * Returns a map from a gizmo to the gizmos it triggers.
      */
     Map<ReadGizmo, Set<ReadGizmo>> getGizmoToGizmoMap();
 
-    /***
-     * Returns a mapping from a key release to all of the Gizmos it triggers
+    /**
+     * Returns a map from a key release to the gizmos it triggers.
      */
     Map<Integer, Set<ReadGizmo>> getKeyReleaseToGizmoMap();
 
-    /***
-     * Returns a mapping from a key press to all of the Gizmos it triggers
+    /**
+     * Returns a map from a key press to the gizmos it triggers.
      */
     Map<Integer, Set<ReadGizmo>> getKeyPressToGizmoMap();
-
 }
