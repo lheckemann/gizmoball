@@ -56,7 +56,7 @@ public class SpinningFlipper extends Flipper {
 
     @Override
     public Double getAngularVelocity() {
-        return isLeftFlipper ? -ANGULAR_VELOCITY : ANGULAR_VELOCITY;
+        return !running ? 0 : isLeftFlipper ? -ANGULAR_VELOCITY : ANGULAR_VELOCITY;
     }
 
     private static final Set<LineSegment> lines = Collections.unmodifiableSet(Stream.of(
