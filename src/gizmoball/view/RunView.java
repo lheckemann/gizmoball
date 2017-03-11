@@ -50,10 +50,7 @@ public class RunView extends GameView implements IRunView {
         }
     }
 
-    public void focus() {
-        board.requestFocusInWindow();
-    }
-
+    @Override
     public void updateBoard() {
         this.board.updateUI();
     }

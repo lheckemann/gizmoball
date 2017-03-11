@@ -12,6 +12,7 @@ import java.io.File;
 public class GizmoBallView implements IGizmoBallView {
     private JFrame frame;
     private JButton modeBtn;
+    private GameView gameView;
     private BuildView buildView;
     private RunView runView;
     private JPanel gamePanel;
@@ -52,11 +53,13 @@ public class GizmoBallView implements IGizmoBallView {
         actionBar.add(Box.createGlue());
         actionBar.add(exitBtn);
 
-        this.buildView = new BuildView(model, controller);
-        this.runView = new RunView(model, controller);
+        buildView = new BuildView(model, controller);
+        runView = new RunView(model, controller);
+        gameView = runView;
+
         frame.add(actionBar, BorderLayout.NORTH);
         gamePanel = new JPanel();
-        gamePanel.add(runView.getBox()); // we start with runView
+        gamePanel.add(gameView.getBox()); // we start with runView
         frame.add(gamePanel);
 
         frame.setResizable(false);
@@ -72,7 +75,8 @@ public class GizmoBallView implements IGizmoBallView {
     public void switchToBuildView() {
         this.modeBtn.setText("Run");
         gamePanel.removeAll();
-        gamePanel.add(buildView.getBox());
+        gameView = buildView;
+        gamePanel.add(gameView.getBox());
         this.frame.repaint();
     }
 
@@ -80,8 +84,8 @@ public class GizmoBallView implements IGizmoBallView {
     public void switchToRunView() {
         this.modeBtn.setText("Build");
         gamePanel.removeAll();
-        gamePanel.add(runView.getBox());
-        runView.focus();
+        gameView = runView;
+        gamePanel.add(gameView.getBox());
         this.frame.repaint();
     }
 
@@ -110,9 +114,6 @@ public class GizmoBallView implements IGizmoBallView {
 
     @Override
     public void updateBoard() {
-        if(buildView.getBox().isFocusOwner())
-            this.buildView.updateBoard();
-        else
-            this.runView.updateBoard();
+        gameView.updateBoard();
     }
 }
