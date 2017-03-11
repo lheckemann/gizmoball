@@ -13,12 +13,15 @@ public class RunView extends GameView implements IRunView {
     private JButton stateBtn;
     private JButton tickBtn;
 
+    private ActionListener toggleRunning;
+
     public RunView(RunModel model, Controller controller) {
         ActionListener ticks = controller.getTickListener(model, this);
+        toggleRunning = controller.getToggleRunningListener(ticks, this);
 
         stateBtn = new JButton("Run"); // either Run or Stop
         stateBtn.setFocusable(false);
-        stateBtn.addActionListener(controller.getToggleRunningListener(ticks, this));
+        stateBtn.addActionListener(toggleRunning);
         tickBtn = new JButton("Tick");
         tickBtn.setFocusable(false);
         tickBtn.addActionListener(ticks);
@@ -57,10 +60,7 @@ public class RunView extends GameView implements IRunView {
     }
 
     public void pause() {
-        if(stateBtn.getText().equals("Stop")) {
-            for(ActionListener a : stateBtn.getActionListeners()) {
-                a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
-            }
-        }
+        if(stateBtn.getText().equals("Stop"))
+            toggleRunning.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
     }
 }
