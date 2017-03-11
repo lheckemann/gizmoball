@@ -26,6 +26,7 @@ public class BuildView extends GameView implements IBuildView {
         button.setFocusable(false);
         button.setText(label);
         button.addActionListener(controller);
+        button.setAlignmentX(Component.LEFT_ALIGNMENT);
         actionGroup.add(button);
         buttons.add(button);
     }
@@ -65,6 +66,7 @@ public class BuildView extends GameView implements IBuildView {
         SpinnerNumberModel gravityModel = new SpinnerNumberModel(25, -100, 100, 1);
         addSpinner("Gravity", controller.getChangeGravityListener(this.model, gravityModel), gravityModel);
 
+        physicsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         buttons.add(physicsPanel);
         buttons.add(Box.createGlue());
 
