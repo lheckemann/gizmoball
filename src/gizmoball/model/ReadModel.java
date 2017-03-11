@@ -5,8 +5,6 @@ import java.util.Set;
 import gizmoball.model.gizmos.ReadGizmo;
 
 public interface ReadModel {
-    double SECONDS_PER_TICK = 1.0/60;
-
     /**
      * Returns the set of gizmos currently in the model.
      */

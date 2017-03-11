@@ -1,6 +1,6 @@
 package gizmoball.controller;
 
-import gizmoball.model.ReadModel;
+import gizmoball.model.RunModel;
 import gizmoball.view.IRunView;
 
 import javax.swing.*;
@@ -12,7 +12,7 @@ public class ToggleRunningListener implements ActionListener {
     private Timer timer;
 
     public ToggleRunningListener(ActionListener tickListener, IRunView view) {
-        timer = new Timer((int) (1000*ReadModel.SECONDS_PER_TICK), tickListener);
+        timer = new Timer((int) (1000* RunModel.SECONDS_PER_TICK), tickListener);
         this.view = view;
     }
 

@@ -1,7 +1,7 @@
 package gizmoball.model.gizmos;
 
 import gizmoball.model.Ball;
-import gizmoball.model.ReadModel;
+import gizmoball.model.RunModel;
 import physics.LineSegment;
 
 import java.awt.geom.AffineTransform;
@@ -28,9 +28,9 @@ public class SpinningFlipper extends Flipper {
     public void tick() {
         if (running) {
             if (getType() == GizmoType.LEFT_SPINNING_FLIPPER)
-                pivotAngle += (ANGULAR_VELOCITY * ReadModel.SECONDS_PER_TICK);
+                pivotAngle += (ANGULAR_VELOCITY * RunModel.SECONDS_PER_TICK);
             else
-                pivotAngle -= (ANGULAR_VELOCITY * ReadModel.SECONDS_PER_TICK);
+                pivotAngle -= (ANGULAR_VELOCITY * RunModel.SECONDS_PER_TICK);
         }
     }
 
