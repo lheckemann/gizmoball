@@ -413,7 +413,7 @@ public class Model implements BuildModel, RunModel {
     }
 
     public void load(InputStream input) throws SyntaxError {
-        double gravity = this.gravity.y();
+        Vect gravity = new Vect(this.gravity.x(), this.gravity.y());
         double mu = this.mu;
         double mu2 = this.mu2;
         Set<Gizmo> gizmos = new HashSet<>(this.gizmos);
@@ -426,7 +426,7 @@ public class Model implements BuildModel, RunModel {
         try {
             new Loader(this).load(input);
         } catch (SyntaxError e) {
-            this.gravity = new Vect(gravity, 25);
+            this.gravity = gravity;
             this.mu = mu;
             this.mu2 = mu2;
             this.gizmos = gizmos;
