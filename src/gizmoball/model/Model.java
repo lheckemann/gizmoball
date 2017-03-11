@@ -147,6 +147,11 @@ public class Model implements BuildModel, RunModel {
     @Override
     public void delete() {
         Gizmo gizmo = this.getGizmoAt((int)this.selX, (int)this.selY);
+        Ball ball = this.getBallAt(this.selX, this.selY);
+        if (ball != null) {
+            this.balls.remove(ball);
+            return;
+        }
         if (gizmo != null) {
             this.gizmos.remove(gizmo);
             for (Set<Gizmo> listeners : this.gizmoMap.values()) {
@@ -159,11 +164,6 @@ public class Model implements BuildModel, RunModel {
                 listeners.remove(gizmo);
             }
             this.wallTriggers.remove(gizmo);
-            return;
-        }
-        Ball ball = this.getBallAt(this.selX, this.selY);
-        if (ball != null) {
-            this.balls.remove(ball);
         }
     }
 
