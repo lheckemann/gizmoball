@@ -26,7 +26,12 @@ public class SwitchToCreateActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         this.board.switchToAddGizmo(type, view, model);
-        this.view.setDisplayLabel("Click on a grid location to add " + this.type.toString());
+        if (this.type.equals(GizmoType.ABSORBER)) {
+            this.view.setDisplayLabel("Click & hold the mouse on a grid location then drag to specify the absorber's size. Release the mouse when finished");
+        } else {
+            this.view.setDisplayLabel("Click on a grid location to add " + this.type.toString());
+        }
+        
     }
 
 }
