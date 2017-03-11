@@ -8,10 +8,10 @@ import gizmoball.view.BoardView;
 import gizmoball.view.IBuildView;
 
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionListener;
 
-public class CreateGizmoListener implements MouseListener, MouseMotionListener {
+public class CreateGizmoListener extends MouseAdapter implements MouseMotionListener {
     private final BuildModel model;
     private final IBuildView view;
     private final GizmoType type;
@@ -80,24 +80,6 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
             this.oldAbsorberX = this.absorberStartX;
             this.oldAbsorberY = this.absorberStartY;
         }
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override

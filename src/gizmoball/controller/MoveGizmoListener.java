@@ -1,7 +1,7 @@
 package gizmoball.controller;
 
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.MouseAdapter;
 
 import gizmoball.model.BuildModel;
 import gizmoball.model.PositionOutOfBoundsException;
@@ -9,7 +9,7 @@ import gizmoball.model.PositionOverlapException;
 import gizmoball.view.BoardView;
 import gizmoball.view.IBuildView;
 
-public class MoveGizmoListener implements MouseListener {
+public class MoveGizmoListener extends MouseAdapter {
 
     private final BuildModel model;
     private final IBuildView view;
@@ -20,7 +20,7 @@ public class MoveGizmoListener implements MouseListener {
         this.view = view;
         this.componentSelected = false;
     }
-    
+
     @Override
     public void mouseClicked(MouseEvent e) {
         double chosenX = e.getX()/(double)BoardView.L_TO_PIXELS;
@@ -41,29 +41,4 @@ public class MoveGizmoListener implements MouseListener {
             }
         }
     }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
 }
