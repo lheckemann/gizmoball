@@ -1,5 +1,6 @@
 package gizmoball.model.gizmos;
 
+import gizmoball.model.Ball;
 import gizmoball.model.ReadModel;
 import physics.LineSegment;
 
@@ -14,12 +15,23 @@ public class SpinningFlipper extends Flipper {
         super(isLeft);
     }
 
+
+    private boolean running = true;
+
+    @Override
+    public Ball trigger() {
+        running = !running;
+        return null;
+    }
+
     @Override
     public void tick() {
-        if(getType() == GizmoType.LEFT_SPINNING_FLIPPER)
-            pivotAngle += (ANGULAR_VELOCITY * ReadModel.SECONDS_PER_TICK);
-        else
-            pivotAngle -= (ANGULAR_VELOCITY * ReadModel.SECONDS_PER_TICK);
+        if (running) {
+            if (getType() == GizmoType.LEFT_SPINNING_FLIPPER)
+                pivotAngle += (ANGULAR_VELOCITY * ReadModel.SECONDS_PER_TICK);
+            else
+                pivotAngle -= (ANGULAR_VELOCITY * ReadModel.SECONDS_PER_TICK);
+        }
     }
 
     @Override
