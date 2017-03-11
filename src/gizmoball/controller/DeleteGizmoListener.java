@@ -26,4 +26,9 @@ public class DeleteGizmoListener extends MouseAdapter {
         model.delete();
         view.updateBoard();
     }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        mouseClicked(e);
+    }
 }

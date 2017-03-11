@@ -111,8 +111,8 @@ public class CreateGizmoListener extends MouseAdapter implements MouseMotionList
             } catch (PositionOutOfBoundsException e1) {
                 this.drawOldAbsorber();
             }
-
         }
+        else mouseClicked(e);
     }
 
     private void drawOldAbsorber() {
