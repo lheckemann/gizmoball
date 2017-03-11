@@ -26,11 +26,12 @@ public class Ball implements ReadBall {
         velocityY = src.getVelocityY();
     }
 
-
+    @Override
     public double getX() {
         return this.x;
     }
 
+    @Override
     public double getY() {
         return this.y;
     }
@@ -57,10 +58,12 @@ public class Ball implements ReadBall {
         y = pos.y();
     }
 
+    @Override
     public double getVelocityX() {
         return this.velocityX;
     }
 
+    @Override
     public double getVelocityY() {
         return this.velocityY;
     }
