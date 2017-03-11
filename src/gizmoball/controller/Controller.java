@@ -6,6 +6,8 @@ import gizmoball.model.RunModel;
 import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.view.*;
 
+import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentListener;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
@@ -17,12 +19,16 @@ public class Controller {
         return new AddBallListener(view, model);
     }
 
-    public DocumentListener getChangeFrictionListener(BuildModel model, IBuildView view) {
-        return new ChangeFrictionListener(model, view);
+    public ChangeListener getChangeFrictionMuListener(BuildModel model, SpinnerNumberModel value) {
+        return new ChangeFrictionMuListener(model, value);
     }
 
-    public DocumentListener getChangeGravityListener(BuildModel model, IBuildView view) {
-        return new ChangeGravityListener(model, view);
+    public ChangeListener getChangeFrictionMu2Listener(BuildModel model, SpinnerNumberModel value) {
+        return new ChangeFrictionMu2Listener(model, value);
+    }
+
+    public ChangeListener getChangeGravityListener(BuildModel model, SpinnerNumberModel value) {
+        return new ChangeGravityListener(model, value);
     }
 
     public MouseListener getConnectGizmosListener(IBuildView view, BuildModel model) {
