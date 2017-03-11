@@ -20,6 +20,7 @@ public class BuildView extends GameView implements IBuildView {
     private ButtonGroup actionGroup = new ButtonGroup();
 
     private JPanel physicsPanel = new JPanel();
+    private JLabel displayLabel = new JLabel(" ");
 
     private void addRadioButton(String label, ActionListener controller) {
         JRadioButton button = new JRadioButton();
@@ -40,7 +41,13 @@ public class BuildView extends GameView implements IBuildView {
     public BuildView(BuildModel model, Controller controller) {
         this.model = model;
 
-        box = new Box(BoxLayout.X_AXIS);
+        box = new Box(BoxLayout.Y_AXIS);
+        JPanel boardPanel = new JPanel();
+        boardPanel.setLayout(new BoxLayout(boardPanel, BoxLayout.X_AXIS));
+        
+        JPanel displayPanel = new JPanel();
+        displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.X_AXIS));
+        
         board = new BuildBoardView(model, controller);
 
         physicsPanel.setLayout(new GridLayout(3, 2));
@@ -54,8 +61,8 @@ public class BuildView extends GameView implements IBuildView {
 
         addRadioButton("Add ball", controller.getSwitchToAddBallListener(this.board, this, this.model));
         addRadioButton("Connect Gizmo to Gizmo", controller.getSwitchToConnectGizmosListener(this.board, this, this.model));
-        addRadioButton("Connect keypress to Gizmo", controller.getSwitchToConnectKeyPressListener(this.board, this.model));
-        addRadioButton("Connect key release to Gizmo", controller.getSwitchToConnectKeyReleaseListener(this.board, this.model));
+        addRadioButton("Connect keypress to Gizmo", controller.getSwitchToConnectKeyPressListener(this.board, this, this.model));
+        addRadioButton("Connect key release to Gizmo", controller.getSwitchToConnectKeyReleaseListener(this.board, this,this.model));
 
         SpinnerNumberModel frictionMuModel = new SpinnerNumberModel(0.025, 0, 1.0, 0.05);
         addSpinner("Friction mu", controller.getChangeFrictionMuListener(this.model, frictionMuModel), frictionMuModel);
@@ -69,11 +76,17 @@ public class BuildView extends GameView implements IBuildView {
         physicsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         buttons.add(physicsPanel);
         buttons.add(Box.createGlue());
-
+        
         buttons.setPreferredSize(new Dimension(this.panelWidth, box.getHeight()));
-
-        box.add(board);
-        box.add(buttons);
+        
+        boardPanel.add(board);
+        boardPanel.add(buttons);
+        
+        displayPanel.add(displayLabel);
+        displayPanel.add(Box.createHorizontalGlue());
+        
+        box.add(boardPanel);
+        box.add(displayPanel);
     }
 
     @Override
@@ -106,5 +119,10 @@ public class BuildView extends GameView implements IBuildView {
     @Override
     public double getPromptedVelocityY() {
         return this.promptedVelocityY;
+    }
+
+    @Override
+    public void setDisplayLabel(String displayText) {
+        displayLabel.setText(displayText);
     }
 }

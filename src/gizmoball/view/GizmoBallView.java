@@ -61,7 +61,6 @@ public class GizmoBallView implements IGizmoBallView {
         gamePanel = new JPanel();
         gamePanel.add(gameView.getBox()); // we start with runView
         frame.add(gamePanel);
-
         frame.setResizable(false);
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -78,6 +77,7 @@ public class GizmoBallView implements IGizmoBallView {
         runView.pause();
         gameView = buildView;
         gamePanel.add(gameView.getBox());
+        frame.pack();
         this.frame.repaint();
     }
 
@@ -87,6 +87,7 @@ public class GizmoBallView implements IGizmoBallView {
         gamePanel.removeAll();
         gameView = runView;
         gamePanel.add(gameView.getBox());
+        frame.pack();
         this.frame.repaint();
     }
 
@@ -117,4 +118,5 @@ public class GizmoBallView implements IGizmoBallView {
     public void updateBoard() {
         gameView.updateBoard();
     }
+
 }

@@ -26,6 +26,7 @@ public class SwitchToCreateActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         this.board.switchToAddGizmo(type, view, model);
+        this.view.setDisplayLabel("Click on a grid location to add " + this.type.toString());
     }
 
 }

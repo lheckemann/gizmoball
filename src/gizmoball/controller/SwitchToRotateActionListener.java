@@ -22,6 +22,7 @@ public class SwitchToRotateActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         this.board.switchToRotate(view, model);
+        this.view.setDisplayLabel("Click on a gizmo to rotate it");
     }
 
 }

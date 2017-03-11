@@ -22,6 +22,7 @@ public class SwitchToDeleteActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         this.board.switchToDelete(view, model);
+        this.view.setDisplayLabel("Click on a gizmo or ball to delete it");
     }
 
 }

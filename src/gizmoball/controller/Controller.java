@@ -87,12 +87,12 @@ public class Controller {
         return new SwitchToConnectGizmosListener(board, view, model);
     }
 
-    public ActionListener getSwitchToConnectKeyPressListener(IBuildBoardView view, BuildModel model) {
-        return new SwitchToConnectKeyPressGizmoListener(view, model);
+    public ActionListener getSwitchToConnectKeyPressListener(IBuildBoardView buildBoardView, IBuildView buildView, BuildModel model) {
+        return new SwitchToConnectKeyPressGizmoListener(buildBoardView, model, buildView);
     }
 
-    public ActionListener getSwitchToConnectKeyReleaseListener(IBuildBoardView view, BuildModel model) {
-        return new SwitchToConnectKeyReleaseGizmoListener(view, model);
+    public ActionListener getSwitchToConnectKeyReleaseListener(IBuildBoardView buildBoardView, IBuildView buildView, BuildModel model) {
+        return new SwitchToConnectKeyReleaseGizmoListener(buildBoardView, model, buildView);
     }
 
     public ActionListener getSwitchToCreateActionListener(ReadGizmo.GizmoType type, IBuildBoardView board, IBuildView view, BuildModel model) {
