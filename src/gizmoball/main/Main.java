@@ -29,7 +29,6 @@ public class Main {
             @Override
             public void run() {
                 GizmoBallView gui = new GizmoBallView(model);
-                gui.getSwitchModeListener().actionPerformed(null);
                 JFrame frame = gui.getGUI();
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setVisible(true);

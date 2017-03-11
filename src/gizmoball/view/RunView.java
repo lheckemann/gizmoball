@@ -1,23 +1,23 @@
 package gizmoball.view;
 
-import gizmoball.controller.KeyTriggerListener;
-import gizmoball.controller.TickListener;
-import gizmoball.controller.ToggleRunningListener;
+import gizmoball.controller.Controller;
 import gizmoball.model.RunModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
-public class RunView extends GameView {
+public class RunView extends GameView implements IRunView {
+    private RunBoardView board;
     private JButton stateBtn;
     private JButton tickBtn;
 
-    public RunView(RunModel model) {
-        TickListener ticks = new TickListener(model, this);
+    public RunView(RunModel model, Controller controller) {
+        ActionListener ticks = controller.getTickListener(model, this);
 
         stateBtn = new JButton("Run"); // either Run or Stop
         stateBtn.setFocusable(false);
-        stateBtn.addActionListener(new ToggleRunningListener(ticks, this));
+        stateBtn.addActionListener(controller.getToggleRunningListener(ticks, this));
         tickBtn = new JButton("Tick");
         tickBtn.setFocusable(false);
         tickBtn.addActionListener(ticks);
@@ -35,10 +35,11 @@ public class RunView extends GameView {
 
         buttonsPnl.setPreferredSize(new Dimension(this.panelWidth, box.getHeight()));
 
-        board.addKeyListener(new KeyTriggerListener(model));
+        board.addKeyListener(controller.getKeyTriggerListener(model));
         board.setFocusable(true);
     }
 
+    @Override
     public void changeButtonState() {
         if (stateBtn.getText().equals("Run")) {
             stateBtn.setText("Stop");
@@ -51,5 +52,9 @@ public class RunView extends GameView {
 
     public void focus() {
         board.requestFocusInWindow();
+    }
+
+    public void updateBoard() {
+        this.board.updateUI();
     }
 }

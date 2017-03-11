@@ -47,8 +47,16 @@ public interface BuildModel extends ReadModel {
     // TODO
     void addRightFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
 
+    void addRightSpinningFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
+
     // TODO
     void addLeftFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
+
+    void addLeftSpinningFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
+
+    void addSpawner() throws PositionOverlapException, PositionOutOfBoundsException;
+
+    void addSink() throws PositionOverlapException, PositionOutOfBoundsException;
 
     /**
      * Rotates the gizmo at the selected location clockwise.
@@ -130,6 +138,18 @@ public interface BuildModel extends ReadModel {
      * selected Gizmo
      */
     void triggerOnGizmo(ReadGizmo gizmo);
+
+    /***
+     * Connects the bumping of the gizmo at the given location to the triggering of the currently
+     * selected Gizmo.
+     * If there is no Gizmo at this location, this operation will effectively be a no op
+     */
+    void triggerOnGizmoAt(double x, double y);
+
+    /***
+     * Checks if there is something at the given space
+     */
+    boolean notEmpty(double x, double y);
 
     /**
      * Resets all the state related to a particular game.

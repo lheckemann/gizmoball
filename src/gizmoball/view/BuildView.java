@@ -1,69 +1,71 @@
 package gizmoball.view;
 
-import gizmoball.controller.ChangeFrictionListener;
-import gizmoball.controller.ChangeGravityListener;
-import gizmoball.controller.ToggleGizmoChoiceListener;
+import gizmoball.controller.*;
 import gizmoball.model.BuildModel;
+import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
-public class BuildView extends GameView {
+public class BuildView extends GameView implements IBuildView {
+    private BuildBoardView board;
     private BuildModel model;
-
-    private JComboBox<String> gizmoList;
-    private JRadioButton addBtn;
 
     private JTextField gravityTxt;
     private JTextField frictionMUTxt;
     private JTextField frictionMU2Txt;
 
-    public BuildView(BuildModel model) {
+    private double promptedVelocityX = 0;
+    private double promptedVelocityY = 0;
+
+    private Box buttons = new Box(BoxLayout.Y_AXIS);
+    private ButtonGroup actionGroup = new ButtonGroup();
+
+    private void addRadioButton(String label, ActionListener controller) {
+        JRadioButton button = new JRadioButton();
+        button.setFocusable(false);
+        button.setText(label);
+        button.addActionListener(controller);
+        actionGroup.add(button);
+        buttons.add(button);
+    }
+
+    public BuildView(BuildModel model, Controller controller) {
         this.model = model;
 
         box = new Box(BoxLayout.X_AXIS);
-        board = new BuildBoardView(model);
-        JPanel buttonsPnl = new JPanel();
-        buttonsPnl.setLayout(new BoxLayout(buttonsPnl, BoxLayout.Y_AXIS));
+        board = new BuildBoardView(model, controller);
 
-        ButtonGroup bg = new ButtonGroup();
-        JRadioButton moveBtn = new JRadioButton();
-        moveBtn.setText("Move");
-        moveBtn.addActionListener(new ToggleGizmoChoiceListener(this));
-        JRadioButton deleteBtn = new JRadioButton();
-        deleteBtn.setText("Delete");
-        deleteBtn.addActionListener(new ToggleGizmoChoiceListener(this));
-        JRadioButton rotateBtn = new JRadioButton();
-        rotateBtn.setText("Rotate");
-        rotateBtn.addActionListener(new ToggleGizmoChoiceListener(this));
-        JRadioButton connectBtn = new JRadioButton();
-        connectBtn.setText("Connect");
-        connectBtn.addActionListener(new ToggleGizmoChoiceListener(this));
-        addBtn = new JRadioButton();
-        addBtn.setText("Add");
-        addBtn.addActionListener(new ToggleGizmoChoiceListener(this));
-        String[] gizmoTypes = new String[]{"Circle", "Triangle", "Square",
-                "Left Flipper", "Right Flipper", "Ball", "Absorber"};
-        gizmoList = new JComboBox<String>(gizmoTypes);
-        gizmoList.setEnabled(false);
+        addRadioButton("Move", controller.getSwitchToMoveActionListener(this.board, this, this.model));
+        addRadioButton("Delete", controller.getSwitchToDeleteActionListener(this.board, this, this.model));
+        addRadioButton("Rotate", controller.getSwitchToRotateActionListener(this.board, this, this.model));
+        for (GizmoType type : GizmoType.values()) {
+            addRadioButton("Add " + type.toString(), controller.getSwitchToCreateActionListener(type, this.board, this, this.model));
+        }
+
+        addRadioButton("Add ball", controller.getSwitchToAddBallListener(this.board, this, this.model));
+        addRadioButton("Connect Gizmo to Gizmo", controller.getSwitchToConnectGizmosListener(this.board, this, this.model));
+        addRadioButton("Connect keypress to Gizmo", controller.getSwitchToConnectKeyPressListener(this.board, this.model));
+        addRadioButton("Connect key release to Gizmo", controller.getSwitchToConnectKeyReleaseListener(this.board, this.model));
 
         JPanel gravityPnl = new JPanel();
         JLabel gravityLbl = new JLabel("Gravity: ");
         gravityTxt = new JTextField();
         gravityTxt.setColumns(5);
-        gravityTxt.getDocument().addDocumentListener(new ChangeGravityListener(model, this));
+        gravityTxt.getDocument().addDocumentListener(controller.getChangeGravityListener(model, this));
 
         JPanel frictionMUPnl = new JPanel();
         JLabel frictionMULbl = new JLabel("Friction MU: ");
         frictionMUTxt = new JTextField();
         frictionMUTxt.setColumns(5);
-        frictionMUTxt.getDocument().addDocumentListener(new ChangeFrictionListener(model, this));
+        frictionMUTxt.getDocument().addDocumentListener(controller.getChangeFrictionListener(model, this));
 
         JPanel frictionMU2Pnl = new JPanel();
         JLabel frictionMU2Lbl = new JLabel("Friction MU2: ");
         frictionMU2Txt = new JTextField();
         frictionMU2Txt.setColumns(5);
-        frictionMU2Txt.getDocument().addDocumentListener(new ChangeFrictionListener(model, this));
+        frictionMU2Txt.getDocument().addDocumentListener(controller.getChangeFrictionListener(model, this));
 
         gravityPnl.add(gravityLbl);
         gravityPnl.add(gravityTxt);
@@ -72,55 +74,65 @@ public class BuildView extends GameView {
         frictionMU2Pnl.add(frictionMU2Lbl);
         frictionMU2Pnl.add(frictionMU2Txt);
 
-        bg.add(moveBtn);
-        bg.add(deleteBtn);
-        bg.add(rotateBtn);
-        bg.add(connectBtn);
-        bg.add(addBtn);
-        buttonsPnl.add(moveBtn);
-        buttonsPnl.add(moveBtn);
-        buttonsPnl.add(deleteBtn);
-        buttonsPnl.add(rotateBtn);
-        buttonsPnl.add(connectBtn);
-        buttonsPnl.add(addBtn);
-        buttonsPnl.add(gizmoList);
-        buttonsPnl.add(gravityPnl);
-        buttonsPnl.add(frictionMUPnl);
-        buttonsPnl.add(frictionMU2Pnl);
-        buttonsPnl.add(Box.createGlue());
+        buttons.add(gravityPnl);
+        buttons.add(frictionMUPnl);
+        buttons.add(frictionMU2Pnl);
+        buttons.add(Box.createGlue());
 
-        buttonsPnl.setPreferredSize(new Dimension(this.panelWidth, box.getHeight()));
+        buttons.setPreferredSize(new Dimension(this.panelWidth, box.getHeight()));
 
         box.add(board);
-        box.add(buttonsPnl);
-    }
-
-    public void toggleGizmoChoiceVisibility() {
-        if (addBtn.isSelected())
-            gizmoList.setEnabled(true);
-        else
-            gizmoList.setEnabled(false);
+        box.add(buttons);
     }
 
     @Override
     public void updateBoard()
     {
-        this.board.repaint();
+        this.board.updateUI();
 
         gravityTxt.setText(String.valueOf(model.getGravity()));
         frictionMUTxt.setText(String.valueOf(model.getFrictionMu()));
         frictionMU2Txt.setText(String.valueOf(model.getFrictionMu2()));
     }
 
+    //Used to prompt the user to enter a velocity value
+    @Override
+    public void promptVelocity() {
+        JTextField velocityXField = new JTextField("0");
+        JTextField velocityYField = new JTextField("0");
+        Object[] message = {"Enter the velocity x value: ", velocityXField,
+                            "Enter the velocity y value: ", velocityYField};
+        JOptionPane.showConfirmDialog(null, message, "Set ball velocity", JOptionPane.OK_OPTION);
+        this.promptedVelocityX = Double.parseDouble(velocityXField.getText());
+        this.promptedVelocityY = Double.parseDouble(velocityYField.getText());
+    }
+
+    //Gets the x value for velocity entered by the user
+    //The default value if no prompt has been made is 0
+    @Override
+    public double getPromptedVelocityX() {
+        return this.promptedVelocityX;
+    }
+
+    //Gets the y value for velocity entered by the user
+    //The default value if no prompt has been made is 0
+    @Override
+    public double getPromptedVelocityY() {
+        return this.promptedVelocityY;
+    }
+
     // no checks are being made (text must be a number)
+    @Override
     public String getGravityText() {
         return gravityTxt.getText();
     }
 
+    @Override
     public String getFrictionMuText() {
         return frictionMUTxt.getText();
     }
 
+    @Override
     public String getFrictionMu2Text() {
         return frictionMU2Txt.getText();
     }

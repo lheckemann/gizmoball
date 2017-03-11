@@ -1,13 +1,23 @@
 package gizmoball.view;
-import java.awt.*;
 
+import java.awt.*;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.EventListener;
+
+import gizmoball.controller.*;
 import gizmoball.model.BuildModel;
+import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 
 import javax.swing.*;
 
-public class BuildBoardView extends BoardView {
-    public BuildBoardView(BuildModel model) {
+public class BuildBoardView extends BoardView implements IBuildBoardView {
+    private Controller controller;
+
+    public BuildBoardView(BuildModel model, Controller controller) {
         super(model);
+        this.controller = controller;
 
         this.setBorder(BorderFactory.createLineBorder(Color.red, 4));
     }
@@ -24,5 +34,77 @@ public class BuildBoardView extends BoardView {
             g.drawLine(0, y, getWidth(), y);
 
         super.paintGizmos(g);
+    }
+    
+    private void clearListeners() {
+        for (MouseListener m: this.getMouseListeners()) {
+            this.removeMouseListener(m);
+        }
+        
+        for (MouseMotionListener m: this.getMouseMotionListeners()) {
+            this.removeMouseMotionListener(m);
+        }
+        
+        for (KeyListener k: this.getKeyListeners()) {
+            this.removeKeyListener(k);
+        }
+    }
+
+    @Override
+    public void switchToAddGizmo(GizmoType type, IBuildView view, BuildModel model) {
+        this.clearListeners();
+        EventListener createGizmoListener = controller.getCreateGizmoListener(type, view, model);
+        this.addMouseListener((MouseListener) createGizmoListener);
+        this.addMouseMotionListener((MouseMotionListener) createGizmoListener);
+    }
+
+    @Override
+    public void switchToRotate(IBuildView view, BuildModel model) {
+        this.clearListeners();
+        this.addMouseListener(controller.getRotateActionListener(view, model));
+    }
+
+    @Override
+    public void switchToDelete(IBuildView view, BuildModel model) {
+        this.clearListeners();
+        this.addMouseListener(controller.getDeleteGizmoListener(view, model));
+    }
+
+    @Override
+    public void switchToMove(IBuildView view, BuildModel model) {
+        this.clearListeners();
+        this.addMouseListener(controller.getMoveGizmoListener(view, model));
+    }
+
+    @Override
+    public void switchToConnectGizmos(IBuildView view, BuildModel model) {
+        this.clearListeners();
+        this.addMouseListener(controller.getConnectGizmosListener(view, model));
+    }
+
+    @Override
+    public void switchToConnectKeyPressGizmo(BuildModel model) {
+        this.clearListeners();
+        EventListener keyPressGizmoListener = controller.getConnectKeyPressGizmoListener(model);
+        this.addKeyListener((KeyListener) keyPressGizmoListener);
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+        this.addMouseListener((MouseListener) keyPressGizmoListener);
+    }
+
+    @Override
+    public void switchToConnectKeyReleaseGizmo(BuildModel model) {
+        this.clearListeners();
+        EventListener keyReleaseGizmoListener = controller.getConnectKeyReleaseGizmoListener(model);
+        this.addKeyListener((KeyListener) keyReleaseGizmoListener);
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+        this.addMouseListener((MouseListener)keyReleaseGizmoListener);
+    }
+
+    @Override
+    public void switchToAddBall(IBuildView view, BuildModel model) {
+        this.clearListeners();
+        this.addMouseListener(controller.getAddBallListener(view, model));
     }
 }

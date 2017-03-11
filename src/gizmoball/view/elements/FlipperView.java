@@ -8,8 +8,6 @@ import java.awt.geom.RoundRectangle2D;
 
 
 public class FlipperView {
-
-
     public static void paint(Graphics2D graphics, ReadGizmo flipper) {
         graphics.setColor(Color.ORANGE);
 

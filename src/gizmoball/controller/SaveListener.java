@@ -4,27 +4,26 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-
 import gizmoball.model.Model;
+import gizmoball.view.IGizmoBallView;
 
 public class SaveListener implements ActionListener {
-
     private Model model;
-    public SaveListener(Model model) {
+    private final IGizmoBallView view;
+
+    public SaveListener(Model model, IGizmoBallView view) {
         this.model = model;
+        this.view = view;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
-            if (JFileChooser.APPROVE_OPTION == chooser.showSaveDialog(null)) {
-                model.save(new FileOutputStream(chooser.getSelectedFile()));
+            File newFile = view.getFileByChooserSave();
+            if(newFile != null) {
+                model.save(new FileOutputStream(newFile));
             }
         } catch (FileNotFoundException fnfe) {
-            JOptionPane.showMessageDialog(null, fnfe.getMessage(), "File not found", JOptionPane.ERROR_MESSAGE);
-            //fnfe.printStackTrace();
+            view.displayErrorMessage(fnfe.getMessage(), "File not found");
         }
     }
 }
