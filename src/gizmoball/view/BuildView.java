@@ -28,6 +28,8 @@ public class BuildView extends GameView implements IBuildView {
         button.setText(label);
         button.addActionListener(controller);
         button.setAlignmentX(Component.LEFT_ALIGNMENT);
+        displayLabel.setForeground(Color.RED);
+        displayLabel.setFont(new Font("Serif", Font.PLAIN, 17));
         actionGroup.add(button);
         buttons.add(button);
     }
