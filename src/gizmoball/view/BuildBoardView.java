@@ -19,7 +19,7 @@ public class BuildBoardView extends BoardView implements IBuildBoardView {
         super(model);
         this.controller = controller;
 
-        this.setBorder(BorderFactory.createLineBorder(Color.red, 4));
+        this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
     }
 
     @Override
@@ -35,16 +35,16 @@ public class BuildBoardView extends BoardView implements IBuildBoardView {
 
         super.paintGizmos(g);
     }
-    
+
     private void clearListeners() {
         for (MouseListener m: this.getMouseListeners()) {
             this.removeMouseListener(m);
         }
-        
+
         for (MouseMotionListener m: this.getMouseMotionListeners()) {
             this.removeMouseMotionListener(m);
         }
-        
+
         for (KeyListener k: this.getKeyListeners()) {
             this.removeKeyListener(k);
         }
