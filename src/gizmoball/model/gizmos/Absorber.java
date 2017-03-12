@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 import gizmoball.model.Ball;
 
-public class Absorber extends Gizmo {
+public class Absorber extends BaseGizmo {
     private final int width;
     private final int height;
     private Set<Ball> balls;
@@ -22,19 +22,22 @@ public class Absorber extends Gizmo {
         this.balls = new HashSet<Ball>();
     }
 
+    @Override
     public GizmoType getType() {
         return GizmoType.ABSORBER;
     }
 
+    @Override
     public int getWidth() {
         return this.width;
     }
 
+    @Override
     public int getHeight() {
         return this.height;
     }
 
-    //@Override
+    @Override
     public Set<LineSegment> getLineSegments() {
         return Collections.unmodifiableSet(
             Stream.of(
@@ -47,10 +50,8 @@ public class Absorber extends Gizmo {
     }
 
     @Override
-    /*
-     * Makes the absorber fire a single ball
-     */
     public Ball trigger() {
+        // Makes the absorber fire a single ball
         if (balls.size() > 0) {
             Ball ball = this.balls.iterator().next();
             this.balls.remove(ball);
@@ -60,6 +61,7 @@ public class Absorber extends Gizmo {
         return null;
     }
 
+    @Override
     public boolean containsBall(Ball ball) {
         return this.getX() <= ball.getX() &&
                ball.getX() < this.getX() + this.getWidth() &&
@@ -67,6 +69,7 @@ public class Absorber extends Gizmo {
                ball.getY() < this.getY() + this.getHeight();
     }
 
+    @Override
     public Ball ballHit(Ball ball) {
         ball.setVelocity(new Vect(0, 0));
         ball.setPosition(new Vect(this.getX() + width - 0.25 - Ball.RADIUS,

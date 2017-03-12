@@ -7,125 +7,43 @@ import physics.*;
 
 import gizmoball.model.*;
 
-public abstract class Gizmo implements ReadGizmo {
-    private Rotation rotation;
-    private int x;
-    private int y;
+public interface Gizmo extends ReadGizmo {
+    // TODO
+    public void rotate();
 
-    public Gizmo() {
-        this.rotation = Rotation.NORTH;
-        this.x = 0;
-        this.y = 0;
-    }
+    // TODO
+    public void setX(int x);
 
-    public Rotation getRotation() {
-        return this.rotation;
-    }
+    // TODO
+    public void setY(int y);
 
-    public void rotate() {
-        this.rotation = this.rotation.nextCW();
-    }
+    // TODO
+    public void tick();
 
-    public abstract GizmoType getType();
+    // TODO
+    public Ball trigger();
 
-    public abstract int getWidth();
+    // TODO
+    public double getReflectionCoefficient();
 
-    public abstract int getHeight();
-
-    public int getX() {
-        return this.x;
-    }
-
-    public int getY() {
-        return this.y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void tick() {
-    }
-
-    public double getReflectionCoefficient() {
-        return 1.0;
-    }
-
-    public Ball trigger() {
-        return null;
-    }
-
+    // TODO
     public abstract Set<LineSegment> getLineSegments();
 
+    // TODO
     public abstract Set<physics.Circle> getCircles();
 
-    public boolean containsBall(Ball ball) {
-        return false;
-    }
+    // TODO
+    public boolean containsBall(Ball ball);
 
-    public Ball ballHit(Ball ball) {
-        return ball;
-    }
+    // TODO
+    public Ball ballHit(Ball ball);
 
-    @Override
-    public AffineTransform getTransform() {
-        int m00, m01, m02, m10, m11, m12;
-        m00 = m01 = m02 = m10 = m11 = m12 = 0;
-        switch (this.getRotation()) {
-            case NORTH:
-                m00 =  1; m01 =  0; m02 = this.getX();
-                m10 =  0; m11 =  1; m12 = this.getY();
-                break;
-            case EAST:
-                m00 =  0; m01 = -1; m02 = this.getHeight() + this.getX();
-                m10 =  1; m11 =  0; m12 = this.getY();
-                break;
-            case SOUTH:
-                m00 = -1; m01 =  0; m02 = this.getWidth() + this.getX();
-                m10 =  0; m11 =  -1; m12 = this.getHeight() + this.getY();
-                break;
-            case WEST:
-                m00 =  0; m01 =  1; m02 = this.getX();
-                m10 = -1; m11 =  0; m12 = this.getWidth() + this.getY();
-                break;
-        }
-        return new AffineTransform(m00, m10, m01, m11, m02, m12);
-    }
+    // TODO
+    public Vect getPivot();
 
-    public Vect getPivot() {
-        return new Vect(0, 0);
-    }
+    // TODO
+    public Double getAngularVelocity();
 
-    public Double getAngularVelocity() {
-        return 0d;
-    }
-
-    public Set<Vect> getCells() {
-        Set<Vect> cells = new HashSet<>();
-        for (int x = 0; x < this.getWidth(); x++) {
-            for (int y = 0; y < this.getHeight(); y++) {
-                cells.add(new Vect(this.getX() + x, this.getY() + y));
-            }
-        }
-        return cells;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (null == obj) {
-            return false;
-         }
-        if (!(obj instanceof ReadGizmo)) {
-            return false;
-        }
-        ReadGizmo other = (ReadGizmo) obj;
-        return (this.getX() == other.getX() && this.getY() == other.getY());
-    }
+    // TODO
+    public Set<Vect> getCells();
 }

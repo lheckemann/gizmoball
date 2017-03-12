@@ -7,7 +7,7 @@ import physics.Circle;
 import java.util.Collections;
 import java.util.Set;
 
-public class Spawner extends Gizmo {
+public class Spawner extends BaseGizmo {
     @Override
     public GizmoType getType() {
         return GizmoType.SPAWNER;

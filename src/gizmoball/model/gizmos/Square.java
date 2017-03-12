@@ -8,15 +8,18 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Square extends Gizmo {
+public class Square extends BaseGizmo {
+    @Override
     public GizmoType getType() {
         return GizmoType.SQUARE;
     }
 
+    @Override
     public int getWidth() {
         return 1;
     }
 
+    @Override
     public int getHeight() {
         return 1;
     }

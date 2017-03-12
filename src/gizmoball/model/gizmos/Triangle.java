@@ -8,15 +8,18 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Triangle extends Gizmo {
+public class Triangle extends BaseGizmo {
+    @Override
     public GizmoType getType() {
         return GizmoType.TRIANGLE;
     }
 
+    @Override
     public int getWidth() {
         return 1;
     }
 
+    @Override
     public int getHeight() {
         return 1;
     }

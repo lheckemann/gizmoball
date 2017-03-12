@@ -12,7 +12,7 @@ public enum Rotation {
     public int getTurns() {
         return this.turns;
     }
-    
+
     public Rotation nextCW() {
         switch(this) {
             case NORTH: return EAST;
