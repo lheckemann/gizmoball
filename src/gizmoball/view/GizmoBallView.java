@@ -86,8 +86,8 @@ public class GizmoBallView implements IGizmoBallView {
         this.modeBtn.setText("Build");
         gamePanel.removeAll();
         gameView = runView;
-        runView.focus();
         gamePanel.add(gameView.getBox());
+        runView.focus();
         frame.pack();
         this.frame.repaint();
     }
