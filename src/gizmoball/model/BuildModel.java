@@ -3,6 +3,7 @@ package gizmoball.model;
 import java.util.Map;
 import java.util.Set;
 
+import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
 
 public interface BuildModel extends ReadModel {
@@ -35,95 +36,13 @@ public interface BuildModel extends ReadModel {
     void delete();
 
     /**
-     * Adds an absorber with the given width and height to the selected
-     * location.
+     * Adds the given gizmo to the selected location.
      * @throws PositionOverlapException if the selected location is occupied by
      * another element.
      * @throws PositionOutOfBoundsException if the selected location is outside
      * of the arena.
      */
-    void addAbsorber(int width, int height) throws PositionOverlapException, PositionOutOfBoundsException;
-
-    /**
-     * Adds a square to the selected location.
-     * @throws PositionOverlapException if the selected location is occupied by
-     * another element.
-     * @throws PositionOutOfBoundsException if the selected location is outside
-     * of the arena.
-     */
-    void addSquare() throws PositionOverlapException, PositionOutOfBoundsException;
-
-    /**
-     * Adds a circle to the selected location.
-     * @throws PositionOverlapException if the selected location is occupied by
-     * another element.
-     * @throws PositionOutOfBoundsException if the selected location is outside
-     * of the arena.
-     */
-    void addCircle() throws PositionOverlapException, PositionOutOfBoundsException;
-
-    /**
-     * Adds a triangle to the selected location.
-     * @throws PositionOverlapException if the selected location is occupied by
-     * another element.
-     * @throws PositionOutOfBoundsException if the selected location is outside
-     * of the arena.
-     */
-    void addTriangle() throws PositionOverlapException, PositionOutOfBoundsException;
-
-    /**
-     * Adds a right flipper to the selected location.
-     * @throws PositionOverlapException if the selected location is occupied by
-     * another element.
-     * @throws PositionOutOfBoundsException if the selected location is outside
-     * of the arena.
-     */
-    void addRightFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
-
-    /**
-     * Adds a right spinning flipper to the selected location.
-     * @throws PositionOverlapException if the selected location is occupied by
-     * another element.
-     * @throws PositionOutOfBoundsException if the selected location is outside
-     * of the arena.
-     */
-    void addRightSpinningFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
-
-    /**
-     * Adds a left flipper to the selected location.
-     * @throws PositionOverlapException if the selected location is occupied by
-     * another element.
-     * @throws PositionOutOfBoundsException if the selected location is outside
-     * of the arena.
-     */
-    void addLeftFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
-
-    /**
-     * Adds a left spinning flipper to the selected location.
-     * @throws PositionOverlapException if the selected location is occupied by
-     * another element.
-     * @throws PositionOutOfBoundsException if the selected location is outside
-     * of the arena.
-     */
-    void addLeftSpinningFlipper() throws PositionOverlapException, PositionOutOfBoundsException;
-
-    /**
-     * Adds a spawner to the selected location.
-     * @throws PositionOverlapException if the selected location is occupied by
-     * another element.
-     * @throws PositionOutOfBoundsException if the selected location is outside
-     * of the arena.
-     */
-    void addSpawner() throws PositionOverlapException, PositionOutOfBoundsException;
-
-    /**
-     * Adds a sink to the selected location.
-     * @throws PositionOverlapException if the selected location is occupied by
-     * another element.
-     * @throws PositionOutOfBoundsException if the selected location is outside
-     * of the arena.
-     */
-    void addSink() throws PositionOverlapException, PositionOutOfBoundsException;
+    void addGizmo(Gizmo gizmo) throws PositionOverlapException, PositionOutOfBoundsException;
 
     /**
      * Rotates the gizmo at the selected location clockwise.
@@ -234,19 +153,4 @@ public interface BuildModel extends ReadModel {
      * friction.
      */
     void reset();
-
-    /**
-     * Returns a map from a gizmo to the gizmos it triggers.
-     */
-    Map<ReadGizmo, Set<ReadGizmo>> getGizmoToGizmoMap();
-
-    /**
-     * Returns a map from a key release to the gizmos it triggers.
-     */
-    Map<Integer, Set<ReadGizmo>> getKeyReleaseToGizmoMap();
-
-    /**
-     * Returns a map from a key press to the gizmos it triggers.
-     */
-    Map<Integer, Set<ReadGizmo>> getKeyPressToGizmoMap();
 }

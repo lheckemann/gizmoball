@@ -1,21 +1,20 @@
 package test.gizmos;
 
-import gizmoball.model.Ball;
-import gizmoball.model.gizmos.Flipper;
-import gizmoball.model.gizmos.Gizmo;
-import gizmoball.model.gizmos.ReadGizmo;
-import org.junit.Before;
-import org.junit.Test;
-import physics.Circle;
-import physics.LineSegment;
-import physics.Vect;
-
 import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.junit.Before;
+import org.junit.Test;
 import static org.junit.Assert.*;
+
+import physics.Circle;
+import physics.LineSegment;
+import physics.Vect;
+
+import gizmoball.model.Ball;
+import gizmoball.model.gizmos.*;
 
 public class FlipperTest {
     private Gizmo myLeftFlipper;
@@ -25,8 +24,8 @@ public class FlipperTest {
 
     @Before
     public void setUp() {
-        myLeftFlipper = new Flipper(true);
-        myRightFlipper = new Flipper(false);
+        myLeftFlipper = new StandardFlipper(true);
+        myRightFlipper = new StandardFlipper(false);
     }
 
     @Test

@@ -1,8 +1,7 @@
 package gizmoball.controller;
 
-import gizmoball.model.BuildModel;
-import gizmoball.model.PositionOutOfBoundsException;
-import gizmoball.model.PositionOverlapException;
+import gizmoball.model.*;
+import gizmoball.model.gizmos.*;
 import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 import gizmoball.view.BoardView;
 import gizmoball.view.IBuildView;
@@ -36,31 +35,31 @@ public class CreateGizmoListener extends MouseAdapter implements MouseMotionList
         try {
             switch (type) {
                 case SQUARE:
-                    model.addSquare();
+                    model.addGizmo(new Square());
                     break;
                 case TRIANGLE:
-                    model.addTriangle();
+                    model.addGizmo(new Triangle());
                     break;
                 case CIRCLE:
-                    model.addCircle();
+                    model.addGizmo(new Circle());
                     break;
                 case LEFT_FLIPPER:
-                    model.addLeftFlipper();
+                    model.addGizmo(new StandardFlipper(true));
                     break;
                 case LEFT_SPINNING_FLIPPER:
-                    model.addLeftSpinningFlipper();
+                    model.addGizmo(new SpinningFlipper(true));
                     break;
                 case RIGHT_FLIPPER:
-                    model.addRightFlipper();
+                    model.addGizmo(new StandardFlipper(false));
                     break;
                 case RIGHT_SPINNING_FLIPPER:
-                    model.addRightSpinningFlipper();
+                    model.addGizmo(new SpinningFlipper(false));
                     break;
                 case SPAWNER:
-                    model.addSpawner();
+                    model.addGizmo(new Spawner());
                     break;
                 case SINK:
-                    model.addSink();
+                    model.addGizmo(new Sink());
                     break;
             }
 
@@ -100,7 +99,7 @@ public class CreateGizmoListener extends MouseAdapter implements MouseMotionList
             model.delete();
             model.select(startX, startY);
             try {
-                this.model.addAbsorber(width, height);
+                this.model.addGizmo(new Absorber(width, height));
                 this.oldAbsorberX = startX;
                 this.oldAbsorberY = startY;
                 this.oldAbsorberWidth = width;
@@ -118,7 +117,7 @@ public class CreateGizmoListener extends MouseAdapter implements MouseMotionList
     private void drawOldAbsorber() {
         this.model.select(this.oldAbsorberX, this.oldAbsorberY);
         try {
-            this.model.addAbsorber(this.oldAbsorberWidth, this.oldAbsorberHeight);
+            this.model.addGizmo(new Absorber(this.oldAbsorberWidth, this.oldAbsorberHeight));
         } catch (PositionOverlapException | PositionOutOfBoundsException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

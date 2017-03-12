@@ -3,7 +3,7 @@ package gizmoball.model;
 import java.io.InputStream;
 import java.util.*;
 
-import gizmoball.model.gizmos.ReadGizmo;
+import gizmoball.model.gizmos.*;
 
 public class Loader {
     private static final Set<String> DEPENDENT = new HashSet<>(Arrays.asList(
@@ -98,7 +98,7 @@ public class Loader {
                     if (tokens.size() != 4) {
                         throw error;
                     }
-                    model.addCircle();
+                    model.addGizmo(new Circle());
                     this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
                     return;
 
@@ -107,7 +107,7 @@ public class Loader {
                     if (tokens.size() != 4) {
                         throw error;
                     }
-                    model.addTriangle();
+                    model.addGizmo(new Triangle());
                     this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
                     return;
 
@@ -116,7 +116,7 @@ public class Loader {
                     if (tokens.size() != 4) {
                         throw error;
                     }
-                    model.addSquare();
+                    model.addGizmo(new Square());
                     this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
                     return;
 
@@ -125,7 +125,7 @@ public class Loader {
                     if (tokens.size() != 4) {
                         throw error;
                     }
-                    model.addLeftFlipper();
+                    model.addGizmo(new StandardFlipper(true));
                     this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
                     return;
 
@@ -134,7 +134,7 @@ public class Loader {
                     if (tokens.size() != 4) {
                         throw error;
                     }
-                    model.addRightFlipper();
+                    model.addGizmo(new StandardFlipper(false));
                     this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
                     return;
 
@@ -145,7 +145,7 @@ public class Loader {
                     }
                     Integer x1 = Integer.parseInt(tokens.get(4));
                     Integer y1 = Integer.parseInt(tokens.get(5));
-                    model.addAbsorber(x1 - x, y1 - y);
+                    model.addGizmo(new Absorber(x1 - x, y1 - y));
                     this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
                     return;
 

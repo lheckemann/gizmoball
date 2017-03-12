@@ -1,21 +1,17 @@
 package test.gizmos;
 
-import gizmoball.model.gizmos.Circle;
-import gizmoball.model.gizmos.Flipper;
-import gizmoball.model.gizmos.Gizmo;
-import gizmoball.model.gizmos.ReadGizmo;
-import gizmoball.model.gizmos.Rotation;
-import physics.Vect;
+import java.awt.geom.AffineTransform;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
-import java.awt.geom.AffineTransform;
-import java.util.HashSet;
-import java.util.Set;
+import physics.Vect;
+
+import gizmoball.model.gizmos.*;
 
 public class GizmoTest {
     private Gizmo myLeftFlipper;
@@ -23,8 +19,8 @@ public class GizmoTest {
 
     @Before
     public void setUp() {
-        myLeftFlipper = new Flipper(true);
-        myRightFlipper = new Flipper(false);
+        myLeftFlipper = new StandardFlipper(true);
+        myRightFlipper = new StandardFlipper(false);
     }
 
 

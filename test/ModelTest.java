@@ -1,20 +1,15 @@
 package test;
 
-import gizmoball.model.Model;
-import gizmoball.model.PositionOutOfBoundsException;
-import gizmoball.model.PositionOverlapException;
-import gizmoball.model.ReadBall;
-import gizmoball.model.gizmos.Circle;
-import gizmoball.model.gizmos.ReadGizmo;
-import gizmoball.model.gizmos.Rotation;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.util.Collections;
 import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import org.junit.Before;
+import org.junit.Test;
+
+import gizmoball.model.*;
+import gizmoball.model.gizmos.*;
 
 public class ModelTest {
     private Model myModel;
@@ -31,18 +26,18 @@ public class ModelTest {
             myModel.select(1.5, 1);
             myModel.addBall(0.0, 0.0);
             myModel.select(1, 10);
-            myModel.addTriangle();
+            myModel.addGizmo(new Triangle());
             myModel.rotateGizmo();
             myModel.rotateGizmo();
             myModel.rotateGizmo();
             myModel.select(10, 13);
-            myModel.addCircle();
+            myModel.addGizmo(new Circle());
             myModel.select(5, 18);
-            myModel.addSquare();
+            myModel.addGizmo(new Square());
             myModel.select(10, 18);
-            myModel.addSquare();
+            myModel.addGizmo(new Square());
             myModel.select(15, 18);
-            myModel.addSquare();
+            myModel.addGizmo(new Square());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -191,17 +186,17 @@ public class ModelTest {
     public void addAbsorberUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(10, 11);
 
-        emptyModel.addAbsorber(5, 5);
+        emptyModel.addGizmo(new Absorber(5, 5));
         assertTrue(emptyModel.getGizmos().size() > 0);
     }
 
     @Test(expected=PositionOverlapException.class)
     public void addAbsorberOccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(14, 14);
-        emptyModel.addCircle();
+        emptyModel.addGizmo(new Circle());
 
         emptyModel.select(10, 11);
-        emptyModel.addAbsorber(5, 5);
+        emptyModel.addGizmo(new Absorber(5, 5));
 
         fail();
     }
@@ -209,7 +204,7 @@ public class ModelTest {
     @Test(expected=PositionOutOfBoundsException.class)
     public void addAbsorberOutOfBounds() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(10, 11);
-        emptyModel.addAbsorber(10, 10);
+        emptyModel.addGizmo(new Absorber(10, 10));
 
         fail();
     }
@@ -218,17 +213,17 @@ public class ModelTest {
     public void addSquareUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(10, 11);
 
-        emptyModel.addSquare();
+        emptyModel.addGizmo(new Square());
         assertTrue(emptyModel.getGizmos().size() > 0);
     }
 
     @Test(expected=PositionOverlapException.class)
     public void addSquareOccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(5, 5);
-        emptyModel.addCircle();
+        emptyModel.addGizmo(new Circle());
 
         emptyModel.select(5, 5);
-        emptyModel.addSquare();
+        emptyModel.addGizmo(new Square());
 
         fail();
     }
@@ -236,7 +231,7 @@ public class ModelTest {
     @Test(expected=PositionOutOfBoundsException.class)
     public void addSquareOutOfBounds() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(20, 20);
-        emptyModel.addSquare();
+        emptyModel.addGizmo(new Square());
 
         fail();
     }
@@ -245,17 +240,17 @@ public class ModelTest {
     public void addCircleUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(10, 11);
 
-        emptyModel.addCircle();
+        emptyModel.addGizmo(new Circle());
         assertTrue(emptyModel.getGizmos().size() > 0);
     }
 
     @Test(expected=PositionOverlapException.class)
     public void addCircleOccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(5, 5);
-        emptyModel.addCircle();
+        emptyModel.addGizmo(new Circle());
 
         emptyModel.select(5, 5);
-        emptyModel.addCircle();
+        emptyModel.addGizmo(new Circle());
 
         fail();
     }
@@ -263,7 +258,7 @@ public class ModelTest {
     @Test(expected=PositionOutOfBoundsException.class)
     public void addCircleOutOfBounds() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(20, 20);
-        emptyModel.addCircle();
+        emptyModel.addGizmo(new Circle());
 
         fail();
     }
@@ -272,17 +267,17 @@ public class ModelTest {
     public void addTriangleUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(10, 11);
 
-        emptyModel.addTriangle();
+        emptyModel.addGizmo(new Triangle());
         assertTrue(emptyModel.getGizmos().size() > 0);
     }
 
     @Test(expected=PositionOverlapException.class)
     public void addTriangleOccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(5, 5);
-        emptyModel.addCircle();
+        emptyModel.addGizmo(new Circle());
 
         emptyModel.select(5, 5);
-        emptyModel.addTriangle();
+        emptyModel.addGizmo(new Triangle());
 
         fail();
     }
@@ -290,7 +285,7 @@ public class ModelTest {
     @Test(expected=PositionOutOfBoundsException.class)
     public void addTriangleOutOfBounds() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(20, 20);
-        emptyModel.addTriangle();
+        emptyModel.addGizmo(new Triangle());
 
         fail();
     }
@@ -299,17 +294,17 @@ public class ModelTest {
     public void addRightFlipperUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(10, 11);
 
-        emptyModel.addRightFlipper();
+        emptyModel.addGizmo(new StandardFlipper(false));
         assertTrue(emptyModel.getGizmos().size() > 0);
     }
 
     @Test(expected=PositionOverlapException.class)
     public void addRightFlipperOccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(5, 5);
-        emptyModel.addCircle();
+        emptyModel.addGizmo(new Circle());
 
         emptyModel.select(5, 5);
-        emptyModel.addRightFlipper();
+        emptyModel.addGizmo(new StandardFlipper(false));
 
         fail();
     }
@@ -317,7 +312,7 @@ public class ModelTest {
     @Test(expected=PositionOutOfBoundsException.class)
     public void addRightFlipperOutOfBounds() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(20, 20);
-        emptyModel.addRightFlipper();
+        emptyModel.addGizmo(new StandardFlipper(false));
 
         fail();
     }
@@ -326,17 +321,17 @@ public class ModelTest {
     public void addLeftFlipperUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(10, 11);
 
-        emptyModel.addLeftFlipper();
+        emptyModel.addGizmo(new StandardFlipper(true));
         assertTrue(emptyModel.getGizmos().size() > 0);
     }
 
     @Test(expected=PositionOverlapException.class)
     public void addLeftFlipperOccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(5, 5);
-        emptyModel.addCircle();
+        emptyModel.addGizmo(new Circle());
 
         emptyModel.select(5, 5);
-        emptyModel.addLeftFlipper();
+        emptyModel.addGizmo(new StandardFlipper(true));
 
         fail();
     }
@@ -344,7 +339,7 @@ public class ModelTest {
     @Test(expected=PositionOutOfBoundsException.class)
     public void addLeftFlipperOutOfBounds() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(20, 20);
-        emptyModel.addLeftFlipper();
+        emptyModel.addGizmo(new StandardFlipper(true));
 
         fail();
     }
@@ -388,7 +383,7 @@ public class ModelTest {
     @Test(expected=PositionOverlapException.class)
     public void addBallOccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(5, 5);
-        emptyModel.addCircle();
+        emptyModel.addGizmo(new Circle());
 
         emptyModel.select(5, 5);
         emptyModel.addBall(0, 0);

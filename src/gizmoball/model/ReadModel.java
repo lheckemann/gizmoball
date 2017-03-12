@@ -1,6 +1,7 @@
 package gizmoball.model;
 
 import java.util.Set;
+import java.util.Map;
 
 import gizmoball.model.gizmos.ReadGizmo;
 
@@ -26,4 +27,19 @@ public interface ReadModel {
      * Returns the height of the arena.
      */
     int getHeight();
+
+    /**
+     * Returns a map from a gizmo to the gizmos it triggers.
+     */
+    Map<ReadGizmo, Set<ReadGizmo>> getGizmoToGizmoMap();
+
+    /**
+     * Returns a map from a key release to the gizmos it triggers.
+     */
+    Map<Integer, Set<ReadGizmo>> getKeyReleaseToGizmoMap();
+
+    /**
+     * Returns a map from a key press to the gizmos it triggers.
+     */
+    Map<Integer, Set<ReadGizmo>> getKeyPressToGizmoMap();
 }

@@ -1,6 +1,7 @@
 package gizmoball.main;
 
 import gizmoball.model.Model;
+import gizmoball.model.gizmos.*;
 
 public class PrototypeOne extends Main {
     public static void main(String[] args) {
@@ -8,11 +9,11 @@ public class PrototypeOne extends Main {
         try {
             for (int i = 0; i < 20; i += 4) {
                 model.select(i, i);
-                model.addRightFlipper();
+                model.addGizmo(new StandardFlipper(false));
                 model.triggerOnKeyPress(32);
                 model.triggerOnKeyRelease(32);
                 model.select(i+2, i+2);
-                model.addLeftFlipper();
+                model.addGizmo(new StandardFlipper(true));
                 model.triggerOnKeyPress(32);
                 model.triggerOnKeyRelease(32);
             }

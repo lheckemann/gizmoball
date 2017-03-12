@@ -167,61 +167,12 @@ public class Model implements BuildModel, RunModel {
         }
     }
 
-    private void addGizmo(Gizmo gizmo) throws PositionOverlapException, PositionOutOfBoundsException {
+    @Override
+    public void addGizmo(Gizmo gizmo) throws PositionOverlapException, PositionOutOfBoundsException {
         gizmo.setX((int) this.selX);
         gizmo.setY((int) this.selY);
         this.checkPlacement(gizmo);
         this.gizmos.add(gizmo);
-    }
-
-    @Override
-    public void addAbsorber(int width, int height) throws PositionOverlapException, PositionOutOfBoundsException {
-        addGizmo(new Absorber(width, height));
-    }
-
-    @Override
-    public void addSquare() throws PositionOverlapException, PositionOutOfBoundsException {
-        addGizmo(new Square());
-    }
-
-    @Override
-    public void addCircle() throws PositionOverlapException, PositionOutOfBoundsException {
-        addGizmo(new Circle());
-    }
-
-    @Override
-    public void addTriangle() throws PositionOverlapException, PositionOutOfBoundsException {
-        addGizmo(new Triangle());
-    }
-
-    @Override
-    public void addRightFlipper() throws PositionOverlapException, PositionOutOfBoundsException {
-        addGizmo(new StandardFlipper(false));
-    }
-
-    @Override
-    public void addRightSpinningFlipper() throws PositionOverlapException, PositionOutOfBoundsException {
-        addGizmo(new SpinningFlipper(false));
-    }
-
-    @Override
-    public void addLeftFlipper() throws PositionOverlapException, PositionOutOfBoundsException {
-        addGizmo(new StandardFlipper(true));
-    }
-
-    @Override
-    public void addLeftSpinningFlipper() throws PositionOverlapException, PositionOutOfBoundsException {
-        addGizmo(new SpinningFlipper(true));
-    }
-
-    @Override
-    public void addSpawner() throws PositionOverlapException, PositionOutOfBoundsException {
-        addGizmo(new Spawner());
-    }
-
-    @Override
-    public void addSink() throws PositionOverlapException, PositionOutOfBoundsException {
-        addGizmo(new Sink());
     }
 
     @Override

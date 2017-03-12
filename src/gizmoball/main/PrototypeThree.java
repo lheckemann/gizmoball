@@ -1,6 +1,7 @@
 package gizmoball.main;
 
 import gizmoball.model.Model;
+import gizmoball.model.gizmos.*;
 
 public class PrototypeThree extends Main {
     public static void main(String[] args) {
@@ -9,18 +10,18 @@ public class PrototypeThree extends Main {
             model.select(1.5, 1);
             model.addBall(0.0, 0.0);
             model.select(1, 10);
-            model.addTriangle();
+            model.addGizmo(new Triangle());
             model.rotateGizmo();
             model.rotateGizmo();
             model.rotateGizmo();
             model.select(10, 13);
-            model.addCircle();
+            model.addGizmo(new Circle());
             model.select(5, 18);
-            model.addSquare();
+            model.addGizmo(new Square());
             model.select(10, 18);
-            model.addSquare();
+            model.addGizmo(new Square());
             model.select(15, 18);
-            model.addSquare();
+            model.addGizmo(new Square());
         } catch (Exception e) {
             e.printStackTrace();
         }
