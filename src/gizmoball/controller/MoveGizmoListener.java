@@ -8,16 +8,18 @@ import gizmoball.model.PositionOutOfBoundsException;
 import gizmoball.model.PositionOverlapException;
 import gizmoball.view.BoardView;
 import gizmoball.view.IBuildView;
+import gizmoball.view.CustomCursorType;
 
 public class MoveGizmoListener extends MouseAdapter {
-
     private final BuildModel model;
     private final IBuildView view;
+
     private boolean componentSelected;
 
     public MoveGizmoListener(IBuildView view, BuildModel model) {
         this.model = model;
         this.view = view;
+
         this.componentSelected = false;
     }
 
@@ -40,5 +42,15 @@ public class MoveGizmoListener extends MouseAdapter {
                 componentSelected = true;
             }
         }
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        view.setCursor(CustomCursorType.OPERATIONS);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        view.setCursor(CustomCursorType.DEFAULT);
     }
 }

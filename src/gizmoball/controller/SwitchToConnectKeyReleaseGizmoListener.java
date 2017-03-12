@@ -8,7 +8,6 @@ import gizmoball.view.IBuildBoardView;
 import gizmoball.view.IBuildView;
 
 public class SwitchToConnectKeyReleaseGizmoListener implements ActionListener {
-    
     private IBuildBoardView board;
     private BuildModel model;
     private IBuildView view;
@@ -21,8 +20,7 @@ public class SwitchToConnectKeyReleaseGizmoListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        board.switchToConnectKeyReleaseGizmo(model);
+        board.switchToConnectKeyReleaseGizmo(view, model);
         view.setDisplayLabel("Click on the gizmo you wish to connect to and then press a key to connect to it");
     }
-
 }

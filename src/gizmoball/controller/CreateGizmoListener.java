@@ -5,6 +5,7 @@ import gizmoball.model.gizmos.*;
 import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 import gizmoball.view.BoardView;
 import gizmoball.view.IBuildView;
+import gizmoball.view.CustomCursorType;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
@@ -14,6 +15,7 @@ public class CreateGizmoListener extends MouseAdapter implements MouseMotionList
     private final BuildModel model;
     private final IBuildView view;
     private final GizmoType type;
+
     private double absorberStartX;
     private double absorberStartY;
     private double oldAbsorberX;
@@ -125,9 +127,12 @@ public class CreateGizmoListener extends MouseAdapter implements MouseMotionList
     }
 
     @Override
-    public void mouseMoved(MouseEvent e) {
-
+    public void mouseEntered(MouseEvent e) {
+        view.setCursor(CustomCursorType.GIZMO);
     }
 
-
+    @Override
+    public void mouseExited(MouseEvent e) {
+        view.setCursor(CustomCursorType.DEFAULT);
+    }
 }

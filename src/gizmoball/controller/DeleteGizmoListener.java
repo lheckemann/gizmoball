@@ -6,9 +6,9 @@ import java.awt.event.MouseAdapter;
 import gizmoball.model.BuildModel;
 import gizmoball.view.BoardView;
 import gizmoball.view.IBuildView;
+import gizmoball.view.CustomCursorType;
 
 public class DeleteGizmoListener extends MouseAdapter {
-
     private final BuildModel model;
     private final IBuildView view;
 
@@ -30,5 +30,15 @@ public class DeleteGizmoListener extends MouseAdapter {
     @Override
     public void mouseDragged(MouseEvent e) {
         mouseClicked(e);
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        view.setCursor(CustomCursorType.OPERATIONS);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        view.setCursor(CustomCursorType.DEFAULT);
     }
 }

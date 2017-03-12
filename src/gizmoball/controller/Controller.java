@@ -35,12 +35,12 @@ public class Controller {
         return new ConnectGizmosListener(view, model);
     }
 
-    public EventListener getConnectKeyPressGizmoListener(BuildModel model) {
-        return new ConnectKeyPressGizmoListener(model);
+    public EventListener getConnectKeyPressGizmoListener(IBuildView view, BuildModel model) {
+        return new ConnectKeyPressGizmoListener(view, model);
     }
 
-    public EventListener getConnectKeyReleaseGizmoListener(BuildModel model) {
-        return new ConnectKeyReleaseGizmoListener(model);
+    public EventListener getConnectKeyReleaseGizmoListener(IBuildView view, BuildModel model) {
+        return new ConnectKeyReleaseGizmoListener(view, model);
     }
 
     public EventListener getCreateGizmoListener(ReadGizmo.GizmoType type, IBuildView view, BuildModel model) {

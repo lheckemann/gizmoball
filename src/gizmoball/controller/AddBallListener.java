@@ -8,9 +8,9 @@ import gizmoball.model.PositionOutOfBoundsException;
 import gizmoball.model.PositionOverlapException;
 import gizmoball.view.BoardView;
 import gizmoball.view.IBuildView;
+import gizmoball.view.CustomCursorType;
 
 public class AddBallListener extends MouseAdapter {
-
     private IBuildView view;
     private BuildModel model;
 
@@ -37,5 +37,15 @@ public class AddBallListener extends MouseAdapter {
                 // HANDLE EXCEPTION
             }
         }
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        view.setCursor(CustomCursorType.BALL);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        view.setCursor(CustomCursorType.DEFAULT);
     }
 }

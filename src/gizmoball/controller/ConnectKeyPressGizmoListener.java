@@ -7,14 +7,19 @@ import java.awt.event.MouseListener;
 
 import gizmoball.model.BuildModel;
 import gizmoball.view.BoardView;
+import gizmoball.view.IBuildView;
+import gizmoball.view.CustomCursorType;
 
 public class ConnectKeyPressGizmoListener extends KeyAdapter implements MouseListener {
-    
     private BuildModel model;
+    private final IBuildView view;
+
     private boolean componentSelected;
     
-    public ConnectKeyPressGizmoListener(BuildModel model) {
+    public ConnectKeyPressGizmoListener(IBuildView view, BuildModel model) {
+        this.view = view;
         this.model = model;
+
         this.componentSelected = false;
     }
 
@@ -40,33 +45,27 @@ public class ConnectKeyPressGizmoListener extends KeyAdapter implements MouseLis
     }
 
     @Override
+    public void mouseEntered(MouseEvent e) {
+        view.setCursor(CustomCursorType.OPERATIONS);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        view.setCursor(CustomCursorType.DEFAULT);
+    }
+
+    @Override
     public void mousePressed(MouseEvent e) {
         // TODO Auto-generated method stub
-        
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         // TODO Auto-generated method stub
-        
     }
-
 }

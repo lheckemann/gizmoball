@@ -6,9 +6,9 @@ import java.awt.event.MouseAdapter;
 import gizmoball.model.BuildModel;
 import gizmoball.view.BoardView;
 import gizmoball.view.IBuildView;
+import gizmoball.view.CustomCursorType;
 
 public class RotateGizmoListener extends MouseAdapter {
-
     private final BuildModel model;
     private final IBuildView view;
 
@@ -25,5 +25,15 @@ public class RotateGizmoListener extends MouseAdapter {
         model.select(chosenX, chosenY);
         model.rotateGizmo();
         view.updateBoard();
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        view.setCursor(CustomCursorType.OPERATIONS);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        view.setCursor(CustomCursorType.DEFAULT);
     }
 }

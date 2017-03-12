@@ -83,9 +83,9 @@ public class BuildBoardView extends BoardView implements IBuildBoardView {
     }
 
     @Override
-    public void switchToConnectKeyPressGizmo(BuildModel model) {
+    public void switchToConnectKeyPressGizmo(IBuildView view, BuildModel model) {
         this.clearListeners();
-        EventListener keyPressGizmoListener = controller.getConnectKeyPressGizmoListener(model);
+        EventListener keyPressGizmoListener = controller.getConnectKeyPressGizmoListener(view, model);
         this.addKeyListener((KeyListener) keyPressGizmoListener);
         this.setFocusable(true);
         this.requestFocusInWindow();
@@ -93,9 +93,9 @@ public class BuildBoardView extends BoardView implements IBuildBoardView {
     }
 
     @Override
-    public void switchToConnectKeyReleaseGizmo(BuildModel model) {
+    public void switchToConnectKeyReleaseGizmo(IBuildView view, BuildModel model) {
         this.clearListeners();
-        EventListener keyReleaseGizmoListener = controller.getConnectKeyReleaseGizmoListener(model);
+        EventListener keyReleaseGizmoListener = controller.getConnectKeyReleaseGizmoListener(view, model);
         this.addKeyListener((KeyListener) keyReleaseGizmoListener);
         this.setFocusable(true);
         this.requestFocusInWindow();
