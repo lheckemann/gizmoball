@@ -132,13 +132,11 @@ public class BuildView extends GameView implements IBuildView {
     public void setCursor(CustomCursorType c) {
         switch (c) {
             case BALL:
-                board.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                break;
             case GIZMO:
                 board.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
                 break;
             case OPERATIONS:
-                board.setCursor(new Cursor(Cursor.TEXT_CURSOR));
+                board.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 break;
             case DEFAULT:
                 board.setCursor(Cursor.getDefaultCursor());
