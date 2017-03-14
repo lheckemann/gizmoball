@@ -126,19 +126,4 @@ public abstract class BaseGizmo implements Gizmo {
         }
         return cells;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (null == obj) {
-            return false;
-         }
-        if (!(obj instanceof ReadGizmo)) {
-            return false;
-        }
-        ReadGizmo other = (ReadGizmo) obj;
-        return (this.getX() == other.getX() && this.getY() == other.getY());
-    }
 }
