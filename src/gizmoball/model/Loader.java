@@ -148,7 +148,38 @@ public class Loader {
                     model.addGizmo(new Absorber(x1 - x, y1 - y));
                     this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
                     return;
-
+                case "LeftSpinningFlipper":
+                    error.setMessage("LeftSpinningFlipper <identifier> <int> <int>");
+                    if (tokens.size() != 4) {
+                        throw error;
+                    }
+                    model.addGizmo(new SpinningFlipper(true));
+                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
+                    return;
+                case "RightSpinningFlipper":
+                    error.setMessage("RightSpinningFlipper <identifier> <int> <int>");
+                    if (tokens.size() != 4) {
+                        throw error;
+                    }
+                    model.addGizmo(new SpinningFlipper(false));
+                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
+                    return;
+                case "Sink":
+                    error.setMessage("Sink <identifier> <int> <int>");
+                    if (tokens.size() != 4) {
+                        throw error;
+                    }
+                    model.addGizmo(new Sink());
+                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
+                    return;
+                case "Spawner":
+                    error.setMessage("Spawner <identifier> <int> <int>");
+                    if (tokens.size() != 4) {
+                        throw error;
+                    }
+                    model.addGizmo(new Spawner());
+                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
+                    return;
                 default:
                     throw error;
             }
