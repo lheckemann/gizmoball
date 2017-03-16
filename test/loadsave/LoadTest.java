@@ -1,11 +1,14 @@
-package test.loadsave;
+package loadsave;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,33 +25,7 @@ public class LoadTest {
 
     private Model model;
     private final String TEST_FILE_FOLDER_PREFIX = "test/loadsave/testFiles/";
-    private InputStream fileIncorrectBallSyntax = loadFile(TEST_FILE_FOLDER_PREFIX + "fileIncorrectBallSyntax");
-    private InputStream fileIncorrectFlipperSyntax = loadFile(TEST_FILE_FOLDER_PREFIX + "fileIncorrectFlipperSyntax");
-    private InputStream fileIncorrectSquareSyntax = loadFile(TEST_FILE_FOLDER_PREFIX + "fileIncorrectSquareSyntax");
-    private InputStream fileIncorrectTriangleSyntax = loadFile(TEST_FILE_FOLDER_PREFIX + "fileIncorrectTriangleSyntax");
-    private InputStream fileIncorrectCircleSyntax = loadFile(TEST_FILE_FOLDER_PREFIX + "fileIncorrectCircleSyntax");
-    private InputStream fileIncorrectAbsorberSyntax = loadFile(TEST_FILE_FOLDER_PREFIX + "fileIncorrectAbsorberSyntax");
-    private InputStream fileIncorrectDeleteSyntax = loadFile(TEST_FILE_FOLDER_PREFIX + "fileIncorrectDeleteSyntax");
-    private InputStream fileIncorrectMoveSyntax = loadFile(TEST_FILE_FOLDER_PREFIX + "fileIncorrectMoveSyntax");
-    private InputStream fileIncorrectConnectSyntax = loadFile(TEST_FILE_FOLDER_PREFIX + "fileIncorrectConnectSyntax");
-    private InputStream fileIncorrectKeyConnectSyntax = loadFile(TEST_FILE_FOLDER_PREFIX + "fileIncorrectKeyConnectSyntax");
-    private InputStream fileIncorrectGravitySyntax = loadFile(TEST_FILE_FOLDER_PREFIX + "fileIncorrectGravitySyntax");
-    private InputStream fileIncorrectFrictionSyntax = loadFile(TEST_FILE_FOLDER_PREFIX + "fileIncorrectFrictionSyntax");
-    
-    private InputStream fileValidGizmoDeclarations = loadFile(TEST_FILE_FOLDER_PREFIX + "fileValidGizmoDeclarations");
-    private InputStream fileCheckLastGravityAndFrictionUsed = loadFile(TEST_FILE_FOLDER_PREFIX + "fileCheckLastGravityAndFrictionUsed");
-    private InputStream fileDeleteCommandUndeclaredObject = loadFile(TEST_FILE_FOLDER_PREFIX + "fileDeleteCommandUndeclaredObject");
-    private InputStream fileRotateCommandUndeclaredObject = loadFile(TEST_FILE_FOLDER_PREFIX + "fileRotateCommandUndeclaredObject");
-    private InputStream fileMoveCommandUndeclaredObject = loadFile(TEST_FILE_FOLDER_PREFIX + "fileMoveCommandUndeclaredObject");
-    private InputStream fileConnectCommandBothUndeclaredObject = loadFile(TEST_FILE_FOLDER_PREFIX + "fileConnectCommandBothUndeclaredObject");
-    private InputStream fileConnectCommandOneUndeclaredObject = loadFile(TEST_FILE_FOLDER_PREFIX + "fileConnectCommandOneUndeclaredObject");
-    private InputStream fileCheckAllDeleteCommandsPerformedOneObjectLeft = loadFile(TEST_FILE_FOLDER_PREFIX + "fileCheckAllDeleteCommandsPerformedOneObjectLeft");
-    private InputStream fileCheckAllDeleteCommandsResultInNoObjects = loadFile(TEST_FILE_FOLDER_PREFIX + "fileCheckAllDeleteCommandsResultInNoObjects");
-    
-    private InputStream fileCheckValidMoveCommandWorksCorrectly = loadFile(TEST_FILE_FOLDER_PREFIX + "fileCheckValidMoveCommandWorksCorrectly");
-    private InputStream fileCheckRotateCommandsOnNonAbsorberGizmoWorksCorrectly = loadFile(TEST_FILE_FOLDER_PREFIX + "fileCheckRotateCommandsOnNonAbsorberGizmosWorksCorrectly");
-    private InputStream fileCheckRotateCommandOnAsborberThrowsError = loadFile(TEST_FILE_FOLDER_PREFIX + "fileCheckRotateCommandOnAbsorberThrowsError");
-    private InputStream fileCheckRotateCommandOnBallThrowsError = loadFile(TEST_FILE_FOLDER_PREFIX + "fileCheckRotateCommandOnBallThrowsError");
+   
     @Before
     public void setUp() {
         this.model = new Model(20, 20);
@@ -68,7 +45,9 @@ public class LoadTest {
     @Test
     public void loadExistingFileWithIncorrectBallDeclarationSyntax() {
         try {
-            this.model.load(fileIncorrectBallSyntax);
+            String testString = "Ball 0.1 0 3 fhdjfhdjfhdf\\n";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -78,7 +57,9 @@ public class LoadTest {
     @Test 
     public void loadFileWithIncorrectFlipperDeclarationSyntax() {
         try {
-            this.model.load(fileIncorrectFlipperSyntax);
+            String testString = "LeftFlipper RF0 3\\n";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -88,7 +69,9 @@ public class LoadTest {
     @Test
     public void loadFileWithIncorrectSquareDeclarationSyntax() {
         try {
-            this.model.load(fileIncorrectSquareSyntax);
+            String testString = "Square 0.1 0 3 fhdjfhdjfhdf\\n";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -98,7 +81,9 @@ public class LoadTest {
     @Test
     public void loadFileWithIncorrectTriangleDeclarationSyntax() {
         try {
-            this.model.load(fileIncorrectTriangleSyntax);
+            String testString = "Triangle S0 0.1 0\\n";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -108,7 +93,9 @@ public class LoadTest {
     @Test
     public void loadFileWithIncorrectCircleDeclarationSyntax() {
         try {
-            this.model.load(fileIncorrectCircleSyntax);
+            String testString = "Circle C0 fkfjdf jfkdjf\\n";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -118,7 +105,9 @@ public class LoadTest {
     @Test
     public void loadFileWithIncorrectAbsorberDeclarationSyntax() {
         try {
-            this.model.load(fileIncorrectAbsorberSyntax);
+            String testString = "Absorber 0.1 0 3 3\\n";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -128,7 +117,15 @@ public class LoadTest {
     @Test
     public void loadValidFileCheckAllDeclarationCommandsArePerformed() {
         try {
-            this.model.load(fileValidGizmoDeclarations);
+            String testString = "Ball B0 0 0 0 0\n"
+                    + "Square S0 1 1\n"
+                    + "Circle C0 2 2\n"
+                    + "Triangle T0 3 3\n"
+                    + "LeftFlipper LF0 4 4\n"
+                    + "RightFlipper RF0 6 6\n"
+                    + "Absorber A0 0 19 20 20";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             if (this.model.getGizmos().size() != 6) {
                 fail();
             }
@@ -208,7 +205,10 @@ public class LoadTest {
     @Test
     public void loadFileWithIncorrectDeleteSyntax() {
         try {
-            this.model.load(fileIncorrectDeleteSyntax);
+            String testString = "Square S0 0 0\n"
+                    + "Delete S0 fdfkjdf";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -218,7 +218,10 @@ public class LoadTest {
     @Test
     public void loadFileWithIncorrectMoveSyntax() {
         try {
-            this.model.load(fileIncorrectMoveSyntax);
+            String testString = "Square S0 0 0\n"
+                    + "Move S0 fjdffjk";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -228,7 +231,10 @@ public class LoadTest {
     @Test
     public void loadFileWithIncorrectConnectSyntax() {
         try {
-            this.model.load(fileIncorrectConnectSyntax);
+            String testString = "Square S0 0 0\n"
+                    + "Connect S0 S0 jfkdjff\n";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -238,7 +244,10 @@ public class LoadTest {
     @Test
     public void loadFileWithIncorrectKeyConnectSyntax() {
         try {
-            this.model.load(fileIncorrectKeyConnectSyntax);
+            String testString = "Square S0 0 0\n"
+                    + "KeyConnect S0 djksjf fjkfjf jf";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -248,7 +257,9 @@ public class LoadTest {
     @Test
     public void loadFileWithIncorrectGravitySyntax() {
         try {
-            this.model.load(fileIncorrectGravitySyntax);
+            String testString = "Gravity fjdfhdf\n";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -258,7 +269,9 @@ public class LoadTest {
     @Test
     public void loadFileWithIncorrectFrictionSyntax() {
         try {
-            this.model.load(fileIncorrectFrictionSyntax);
+            String testString = "Fricition fdjfhdf jfjdhfd\n";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -268,7 +281,9 @@ public class LoadTest {
     @Test
     public void checkDeleteCommandWithUndeclaredObjectThrowsError() {
         try {
-            this.model.load(fileDeleteCommandUndeclaredObject);
+            String testString = "Delete S0\n";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -278,7 +293,9 @@ public class LoadTest {
     @Test 
     public void checkRotateCommandWithUndeclaredObjectThrowsError() {
         try {
-            this.model.load(fileRotateCommandUndeclaredObject);
+            String testString = "Rotate S0\n";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -288,7 +305,9 @@ public class LoadTest {
     @Test
     public void checkMoveCommandWithUndeclaredObjectThrowsError() {
         try {
-            this.model.load(fileMoveCommandUndeclaredObject);
+            String testString = "Move C0\n";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -299,7 +318,9 @@ public class LoadTest {
     @Test
     public void checkConnectCommandWithBothUndeclaredObjectsThrowsError() {
         try {
-            this.model.load(fileConnectCommandBothUndeclaredObject);
+            String testString = "Connect C0 T1\n";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -310,7 +331,10 @@ public class LoadTest {
     @Test
     public void checkConnectCommandWithOneUndeclaredObjectThrowsError() {
         try {
-            this.model.load(fileConnectCommandOneUndeclaredObject);
+            String testString = "Square S0\n"
+                    + "Connect S0 LF5";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -322,12 +346,18 @@ public class LoadTest {
     @Test
     public void checkAllDeleteCommandsPerformedOneObjectLeft() {
         try {
-            this.model.load(fileCheckAllDeleteCommandsPerformedOneObjectLeft);
+            String testString = "Ball B0 0 0 0 0\n"
+                    + "Square S0 1 1\n"
+                    + "Triangle T1 5 5\n"
+                    + "Delete B0\n"
+                    + "Delete T1\n";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             if (this.model.getGizmos().size() != 1 || this.model.getBalls().size() != 0) {
                 fail();
             }
             
-            if (this.model.getGizmos().iterator().next().getType().equals(GizmoType.CIRCLE)) {
+            if (this.model.getGizmos().iterator().next().getType().equals(GizmoType.SQUARE)) {
                 assertTrue(true);
             } else {
                 fail();
@@ -340,7 +370,14 @@ public class LoadTest {
     @Test
     public void checkLoadWhereAllDeleteCommandsResultInNoObjects() {
         try {
-            this.model.load(fileCheckAllDeleteCommandsResultInNoObjects);
+            String testString = "Ball B0 0.0 0.0 0.0 0.0\n"
+                    + "Square S0 1 1\n"
+                    + "Triangle T1 5 5\n"
+                    + "Delete B0\n"
+                    + "Delete T1\n"
+                    + "Delete S0";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             if (this.model.getGizmos().size() != 0 || this.model.getBalls().size() != 0) {
                 fail();
             }
@@ -348,6 +385,7 @@ public class LoadTest {
                 assertTrue(true);
             }
         } catch (SyntaxError e) {
+            System.out.println(e.getMessage());
             fail();
         }
     }
@@ -355,78 +393,19 @@ public class LoadTest {
     @Test
     public void checkValidMoveCommandWorksCorrectly() {
         try {
-            this.model.load(fileCheckValidMoveCommandWorksCorrectly);
-            if (this.model.getGizmos().size() != 6) {
+            String testString = "Triangle T0 0 0\n"
+                    + "Move T0 1 1";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
+            
+            int numberOfGizmos = model.getGizmos().size();
+            ReadGizmo gizmo = model.getGizmos().iterator().next();
+            if (numberOfGizmos == 1  && gizmo.getType().equals(GizmoType.TRIANGLE) && gizmo.getX() == 1 && gizmo.getY() == 1)  {
+                assertTrue(true);
+            }
+            else {
                 fail();
             }
-            for (ReadGizmo gizmo: this.model.getGizmos()) {
-                switch (gizmo.getType()) {
-                    case TRIANGLE:
-                        if (gizmo.getX() == 3 && gizmo.getY() == 4) {
-                           
-                        }
-                        else {
-                            fail();
-                        }
-                        break;
-                    case SQUARE:
-                        if (gizmo.getX() == 0 && gizmo.getY() == 0) {
-                            
-                        }
-                        else {
-                            fail();
-                        }
-                        break;
-                    case CIRCLE:
-                        if (gizmo.getX() == 6 && gizmo.getY() == 5) {
-                            
-                        }
-                        else {
-                            fail();
-                        }
-                        break;
-                    case LEFT_FLIPPER:
-                        if (gizmo.getX() == 7 && gizmo.getY() == 4) {
-                    
-                        }
-                        else {
-                            fail();
-                        }
-                        break;
-                    case RIGHT_FLIPPER:
-                        if (gizmo.getX() == 0 && gizmo.getY() == 6) {
-                           
-                        }
-                        else {
-                            fail();
-                        }
-                        break;
-                    case ABSORBER:
-                        if (gizmo.getX() == 0 && gizmo.getY() == 9 && gizmo.getWidth() == 20 && gizmo.getHeight() == 1) {
-                          
-                        }
-                        else {
-                            fail();
-                        }
-                        break;
-                    default:
-                        fail();
-                }
-            }
-          
-            if (this.model.getBalls().size() != 1) {
-                fail();
-            }
-            
-            for (ReadBall ball: this.model.getBalls()) {
-                if (ball.getX() == 6.5 && ball.getY() == 0.0 && ball.getVelocityX() == 0 && ball.getVelocityY() == 0) {
-                }
-                else {
-                    fail();
-                }
-            }
-            
-            assertTrue(true);
         } catch (SyntaxError e) {
             fail();
         }
@@ -435,58 +414,19 @@ public class LoadTest {
     @Test
     public void checkRotateCommandsOnNonAbsorberGizmoWorksCorrectly() {
         try {
-            this.model.load(this.fileCheckRotateCommandsOnNonAbsorberGizmoWorksCorrectly);
-            if (this.model.getGizmos().size() != 5) {
+            String testString = "Triangle T0 0 19\n"
+                    + "Rotate T0";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
+            
+            int numberOfGizmos = model.getGizmos().size();
+            ReadGizmo gizmo = model.getGizmos().iterator().next();
+            if (numberOfGizmos == 1  && gizmo.getType().equals(GizmoType.TRIANGLE) && gizmo.getRotation().equals(Rotation.EAST))  {
+                assertTrue(true);
+            }
+            else {
                 fail();
             }
-            for (ReadGizmo gizmo: this.model.getGizmos()) {
-                switch (gizmo.getType()) {
-                    case TRIANGLE:
-                        if (gizmo.getRotation() == Rotation.SOUTH) {
-                           
-                        }
-                        else {
-                            fail();
-                        }
-                        break;
-                    case SQUARE:
-                        if (gizmo.getRotation() == Rotation.EAST) {
-                            
-                        }
-                        else {
-                            fail();
-                        }
-                        break;
-                    case CIRCLE:
-                        if (gizmo.getRotation() == Rotation.SOUTH) {
-                            
-                        }
-                        else {
-                            fail();
-                        }
-                        break;
-                    case LEFT_FLIPPER:
-                        if (gizmo.getRotation() == Rotation.WEST) {
-                    
-                        }
-                        else {
-                            fail();
-                        }
-                        break;
-                    case RIGHT_FLIPPER:
-                        if (gizmo.getRotation() == Rotation.EAST) {
-                           
-                        }
-                        else {
-                            fail();
-                        }
-                        break;
-                    default:
-                        fail();
-                }
-            }
-            
-            assertTrue(true);
         } catch (SyntaxError e) {
             fail();
         }
@@ -495,7 +435,11 @@ public class LoadTest {
     @Test 
     public void checkRotateCommandsOnAbsorberThrowsError() {
         try {
-            model.load(fileCheckRotateCommandOnAsborberThrowsError);
+            String testString = "Absorber A0 0 19 20 20\n"
+                    + "Rotate A0";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
+           
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -505,18 +449,28 @@ public class LoadTest {
     @Test 
     public void checkRotateCommandsOnBallThrowsError() {
         try {
-            model.load(fileCheckRotateCommandOnBallThrowsError);
+            String testString = "Ball B0 0 19 0 0\n"
+                    + "Rotate B0";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
         }
     }
    
-    InputStream fileCheckAllGizmoToGizmoConnectionsLoaded = loadFile(TEST_FILE_FOLDER_PREFIX + "fileCheckAllGizmoToGizmoConnectionsLoaded");
     @Test
     public void loadValidFileCheckAllGizmoToGizmoConnectionsLoaded() {
        try {
-            model.load(fileCheckAllGizmoToGizmoConnectionsLoaded);
+           String testString = "Triangle T0 3 3\n"
+                   + "LeftFlipper LF0 4 4\n"
+                   + "Absorber A0 0 19 20 20\n"
+                   + "Connect A0 A0\n"
+                   + "Connect T0 A0\n"
+                   + "Connect T0 LF0\n"
+                   + "Connect LF0 T0\n";
+           InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+           this.model.load(testStream);
             if (model.getGizmoToGizmoMap().size() != 3) {
                 fail();
             }
@@ -562,11 +516,14 @@ public class LoadTest {
         }
     }
     
-    InputStream fileCheckAllKeyConnectionsLoaded = this.loadFile(TEST_FILE_FOLDER_PREFIX + "fileCheckAllKeyConnectionsLoaded");
     @Test
     public void loadValidFileCheckAllKeyConnectionsLoaded() {
         try {
-            model.load(fileCheckAllKeyConnectionsLoaded);
+            String testString = "LeftFlipper LF0 0 0\n"
+                    + "KeyConnect key 32 up LF0\n"
+                    + "KeyConnect key 128 down LF0";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             if (model.getKeyPressToGizmoMap().size() != 1) {
                 fail();
             }
@@ -592,15 +549,17 @@ public class LoadTest {
             
             assertTrue(true);
         } catch (SyntaxError e) {
+            System.out.println(e.getMessage());
             fail();
         }
     }
     
-    InputStream fileCheckBallVelocityIsCorrect = this.loadFile(TEST_FILE_FOLDER_PREFIX + "fileCheckBallVelocityIsCorrect");
     @Test
     public void checkBallVelocityIsCorrect() {
         try {
-            model.load(fileCheckBallVelocityIsCorrect);
+            String testString = "Ball B0 0 0 50 -345\n";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             ReadBall ball = model.getBalls().iterator().next();
             if (ball.getVelocityX() == 50 && ball.getVelocityY() == -345) {
                 assertTrue(true);
@@ -612,33 +571,39 @@ public class LoadTest {
         }
     }
     
-    InputStream fileCheckOverlappingElementsThrowsError = this.loadFile(TEST_FILE_FOLDER_PREFIX + "fileCheckOverlappingElementsThrowsError");
     @Test
     public void checkOverlappingElementsThrowsError() {
         try {
-            model.load(fileCheckOverlappingElementsThrowsError);
+            String testString = "Triangle T0 0 0\n"
+                    + "Square S0 0 0";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
         }
     }
     
-    InputStream fileCheckInvalidMoveThrowsError = this.loadFile(TEST_FILE_FOLDER_PREFIX + "fileCheckInvalidMoveThrowsError");
     @Test
     public void checkInvalidMoveThrowsException() {
         try {
-            model.load(fileCheckInvalidMoveThrowsError);
+            String testString = "Triangle T0 5 5\n"
+                    + "Square S0 0 0\n"
+                    + "Move S0 5 5";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
         }
     }
     
-    InputStream fileCheckInvalidAbsorberDimensionsThrowsError = this.loadFile(TEST_FILE_FOLDER_PREFIX + "fileCheckInvalidAbsorberDimensionsThrowsError");
     @Test
     public void checkInvalidAbsorberDimensionsThrowsException() {
         try {
-            model.load(fileCheckInvalidAbsorberDimensionsThrowsError);
+            String testString = "Absorber A0 0 19 0 19\n";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -648,7 +613,12 @@ public class LoadTest {
     @Test
     public void loadValidFileCheckLastGravityAndFrictionAreUsed() {
         try {
-            this.model.load(fileCheckLastGravityAndFrictionUsed);
+            String testString = "Gravity 5\n"
+                    + "Friction 3 5\n"
+                    + "Gravity 20\n"
+                    + "Friction 100 -90";
+            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
+            this.model.load(testStream);
             if (this.model.getGravity() == 20 && this.model.getFrictionMu() == 100 && this.model.getFrictionMu2() == -90) {
                 assertTrue(true);
             }
