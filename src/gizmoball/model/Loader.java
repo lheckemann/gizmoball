@@ -232,6 +232,8 @@ public class Loader {
                     if (this.idToGizmos.containsKey(tokens.get(1))) {
                         ReadGizmo gizmo = this.idToGizmos.get(tokens.get(1));
                         model.select(gizmo.getX(), gizmo.getY());
+                        
+                        
                         model.rotateGizmo();
                         return;
                     }
@@ -324,6 +326,9 @@ public class Loader {
             throw error;
         } catch (PositionOverlapException e) {
             error.setMessage("Position overlaping with another element.");
+            throw error;
+        } catch (NonRotatableException e) {
+            error.setMessage("Cannot be rotated");
             throw error;
         }
     }

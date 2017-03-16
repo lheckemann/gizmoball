@@ -17,6 +17,7 @@ import gizmoball.model.ReadBall;
 import gizmoball.model.gizmos.Absorber;
 import gizmoball.model.gizmos.Circle;
 import gizmoball.model.gizmos.InvalidAbsorberWidthHeight;
+import gizmoball.model.gizmos.NonRotatableException;
 import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.model.gizmos.Rotation;
 import gizmoball.model.gizmos.Square;
@@ -376,9 +377,13 @@ public class ModelTest {
     public void rotateNonPresent() {
     	Set<ReadGizmo> gizmos = myModel.getGizmos();
     	myModel.select(6, 6);
-    	myModel.rotateGizmo();
-    	
-    	assertEquals(myModel.getGizmos(),  gizmos);
+    	try {
+            myModel.rotateGizmo();
+            assertEquals(myModel.getGizmos(),  gizmos);
+        } catch (NonRotatableException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     
     @Test
@@ -395,9 +400,13 @@ public class ModelTest {
     		}
     	}
     	
-    	myModel.rotateGizmo();
-    	
-    	assertEquals(selectedGizmo.getRotation(),  before.nextCW());
+    	try {
+            myModel.rotateGizmo();
+            assertEquals(selectedGizmo.getRotation(),  before.nextCW());
+        } catch (NonRotatableException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Test

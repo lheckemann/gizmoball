@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 
 import gizmoball.model.BuildModel;
+import gizmoball.model.gizmos.NonRotatableException;
 import gizmoball.view.BoardView;
 import gizmoball.view.IBuildView;
 import gizmoball.view.CustomCursorType;
@@ -23,8 +24,13 @@ public class RotateGizmoListener extends MouseAdapter {
         double chosenY = e.getY()/BoardView.L_TO_PIXELS;
 
         model.select(chosenX, chosenY);
-        model.rotateGizmo();
-        view.updateBoard();
+        try {
+            model.rotateGizmo();
+            view.updateBoard();
+        } catch (NonRotatableException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
     }
 
     @Override

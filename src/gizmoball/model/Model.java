@@ -176,10 +176,16 @@ public class Model implements BuildModel, RunModel {
     }
 
     @Override
-    public void rotateGizmo() {
+    public void rotateGizmo() throws NonRotatableException {
         Gizmo gizmo = this.getGizmoAt((int)this.selX, (int)this.selY);
         if (gizmo != null) {
-            gizmo.rotate();
+            if (gizmo.getType().equals(GizmoType.ABSORBER)) {
+                Absorber ab = (Absorber)gizmo;
+                ab.rotate();
+            } else {
+                gizmo.rotate();  
+            }
+           
         }
     }
 

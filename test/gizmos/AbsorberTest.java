@@ -5,6 +5,7 @@ import gizmoball.model.gizmos.Absorber;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.GizmoType;
 import gizmoball.model.gizmos.InvalidAbsorberWidthHeight;
+import gizmoball.model.gizmos.NonRotatableException;
 import gizmoball.model.gizmos.ReadGizmo;
 import org.junit.Before;
 import org.junit.Test;
@@ -118,17 +119,19 @@ public class AbsorberTest {
     }
 
     @Test
-    public void rotate() {
+    public void rotateAbsorber() {
         Gizmo myAbsorberCopy;
         try {
             myAbsorberCopy = new Absorber(width, height);
             myAbsorberCopy.rotate();
 
             // TODO : check with equals if they are the same
-            assertTrue(true);
+            fail();
         } catch (InvalidAbsorberWidthHeight e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        } catch (NonRotatableException e) {
+            assertTrue(true);
         }
    
     }

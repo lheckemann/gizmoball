@@ -9,8 +9,10 @@ import gizmoball.model.*;
 public interface Gizmo extends ReadGizmo {
     /**
      * Rotates clockwise a quadrant.
+     * If the gizmo cannot be rotated, then an exception will be thrown
+     * @throws NonRotatableException 
      */
-    void rotate();
+    void rotate() throws NonRotatableException;
 
     /**
      * Sets the anchor position on the X axis.

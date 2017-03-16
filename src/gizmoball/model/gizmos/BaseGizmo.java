@@ -24,7 +24,7 @@ public abstract class BaseGizmo implements Gizmo {
     }
 
     @Override
-    public void rotate() {
+    public void rotate() throws NonRotatableException {
         this.rotation = this.rotation.nextCW();
     }
 

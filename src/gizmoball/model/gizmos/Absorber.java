@@ -91,6 +91,7 @@ public class Absorber extends BaseGizmo {
     }
 
     @Override
-    public void rotate() {
+    public void rotate() throws NonRotatableException {
+        throw new NonRotatableException("Absorbers cannot be rotated");
     }
 }
