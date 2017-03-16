@@ -72,7 +72,7 @@ public abstract class BaseGizmo implements Gizmo {
     }
 
     @Override
-    public boolean containsBall(Ball ball) {
+    public boolean containsBall(ReadBall ball) {
         return false;
     }
 

@@ -106,7 +106,7 @@ public interface ReadGizmo {
     /**
      * Checks whether the given ball is inside the area delimited by the gizmo.
      */
-    boolean containsBall(Ball ball);
+    boolean containsBall(ReadBall ball);
 
     /**
      * Get the point on which the gizmo pivots.

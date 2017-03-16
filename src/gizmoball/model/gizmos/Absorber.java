@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import gizmoball.model.Ball;
+import gizmoball.model.ReadBall;
 
 public class Absorber extends BaseGizmo {
     private final int width;
@@ -62,7 +63,7 @@ public class Absorber extends BaseGizmo {
     }
 
     @Override
-    public boolean containsBall(Ball ball) {
+    public boolean containsBall(ReadBall ball) {
         return this.getX() <= ball.getX() &&
                ball.getX() < this.getX() + this.getWidth() &&
                this.getY() <= ball.getY() &&
