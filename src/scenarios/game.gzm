@@ -1,0 +1,235 @@
+Triangle Triangle0 7 3
+RightFlipper RightFlipper1 15 2
+Circle Circle2 14 16
+Square Square3 7 13
+Absorber Absorber4 11 7 12 8
+Square Square5 1 5
+Circle Circle6 10 15
+Square Square7 5 6
+RightFlipper RightFlipper8 0 11
+Triangle Triangle9 6 4
+Circle Circle10 13 15
+Square Square11 8 13
+Square Square12 5 3
+Square Square13 18 14
+Triangle Triangle14 3 14
+Triangle Triangle15 8 0
+Triangle Triangle16 17 7
+Square Square17 7 6
+Triangle Triangle18 10 4
+Square Square19 5 10
+Square Square20 15 4
+Square Square21 3 3
+Square Square22 12 18
+Circle Circle23 17 17
+Circle Circle24 17 18
+Triangle Triangle25 10 3
+Circle Circle26 16 19
+Triangle Triangle27 19 10
+Square Square28 18 15
+Triangle Triangle29 3 2
+Circle Circle30 14 13
+Absorber Absorber31 8 12 9 13
+Circle Circle32 9 17
+Square Square33 18 18
+LeftFlipper LeftFlipper34 15 0
+Square Square35 9 7
+Circle Circle36 10 17
+Triangle Triangle37 2 13
+Triangle Triangle38 4 15
+Square Square39 12 19
+Circle Circle40 15 19
+Triangle Triangle41 3 13
+Absorber Absorber42 0 19 1 20
+Triangle Triangle43 11 3
+Square Square44 15 5
+Circle Circle45 10 16
+Square Square46 9 5
+Absorber Absorber47 13 5 14 6
+Circle Circle48 10 14
+Triangle Triangle49 18 8
+Square Square50 7 10
+Square Square51 7 16
+Square Square52 5 8
+Square Square53 5 7
+Square Square54 9 11
+Square Square55 5 9
+Square Square56 5 11
+Square Square57 2 5
+Square Square58 3 5
+Triangle Triangle59 10 8
+Circle Circle60 16 16
+Triangle Triangle61 9 4
+Square Square62 4 3
+Circle Circle63 14 19
+Triangle Triangle64 14 0
+Triangle Triangle65 4 2
+Absorber Absorber66 19 19 20 20
+Square Square67 0 5
+Circle Circle68 13 14
+Triangle Triangle69 12 1
+Square Square70 9 13
+Square Square71 7 19
+Triangle Triangle72 11 2
+Triangle Triangle73 16 6
+Triangle Triangle74 4 6
+Triangle Triangle75 6 19
+Square Square76 12 14
+Square Square77 7 12
+Triangle Triangle78 9 8
+RightFlipper RightFlipper79 5 15
+Circle Circle80 13 18
+Triangle Triangle81 13 0
+Triangle Triangle82 13 1
+RightFlipper RightFlipper83 16 4
+Triangle Triangle84 5 5
+Absorber Absorber85 11 19 12 20
+Absorber Absorber86 11 15 12 16
+Triangle Triangle87 5 12
+Triangle Triangle88 5 2
+Absorber Absorber89 14 4 15 5
+Circle Circle90 17 14
+Square Square91 7 18
+Absorber Absorber92 11 11 12 12
+Square Square93 18 16
+Square Square94 7 4
+Triangle Triangle95 12 2
+Absorber Absorber96 10 13 11 14
+Square Square97 7 17
+Square Square98 9 6
+Square Square99 12 16
+Triangle Triangle100 8 19
+Square Square101 9 12
+Square Square102 18 17
+Square Square103 9 10
+Absorber Absorber104 12 6 13 7
+Square Square105 14 5
+Triangle Triangle106 0 6
+Triangle Triangle107 17 8
+Circle Circle108 16 13
+Triangle Triangle109 15 6
+Square Square110 4 5
+Square Square111 7 8
+Square Square112 7 11
+Square Square113 7 5
+Square Square114 6 3
+Triangle Triangle115 10 9
+Triangle Triangle116 2 3
+LeftFlipper LeftFlipper117 18 4
+Triangle Triangle118 2 2
+Square Square119 18 19
+RightFlipper RightFlipper120 7 14
+Square Square121 7 7
+Triangle Triangle122 4 14
+Triangle Triangle123 0 4
+Square Square124 12 17
+Square Square125 12 15
+Square Square126 7 9
+Triangle Triangle127 16 7
+Circle Circle128 15 13
+Circle Circle129 15 16
+Ball B0 0.531250 0.562500 0.000000 0.000000
+Rotate Triangle0
+Rotate Triangle0
+Rotate Triangle0
+Rotate RightFlipper1
+Rotate RightFlipper1
+Rotate RightFlipper8
+Rotate Triangle9
+Rotate Triangle14
+Rotate Triangle15
+Rotate Triangle16
+Rotate Triangle16
+Rotate Triangle16
+Rotate Triangle25
+Rotate Triangle25
+Rotate Triangle27
+Rotate Triangle29
+Rotate Triangle29
+Rotate Triangle29
+Rotate Triangle37
+Rotate Triangle38
+Rotate Triangle41
+Rotate Triangle41
+Rotate Triangle41
+Rotate Triangle49
+Rotate Triangle49
+Rotate Triangle49
+Rotate Triangle59
+Rotate Triangle59
+Rotate Triangle59
+Rotate Triangle61
+Rotate Triangle61
+Rotate Triangle65
+Rotate Triangle65
+Rotate Triangle69
+Rotate Triangle69
+Rotate Triangle72
+Rotate Triangle72
+Rotate Triangle73
+Rotate Triangle73
+Rotate Triangle73
+Rotate Triangle74
+Rotate Triangle75
+Rotate Triangle75
+Rotate Triangle78
+Rotate RightFlipper79
+Rotate RightFlipper79
+Rotate RightFlipper79
+Rotate Triangle81
+Rotate Triangle81
+Rotate RightFlipper83
+Rotate RightFlipper83
+Rotate RightFlipper83
+Rotate Triangle84
+Rotate Triangle84
+Rotate Triangle84
+Rotate Triangle88
+Rotate Triangle88
+Rotate Triangle88
+Rotate Triangle100
+Rotate Triangle100
+Rotate Triangle100
+Rotate Triangle107
+Rotate Triangle109
+Rotate Square110
+Rotate Triangle115
+Rotate Triangle116
+Rotate LeftFlipper117
+Rotate Triangle118
+Rotate Triangle118
+Rotate RightFlipper120
+Rotate RightFlipper120
+Rotate Triangle122
+Rotate Triangle122
+Rotate Triangle122
+Rotate Triangle123
+Rotate Triangle123
+Rotate Triangle123
+Rotate Triangle127
+Connect Absorber66 Absorber66
+Connect Absorber31 Absorber31
+Connect RightFlipper83 RightFlipper1
+Connect RightFlipper83 LeftFlipper34
+Connect LeftFlipper117 RightFlipper1
+Connect LeftFlipper117 LeftFlipper34
+Connect Absorber104 Absorber104
+Connect Absorber85 Absorber85
+Connect Triangle106 RightFlipper8
+Connect Triangle106 RightFlipper79
+Connect Absorber4 Absorber4
+Connect Absorber86 Absorber86
+Connect RightFlipper120 RightFlipper8
+Connect RightFlipper120 Triangle100
+Connect RightFlipper120 RightFlipper79
+Connect RightFlipper120 RightFlipper120
+Connect Absorber89 RightFlipper1
+Connect Absorber89 Absorber89
+Connect Absorber89 LeftFlipper34
+Connect Absorber92 Absorber92
+Connect Absorber42 RightFlipper8
+Connect Absorber42 Absorber42
+Connect Absorber96 Absorber96
+Connect Absorber47 Absorber47
+Gravity 25.000000
+Friction 0.025000 0.025000
