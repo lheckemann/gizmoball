@@ -123,6 +123,8 @@ public class Model implements BuildModel, RunModel {
                 gizmo.setY(y);
                 this.gizmos.add(gizmo);
                 throw e;
+            } finally {
+                this.gizmos.add(gizmo);
             }
             return;
         }
@@ -142,6 +144,8 @@ public class Model implements BuildModel, RunModel {
                 ball.setY(y);
                 this.balls.add(ball);
                 throw e;
+            } finally {
+                this.balls.add(ball);
             }
         }
     }
