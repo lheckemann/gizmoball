@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 import gizmoball.model.gizmos.ReadGizmo;
-import gizmoball.model.gizmos.ReadGizmo.GizmoType;
+import gizmoball.model.gizmos.GizmoType;
 
 public class Saver {
     protected BuildModel model;

@@ -2,7 +2,7 @@ package gizmoball.view;
 
 import gizmoball.controller.*;
 import gizmoball.model.BuildModel;
-import gizmoball.model.gizmos.ReadGizmo.GizmoType;
+import gizmoball.model.gizmos.GizmoType;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
@@ -46,10 +46,10 @@ public class BuildView extends GameView implements IBuildView {
         box = new Box(BoxLayout.Y_AXIS);
         JPanel boardPanel = new JPanel();
         boardPanel.setLayout(new BoxLayout(boardPanel, BoxLayout.X_AXIS));
-        
+
         JPanel displayPanel = new JPanel();
         displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.X_AXIS));
-        
+
         board = new BuildBoardView(model, controller);
 
         physicsPanel.setLayout(new GridLayout(3, 2));
@@ -78,15 +78,15 @@ public class BuildView extends GameView implements IBuildView {
         physicsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         buttons.add(physicsPanel);
         buttons.add(Box.createGlue());
-        
+
         buttons.setPreferredSize(new Dimension(this.panelWidth, box.getHeight()));
-        
+
         boardPanel.add(board);
         boardPanel.add(buttons);
-        
+
         displayPanel.add(displayLabel);
         displayPanel.add(Box.createHorizontalGlue());
-        
+
         box.add(boardPanel);
         box.add(displayPanel);
     }

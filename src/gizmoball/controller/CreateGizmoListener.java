@@ -2,7 +2,7 @@ package gizmoball.controller;
 
 import gizmoball.model.*;
 import gizmoball.model.gizmos.*;
-import gizmoball.model.gizmos.ReadGizmo.GizmoType;
+import gizmoball.model.gizmos.GizmoType;
 import gizmoball.view.BoardView;
 import gizmoball.view.IBuildView;
 import gizmoball.view.CustomCursorType;

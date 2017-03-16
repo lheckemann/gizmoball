@@ -3,12 +3,11 @@ package gizmoball.controller;
 import gizmoball.model.BuildModel;
 import gizmoball.model.Model;
 import gizmoball.model.RunModel;
-import gizmoball.model.gizmos.ReadGizmo;
+import gizmoball.model.gizmos.GizmoType;
 import gizmoball.view.*;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentListener;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
@@ -43,7 +42,7 @@ public class Controller {
         return new ConnectKeyReleaseGizmoListener(view, model);
     }
 
-    public EventListener getCreateGizmoListener(ReadGizmo.GizmoType type, IBuildView view, BuildModel model) {
+    public EventListener getCreateGizmoListener(GizmoType type, IBuildView view, BuildModel model) {
         return new CreateGizmoListener(type, view, model);
     }
 
@@ -95,7 +94,7 @@ public class Controller {
         return new SwitchToConnectKeyReleaseGizmoListener(buildBoardView, model, buildView);
     }
 
-    public ActionListener getSwitchToCreateActionListener(ReadGizmo.GizmoType type, IBuildBoardView board, IBuildView view, BuildModel model) {
+    public ActionListener getSwitchToCreateActionListener(GizmoType type, IBuildBoardView board, IBuildView view, BuildModel model) {
         return new SwitchToCreateActionListener(type, board, view, model);
     }
 

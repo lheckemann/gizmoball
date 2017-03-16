@@ -3,9 +3,7 @@ package gizmoball.model;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import gizmoball.model.BuildModel;
-import gizmoball.model.gizmos.ReadGizmo;
-import gizmoball.model.gizmos.ReadGizmo.GizmoType;
+import gizmoball.model.gizmos.GizmoType;
 
 public class StandardSaver extends Saver {
     protected static final Collection<GizmoType> standard = new HashSet<>();

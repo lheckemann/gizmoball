@@ -8,7 +8,7 @@ import java.util.EventListener;
 
 import gizmoball.controller.*;
 import gizmoball.model.BuildModel;
-import gizmoball.model.gizmos.ReadGizmo.GizmoType;
+import gizmoball.model.gizmos.GizmoType;
 
 import javax.swing.*;
 
