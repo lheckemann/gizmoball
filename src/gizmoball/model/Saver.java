@@ -7,9 +7,9 @@ import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 
 public class Saver {
-    private BuildModel model;
-    private Map<ReadGizmo, String> taggedGizmos;
-    private Map<ReadBall, String> taggedBalls;
+    protected BuildModel model;
+    protected Map<ReadGizmo, String> taggedGizmos;
+    protected Map<ReadBall, String> taggedBalls;
 
     public Saver(BuildModel model) {
         this.model = model;
@@ -28,7 +28,7 @@ public class Saver {
         }
     }
 
-    private Map<ReadGizmo,String> getTaggedGizmos(Collection<ReadGizmo> gizmos) {
+    protected Map<ReadGizmo,String> getTaggedGizmos(Collection<ReadGizmo> gizmos) {
         int i = 0;
         Map<ReadGizmo,String> tagged = new HashMap<>();
         for (ReadGizmo gizmo : gizmos) {
@@ -38,7 +38,7 @@ public class Saver {
         return tagged;
     }
 
-    private Map<ReadBall,String> getTaggedBalls(Collection<ReadBall> balls) {
+    protected Map<ReadBall,String> getTaggedBalls(Collection<ReadBall> balls) {
         int i = 0;
         Map<ReadBall,String> tagged = new HashMap<>();
         for (ReadBall ball : balls) {
@@ -48,7 +48,7 @@ public class Saver {
         return tagged;
     }
 
-    private void dumpGizmoDeclarations(PrintWriter writer) {
+    protected void dumpGizmoDeclarations(PrintWriter writer) {
         for (ReadGizmo gizmo : this.taggedGizmos.keySet()) {
             String id = this.taggedGizmos.get(gizmo);
             if (gizmo.getType() == GizmoType.ABSORBER) {
@@ -69,7 +69,7 @@ public class Saver {
         }
     }
 
-    private void dumpBallDeclarations(PrintWriter writer) {
+    protected void dumpBallDeclarations(PrintWriter writer) {
         for (ReadBall ball: this.taggedBalls.keySet()) {
             writer.format("Ball %s %f %f %f %f\n",
                     this.taggedBalls.get(ball),
@@ -81,7 +81,7 @@ public class Saver {
         }
     }
 
-    private void dumpRotateCommands(PrintWriter writer) {
+    protected void dumpRotateCommands(PrintWriter writer) {
         for (ReadGizmo gizmo: this.taggedGizmos.keySet()) {
             for (int i = 0; i < gizmo.getRotation().getTurns(); i++) {
                 writer.format("Rotate %s\n", this.taggedGizmos.get(gizmo));
@@ -89,7 +89,7 @@ public class Saver {
         }
     }
 
-    private void dumpConnectCommands(PrintWriter writer) {
+    protected void dumpConnectCommands(PrintWriter writer) {
         Map<ReadGizmo, Set<ReadGizmo>> map = this.model.getGizmoToGizmoMap();
         for (ReadGizmo from : map.keySet()) {
             for (ReadGizmo to : map.get(from)) {
@@ -98,7 +98,7 @@ public class Saver {
         }
     }
 
-    private void dumpKeyConnectCommands(PrintWriter writer) {
+    protected void dumpKeyConnectCommands(PrintWriter writer) {
         Map<Integer, Set<ReadGizmo>> pressMap = this.model.getKeyPressToGizmoMap();
         for (Integer key : pressMap.keySet()) {
             for (ReadGizmo to : pressMap.get(key)) {
@@ -113,7 +113,7 @@ public class Saver {
         }
     }
 
-    private void dumpFrictionGravityDeclarations(PrintWriter writer) {
+    protected void dumpFrictionGravityDeclarations(PrintWriter writer) {
         writer.format("Gravity %f\n", this.model.getGravity());
         writer.format("Friction %f %f\n", this.model.getFrictionMu(), this.model.getFrictionMu2());
     }
