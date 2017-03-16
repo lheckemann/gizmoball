@@ -1,8 +1,10 @@
-package test.gizmos;
+package gizmos;
 
 import gizmoball.model.Ball;
 import gizmoball.model.gizmos.Absorber;
 import gizmoball.model.gizmos.Gizmo;
+import gizmoball.model.gizmos.GizmoType;
+import gizmoball.model.gizmos.InvalidAbsorberWidthHeight;
 import gizmoball.model.gizmos.ReadGizmo;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,13 +31,18 @@ public class AbsorberTest {
     public void setUp() {
         width = 5;
         height = 10;
-        myAbsorber = new Absorber(5, 10);
+        try {
+            myAbsorber = new Absorber(5, 10);
+        } catch (InvalidAbsorberWidthHeight e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         myBall = new Ball();
     }
 
     @Test
     public void getType() {
-        assertEquals(myAbsorber.getType(), ReadGizmo.GizmoType.ABSORBER);
+        assertEquals(myAbsorber.getType(), GizmoType.ABSORBER);
     }
 
     @Test
@@ -112,11 +119,18 @@ public class AbsorberTest {
 
     @Test
     public void rotate() {
-        Gizmo myAbsorberCopy = new Absorber(width, height);
-        myAbsorberCopy.rotate();
+        Gizmo myAbsorberCopy;
+        try {
+            myAbsorberCopy = new Absorber(width, height);
+            myAbsorberCopy.rotate();
 
-        // TODO : check with equals if they are the same
-        assertTrue(true);
+            // TODO : check with equals if they are the same
+            assertTrue(true);
+        } catch (InvalidAbsorberWidthHeight e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+   
     }
 
     @Test

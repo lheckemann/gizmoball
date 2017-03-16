@@ -1,15 +1,27 @@
-package test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Collections;
 import java.util.Set;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import gizmoball.model.*;
-import gizmoball.model.gizmos.*;
+import gizmoball.model.Model;
+import gizmoball.model.PositionOutOfBoundsException;
+import gizmoball.model.PositionOverlapException;
+import gizmoball.model.ReadBall;
+import gizmoball.model.gizmos.Absorber;
+import gizmoball.model.gizmos.Circle;
+import gizmoball.model.gizmos.InvalidAbsorberWidthHeight;
+import gizmoball.model.gizmos.ReadGizmo;
+import gizmoball.model.gizmos.Rotation;
+import gizmoball.model.gizmos.Square;
+import gizmoball.model.gizmos.StandardFlipper;
+import gizmoball.model.gizmos.Triangle;
 
 public class ModelTest {
     private Model myModel;
@@ -186,8 +198,14 @@ public class ModelTest {
     public void addAbsorberUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(10, 11);
 
-        emptyModel.addGizmo(new Absorber(5, 5));
-        assertTrue(emptyModel.getGizmos().size() > 0);
+        try {
+            emptyModel.addGizmo(new Absorber(5, 5));
+            assertTrue(emptyModel.getGizmos().size() > 0);
+        } catch (InvalidAbsorberWidthHeight e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+       
     }
 
     @Test(expected=PositionOverlapException.class)
@@ -196,7 +214,12 @@ public class ModelTest {
         emptyModel.addGizmo(new Circle());
 
         emptyModel.select(10, 11);
-        emptyModel.addGizmo(new Absorber(5, 5));
+        try {
+            emptyModel.addGizmo(new Absorber(5, 5));
+        } catch (InvalidAbsorberWidthHeight e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         fail();
     }
@@ -204,7 +227,12 @@ public class ModelTest {
     @Test(expected=PositionOutOfBoundsException.class)
     public void addAbsorberOutOfBounds() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(10, 11);
-        emptyModel.addGizmo(new Absorber(10, 10));
+        try {
+            emptyModel.addGizmo(new Absorber(10, 10));
+        } catch (InvalidAbsorberWidthHeight e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         fail();
     }

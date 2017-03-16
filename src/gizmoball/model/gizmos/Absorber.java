@@ -17,7 +17,12 @@ public class Absorber extends BaseGizmo {
     private final int height;
     private Set<Ball> balls;
 
-    public Absorber(int width, int height) {
+    public Absorber(int width, int height) throws InvalidAbsorberWidthHeight {
+        if (Math.abs(width) < 1 || Math.abs(height) < 1) {
+            System.out.println("Threw exception");
+            throw new InvalidAbsorberWidthHeight("Absorber (width, height) was smaller than (1, 1)");
+        }
+        
         this.width = width;
         this.height = height;
         this.balls = new HashSet<Ball>();

@@ -1,4 +1,4 @@
-package test.gizmos;
+package gizmos;
 
 import java.util.Collections;
 import java.util.Set;
@@ -55,12 +55,12 @@ public class FlipperTest {
 
     @Test
     public void getTypeLeft() {
-        assertEquals(myLeftFlipper.getType(), ReadGizmo.GizmoType.LEFT_FLIPPER);
+        assertEquals(myLeftFlipper.getType(), GizmoType.LEFT_FLIPPER);
     }
 
     @Test
     public void getTypeRight() {
-        assertEquals(myRightFlipper.getType(), ReadGizmo.GizmoType.RIGHT_FLIPPER);
+        assertEquals(myRightFlipper.getType(), GizmoType.RIGHT_FLIPPER);
     }
 
     @Test

@@ -1,7 +1,8 @@
-package test.gizmos;
+package gizmos;
 
 import gizmoball.model.Ball;
 import gizmoball.model.gizmos.Gizmo;
+import gizmoball.model.gizmos.GizmoType;
 import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.model.gizmos.Triangle;
 import org.junit.Before;
@@ -29,7 +30,7 @@ public class TriangleTest {
 
     @Test
     public void getType() {
-        assertEquals(myTriangle.getType(), ReadGizmo.GizmoType.TRIANGLE);
+        assertEquals(myTriangle.getType(), GizmoType.TRIANGLE);
     }
 
     @Test

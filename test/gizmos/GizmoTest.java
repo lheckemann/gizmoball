@@ -1,4 +1,4 @@
-package test.gizmos;
+package gizmos;
 
 import java.awt.geom.AffineTransform;
 import java.util.HashSet;
@@ -205,6 +205,6 @@ public class GizmoTest {
     public void equalsTwoDifferentGizmosIsFalse() {
     	Gizmo circle = new Circle();
     	// error - should be false
-        assertTrue(myLeftFlipper.equals(circle));
+        assertFalse(myLeftFlipper.equals(circle));
     }
 }

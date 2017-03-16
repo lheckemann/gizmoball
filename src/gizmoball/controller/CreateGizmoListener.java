@@ -111,6 +111,8 @@ public class CreateGizmoListener extends MouseAdapter implements MouseMotionList
                 this.drawOldAbsorber();
             } catch (PositionOutOfBoundsException e1) {
                 this.drawOldAbsorber();
+            } catch (InvalidAbsorberWidthHeight e1) {
+                this.drawOldAbsorber();
             }
         }
         else mouseClicked(e);
@@ -120,7 +122,7 @@ public class CreateGizmoListener extends MouseAdapter implements MouseMotionList
         this.model.select(this.oldAbsorberX, this.oldAbsorberY);
         try {
             this.model.addGizmo(new Absorber(this.oldAbsorberWidth, this.oldAbsorberHeight));
-        } catch (PositionOverlapException | PositionOutOfBoundsException e) {
+        } catch (PositionOverlapException | PositionOutOfBoundsException | InvalidAbsorberWidthHeight e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

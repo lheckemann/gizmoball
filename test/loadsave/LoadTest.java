@@ -17,29 +17,17 @@ import org.junit.*;
 import gizmoball.model.Model;
 import gizmoball.model.ReadBall;
 import gizmoball.model.SyntaxError;
+import gizmoball.model.gizmos.GizmoType;
 import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.model.gizmos.Rotation;
-import gizmoball.model.gizmos.ReadGizmo.GizmoType;
 
 public class LoadTest {
 
     private Model model;
-    private final String TEST_FILE_FOLDER_PREFIX = "test/loadsave/testFiles/";
    
     @Before
     public void setUp() {
         this.model = new Model(20, 20);
-    }
-    
-    private FileInputStream loadFile(String fileName) {
-        File chosenFile = new File(fileName);
-        try {
-            return new FileInputStream(chosenFile);
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return null;
-        }
     }
     
     @Test

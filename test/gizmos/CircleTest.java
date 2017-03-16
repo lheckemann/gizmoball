@@ -1,8 +1,9 @@
-package test.gizmos;
+package gizmos;
 
 import gizmoball.model.Ball;
 import gizmoball.model.gizmos.Circle;
 import gizmoball.model.gizmos.Gizmo;
+import gizmoball.model.gizmos.GizmoType;
 import gizmoball.model.gizmos.ReadGizmo;
 import physics.Vect;
 
@@ -25,7 +26,7 @@ public class CircleTest {
 
     @Test
     public void getType() {
-        assertEquals(myCircle.getType(), ReadGizmo.GizmoType.CIRCLE);
+        assertEquals(myCircle.getType(), GizmoType.CIRCLE);
     }
 
     @Test

@@ -191,6 +191,9 @@ public class Loader {
         } catch (PositionOverlapException e) {
             error.setMessage("Position overlaping with another element.");
             throw error;
+        } catch (InvalidAbsorberWidthHeight e) {
+            error.setMessage("Absorber must be at least 1L by 1L");
+            throw error;
         }
     }
 
