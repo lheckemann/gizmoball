@@ -22,7 +22,6 @@ public class SwitchToAddBallListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         this.board.switchToAddBall(view, model);
-        this.view.setDisplayLabel("Click on a grid location to add a ball. Then enter its velocity in the message box that appears");
     }
 
 }

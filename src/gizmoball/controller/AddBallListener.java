@@ -17,6 +17,7 @@ public class AddBallListener extends MouseAdapter {
     public AddBallListener(IBuildView view, BuildModel model) {
         this.model = model;
         this.view = view;
+        view.setDisplayLabel("Click on a grid location to add a ball");
     }
 
     @Override
@@ -28,11 +29,13 @@ public class AddBallListener extends MouseAdapter {
         
             model.select(ballX, ballY);
             try {
+                view.setDisplayLabel("Enter the desired ball velocity");
                 view.promptVelocity();
                 double velocityX = view.getPromptedVelocityX();
                 double velocityY = view.getPromptedVelocityY();
                 this.model.addBall(velocityX, velocityY);
                 view.updateBoard();
+                view.setDisplayLabel("Click on a grid location to add a ball");
             } catch (PositionOverlapException e1) {
                 view.displayErrorMessage("Can't place a ball on top of another ball or gizmo", "Position overlap");
             } catch (PositionOutOfBoundsException e1) {

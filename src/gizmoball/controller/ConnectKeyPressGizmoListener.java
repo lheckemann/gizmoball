@@ -19,7 +19,7 @@ public class ConnectKeyPressGizmoListener extends KeyAdapter implements MouseLis
     public ConnectKeyPressGizmoListener(IBuildView view, BuildModel model) {
         this.view = view;
         this.model = model;
-
+        this.view.setDisplayLabel("Click on the gizmo you want to trigger");
         this.componentSelected = false;
     }
 
@@ -28,6 +28,7 @@ public class ConnectKeyPressGizmoListener extends KeyAdapter implements MouseLis
         if (componentSelected) {
             model.triggerOnKeyPress(e.getKeyCode());
             componentSelected = false;
+            view.setDisplayLabel("Click on the gizmo you want to trigger");
         }
     }
 
@@ -38,6 +39,7 @@ public class ConnectKeyPressGizmoListener extends KeyAdapter implements MouseLis
         if (model.notEmpty(chosenX, chosenY)) {
             model.select(chosenX, chosenY);
             componentSelected = true;
+            view.setDisplayLabel("Press the key you want to trigger the gizmo");
         }
         else {
             componentSelected = false;

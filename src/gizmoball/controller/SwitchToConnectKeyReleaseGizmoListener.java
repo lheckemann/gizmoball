@@ -21,6 +21,5 @@ public class SwitchToConnectKeyReleaseGizmoListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         board.switchToConnectKeyReleaseGizmo(view, model);
-        view.setDisplayLabel("Click on the gizmo you wish to connect to and then press a key to connect to it");
     }
 }

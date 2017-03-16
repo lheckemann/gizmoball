@@ -15,6 +15,7 @@ public class DeleteGizmoListener extends MouseAdapter {
     public DeleteGizmoListener(IBuildView view, BuildModel model) {
         this.model = model;
         this.view = view;
+        view.setDisplayLabel("Click on the gizmo/ball you would like to delete");
     }
 
     @Override

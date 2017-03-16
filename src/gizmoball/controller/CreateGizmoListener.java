@@ -8,10 +8,11 @@ import gizmoball.view.IBuildView;
 import gizmoball.view.CustomCursorType;
 
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionListener;
 
-public class CreateGizmoListener extends MouseAdapter implements MouseMotionListener {
+public class CreateGizmoListener implements MouseListener, MouseMotionListener {
     private final BuildModel model;
     private final IBuildView view;
     private final GizmoType type;
@@ -27,6 +28,7 @@ public class CreateGizmoListener extends MouseAdapter implements MouseMotionList
         this.model = model;
         this.view = view;
         this.type = type;
+        view.setDisplayLabel("Click on the grid area where you would like to place the gizmo");
     }
 
     @Override
@@ -80,6 +82,7 @@ public class CreateGizmoListener extends MouseAdapter implements MouseMotionList
             this.absorberStartY = e.getY()/BoardView.L_TO_PIXELS;
             this.oldAbsorberX = this.absorberStartX;
             this.oldAbsorberY = this.absorberStartY;
+            view.setDisplayLabel("Drag the mouse until you are satifisied with absorber dimensions");
         }
     }
 
@@ -117,6 +120,12 @@ public class CreateGizmoListener extends MouseAdapter implements MouseMotionList
         }
         else mouseClicked(e);
     }
+    
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        view.setDisplayLabel("Click on the grid area where you would like to place the gizmo");
+    }
 
     private void drawOldAbsorber() {
         this.model.select(this.oldAbsorberX, this.oldAbsorberY);
@@ -136,4 +145,9 @@ public class CreateGizmoListener extends MouseAdapter implements MouseMotionList
     public void mouseExited(MouseEvent e) {
         view.setCursor(CustomCursorType.DEFAULT);
     }
+
+    @Override
+    public void mouseMoved(MouseEvent e) { 
+    }
+
 }

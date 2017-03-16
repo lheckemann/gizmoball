@@ -17,7 +17,7 @@ public class ConnectGizmosListener extends MouseAdapter {
     public ConnectGizmosListener(IBuildView view, BuildModel model) {
         this.model = model;
         this.view = view;
-
+        view.setDisplayLabel("Click on the gizmo you wish to trigger");
         this.componentSelected = false;
     }
 
@@ -29,10 +29,12 @@ public class ConnectGizmosListener extends MouseAdapter {
             model.triggerOnGizmoAt(chosenX, chosenY);
             view.updateBoard();
             componentSelected = false;
+            view.setDisplayLabel("Click on the gizmo you wish to trigger");
         } else {
             if (model.notEmpty(chosenX, chosenY)) {
                 model.select(chosenX, chosenY);
                 componentSelected = true;
+                view.setDisplayLabel("Click on the gizmo you want to cause the trigger");
             }
         }
     }

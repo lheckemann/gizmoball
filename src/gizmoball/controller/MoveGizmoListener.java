@@ -19,7 +19,7 @@ public class MoveGizmoListener extends MouseAdapter {
     public MoveGizmoListener(IBuildView view, BuildModel model) {
         this.model = model;
         this.view = view;
-
+        view.setDisplayLabel("Click on the gizmo/ball you would like to move");
         this.componentSelected = false;
     }
 
@@ -36,11 +36,13 @@ public class MoveGizmoListener extends MouseAdapter {
             } catch (PositionOutOfBoundsException e1) {
                 view.displayErrorMessage("Can't move a gizmo out of bounds", "Position out of bounds error");
             }
+            view.setDisplayLabel("Click on the gizmo/ball you would like to move");
             componentSelected = false;
         } else {
             if (model.notEmpty(chosenX, chosenY)) {
                 model.select(chosenX, chosenY);
                 componentSelected = true;
+                view.setDisplayLabel("Click on the area where you would like to move the gizmo/ball to");
             }
         }
     }

@@ -22,7 +22,6 @@ public class SwitchToConnectOuterwallListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         this.board.switchToConnectOuterwall(view, model);
-        this.view.setDisplayLabel("Click on the gizmo you wish to connect to the OuterWalls");
     }
 
 }

@@ -21,7 +21,6 @@ public class SwitchToMoveActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         board.switchToMove(view, model); 
-        view.setDisplayLabel("Click on a gizmo or ball and then click on an empty grid location to move it");
     }
 
 }

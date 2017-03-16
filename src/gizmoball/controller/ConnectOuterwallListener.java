@@ -17,6 +17,7 @@ public class ConnectOuterwallListener extends MouseAdapter {
     public ConnectOuterwallListener(IBuildView view, BuildModel model) {
         this.model = model;
         this.view = view;
+        view.setDisplayLabel("Click the gizmo you want to trigger");
     }
 
     @Override
