@@ -117,4 +117,12 @@ public class Controller {
     public ActionListener getToggleRunningListener(ActionListener tickListener, IRunView view) {
         return new ToggleRunningListener(tickListener, view);
     }
+
+    public ActionListener getSwitchToConnectOuterwallListener(BuildBoardView board, BuildView buildView, BuildModel model) {
+        return new SwitchToConnectOuterwallListener(board, buildView, model);
+    }
+
+    public MouseListener getConnectOuterwallListener(IBuildView view, BuildModel model) {
+        return new ConnectOuterwallListener(view, model);
+    }
 }
