@@ -65,7 +65,8 @@ public class BuildView extends GameView implements IBuildView {
         addRadioButton("Connect Gizmo to Gizmo", controller.getSwitchToConnectGizmosListener(this.board, this, this.model));
         addRadioButton("Connect keypress to Gizmo", controller.getSwitchToConnectKeyPressListener(this.board, this, this.model));
         addRadioButton("Connect key release to Gizmo", controller.getSwitchToConnectKeyReleaseListener(this.board, this,this.model));
-
+        addRadioButton("Connect Outerwall to Gizmo", controller.getSwitchToConnectOuterwallListener(this.board, this, this.model));
+        
         SpinnerNumberModel frictionMuModel = new SpinnerNumberModel(0.025, 0, 1.0, 0.05);
         addSpinner("Friction mu", controller.getChangeFrictionMuListener(this.model, frictionMuModel), frictionMuModel);
 

@@ -12,4 +12,5 @@ public interface IBuildBoardView {
     public void switchToDelete(IBuildView view, BuildModel model);
     public void switchToMove(IBuildView view, BuildModel model);
     public void switchToRotate(IBuildView view, BuildModel model);
+    public void switchToConnectOuterwall(IBuildView view, BuildModel model);
 }

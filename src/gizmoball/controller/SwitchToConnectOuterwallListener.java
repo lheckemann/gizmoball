@@ -7,13 +7,13 @@ import gizmoball.model.BuildModel;
 import gizmoball.view.IBuildBoardView;
 import gizmoball.view.IBuildView;
 
-public class SwitchToConnectGizmosListener implements ActionListener {
+public class SwitchToConnectOuterwallListener implements ActionListener {
 
     private IBuildBoardView board;
     private IBuildView view;
     private BuildModel model;
     
-    public SwitchToConnectGizmosListener(IBuildBoardView board, IBuildView buildView, BuildModel model) {
+    public SwitchToConnectOuterwallListener(IBuildBoardView board, IBuildView buildView, BuildModel model) {
         this.board = board;
         this.view = buildView;
         this.model = model;
@@ -21,9 +21,8 @@ public class SwitchToConnectGizmosListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.board.switchToConnectGizmos(view, model);
-        this.view.setDisplayLabel("Click on the gizmo you want to trigger, then click on the gizmo you want to trigger it");
+        this.board.switchToConnectOuterwall(view, model);
+        this.view.setDisplayLabel("Click on the gizmo you wish to connect to the OuterWalls");
     }
-
 
 }

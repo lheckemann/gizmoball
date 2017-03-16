@@ -101,6 +101,12 @@ public class BuildBoardView extends BoardView implements IBuildBoardView {
         this.requestFocusInWindow();
         this.addMouseListener((MouseListener)keyReleaseGizmoListener);
     }
+    
+    @Override 
+    public void switchToConnectOuterwall(IBuildView view, BuildModel model) {
+        this.clearListeners();
+        this.addMouseListener(controller.getConnectOuterwallListener(view, model));
+    }
 
     @Override
     public void switchToAddBall(IBuildView view, BuildModel model) {
