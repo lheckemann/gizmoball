@@ -8,4 +8,6 @@ public interface IBuildView {
     public void setCursor(CustomCursorType c);
     // Defined in GameView
     public void updateBoard();
+    public void displayErrorMessage(String message, String title);
+  
 }

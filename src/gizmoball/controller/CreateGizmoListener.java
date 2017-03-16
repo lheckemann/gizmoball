@@ -67,9 +67,9 @@ public class CreateGizmoListener extends MouseAdapter implements MouseMotionList
 
             view.updateBoard();
         } catch (PositionOutOfBoundsException positionOutOfBounds){
-
+            view.displayErrorMessage(positionOutOfBounds.getMessage(), "Position out of bounds");
         } catch (PositionOverlapException positionOverlap) {
-
+            view.displayErrorMessage("Can't place a gizmo on top of another gizmo or ball", "Position overlap error");
         }
     }
 
@@ -123,8 +123,7 @@ public class CreateGizmoListener extends MouseAdapter implements MouseMotionList
         try {
             this.model.addGizmo(new Absorber(this.oldAbsorberWidth, this.oldAbsorberHeight));
         } catch (PositionOverlapException | PositionOutOfBoundsException | InvalidAbsorberWidthHeight e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+          
         }
     }
 

@@ -31,9 +31,10 @@ public class MoveGizmoListener extends MouseAdapter {
             try {
                 model.move(chosenX, chosenY);
                 view.updateBoard();
-            } catch (PositionOverlapException | PositionOutOfBoundsException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
+            } catch (PositionOverlapException e1) {
+                view.displayErrorMessage("Can't move a gizmo on top of another gizmo or ball", "Position overlap");
+            } catch (PositionOutOfBoundsException e1) {
+                view.displayErrorMessage("Can't move a gizmo out of bounds", "Position out of bounds error");
             }
             componentSelected = false;
         } else {

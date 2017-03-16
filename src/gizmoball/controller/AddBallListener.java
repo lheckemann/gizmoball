@@ -25,16 +25,18 @@ public class AddBallListener extends MouseAdapter {
         double ballY = e.getY() / (double) BoardView.L_TO_PIXELS;
 
         if(!model.notEmpty(ballX, ballY)) {
-            view.promptVelocity();
-            double velocityX = view.getPromptedVelocityX();
-            double velocityY = view.getPromptedVelocityY();
-
+        
             model.select(ballX, ballY);
             try {
+                view.promptVelocity();
+                double velocityX = view.getPromptedVelocityX();
+                double velocityY = view.getPromptedVelocityY();
                 this.model.addBall(velocityX, velocityY);
                 view.updateBoard();
-            } catch (PositionOverlapException | PositionOutOfBoundsException e1) {
-                // HANDLE EXCEPTION
+            } catch (PositionOverlapException e1) {
+                view.displayErrorMessage("Can't place a ball on top of another ball or gizmo", "Position overlap");
+            } catch (PositionOutOfBoundsException e1) {
+                view.displayErrorMessage(e1.getMessage(), "Position out of bounds");
             }
         }
     }

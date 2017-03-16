@@ -28,8 +28,7 @@ public class RotateGizmoListener extends MouseAdapter {
             model.rotateGizmo();
             view.updateBoard();
         } catch (NonRotatableException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+            view.displayErrorMessage(e1.getMessage(), "Rotate error");
         }
     }
 

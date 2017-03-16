@@ -144,4 +144,9 @@ public class BuildView extends GameView implements IBuildView {
                 break;
         }
     }
+
+    @Override
+    public void displayErrorMessage(String message, String title) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
+    }
 }
