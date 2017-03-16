@@ -120,4 +120,17 @@ public class GizmoBallView implements IGizmoBallView {
         gameView.updateBoard();
     }
 
+    @Override
+    public SaverType getSaveType() {
+        SaverType[] options = {SaverType.STANDARD, SaverType.EXTENDED};
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Choose saver type"));
+      
+        int result = JOptionPane.showOptionDialog(null, panel, "Select a saver to use",
+                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, options, null);
+        
+        return options[result];
+    }
+
 }

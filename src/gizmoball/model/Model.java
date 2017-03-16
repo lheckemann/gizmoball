@@ -6,7 +6,7 @@ import java.util.*;
 
 import physics.LineSegment;
 import physics.Vect;
-
+import gizmoball.controller.Loader;
 import gizmoball.model.gizmos.*;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
@@ -444,9 +444,5 @@ public class Model implements BuildModel, RunModel {
             b.setPosition(b.getPosition().plus(b.getVelocity().times(SECONDS_PER_TICK)));
         }
         balls.forEach(this::applyGlobalForces);
-    }
-
-    public void save(OutputStream output) {
-        new Saver(this).save(output);
     }
 }

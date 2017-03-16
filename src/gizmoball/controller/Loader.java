@@ -1,8 +1,13 @@
-package gizmoball.model;
+package gizmoball.controller;
 
 import java.io.InputStream;
 import java.util.*;
 
+import gizmoball.model.BuildModel;
+import gizmoball.model.PositionOutOfBoundsException;
+import gizmoball.model.PositionOverlapException;
+import gizmoball.model.ReadBall;
+import gizmoball.model.SyntaxError;
 import gizmoball.model.gizmos.*;
 
 public class Loader {

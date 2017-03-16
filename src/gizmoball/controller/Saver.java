@@ -1,9 +1,11 @@
-package gizmoball.model;
+package gizmoball.controller;
 
 import java.io.*;
 import java.util.*;
 
 import gizmoball.model.gizmos.ReadGizmo;
+import gizmoball.model.BuildModel;
+import gizmoball.model.ReadBall;
 import gizmoball.model.gizmos.GizmoType;
 
 public class Saver {

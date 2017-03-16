@@ -1,6 +1,8 @@
-package gizmoball.model;
+package gizmoball.controller;
 
 import java.util.stream.Collectors;
+
+import gizmoball.model.BuildModel;
 
 public class StandardSaver extends Saver {
     public StandardSaver(BuildModel model) {
