@@ -169,6 +169,7 @@ public class Model implements BuildModel, RunModel {
             for (Set<Gizmo> listeners : this.keyReleaseMap.values()) {
                 listeners.remove(gizmo);
             }
+            this.gizmoMap.remove(gizmo);
             this.wallTriggers.remove(gizmo);
         }
     }
