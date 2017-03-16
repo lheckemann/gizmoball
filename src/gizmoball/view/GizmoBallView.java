@@ -130,7 +130,14 @@ public class GizmoBallView implements IGizmoBallView {
                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, options, null);
         
-        return options[result];
+        SaverType saverType;
+        try {   
+            saverType = options[result];
+        } catch (IndexOutOfBoundsException e) {
+            saverType = null;
+        }
+        
+        return saverType;
     }
 
 }

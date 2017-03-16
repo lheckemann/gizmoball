@@ -17,7 +17,12 @@ public class SaveListener implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        Saver saver = new Saver(model);
+        SaverType saverType = view.getSaveType();
+        if (saverType == null) {
+            return;
+        }
+        
+        Saver saver;
         switch(view.getSaveType()) {
             case STANDARD:
                 saver = new StandardSaver(model);
@@ -25,11 +30,14 @@ public class SaveListener implements ActionListener {
             case EXTENDED:
                 saver = new Saver(model);
                 break;
+            default:
+                saver = null;
+                break;
         }
-            
+        
         try {
             File newFile = view.getFileByChooserSave();
-            if(newFile != null) {
+            if(newFile != null) {  
                 saver.save(new FileOutputStream(newFile));
             }
         } catch (FileNotFoundException fnfe) {
