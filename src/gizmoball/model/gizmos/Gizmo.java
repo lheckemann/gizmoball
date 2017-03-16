@@ -1,49 +1,42 @@
 package gizmoball.model.gizmos;
 
 import java.awt.geom.AffineTransform;
-import java.util.*;
 
 import physics.*;
 
 import gizmoball.model.*;
 
 public interface Gizmo extends ReadGizmo {
-    // TODO
-    public void rotate();
+    /**
+     * Rotates clockwise a quadrant.
+     */
+    void rotate();
 
-    // TODO
-    public void setX(int x);
+    /**
+     * Sets the anchor position on the X axis.
+     */
+    void setX(int x);
 
-    // TODO
-    public void setY(int y);
+    /**
+     * Sets the anchor position on the Y axis.
+     */
+    void setY(int y);
 
-    // TODO
-    public void tick();
+    /**
+     * Processes a tick.
+     */
+    void tick();
 
-    // TODO
-    public Ball trigger();
+    /**
+     * Triggers the gizmo.
+     * The returned ball, if any, is added to the game.
+     */
+    Ball trigger();
 
-    // TODO
-    public double getReflectionCoefficient();
-
-    // TODO
-    public abstract Set<LineSegment> getLineSegments();
-
-    // TODO
-    public abstract Set<physics.Circle> getCircles();
-
-    // TODO
-    public boolean containsBall(Ball ball);
-
-    // TODO
-    public Ball ballHit(Ball ball);
-
-    // TODO
-    public Vect getPivot();
-
-    // TODO
-    public Double getAngularVelocity();
-
-    // TODO
-    public Set<Vect> getCells();
+    /**
+     * Hit the gizmo with a ball.
+     * The given ball is removed from the game and given to the gizmo.
+     * The returned ball, if any, will be added back to the game.
+     */
+    Ball ballHit(Ball ball);
 }

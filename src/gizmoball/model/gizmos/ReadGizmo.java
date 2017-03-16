@@ -1,9 +1,13 @@
 package gizmoball.model.gizmos;
 
 import java.awt.geom.AffineTransform;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import physics.*;
+
+import gizmoball.model.*;
 
 public interface ReadGizmo {
 
@@ -75,12 +79,49 @@ public interface ReadGizmo {
     int getY();
 
     /**
+     * Get the reflection coefficient for colliding balls.
+     */
+    double getReflectionCoefficient();
+
+    /**
      * Returns the transform that will correctly place the gizmo in the arena.
      * This transform is used both for collision detection and for drawing
      * purposes. The transform is responsible for correctly placing and rotating
      * the gizmo. No further transforms will be applied to the gizmo.
      */
     AffineTransform getTransform();
+
+    /**
+     * Get the representing set of line segments.
+     * The affine transform returned by `getTransform()` is applied to it.
+     */
+    Set<LineSegment> getLineSegments();
+
+    /**
+     * Get the representing set of circles.
+     * The affine transform returned by `getTransform()` is applied to it.
+     */
+    abstract Set<physics.Circle> getCircles();
+
+    /**
+     * Checks whether the given ball is inside the area delimited by the gizmo.
+     */
+    boolean containsBall(Ball ball);
+
+    /**
+     * Get the point on which the gizmo pivots.
+     */
+    Vect getPivot();
+
+    /**
+     * Get the angular velocity at which the gizmo pivots.
+     */
+    Double getAngularVelocity();
+
+    /**
+     * Get the set of cells this gizmo occupies.
+     */
+    Set<Vect> getCells();
 
     boolean equals(Object obj);
 }
