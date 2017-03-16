@@ -93,7 +93,20 @@ public class Ball implements ReadBall {
         return new Circle(x, y, RADIUS);
     }
 
+    /**
+     * Returns the cells occupied by the ball
+     */
     public Set<Vect> getCells() {
-        return Collections.singleton(new Vect((int) this.getX(), (int) this.getY()));
+        Set<Vect> cells = new HashSet<>();
+        Vect ballSquareBoundingCellTopLeft = new Vect((int)(this.getX() - this.getRadius()), (int)(this.getY() - this.getRadius()));
+        cells.add(ballSquareBoundingCellTopLeft);
+        Vect ballSquareBoundingCellTopRight = new Vect((int)(this.getX() + this.getRadius()), (int)(this.getY() + this.getRadius()));
+        cells.add(ballSquareBoundingCellTopRight);
+        Vect ballSquareBoundingCellBottomLeft = new Vect((int)(this.getX() - this.getRadius()), (int)(this.getY() + this.getRadius()));
+        cells.add(ballSquareBoundingCellBottomLeft);
+        Vect ballSquareBoundingCellBottomRight = new Vect((int)(this.getX() + this.getRadius()), (int)(this.getY() + this.getRadius()));
+        cells.add(ballSquareBoundingCellBottomRight);
+        
+        return cells;
     }
 }
