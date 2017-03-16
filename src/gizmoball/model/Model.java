@@ -117,12 +117,13 @@ public class Model implements BuildModel, RunModel {
             gizmo.setY((int) dY);
             try {
                 this.checkPlacement(gizmo);
+                this.gizmos.add(gizmo);
             } catch (PositionOverlapException|PositionOutOfBoundsException e) {
                 gizmo.setX(x);
                 gizmo.setY(y);
+                this.gizmos.add(gizmo);
                 throw e;
             }
-            this.gizmos.add(gizmo);
             return;
         }
         Ball ball = this.getBallAt(this.selX, this.selY);
@@ -135,12 +136,13 @@ public class Model implements BuildModel, RunModel {
 
             try {
                 this.checkPlacement(ball);
+                this.balls.add(ball);
             } catch (PositionOverlapException|PositionOutOfBoundsException e) {
                 ball.setX(x);
                 ball.setY(y);
+                this.balls.add(ball);
                 throw e;
             }
-            this.balls.add(ball);
         }
     }
 

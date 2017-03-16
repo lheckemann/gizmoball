@@ -619,6 +619,33 @@ public class ModelTest {
     }
 
     @Test
+    public void testRotateAfterMoveDeletesGizmo() {
+        
+        Model model = new Model(20, 20);
+        int startModelSize = 0;
+        try {
+            model.select(5, 5);
+            model.addGizmo(new Triangle());
+            model.select(6, 6);
+            model.addGizmo(new Circle());
+            
+            startModelSize = model.getGizmos().size();
+            model.select(5, 5);
+            model.move(6, 6); //Intended position overlap exception is thrown here
+        } catch (PositionOverlapException e) {
+            model.select(6, 6);
+            try {
+                model.rotateGizmo();
+                if (model.getGizmos().size() != startModelSize) {
+                    fail();
+                } 
+            } catch (NonRotatableException e1) {
+            }
+        } catch(PositionOutOfBoundsException e) {
+            
+        }
+    }
+    @Test
     public void getKeyPressToGizmoMap() {
 
     }
