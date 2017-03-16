@@ -23,11 +23,14 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
     private double oldAbsorberY;
     private int oldAbsorberWidth;
     private int oldAbsorberHeight;
+    
+    private boolean mouseDragged;
 
     public CreateGizmoListener(GizmoType type, IBuildView view, BuildModel model) {
         this.model = model;
         this.view = view;
         this.type = type;
+        this.mouseDragged = false;
         view.setDisplayLabel("Click on the grid area where you would like to place the gizmo");
     }
 
@@ -69,9 +72,13 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
 
             view.updateBoard();
         } catch (PositionOutOfBoundsException positionOutOfBounds){
-            view.displayErrorMessage(positionOutOfBounds.getMessage(), "Position out of bounds");
+            if ( ! mouseDragged) {
+                view.displayErrorMessage(positionOutOfBounds.getMessage(), "Position out of bounds");
+            }
         } catch (PositionOverlapException positionOverlap) {
-            view.displayErrorMessage("Can't place a gizmo on top of another gizmo or ball", "Position overlap error");
+            if ( ! mouseDragged) {
+                view.displayErrorMessage("Can't place a gizmo on top of another gizmo or ball", "Position overlap error");
+            }
         }
     }
 
@@ -118,12 +125,16 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
                 this.drawOldAbsorber();
             }
         }
-        else mouseClicked(e);
+        else {
+            mouseDragged = true;
+            mouseClicked(e);
+        }
     }
     
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        mouseDragged = false;
         view.setDisplayLabel("Click on the grid area where you would like to place the gizmo");
     }
 
