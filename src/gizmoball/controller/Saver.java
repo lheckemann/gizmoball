@@ -26,6 +26,7 @@ public class Saver {
             this.dumpRotateCommands(writer);
             this.dumpConnectCommands(writer);
             this.dumpKeyConnectCommands(writer);
+            this.dumpOuterwallConnectCommands(writer);
             this.dumpFrictionGravityDeclarations(writer);
         }
     }
@@ -112,6 +113,14 @@ public class Saver {
             for (ReadGizmo to : releaseMap.get(key)) {
                 writer.format("KeyConnect key %d up %s\n", key, this.taggedGizmos.get(to));
             }
+        }
+    }
+    
+    protected void dumpOuterwallConnectCommands(PrintWriter writer) {
+        Set<ReadGizmo> outerWallGizmos = this.model.getOuterwallTriggeredGizmos();
+        
+        for (ReadGizmo gizmo: outerWallGizmos) {
+            writer.format("Connect OuterWalls %s\n", this.taggedGizmos.get(gizmo));
         }
     }
 

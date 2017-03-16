@@ -42,4 +42,10 @@ public interface ReadModel {
      * Returns a map from a key press to the gizmos it triggers.
      */
     Map<Integer, Set<ReadGizmo>> getKeyPressToGizmoMap();
+    
+    /**
+     * Returns a set of all of the gizmos the Outerwalls trigger
+     * @return
+     */
+    Set<ReadGizmo> getOuterwallTriggeredGizmos();
 }
