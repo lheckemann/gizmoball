@@ -22,7 +22,7 @@ public class SwitchToConnectGizmosListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         this.board.switchToConnectGizmos(view, model);
-        this.view.setDisplayLabel("Click on the gizmo you wish to send the trigger and then click the gizmo you want to react to the trigger");
+        this.view.setDisplayLabel("Click on the gizmo you want to trigger, then click on the gizmo you want to trigger it");
     }
 
 
