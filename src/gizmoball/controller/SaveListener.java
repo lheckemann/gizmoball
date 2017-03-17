@@ -23,7 +23,7 @@ public class SaveListener implements ActionListener {
         }
         
         Saver saver;
-        switch(view.getSaveType()) {
+        switch(saverType) {
             case STANDARD:
                 saver = new StandardSaver(model);
                 break;
