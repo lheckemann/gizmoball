@@ -169,8 +169,6 @@ public class BallTest {
 
 	@Test
 	public void getCells() {
-		Set<Vect> cells = Collections.singleton(new Vect((int) mySecondBall.getX(), (int) mySecondBall.getY()));
-
-		assertEquals(mySecondBall.getCells(), cells);
+		assertEquals(4, mySecondBall.getCells().size());
 	}
 }
