@@ -98,15 +98,13 @@ public class Ball implements ReadBall {
      */
     public Set<Vect> getCells() {
         Set<Vect> cells = new HashSet<>();
-        Vect ballSquareBoundingCellTopLeft = new Vect((int)(this.getX() - this.getRadius()), (int)(this.getY() - this.getRadius()));
-        cells.add(ballSquareBoundingCellTopLeft);
-        Vect ballSquareBoundingCellTopRight = new Vect((int)(this.getX() + this.getRadius()), (int)(this.getY() + this.getRadius()));
-        cells.add(ballSquareBoundingCellTopRight);
-        Vect ballSquareBoundingCellBottomLeft = new Vect((int)(this.getX() - this.getRadius()), (int)(this.getY() + this.getRadius()));
-        cells.add(ballSquareBoundingCellBottomLeft);
-        Vect ballSquareBoundingCellBottomRight = new Vect((int)(this.getX() + this.getRadius()), (int)(this.getY() + this.getRadius()));
-        cells.add(ballSquareBoundingCellBottomRight);
-        
+        for (int i : Arrays.asList(-1, 1)) {
+            for (int j : Arrays.asList(-1, 1)) {
+                int x = (int) (this.getX() + i * this.getRadius());
+                int y = (int) (this.getY() + j * this.getRadius());
+                cells.add(new Vect(x, y));
+            }
+        }
         return cells;
     }
 }

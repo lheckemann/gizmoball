@@ -1,13 +1,16 @@
 package gizmoball.view;
 
-import gizmoball.controller.*;
-import gizmoball.model.Model;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+
+import gizmoball.controller.Controller;
+import gizmoball.model.Model;
+// FIXME: Get this out of there
+import gizmoball.controller.save.SaverType;
+
 
 public class GizmoBallView implements IGizmoBallView {
     private JFrame frame;
