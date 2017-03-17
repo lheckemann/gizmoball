@@ -129,4 +129,12 @@ public class Controller {
     public MouseListener getConnectOuterwallListener(IBuildView view, BuildModel model) {
         return new ConnectOuterwallListener(view, model);
     }
+
+    public void saveExtended(Model model, IGizmoBallView gizmoBallView) {
+        new SaveListener(model, gizmoBallView).saveExtended();
+    }
+    
+    public void saveStandard(Model model, GizmoBallView gizmoBallView) {
+        new SaveListener(model, gizmoBallView).saveStandard();
+    }
 }
