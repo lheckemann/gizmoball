@@ -2,7 +2,8 @@ package gizmoball.view;
 
 import java.io.File;
 
-import gizmoball.controller.SaverType;
+// FIXME: Get out of here
+import gizmoball.controller.save.SaverType;
 
 public interface IGizmoBallView {
     public File getFileByChooserLoad();

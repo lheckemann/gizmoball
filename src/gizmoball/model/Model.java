@@ -6,7 +6,8 @@ import java.util.*;
 
 import physics.LineSegment;
 import physics.Vect;
-import gizmoball.controller.Loader;
+// FIXME: get out of here
+import gizmoball.controller.load.Loader;
 import gizmoball.model.gizmos.*;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.ReadGizmo;
