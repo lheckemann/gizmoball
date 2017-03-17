@@ -372,15 +372,9 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public Set<ReadGizmo> getOuterwallTriggeredGizmos() {
-        Set<ReadGizmo> wallTriggeredGizmos = new HashSet<>();
-        
-        for (Gizmo gizmo: this.wallTriggers) {
-            wallTriggeredGizmos.add((ReadGizmo) gizmo);
-        }
-        
-        return wallTriggeredGizmos;
+        return Collections.unmodifiableSet(this.wallTriggers);
     }
-    
+
     public void load(InputStream input) throws SyntaxError {
         Vect gravity = new Vect(this.gravity.x(), this.gravity.y());
         double mu = this.mu;
