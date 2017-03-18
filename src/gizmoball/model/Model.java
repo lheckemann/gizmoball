@@ -92,7 +92,7 @@ public class Model implements BuildModel, RunModel {
 
     private void checkPlacement(Ball ball) throws PositionOverlapException, PositionOutOfBoundsException {
         for (Vect cell : ball.getCells()) {
-            this.checkPlacement(cell.x() + ball.getRadius(), cell.y() + ball.getRadius());
+            this.checkPlacement(cell.x(), cell.y());
         }
     }
 
