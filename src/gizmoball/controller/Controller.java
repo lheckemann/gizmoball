@@ -50,7 +50,7 @@ public class Controller {
         return new CreateGizmoListener(type, view, model);
     }
 
-    public MouseListener getDeleteGizmoListener(IBuildView view, BuildModel model) {
+    public MouseInputListener getDeleteGizmoListener(IBuildView view, BuildModel model) {
         return new DeleteGizmoListener(view, model);
     }
 

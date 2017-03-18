@@ -8,7 +8,9 @@ import gizmoball.view.BoardView;
 import gizmoball.view.IBuildView;
 import gizmoball.view.CustomCursorType;
 
-public class DeleteGizmoListener extends MouseAdapter {
+import javax.swing.event.MouseInputListener;
+
+public class DeleteGizmoListener extends MouseAdapter implements MouseInputListener {
     private final BuildModel model;
     private final IBuildView view;
 

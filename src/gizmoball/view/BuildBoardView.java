@@ -68,7 +68,9 @@ public class BuildBoardView extends BoardView implements IBuildBoardView {
     @Override
     public void switchToDelete(IBuildView view, BuildModel model) {
         this.clearListeners();
-        this.addMouseListener(controller.getDeleteGizmoListener(view, model));
+        MouseInputListener deleteListener = controller.getDeleteGizmoListener(view, model);
+        this.addMouseListener(deleteListener);
+        this.addMouseMotionListener(deleteListener);
     }
 
     @Override
