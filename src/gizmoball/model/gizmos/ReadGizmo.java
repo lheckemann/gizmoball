@@ -63,7 +63,7 @@ public interface ReadGizmo {
      * Get the representing set of circles.
      * The affine transform returned by `getTransform()` is applied to it.
      */
-    abstract Set<physics.Circle> getCircles();
+    Set<physics.Circle> getCircles();
 
     /**
      * Checks whether the given ball is inside the area delimited by the gizmo.

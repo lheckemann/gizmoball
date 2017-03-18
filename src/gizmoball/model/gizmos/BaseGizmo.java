@@ -29,15 +29,6 @@ public abstract class BaseGizmo implements Gizmo {
     }
 
     @Override
-    public abstract GizmoType getType();
-
-    @Override
-    public abstract int getWidth();
-
-    @Override
-    public abstract int getHeight();
-
-    @Override
     public int getX() {
         return this.x;
     }

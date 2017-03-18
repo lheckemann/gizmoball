@@ -64,9 +64,3 @@ Absorber A 0 19 20 20
 KeyConnect key 127 down A
 Connect A A
 Ball B 1.0 11.0 0.0 0.0
-Ball B1 1.0 12.0 0.0 0.0
-Ball B2 1.0 13.0 0.0 0.0
-Ball B3 1.0 14.0 0.0 0.0
-Ball B4 1.0 15.0 0.0 0.0
-Ball B5 1.0 16.0 0.0 0.0
-Ball B6 1.0 17.0 0.0 0.0

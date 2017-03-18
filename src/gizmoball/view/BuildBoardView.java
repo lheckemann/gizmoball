@@ -4,13 +4,13 @@ import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.EventListener;
 
 import gizmoball.controller.*;
 import gizmoball.model.BuildModel;
 import gizmoball.model.gizmos.GizmoType;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputListener;
 
 public class BuildBoardView extends BoardView implements IBuildBoardView {
     private Controller controller;
@@ -53,9 +53,9 @@ public class BuildBoardView extends BoardView implements IBuildBoardView {
     @Override
     public void switchToAddGizmo(GizmoType type, IBuildView view, BuildModel model) {
         this.clearListeners();
-        EventListener createGizmoListener = controller.getCreateGizmoListener(type, view, model);
-        this.addMouseListener((MouseListener) createGizmoListener);
-        this.addMouseMotionListener((MouseMotionListener) createGizmoListener);
+        MouseInputListener createGizmoListener = controller.getCreateGizmoListener(type, view, model);
+        this.addMouseListener(createGizmoListener);
+        this.addMouseMotionListener(createGizmoListener);
     }
 
     @Override
@@ -67,7 +67,9 @@ public class BuildBoardView extends BoardView implements IBuildBoardView {
     @Override
     public void switchToDelete(IBuildView view, BuildModel model) {
         this.clearListeners();
-        this.addMouseListener(controller.getDeleteGizmoListener(view, model));
+        MouseInputListener deleteListener = controller.getDeleteGizmoListener(view, model);
+        this.addMouseListener(deleteListener);
+        this.addMouseMotionListener(deleteListener);
     }
 
     @Override
@@ -85,24 +87,24 @@ public class BuildBoardView extends BoardView implements IBuildBoardView {
     @Override
     public void switchToConnectKeyPressGizmo(IBuildView view, BuildModel model) {
         this.clearListeners();
-        EventListener keyPressGizmoListener = controller.getConnectKeyPressGizmoListener(view, model);
-        this.addKeyListener((KeyListener) keyPressGizmoListener);
+        KeyAndMouseListener keyPressGizmoListener = controller.getConnectKeyPressGizmoListener(view, model);
+        this.addKeyListener(keyPressGizmoListener);
+        this.addMouseListener(keyPressGizmoListener);
         this.setFocusable(true);
         this.requestFocusInWindow();
-        this.addMouseListener((MouseListener) keyPressGizmoListener);
     }
 
     @Override
     public void switchToConnectKeyReleaseGizmo(IBuildView view, BuildModel model) {
         this.clearListeners();
-        EventListener keyReleaseGizmoListener = controller.getConnectKeyReleaseGizmoListener(view, model);
-        this.addKeyListener((KeyListener) keyReleaseGizmoListener);
+        KeyAndMouseListener keyReleaseGizmoListener = controller.getConnectKeyReleaseGizmoListener(view, model);
+        this.addKeyListener(keyReleaseGizmoListener);
         this.setFocusable(true);
         this.requestFocusInWindow();
-        this.addMouseListener((MouseListener)keyReleaseGizmoListener);
+        this.addMouseListener(keyReleaseGizmoListener);
     }
-    
-    @Override 
+
+    @Override
     public void switchToConnectOuterwall(IBuildView view, BuildModel model) {
         this.clearListeners();
         this.addMouseListener(controller.getConnectOuterwallListener(view, model));

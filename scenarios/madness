@@ -1,0 +1,109 @@
+Sink Sink0 16 19
+Spawner Spawner1 0 0
+Square Square2 8 3
+RightFlipper RightFlipper3 2 5
+Sink Sink4 18 4
+Square Square5 16 9
+Square Square6 9 3
+Sink Sink7 11 19
+Sink Sink8 0 19
+Sink Sink9 12 19
+Circle Circle10 10 5
+Square Square11 13 12
+Square Square12 11 10
+Triangle Triangle13 15 11
+Triangle Triangle14 0 2
+Sink Sink15 19 19
+Sink Sink16 18 19
+Triangle Triangle17 12 3
+Square Square18 16 3
+LeftFlipper LeftFlipper19 13 10
+Square Square20 11 11
+Sink Sink21 14 19
+Circle Circle22 14 12
+Triangle Triangle23 4 3
+Sink Sink24 15 19
+Circle Circle25 9 5
+Sink Sink26 8 19
+Square Square27 16 2
+Square Square28 16 10
+Circle Circle29 13 5
+Sink Sink30 5 19
+Sink Sink31 1 19
+Triangle Triangle32 10 3
+Triangle Triangle33 7 5
+Sink Sink34 10 19
+Square Square35 11 9
+Triangle Triangle36 0 4
+Sink Sink37 13 19
+Sink Sink38 3 19
+Sink Sink39 17 19
+Triangle Triangle40 5 5
+Square Square41 11 12
+Square Square42 11 8
+Sink Sink43 7 19
+Square Square44 16 0
+Square Square45 16 8
+Square Square46 11 6
+Sink Sink47 4 19
+Sink Sink48 6 19
+Spawner Spawner49 17 0
+LeftFlipper LeftFlipper50 6 3
+Square Square51 16 7
+Sink Sink52 9 19
+Sink Sink53 2 19
+Triangle Triangle54 1 6
+Triangle Triangle55 17 4
+Square Square56 5 3
+Square Square57 16 5
+Square Square58 11 7
+Circle Circle59 11 5
+Triangle Triangle60 13 2
+Triangle Triangle61 3 3
+Square Square62 16 6
+Triangle Triangle63 14 1
+Square Square64 16 1
+Circle Circle65 12 5
+Square Square66 16 4
+Rotate Triangle13
+Rotate Triangle13
+Rotate Triangle14
+Rotate Triangle14
+Rotate Triangle14
+Rotate Triangle17
+Rotate Triangle17
+Rotate Triangle32
+Rotate Triangle32
+Rotate Triangle32
+Rotate Triangle33
+Rotate Triangle33
+Rotate Triangle33
+Rotate Triangle36
+Rotate Triangle36
+Rotate Triangle36
+Rotate Triangle40
+Rotate Triangle40
+Rotate Triangle54
+Rotate Triangle54
+Rotate Triangle54
+Rotate Triangle55
+Rotate Triangle55
+Rotate Triangle55
+Rotate Triangle60
+Rotate Triangle60
+Rotate Triangle61
+Rotate Triangle61
+Rotate Triangle63
+Rotate Triangle63
+Connect Triangle40 RightFlipper3
+Connect Square41 Spawner1
+Connect Circle25 RightFlipper3
+Connect Sink4 Spawner49
+Connect Sink4 Spawner1
+Connect Circle22 LeftFlipper19
+Connect Triangle36 LeftFlipper50
+Connect Circle29 RightFlipper3
+KeyConnect key 32 down Spawner1
+Gravity 25.000000
+Friction 0.025000 0.025000
+Ball clockit 17.5 1.5 0.0 0.0

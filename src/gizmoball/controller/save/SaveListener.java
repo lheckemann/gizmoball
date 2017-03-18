@@ -17,24 +17,19 @@ public class SaveListener implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        SaverType saverType = view.getSaveType();
-        if (saverType == null) {
-            return;
-        }
-        
-        Saver saver;
-        switch(view.getSaveType()) {
-            case STANDARD:
-                saver = new StandardSaver(model);
-                break;
-            case EXTENDED:
-                saver = new Saver(model);
-                break;
-            default:
-                saver = null;
-                break;
-        }
-        
+        view.promptSaveType(model);       
+    }
+    
+    public void saveStandard() {
+        this.save(new StandardSaver(this.model));
+    }
+    
+    public void saveExtended() {
+        this.save(new Saver(this.model));
+    }
+    
+    private void save(Saver saver) {
+
         try {
             File newFile = view.getFileByChooserSave();
             if(newFile != null) {  

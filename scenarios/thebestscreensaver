@@ -1,0 +1,58 @@
+Spawner Spawner0 2 14
+Sink Sink1 5 11
+Sink Sink2 17 2
+Sink Sink3 2 9
+Sink Sink4 2 2
+Spawner Spawner5 2 0
+Spawner Spawner6 14 9
+Sink Sink7 17 19
+Sink Sink8 2 19
+Spawner Spawner9 5 9
+Spawner Spawner10 17 0
+Spawner Spawner11 2 7
+Spawner Spawner12 17 7
+Spawner Spawner13 5 2
+Sink Sink14 8 7
+Sink Sink15 14 11
+Spawner Spawner16 8 11
+Sink Sink17 14 4
+Spawner Spawner18 14 2
+Sink Sink19 8 14
+Sink Sink20 11 7
+Sink Sink21 5 4
+Spawner Spawner22 17 14
+Spawner Spawner23 8 4
+Spawner Spawner24 11 4
+Spawner Spawner25 11 11
+Sink Sink26 11 14
+Sink Sink27 17 9
+Connect Sink1 Spawner16
+Connect Sink3 Spawner9
+Connect Sink2 Spawner18
+Connect Sink4 Spawner13
+Connect Spawner5 Sink8
+Connect Sink7 Spawner10
+Connect Spawner6 Sink15
+Connect Sink8 Spawner5
+Connect Spawner9 Sink1
+Connect Spawner10 Sink7
+Connect Spawner12 Sink27
+Connect Spawner11 Sink3
+Connect Spawner13 Sink4
+Connect Sink14 Spawner11
+Connect Sink15 Spawner25
+Connect Spawner16 Sink19
+Connect Sink17 Spawner24
+Connect Spawner18 Sink2
+Connect Sink19 Spawner0
+Connect Sink20 Spawner12
+Connect Sink21 Spawner23
+Connect Spawner23 Sink21
+Connect Spawner24 Sink17
+Connect Spawner25 Sink26
+Connect Sink26 Spawner22
+Connect Sink27 Spawner6
+KeyConnect key 32 down Spawner10
+KeyConnect key 32 down Spawner5
+Gravity 25.000000
+Friction 0.025000 0.025000

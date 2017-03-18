@@ -20,7 +20,7 @@ public class SinkTest {
 
     @Test
     public void getType() {
-        Assert.assertEquals(mySink.getType(), GizmoType.SINK);
+        Assert.assertEquals(GizmoType.SINK, mySink.getType());
     }
 
     @Test

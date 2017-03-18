@@ -1,7 +1,6 @@
 package gizmoball.model;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -10,8 +9,7 @@ import physics.Vect;
 // FIXME: get out of here
 import gizmoball.controller.load.Loader;
 import gizmoball.model.gizmos.*;
-import gizmoball.model.gizmos.Gizmo;
-import gizmoball.model.gizmos.ReadGizmo;
+
 import static gizmoball.model.CollisionFinder.Collision;
 
 
@@ -55,6 +53,9 @@ public class Model implements BuildModel, RunModel {
         this.gizmoMap = new HashMap<>();
         this.wallTriggers = new HashSet<>();
         this.balls = new HashSet<>();
+        gravity = new Vect(0, 25);
+        mu = 0.025;
+        mu2 = 0.025;
     }
 
     private Gizmo getGizmoAt(int x, int y) {
@@ -105,7 +106,14 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public boolean notEmpty(double x, double y) {
-        return (this.getGizmoAt((int) x, (int) y) != null || this.getBallAt(x, y) != null);
+        try {
+            Ball newBall = new Ball();
+            newBall.setPosition(new Vect(x, y));
+            checkPlacement(newBall);
+        } catch (PositionOverlapException | PositionOutOfBoundsException e) {
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -30,17 +30,17 @@ public class TriangleTest {
 
     @Test
     public void getType() {
-        assertEquals(myTriangle.getType(), GizmoType.TRIANGLE);
+        assertEquals(GizmoType.TRIANGLE, myTriangle.getType());
     }
 
     @Test
     public void getWidth() {
-        assertEquals(myTriangle.getWidth(), 1);
+        assertEquals(1, myTriangle.getWidth());
     }
 
     @Test
     public void getHeight() {
-        assertEquals(myTriangle.getHeight(), 1);
+        assertEquals(1, myTriangle.getHeight());
     }
 
     @Test
@@ -51,7 +51,7 @@ public class TriangleTest {
                         new LineSegment(1, 0, 0, 0)).collect(Collectors.toSet())
         );
 
-        assertEquals(myTriangle.getLineSegments(), lines);
+        assertEquals(lines, myTriangle.getLineSegments());
     }
 
     @Test
@@ -63,12 +63,12 @@ public class TriangleTest {
                         new Circle(1-2*circleSize, circleSize, circleSize)).collect(Collectors.toSet())
         );
 
-        assertEquals(myTriangle.getCircles(), circles);
+        assertEquals(circles, myTriangle.getCircles());
     }
 
     @Test
     public void getReflectionCoefficient() {
-        assertEquals(myTriangle.getReflectionCoefficient(), 1, 0);
+        assertEquals(1, myTriangle.getReflectionCoefficient(), 0);
     }
     
     @Test
@@ -84,16 +84,16 @@ public class TriangleTest {
     @Test
     public void ballHit() {
     	Ball ball = new Ball();
-    	assertEquals(myTriangle.ballHit(ball), ball);
+    	assertEquals(ball, myTriangle.ballHit(ball));
     }
     
     @Test
     public void getPivot() {
-    	assertEquals(myTriangle.getPivot(), new Vect(0, 0));
+    	assertEquals(new Vect(0, 0), myTriangle.getPivot());
     }
     
     @Test
     public void getAngularVelocity() {
-    	assertEquals(myTriangle.getAngularVelocity(), 0d, DELTA);
+    	assertEquals(0, myTriangle.getAngularVelocity(), DELTA);
     }
 }

@@ -38,8 +38,10 @@ public class AddBallListener extends MouseAdapter {
                 view.setDisplayLabel("Click on a grid location to add a ball");
             } catch (PositionOverlapException e1) {
                 view.displayErrorMessage("Can't place a ball on top of another ball or gizmo", "Position overlap");
+                view.setDisplayLabel("Click on a grid location to add a ball");
             } catch (PositionOutOfBoundsException e1) {
-                view.displayErrorMessage(e1.getMessage(), "Position out of bounds");
+                view.displayErrorMessage("Can't place a ball out of the bounds of the arena", "Position out of bounds");
+                view.setDisplayLabel("Click on a grid location to add a ball");
             }
         }
     }

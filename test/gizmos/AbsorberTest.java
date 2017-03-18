@@ -6,7 +6,6 @@ import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.GizmoType;
 import gizmoball.model.gizmos.InvalidAbsorberWidthHeight;
 import gizmoball.model.gizmos.NonRotatableException;
-import gizmoball.model.gizmos.ReadGizmo;
 import org.junit.Before;
 import org.junit.Test;
 import physics.LineSegment;
@@ -35,25 +34,24 @@ public class AbsorberTest {
         try {
             myAbsorber = new Absorber(5, 10);
         } catch (InvalidAbsorberWidthHeight e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            fail();
         }
         myBall = new Ball();
     }
 
     @Test
     public void getType() {
-        assertEquals(myAbsorber.getType(), GizmoType.ABSORBER);
+        assertEquals(GizmoType.ABSORBER, myAbsorber.getType());
     }
 
     @Test
     public void getWidth() {
-        assertEquals(myAbsorber.getWidth(), width);
+        assertEquals(width, myAbsorber.getWidth());
     }
 
     @Test
     public void getHeight() {
-        assertEquals(myAbsorber.getHeight(), height);
+        assertEquals(height, myAbsorber.getHeight());
     }
 
     @Test
@@ -66,12 +64,12 @@ public class AbsorberTest {
                         new LineSegment(width, 0, 0, 0)
                 ).collect(Collectors.toSet())
         );
-        assertEquals(myAbsorber.getLineSegments(), lines);
+        assertEquals(lines, myAbsorber.getLineSegments());
     }
 
     @Test
     public void getCircles() {
-        assertEquals(myAbsorber.getCircles(), Collections.emptySet());
+        assertEquals(Collections.emptySet(), myAbsorber.getCircles());
     }
 
     @Test
@@ -82,7 +80,7 @@ public class AbsorberTest {
     @Test
     public void triggerWithOneBall() {
         myAbsorber.ballHit(myBall);
-        assertEquals(myAbsorber.trigger(), myBall);
+        assertEquals(myBall, myAbsorber.trigger());
     }
 
     @Test
@@ -128,7 +126,6 @@ public class AbsorberTest {
             // TODO : check with equals if they are the same
             fail();
         } catch (InvalidAbsorberWidthHeight e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (NonRotatableException e) {
             assertTrue(true);
@@ -138,16 +135,16 @@ public class AbsorberTest {
 
     @Test
     public void getReflectionCoefficient() {
-        assertEquals(myAbsorber.getReflectionCoefficient(), 1, 0);
+        assertEquals(1, myAbsorber.getReflectionCoefficient(), 0);
     }
     
     @Test
     public void getPivot() {
-    	assertEquals(myAbsorber.getPivot(), new Vect(0, 0));
+    	assertEquals(new Vect(0, 0), myAbsorber.getPivot());
     }
     
     @Test
     public void getAngularVelocity() {
-    	assertEquals(myAbsorber.getAngularVelocity(), 0d, DELTA);
+    	assertEquals(0, myAbsorber.getAngularVelocity(), DELTA);
     }
 }

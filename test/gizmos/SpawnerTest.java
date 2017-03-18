@@ -24,38 +24,38 @@ public class SpawnerTest {
 
     @Test
     public void getType() {
-        assertEquals(mySpawner.getType(), GizmoType.SPAWNER);
+        assertEquals(GizmoType.SPAWNER, mySpawner.getType());
     }
 
     @Test
     public void getWidth() {
-        assertEquals(mySpawner.getWidth(), 1);
+        assertEquals(1, mySpawner.getWidth());
     }
 
     @Test
     public void getHeight() {
-        assertEquals(mySpawner.getHeight(), 1);
+        assertEquals(1, mySpawner.getHeight());
     }
 
     @Test
     public void getLineSegments() {
-        assertEquals(mySpawner.getLineSegments(), Collections.emptySet());
+        assertEquals(Collections.emptySet(), mySpawner.getLineSegments());
     }
 
     @Test
     public void getCircles() {
-        assertEquals(mySpawner.getCircles(), Collections.emptySet());
+        assertEquals(Collections.emptySet(), mySpawner.getCircles());
     }
 
     @Test
     public void trigger() {
         Ball newBall = mySpawner.trigger();
-        assertEquals(newBall.getPosition(), new Vect(mySpawner.getX() + 0.5, mySpawner.getY() + 0.5));
+        assertEquals(new Vect(mySpawner.getX() + 0.5, mySpawner.getY() + 0.5), newBall.getPosition());
     }
 
     @Test
     public void getReflectionCoefficient() {
-        assertEquals(mySpawner.getReflectionCoefficient(), 1, 0);
+        assertEquals(1, mySpawner.getReflectionCoefficient(), 0);
     }
 
     @Test
@@ -66,16 +66,16 @@ public class SpawnerTest {
     @Test
     public void ballHit() {
         Ball ball = new Ball();
-        assertEquals(mySpawner.ballHit(ball), ball);
+        assertEquals(ball, mySpawner.ballHit(ball));
     }
 
     @Test
     public void getPivot() {
-        assertEquals(mySpawner.getPivot(), new Vect(0, 0));
+        assertEquals(new Vect(0, 0), mySpawner.getPivot());
     }
 
     @Test
     public void getAngularVelocity() {
-        assertEquals(mySpawner.getAngularVelocity(), 0d, DELTA);
+        assertEquals(0, mySpawner.getAngularVelocity(), DELTA);
     }
 }

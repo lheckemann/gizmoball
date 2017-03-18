@@ -100,8 +100,8 @@ public class Ball implements ReadBall {
         Set<Vect> cells = new HashSet<>();
         for (int i : Arrays.asList(-1, 1)) {
             for (int j : Arrays.asList(-1, 1)) {
-                int x = (int) (this.getX() + i * this.getRadius());
-                int y = (int) (this.getY() + j * this.getRadius());
+                int x = (int)Math.floor((this.getX() + i * this.getRadius()));
+                int y = (int)Math.floor((this.getY() + j * this.getRadius()));
                 cells.add(new Vect(x, y));
             }
         }

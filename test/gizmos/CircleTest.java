@@ -4,7 +4,6 @@ import gizmoball.model.Ball;
 import gizmoball.model.gizmos.Circle;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.GizmoType;
-import gizmoball.model.gizmos.ReadGizmo;
 import physics.Vect;
 
 import org.junit.Before;
@@ -26,33 +25,33 @@ public class CircleTest {
 
     @Test
     public void getType() {
-        assertEquals(myCircle.getType(), GizmoType.CIRCLE);
+        assertEquals(GizmoType.CIRCLE, myCircle.getType());
     }
 
     @Test
     public void getWidth() {
-        assertEquals(myCircle.getWidth(), 1);
+        assertEquals(1, myCircle.getWidth());
     }
 
     @Test
     public void getHeight() {
-        assertEquals(myCircle.getHeight(), 1);
+        assertEquals(1, myCircle.getHeight());
     }
 
     @Test
     public void getCircles() {
         physics.Circle physics = new physics.Circle(0.5, 0.5, 0.5);
-        assertEquals(myCircle.getCircles(), Collections.singleton(physics));
+        assertEquals(Collections.singleton(physics), myCircle.getCircles());
     }
 
     @Test
     public void getLineSegments() {
-        assertEquals(myCircle.getLineSegments(), Collections.emptySet());
+        assertEquals(Collections.emptySet(), myCircle.getLineSegments());
     }
 
     @Test
     public void getReflectionCoefficient() {
-        assertEquals(myCircle.getReflectionCoefficient(), 1, 0);
+        assertEquals(1, myCircle.getReflectionCoefficient(), 0);
     }
     
     @Test
@@ -68,16 +67,16 @@ public class CircleTest {
     @Test
     public void ballHit() {
     	Ball ball = new Ball();
-    	assertEquals(myCircle.ballHit(ball), ball);
+    	assertEquals(ball, myCircle.ballHit(ball));
     }
     
     @Test
     public void getPivot() {
-    	assertEquals(myCircle.getPivot(), new Vect(0, 0));
+    	assertEquals(new Vect(0, 0), myCircle.getPivot());
     }
     
     @Test
     public void getAngularVelocity() {
-    	assertEquals(myCircle.getAngularVelocity(), 0d, DELTA);
+    	assertEquals(0, myCircle.getAngularVelocity(), DELTA);
     }
 }

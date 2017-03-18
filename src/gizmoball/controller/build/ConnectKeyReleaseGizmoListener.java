@@ -3,19 +3,19 @@ package gizmoball.controller.build;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import gizmoball.model.BuildModel;
 import gizmoball.view.BoardView;
 import gizmoball.view.IBuildView;
 import gizmoball.view.CustomCursorType;
+import gizmoball.view.KeyAndMouseListener;
 
-public class ConnectKeyReleaseGizmoListener extends KeyAdapter implements MouseListener {
+public class ConnectKeyReleaseGizmoListener extends KeyAdapter implements KeyAndMouseListener {
     private BuildModel model;
     private final IBuildView view;
 
     private boolean componentSelected;
-    
+
     public ConnectKeyReleaseGizmoListener(IBuildView view, BuildModel model) {
         this.view = view;
         this.model = model;

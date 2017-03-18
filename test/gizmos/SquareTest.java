@@ -33,17 +33,17 @@ public class SquareTest {
 
     @Test
     public void getType() {
-        assertEquals(mySquare.getType(), GizmoType.SQUARE);
+        assertEquals(GizmoType.SQUARE, mySquare.getType());
     }
 
     @Test
     public void getWidth() {
-        assertEquals(mySquare.getWidth(), 1);
+        assertEquals(1, mySquare.getWidth());
     }
 
     @Test
     public void getHeight() {
-        assertEquals(mySquare.getHeight(), 1);
+        assertEquals(1, mySquare.getHeight());
     }
 
     @Test
@@ -54,7 +54,7 @@ public class SquareTest {
                         new LineSegment(1, 1, 1, 0),
                         new LineSegment(1, 0, 0, 0)).collect(Collectors.toSet())
         );
-        assertEquals(mySquare.getLineSegments(), lines);
+        assertEquals(lines, mySquare.getLineSegments());
     }
 
     @Test
@@ -66,12 +66,12 @@ public class SquareTest {
                         new Circle(1-circleSize, 1-circleSize, circleSize),
                         new Circle(1-circleSize, circleSize, circleSize)).collect(Collectors.toSet())
         );
-        assertEquals(mySquare.getCircles(), circles);
+        assertEquals(circles, mySquare.getCircles());
     }
 
     @Test
     public void getReflectionCoefficient() {
-        assertEquals(mySquare.getReflectionCoefficient(), 1, 0);
+        assertEquals(1, mySquare.getReflectionCoefficient(), 0);
     }
     
     @Test
@@ -87,16 +87,16 @@ public class SquareTest {
     @Test
     public void ballHit() {
     	Ball ball = new Ball();
-    	assertEquals(mySquare.ballHit(ball), ball);
+    	assertEquals(ball, mySquare.ballHit(ball));
     }
     
     @Test
     public void getPivot() {
-    	assertEquals(mySquare.getPivot(), new Vect(0, 0));
+    	assertEquals(new Vect(0, 0), mySquare.getPivot());
     }
     
     @Test
     public void getAngularVelocity() {
-    	assertEquals(mySquare.getAngularVelocity(), 0d, DELTA);
+    	assertEquals(0, mySquare.getAngularVelocity(), DELTA);
     }
 }

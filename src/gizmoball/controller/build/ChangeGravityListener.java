@@ -1,13 +1,10 @@
 package gizmoball.controller.build;
 
 import gizmoball.model.BuildModel;
-import gizmoball.view.IBuildView;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 public class ChangeGravityListener implements ChangeListener {
     private final BuildModel model;

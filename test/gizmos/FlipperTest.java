@@ -30,7 +30,7 @@ public class FlipperTest {
 
     @Test
     public void getReflectionCoefficient() {
-        assertEquals(myLeftFlipper.getReflectionCoefficient(), 0.95f, DELTA);
+        assertEquals(0.95f, myLeftFlipper.getReflectionCoefficient(), DELTA);
     }
 
     @Test
@@ -45,22 +45,22 @@ public class FlipperTest {
 
     @Test
     public void getWidth() {
-        assertEquals(myLeftFlipper.getWidth(), 2);
+        assertEquals(2, myLeftFlipper.getWidth());
     }
 
     @Test
     public void getHeight() {
-        assertEquals(myLeftFlipper.getHeight(), 2);
+        assertEquals(2, myLeftFlipper.getHeight());
     }
 
     @Test
     public void getTypeLeft() {
-        assertEquals(myLeftFlipper.getType(), GizmoType.LEFT_FLIPPER);
+        assertEquals(GizmoType.LEFT_FLIPPER, myLeftFlipper.getType());
     }
 
     @Test
     public void getTypeRight() {
-        assertEquals(myRightFlipper.getType(), GizmoType.RIGHT_FLIPPER);
+        assertEquals(GizmoType.RIGHT_FLIPPER, myRightFlipper.getType());
     }
 
     @Test
@@ -75,20 +75,20 @@ public class FlipperTest {
     
     @Test
     public void getAngularVelocityLeftFlipperNoTick() {
-    	assertEquals(myLeftFlipper.getAngularVelocity(), 0.0, DELTA);
+    	assertEquals(0, myLeftFlipper.getAngularVelocity(), DELTA);
     }
     
     @Test
     public void getAngularVelocityLeftFlipperOneTick() {
     	myLeftFlipper.tick();
-    	assertEquals(myLeftFlipper.getAngularVelocity(), 0.0, DELTA);
+    	assertEquals(0, myLeftFlipper.getAngularVelocity(), DELTA);
     }
     
     @Test
     public void getAngularVelocityLeftFlipperOneTickAndActive() {
     	myLeftFlipper.trigger();
     	myLeftFlipper.tick();
-    	assertEquals(myLeftFlipper.getAngularVelocity(), -6d * Math.PI, DELTA);
+    	assertEquals(-6d * Math.PI, myLeftFlipper.getAngularVelocity(), DELTA);
     }
     
     @Test
@@ -96,26 +96,25 @@ public class FlipperTest {
     	myLeftFlipper.trigger();
     	myLeftFlipper.tick();
     	myLeftFlipper.trigger();
-    	assertNotEquals(myLeftFlipper.getAngularVelocity(), 6d * Math.PI, DELTA);
+    	assertNotEquals(6d * Math.PI, myLeftFlipper.getAngularVelocity(), DELTA);
     }
-    
-    //
+
     @Test
     public void getAngularVelocityRightFlipperNoTick() {
-    	assertEquals(myRightFlipper.getAngularVelocity(), 0.0, DELTA);
+    	assertEquals(0, myRightFlipper.getAngularVelocity(), DELTA);
     }
     
     @Test
     public void getAngularVelocityRightFlipperOneTick() {
     	myRightFlipper.tick();
-    	assertEquals(myRightFlipper.getAngularVelocity(), 0.0, DELTA);
+    	assertEquals(0, myRightFlipper.getAngularVelocity(), DELTA);
     }
     
     @Test
     public void getAngularVelocityRightFlipperOneTickAndActive() {
     	myRightFlipper.trigger();
     	myRightFlipper.tick();
-    	assertEquals(myRightFlipper.getAngularVelocity(), 6d * Math.PI, DELTA);
+    	assertEquals(6d * Math.PI, myRightFlipper.getAngularVelocity(), DELTA);
     }
     
     @Test
@@ -123,7 +122,7 @@ public class FlipperTest {
     	myRightFlipper.trigger();
     	myRightFlipper.tick();
     	myRightFlipper.trigger();
-    	assertNotEquals(myRightFlipper.getAngularVelocity(), -6d * Math.PI, DELTA);
+    	assertNotEquals(-6d * Math.PI, myRightFlipper.getAngularVelocity(), DELTA);
     }
 
     @Test
@@ -133,7 +132,7 @@ public class FlipperTest {
                 new LineSegment(0.5, 0.25, 0.5, 1.75)
         ).collect(Collectors.toSet()));
 
-        assertEquals(myLeftFlipper.getLineSegments(), lines);
+        assertEquals(lines, myLeftFlipper.getLineSegments());
     }
 
     @Test
@@ -147,7 +146,7 @@ public class FlipperTest {
                 new Circle(0.5, 1.75, 0.05)
         ).collect(Collectors.toSet()));
 
-        assertEquals(myLeftFlipper.getCircles(), circles);
+        assertEquals(circles, myLeftFlipper.getCircles());
     }
     
     @Test
@@ -158,6 +157,6 @@ public class FlipperTest {
     @Test
     public void ballHit() {
     	Ball ball = new Ball();
-    	assertEquals(myLeftFlipper.ballHit(ball), ball);
+    	assertEquals(ball, myLeftFlipper.ballHit(ball));
     }
 }

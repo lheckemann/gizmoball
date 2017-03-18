@@ -124,7 +124,7 @@ public class GizmoBallView implements IGizmoBallView {
     }
 
     @Override
-    public SaverType getSaveType() {
+    public void promptSaveType(Model model) {
         SaverType[] options = {SaverType.STANDARD, SaverType.EXTENDED};
         JPanel panel = new JPanel();
         panel.add(new JLabel("Choose saver type"));
@@ -132,15 +132,24 @@ public class GizmoBallView implements IGizmoBallView {
         int result = JOptionPane.showOptionDialog(null, panel, "Select a saver to use",
                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, options, null);
-        
-        SaverType saverType;
+
         try {   
-            saverType = options[result];
+            switch(options[result]) {
+                case STANDARD:
+                    this.controller.saveStandard(model, this);
+                    break;
+                case EXTENDED:
+                    this.controller.saveExtended(model, this);
+                    break;
+            }
         } catch (IndexOutOfBoundsException e) {
-            saverType = null;
+           
         }
-        
-        return saverType;
     }
 
+    @Override
+    public void reset() {
+        runView.pause();
+        updateBoard();
+    }
 }

@@ -1,8 +1,10 @@
 package gizmoball.model.gizmos;
 
 import gizmoball.model.Ball;
+import gizmoball.model.Geometry;
 import gizmoball.model.RunModel;
 import physics.LineSegment;
+import physics.Vect;
 
 import java.awt.geom.AffineTransform;
 import java.util.Collections;
@@ -90,5 +92,10 @@ public class StandardFlipper extends Flipper {
     @Override
     public Set<physics.Circle> getCircles() {
         return circles;
+    }
+
+    @Override
+    public Vect getPivot() {
+        return Geometry.transformThrough(getTransform(), new Vect(0.25, 0.25));
     }
 }

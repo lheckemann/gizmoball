@@ -18,7 +18,6 @@ public class NewListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         this.model.reset();
-        this.view.updateBoard();
+        this.view.reset();
     }
-
 }
