@@ -1,0 +1,146 @@
+Triangle Triangle0 2 18
+Square Square1 13 4
+Square Square2 7 6
+Square Square3 6 2
+Spawner Spawner4 18 0
+Square Square5 7 16
+Triangle Triangle6 17 18
+Triangle Triangle7 5 18
+Square Square8 6 12
+Square Square9 13 7
+Sink Sink10 11 19
+Spawner Spawner11 1 0
+Square Square12 13 6
+Square Square13 13 8
+Square Square14 7 0
+Square Square15 6 1
+Square Square16 7 1
+Square Square17 13 11
+Square Square18 7 9
+Square Square19 13 19
+Square Square20 3 19
+Sink Sink21 15 19
+Triangle Triangle22 19 18
+Square Square23 13 12
+Square Square24 0 19
+Square Square25 6 0
+Sink Sink26 8 18
+Square Square27 6 11
+Spawner Spawner28 4 0
+Square Square29 6 3
+Square Square30 7 12
+Square Square31 19 19
+LeftFlipper LeftFlipper32 3 1
+Square Square33 7 10
+Square Square34 7 2
+Square Square35 6 6
+Spawner Spawner36 10 0
+Square Square37 14 19
+Sink Sink38 10 19
+Triangle Triangle39 3 18
+Square Square40 7 17
+Square Square41 6 14
+Spawner Spawner42 8 0
+Square Square43 6 13
+Square Square44 16 19
+Spawner Spawner45 15 0
+Square Square46 6 4
+Square Square47 5 19
+Square Square48 7 11
+Square Square49 13 5
+Square Square50 7 5
+Square Square51 7 19
+Square Square52 6 16
+Square Square53 17 19
+Triangle Triangle54 0 18
+Sink Sink55 18 19
+Triangle Triangle56 14 18
+Sink Sink57 12 19
+Square Square58 13 17
+Triangle Triangle59 16 18
+Spawner Spawner60 11 0
+Sink Sink61 8 1
+Square Square62 6 8
+RightFlipper RightFlipper63 1 1
+Square Square64 6 18
+Spawner Spawner65 9 0
+Square Square66 6 10
+Sink Sink67 4 19
+Square Square68 7 13
+Square Square69 6 9
+Square Square70 13 18
+Sink Sink71 1 19
+Square Square72 13 14
+Square Square73 13 2
+Square Square74 13 9
+Square Square75 7 4
+Square Square76 13 10
+Square Square77 13 16
+Square Square78 2 19
+Square Square79 6 7
+Square Square80 13 1
+Square Square81 13 3
+Spawner Spawner82 12 0
+Square Square83 13 0
+Square Square84 6 19
+Square Square85 6 15
+Square Square86 7 8
+Sink Sink87 9 19
+Square Square88 7 3
+Square Square89 7 7
+Square Square90 7 15
+LeftFlipper LeftFlipper91 18 1
+Square Square92 6 17
+Square Square93 7 14
+Square Square94 6 5
+Square Square95 13 13
+RightFlipper RightFlipper96 14 1
+Square Square97 7 18
+Square Square98 13 15
+Ball B0 8.500000 17.500000 0.000000 0.000000
+Rotate Triangle0
+Rotate Triangle0
+Rotate Triangle0
+Rotate Triangle6
+Rotate Triangle6
+Rotate Triangle7
+Rotate Triangle7
+Rotate Triangle7
+Rotate Triangle22
+Rotate Triangle22
+Rotate Triangle22
+Rotate Triangle39
+Rotate Triangle39
+Rotate Triangle54
+Rotate Triangle54
+Rotate Triangle56
+Rotate Triangle56
+Rotate Triangle59
+Rotate Triangle59
+Rotate Triangle59
+Rotate LeftFlipper91
+Rotate RightFlipper96
+Rotate RightFlipper96
+Rotate RightFlipper96
+Connect Sink38 Spawner60
+Connect Sink26 LeftFlipper91
+Connect Sink26 RightFlipper96
+Connect Sink10 Spawner82
+Connect Sink61 LeftFlipper32
+Connect Sink61 Spawner65
+Connect Sink61 LeftFlipper91
+Connect Sink61 RightFlipper96
+Connect Sink61 RightFlipper63
+Connect Sink87 Spawner45
+Connect Sink87 Spawner4
+Connect Sink87 Spawner11
+Connect Sink87 Spawner28
+Connect Sink87 Spawner36
+Connect Sink57 LeftFlipper32
+Connect Sink57 LeftFlipper91
+Connect Sink57 RightFlipper96
+Connect Sink57 RightFlipper63
+KeyConnect key 32 down Spawner42
+KeyConnect key 81 down Spawner11
+Gravity 25.000000
+Friction 0.025000 0.025000
