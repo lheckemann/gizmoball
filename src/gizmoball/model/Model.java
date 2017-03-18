@@ -92,7 +92,7 @@ public class Model implements BuildModel, RunModel {
 
     private void checkPlacement(Ball ball) throws PositionOverlapException, PositionOutOfBoundsException {
         for (Vect cell : ball.getCells()) {
-            this.checkPlacement(cell.x(), cell.y());
+            this.checkPlacement(cell.x() + ball.getRadius(), cell.y() + ball.getRadius());
         }
     }
 
@@ -104,7 +104,14 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public boolean notEmpty(double x, double y) {
-        return (this.getGizmoAt((int) x, (int) y) != null || this.getBallAt(x, y) != null);
+        try {
+            Ball newBall = new Ball();
+            newBall.setPosition(new Vect(x, y));
+            checkPlacement(newBall);
+        } catch (PositionOverlapException | PositionOutOfBoundsException e) {
+            return true;
+        }
+        return false;
     }
 
     @Override
