@@ -1,8 +1,5 @@
 package gizmoball.model;
 
-import java.util.Map;
-import java.util.Set;
-
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.NonRotatableException;
 import gizmoball.model.gizmos.ReadGizmo;
@@ -50,7 +47,7 @@ public interface BuildModel extends ReadModel {
      * If there is no selection or the selected location is not a gizmo, this
      * is effectively a noop.
      * If the gizmo cannot be rotated, then an exception is thrown
-     * @throws NonRotatableException 
+     * @throws NonRotatableException
      */
     void rotateGizmo() throws NonRotatableException;
 

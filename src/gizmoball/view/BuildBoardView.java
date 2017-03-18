@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.EventListener;
 
 import gizmoball.controller.*;
 import gizmoball.model.BuildModel;

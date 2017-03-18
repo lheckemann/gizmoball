@@ -1,16 +1,12 @@
 package gizmoball.model.gizmos;
 
-import java.awt.geom.AffineTransform;
-
-import physics.*;
-
 import gizmoball.model.*;
 
 public interface Gizmo extends ReadGizmo {
     /**
      * Rotates clockwise a quadrant.
      * If the gizmo cannot be rotated, then an exception will be thrown
-     * @throws NonRotatableException 
+     * @throws NonRotatableException
      */
     void rotate() throws NonRotatableException;
 

@@ -1,7 +1,6 @@
 package gizmoball.model;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.*;
 
 import physics.LineSegment;
@@ -9,8 +8,7 @@ import physics.Vect;
 // FIXME: get out of here
 import gizmoball.controller.load.Loader;
 import gizmoball.model.gizmos.*;
-import gizmoball.model.gizmos.Gizmo;
-import gizmoball.model.gizmos.ReadGizmo;
+
 import static gizmoball.model.CollisionFinder.Collision;
 
 

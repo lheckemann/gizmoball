@@ -2,16 +2,12 @@ package gizmoball.controller.build;
 
 import gizmoball.model.*;
 import gizmoball.model.gizmos.*;
-import gizmoball.model.gizmos.GizmoType;
 import gizmoball.view.BoardView;
 import gizmoball.view.IBuildView;
 import gizmoball.view.CustomCursorType;
 
 import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseMotionListener;
 
 public class CreateGizmoListener implements MouseInputListener {
     private final BuildModel model;

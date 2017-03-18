@@ -1,7 +1,5 @@
 package gizmoball.model.gizmos;
 
-import physics.*;
-
 public abstract class Flipper extends BaseGizmo {
     protected static final double ANGULAR_VELOCITY = 6d * Math.PI;
     protected boolean isLeftFlipper;
