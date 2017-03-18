@@ -147,4 +147,9 @@ public class GizmoBallView implements IGizmoBallView {
         }
     }
 
+    @Override
+    public void reset() {
+        runView.pause();
+        updateBoard();
+    }
 }

@@ -14,4 +14,5 @@ public interface IGizmoBallView {
     public void switchToRunView();
     public void updateBoard();
     public void promptSaveType(Model model);
+    public void reset();
 }
