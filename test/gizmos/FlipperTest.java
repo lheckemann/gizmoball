@@ -98,8 +98,7 @@ public class FlipperTest {
     	myLeftFlipper.trigger();
     	assertNotEquals(myLeftFlipper.getAngularVelocity(), 6d * Math.PI, DELTA);
     }
-    
-    //
+
     @Test
     public void getAngularVelocityRightFlipperNoTick() {
     	assertEquals(myRightFlipper.getAngularVelocity(), 0.0, DELTA);
