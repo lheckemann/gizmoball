@@ -53,10 +53,6 @@ public class CollisionFinder {
         this.balls = balls;
     }
 
-    public Vect getCollisionPosition(Collision c) {
-        return c.ball.getCircle().getCenter().plus(c.ball.getVelocity().times(c.time));
-    }
-
     public Vect getCollisionVelocity(Collision c) {
         if (c.againstBall != null) {
             return reflectBalls(c.ball.getCircle().getCenter(), 0.1, c.ball.getVelocity(),
@@ -87,14 +83,13 @@ public class CollisionFinder {
         return v;
     }
 
-    public List<Collision> getCollisions(double time) {
+    public List<Collision> getCollisions() {
         return this.balls.stream()
             .flatMap(b -> Stream.of(
                         this.getWallCollisions(b),
                         this.getGizmoCollisions(b),
                         this.getBallCollisions(b)))
             .flatMap(Set::stream)
-            .filter(c -> c.time < time)
             .sorted(Comparator.comparing(c -> c.time))
             .collect(Collectors.toList());
     }
