@@ -52,6 +52,9 @@ public class Model implements BuildModel, RunModel {
         this.gizmoMap = new HashMap<>();
         this.wallTriggers = new HashSet<>();
         this.balls = new HashSet<>();
+        gravity = new Vect(0, 25);
+        mu = 0.025;
+        mu2 = 0.025;
     }
 
     private Gizmo getGizmoAt(int x, int y) {
