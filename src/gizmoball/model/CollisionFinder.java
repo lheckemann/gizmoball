@@ -34,14 +34,9 @@ public class CollisionFinder {
             this.againstBall = againstBall;
             this.againstGizmo = againstGizmo;
         }
-
-        public boolean equivalent(Collision other) {
-            if (other == null) {
-                return false;
-            }
-            return this.ball.equals(other.ball) && (
-                    (this.circle != null && this.circle.equals(other.circle)) ||
-                    (this.line != null && this.line.equals(other.line)));
+        public String toString() {
+            return String.format("%s %f %s %s",
+                    ball, time, againstBall, againstGizmo);
         }
     }
 
@@ -92,18 +87,16 @@ public class CollisionFinder {
         return v;
     }
 
-    public Collision getCollision(double time, Set<Collision> exclude) {
+    public List<Collision> getCollisions(double time) {
         return this.balls.stream()
             .flatMap(b -> Stream.of(
                         this.getWallCollisions(b),
                         this.getGizmoCollisions(b),
                         this.getBallCollisions(b)))
             .flatMap(Set::stream)
-            .filter(c -> !exclude.stream().anyMatch(o -> o.equivalent(c)))
             .filter(c -> c.time < time)
             .sorted(Comparator.comparing(c -> c.time))
-            .findFirst()
-            .orElse(null);
+            .collect(Collectors.toList());
     }
 
     public Set<Collision> getWallCollisions(Ball ball) {
@@ -147,7 +140,6 @@ public class CollisionFinder {
             double t = timeUntilBallBallCollision(ball.getCircle(), ball.getVelocity(),
                                                   b.getCircle(), b.getVelocity());
             collisions.add(new Collision(ball, t, null, b.getCircle(), b, null));
-            collisions.add(new Collision(b, t, null, ball.getCircle(), ball, null));
         }
         return collisions;
     }

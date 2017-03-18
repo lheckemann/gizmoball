@@ -3,6 +3,7 @@ package gizmoball.model;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import physics.LineSegment;
 import physics.Vect;
@@ -403,11 +404,10 @@ public class Model implements BuildModel, RunModel {
         }
     }
 
-    private void applyGlobalForces(Ball ball) {
-        double friction = (1 - mu * SECONDS_PER_TICK - mu2 * ball.getVelocity().length() * SECONDS_PER_TICK);
-        ball.setVelocity(ball.getVelocity().times(friction));
-        Vect gravity = this.gravity.times(SECONDS_PER_TICK);
-        ball.setVelocity(ball.getVelocity().plus(gravity));
+    private void applyGlobalForces(Ball ball, double lapse) {
+        double friction = (1 - mu * lapse - mu2 * ball.getVelocity().length() * lapse);
+        Vect gravity = this.gravity.times(lapse);
+        ball.setVelocity(ball.getVelocity().times(friction).plus(gravity));
     }
 
     @Override
@@ -419,31 +419,41 @@ public class Model implements BuildModel, RunModel {
         finder.setGizmos(this.gizmos);
         finder.setBalls(this.balls);
 
-        Set<Collision> handled = new HashSet<>();
-        Set<Ball> unhandled = new HashSet<>(this.balls);
-        for (;;) {
-            Collision c = finder.getCollision(SECONDS_PER_TICK, handled);
-            if (c == null) {
-                break;
-            }
+        List<Collision> collisions = finder.getCollisions(SECONDS_PER_TICK);
+        double lapse = collisions.stream()
+            .filter(c -> c.time != 0.0)
+            .findFirst()
+            .map(c -> c.time)
+            .orElse(SECONDS_PER_TICK);
+        List<Collision> tick = collisions.stream()
+            .filter(c -> c.time <= lapse)
+            .collect(Collectors.toList());
 
-            c.ball.setPosition(finder.getCollisionPosition(c));
-            c.ball.setVelocity(finder.getCollisionVelocity(c));
+        Map<Ball,Vect> velocities = new HashMap<>();
 
+        Set<Ball> free = new HashSet<>(this.balls);
+        for (Collision c : tick) {
+            free.remove(c.ball);
+            velocities.put(c.ball, finder.getCollisionVelocity(c));
+        }
+
+        for (Ball b : velocities.keySet()) {
+            b.setPosition(b.getCircle().getCenter().plus(b.getVelocity().times(lapse)));
+            b.setVelocity(velocities.get(b));
+            this.applyGlobalForces(b, lapse);
+        }
+
+        for (Collision c : tick) {
             if (c.againstGizmo != null) {
                 this.gizmoHit(c.againstGizmo, c.ball);
-            } else if (c.againstBall != null) {
-                // TODO ball hit
-            } else {
+            } else if (c.againstBall == null) {
                 this.wallHit();
             }
+        }
 
-            handled.add(c);
-            unhandled.remove(c.ball);
+        for (Ball b : free) {
+            b.setPosition(b.getCircle().getCenter().plus(b.getVelocity().times(lapse)));
+            this.applyGlobalForces(b, lapse);
         }
-        for (Ball b : unhandled) {
-            b.setPosition(b.getPosition().plus(b.getVelocity().times(SECONDS_PER_TICK)));
-        }
-        balls.forEach(this::applyGlobalForces);
     }
 }
