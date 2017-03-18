@@ -73,11 +73,13 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
             view.updateBoard();
         } catch (PositionOutOfBoundsException positionOutOfBounds){
             if ( ! mouseDragged) {
-                view.displayErrorMessage(positionOutOfBounds.getMessage(), "Position out of bounds");
+                view.displayErrorMessage("Can't place a gizmo out of the bounds of the arena", "Position out of bounds");
+                view.setDisplayLabel("Click on the grid area where you would like to place the gizmo");
             }
         } catch (PositionOverlapException positionOverlap) {
             if ( ! mouseDragged) {
                 view.displayErrorMessage("Can't place a gizmo on top of another gizmo or ball", "Position overlap error");
+                view.setDisplayLabel("Click on the grid area where you would like to place the gizmo");
             }
         }
     }
