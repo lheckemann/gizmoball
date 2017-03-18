@@ -35,6 +35,22 @@
         </configuration>
         <executions>
           <execution>
+            <id>validate</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <classifier>validate</classifier>
+              <archive>
+                <manifest>
+                  <addClasspath>true</addClasspath>
+                  <mainClass>gizmoball.main.Validate</mainClass>
+                </manifest>
+              </archive>
+            </configuration>
+          </execution>
+          <execution>
             <id>one</id>
             <phase>package</phase>
             <goals>
