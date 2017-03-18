@@ -2,8 +2,8 @@ package gizmoball.view;
 
 import java.io.File;
 
-// FIXME: Get out of here
-import gizmoball.model.Model;
+import gizmoball.model.BuildModel;
+import gizmoball.controller.save.Saver;
 
 public interface IGizmoBallView {
     File getFileByChooserLoad();
@@ -12,6 +12,6 @@ public interface IGizmoBallView {
     void switchToBuildView();
     void switchToRunView();
     void updateBoard();
-    void promptSaveType(Model model);
+    Saver promptSaverType(BuildModel model);
     void reset();
 }

@@ -1,7 +1,7 @@
 package gizmoball.model;
 
 public interface RunModel extends ReadModel {
-    double SECONDS_PER_TICK = 1.0/60;
+    double SECONDS_PER_TICK = 1.0/25;
 
     /**
      * Recomputes each gizmo's and each ball's state.
