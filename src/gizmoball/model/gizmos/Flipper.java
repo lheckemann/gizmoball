@@ -27,9 +27,4 @@ public abstract class Flipper extends BaseGizmo {
     public int getHeight() {
         return 2;
     }
-
-    @Override
-    public Vect getPivot() {
-        return new Vect(0.25, 0.25);
-    }
 }
