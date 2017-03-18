@@ -32,7 +32,7 @@ public class SpinningFlipperTest {
 
     @Test
     public void getReflectionCoefficient() {
-        assertEquals(myLeftFlipper.getReflectionCoefficient(), 0.95f, DELTA);
+        assertEquals(0.95f, myLeftFlipper.getReflectionCoefficient(), DELTA);
     }
 
     @Test
@@ -47,22 +47,22 @@ public class SpinningFlipperTest {
 
     @Test
     public void getWidth() {
-        assertEquals(myLeftFlipper.getWidth(), 2);
+        assertEquals(2, myLeftFlipper.getWidth());
     }
 
     @Test
     public void getHeight() {
-        assertEquals(myLeftFlipper.getHeight(), 2);
+        assertEquals(2, myLeftFlipper.getHeight());
     }
 
     @Test
     public void getTypeLeft() {
-        assertEquals(myLeftFlipper.getType(), GizmoType.LEFT_SPINNING_FLIPPER);
+        assertEquals(GizmoType.LEFT_SPINNING_FLIPPER, myLeftFlipper.getType());
     }
 
     @Test
     public void getTypeRight() {
-        assertEquals(myRightFlipper.getType(), GizmoType.RIGHT_SPINNING_FLIPPER);
+        assertEquals(GizmoType.RIGHT_SPINNING_FLIPPER, myRightFlipper.getType());
     }
 
     @Test
@@ -73,17 +73,17 @@ public class SpinningFlipperTest {
     @Test
     public void getAngularVelocityLeftFlipperNotRunning() {
         myLeftFlipper.trigger();
-        assertEquals(myLeftFlipper.getAngularVelocity(), 0.0, DELTA);
+        assertEquals(0, myLeftFlipper.getAngularVelocity(), DELTA);
     }
 
     @Test
     public void getAngularVelocityLeftFlipper() {
-        assertEquals(myLeftFlipper.getAngularVelocity(), -6d * Math.PI, DELTA);
+        assertEquals(-6d * Math.PI, myLeftFlipper.getAngularVelocity(), DELTA);
     }
 
     @Test
     public void getAngularVelocityRightFlipper() {
-        assertEquals(myRightFlipper.getAngularVelocity(), 6d * Math.PI, DELTA);
+        assertEquals(6d * Math.PI, myRightFlipper.getAngularVelocity(), DELTA);
     }
 
     @Test
@@ -98,7 +98,7 @@ public class SpinningFlipperTest {
                 new LineSegment(0.5, 0.25, 0.5, 0.75)
         ).collect(Collectors.toSet()));
 
-        assertEquals(myLeftFlipper.getLineSegments(), lines);
+        assertEquals(lines, myLeftFlipper.getLineSegments());
     }
 
     @Test
@@ -112,7 +112,7 @@ public class SpinningFlipperTest {
                 new physics.Circle(0.5, 0.75, 0.05)
         ).collect(Collectors.toSet()));
 
-        assertEquals(myLeftFlipper.getCircles(), circles);
+        assertEquals(circles, myLeftFlipper.getCircles());
     }
 
     @Test
@@ -123,6 +123,6 @@ public class SpinningFlipperTest {
     @Test
     public void ballHit() {
         Ball ball = new Ball();
-        assertEquals(myLeftFlipper.ballHit(ball), ball);
+        assertEquals(ball, myLeftFlipper.ballHit(ball));
     }
 }

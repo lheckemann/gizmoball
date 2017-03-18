@@ -60,35 +60,35 @@ public class ModelTest {
     public void resetGizmoSetEmpty() {
         myModel.reset();
 
-        assertEquals(myModel.getGizmos(), Collections.EMPTY_SET);
+        assertEquals(Collections.EMPTY_SET, myModel.getGizmos());
     }
 
     @Test
     public void resetBallSetEmpty() {
         myModel.reset();
 
-        assertEquals(myModel.getBalls(), Collections.EMPTY_SET);
+        assertEquals(Collections.EMPTY_SET, myModel.getBalls());
     }
 
     @Test
     public void resetKeyPressMapEmpty() {
         myModel.reset();
 
-        assertEquals(myModel.getKeyPressToGizmoMap(), Collections.EMPTY_MAP);
+        assertEquals(Collections.EMPTY_MAP, myModel.getKeyPressToGizmoMap());
     }
 
     @Test
     public void resetKeyReleaseMapEmpty() {
         myModel.reset();
 
-        assertEquals(myModel.getKeyReleaseToGizmoMap(), Collections.EMPTY_MAP);
+        assertEquals(Collections.EMPTY_MAP, myModel.getKeyReleaseToGizmoMap());
     }
 
     @Test
     public void resetGizmoToGizmoMapEmpty() {
         myModel.reset();
 
-        assertEquals(myModel.getGizmoToGizmoMap(), Collections.EMPTY_MAP);
+        assertEquals(Collections.EMPTY_MAP, myModel.getGizmoToGizmoMap());
     }
 
     @Test
@@ -203,10 +203,8 @@ public class ModelTest {
             emptyModel.addGizmo(new Absorber(5, 5));
             assertTrue(emptyModel.getGizmos().size() > 0);
         } catch (InvalidAbsorberWidthHeight e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-       
     }
 
     @Test(expected=PositionOverlapException.class)
@@ -218,7 +216,6 @@ public class ModelTest {
         try {
             emptyModel.addGizmo(new Absorber(5, 5));
         } catch (InvalidAbsorberWidthHeight e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -231,7 +228,6 @@ public class ModelTest {
         try {
             emptyModel.addGizmo(new Absorber(10, 10));
         } catch (InvalidAbsorberWidthHeight e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -268,8 +264,8 @@ public class ModelTest {
     @Test
     public void addCircleUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(10, 11);
-
         emptyModel.addGizmo(new Circle());
+
         assertTrue(emptyModel.getGizmos().size() > 0);
     }
 
@@ -295,8 +291,8 @@ public class ModelTest {
     @Test
     public void addTriangleUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(10, 11);
-
         emptyModel.addGizmo(new Triangle());
+
         assertTrue(emptyModel.getGizmos().size() > 0);
     }
 
@@ -322,8 +318,8 @@ public class ModelTest {
     @Test
     public void addRightFlipperUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(10, 11);
-
         emptyModel.addGizmo(new StandardFlipper(false));
+
         assertTrue(emptyModel.getGizmos().size() > 0);
     }
 
@@ -349,8 +345,8 @@ public class ModelTest {
     @Test
     public void addLeftFlipperUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(10, 11);
-
         emptyModel.addGizmo(new StandardFlipper(true));
+
         assertTrue(emptyModel.getGizmos().size() > 0);
     }
 
@@ -379,9 +375,8 @@ public class ModelTest {
     	myModel.select(6, 6);
     	try {
             myModel.rotateGizmo();
-            assertEquals(myModel.getGizmos(),  gizmos);
+            assertEquals(gizmos, myModel.getGizmos());
         } catch (NonRotatableException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -402,9 +397,8 @@ public class ModelTest {
     	
     	try {
             myModel.rotateGizmo();
-            assertEquals(selectedGizmo.getRotation(),  before.nextCW());
+            assertEquals(before.nextCW(), selectedGizmo.getRotation());
         } catch (NonRotatableException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -412,8 +406,8 @@ public class ModelTest {
     @Test
     public void addBallUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(10, 11);
-
         emptyModel.addBall(0, 0);
+
         assertTrue(emptyModel.getBalls().size() > 0);
     }
 
@@ -436,10 +430,6 @@ public class ModelTest {
         fail();
     }
 
-    /*
-    myModel.select(1.5, 1);
-            myModel.addBall(0.0, 0.0);
-     */
     @Test
     public void setBallVelocityExistingBall() {
         myModel.select(1.5, 1);
@@ -464,23 +454,23 @@ public class ModelTest {
 
     @Test
     public void getGravity() {
-        assertEquals(myModel.getGravity(), 25, DELTA);
+        assertEquals(25, myModel.getGravity(), DELTA);
     }
 
     @Test
     public void setGravity() {
         myModel.setGravity(5);
-        assertEquals(myModel.getGravity(), 5, DELTA);
+        assertEquals(5, myModel.getGravity(), DELTA);
     }
 
     @Test
     public void getFrictionMu() {
-        assertEquals(myModel.getFrictionMu(), 0.025, DELTA);
+        assertEquals(0.025, myModel.getFrictionMu(), DELTA);
     }
 
     @Test
     public void getFrictionMu2() {
-        assertEquals(myModel.getFrictionMu2(), 0.025, DELTA);
+        assertEquals(0.025, myModel.getFrictionMu2(), DELTA);
     }
 
     @Test
@@ -527,6 +517,7 @@ public class ModelTest {
     	// not really possible to test it
     	myModel.select(6, 6);
     	myModel.triggerOnOuterWalls();
+
         assertTrue(true);
     }
     
@@ -535,6 +526,7 @@ public class ModelTest {
     	// not really possible to test it
     	myModel.select(5, 18);
     	myModel.triggerOnOuterWalls();
+
         assertTrue(true);
     }
 
@@ -610,12 +602,12 @@ public class ModelTest {
 
     @Test
     public void getWidth() {
-        assertEquals(myModel.getWidth(), 20);
+        assertEquals(20, myModel.getWidth());
     }
 
     @Test
     public void getHeight() {
-        assertEquals(myModel.getHeight(), 20);
+        assertEquals(20, myModel.getHeight());
     }
 
     @Test
