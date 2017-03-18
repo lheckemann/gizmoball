@@ -2,10 +2,10 @@ package gizmoball.controller;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.MouseInputListener;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
-import java.util.EventListener;
 
 import gizmoball.model.BuildModel;
 import gizmoball.model.Model;
@@ -38,15 +38,15 @@ public class Controller {
         return new ConnectGizmosListener(view, model);
     }
 
-    public EventListener getConnectKeyPressGizmoListener(IBuildView view, BuildModel model) {
+    public KeyAndMouseListener getConnectKeyPressGizmoListener(IBuildView view, BuildModel model) {
         return new ConnectKeyPressGizmoListener(view, model);
     }
 
-    public EventListener getConnectKeyReleaseGizmoListener(IBuildView view, BuildModel model) {
+    public KeyAndMouseListener getConnectKeyReleaseGizmoListener(IBuildView view, BuildModel model) {
         return new ConnectKeyReleaseGizmoListener(view, model);
     }
 
-    public EventListener getCreateGizmoListener(GizmoType type, IBuildView view, BuildModel model) {
+    public MouseInputListener getCreateGizmoListener(GizmoType type, IBuildView view, BuildModel model) {
         return new CreateGizmoListener(type, view, model);
     }
 
@@ -133,7 +133,7 @@ public class Controller {
     public void saveExtended(Model model, IGizmoBallView gizmoBallView) {
         new SaveListener(model, gizmoBallView).saveExtended();
     }
-    
+
     public void saveStandard(Model model, GizmoBallView gizmoBallView) {
         new SaveListener(model, gizmoBallView).saveStandard();
     }

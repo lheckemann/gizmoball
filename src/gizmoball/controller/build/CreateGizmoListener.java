@@ -7,12 +7,13 @@ import gizmoball.view.BoardView;
 import gizmoball.view.IBuildView;
 import gizmoball.view.CustomCursorType;
 
+import javax.swing.event.MouseInputListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionListener;
 
-public class CreateGizmoListener implements MouseListener, MouseMotionListener {
+public class CreateGizmoListener implements MouseInputListener {
     private final BuildModel model;
     private final IBuildView view;
     private final GizmoType type;
@@ -23,7 +24,7 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
     private double oldAbsorberY;
     private int oldAbsorberWidth;
     private int oldAbsorberHeight;
-    
+
     private boolean mouseDragged;
 
     public CreateGizmoListener(GizmoType type, IBuildView view, BuildModel model) {
@@ -132,7 +133,7 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
             mouseClicked(e);
         }
     }
-    
+
 
     @Override
     public void mouseReleased(MouseEvent e) {
@@ -145,7 +146,7 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
         try {
             this.model.addGizmo(new Absorber(this.oldAbsorberWidth, this.oldAbsorberHeight));
         } catch (PositionOverlapException | PositionOutOfBoundsException | InvalidAbsorberWidthHeight e) {
-          
+
         }
     }
 
@@ -160,7 +161,7 @@ public class CreateGizmoListener implements MouseListener, MouseMotionListener {
     }
 
     @Override
-    public void mouseMoved(MouseEvent e) { 
+    public void mouseMoved(MouseEvent e) {
     }
 
 }

@@ -9,13 +9,14 @@ import gizmoball.model.BuildModel;
 import gizmoball.view.BoardView;
 import gizmoball.view.IBuildView;
 import gizmoball.view.CustomCursorType;
+import gizmoball.view.KeyAndMouseListener;
 
-public class ConnectKeyPressGizmoListener extends KeyAdapter implements MouseListener {
+public class ConnectKeyPressGizmoListener extends KeyAdapter implements KeyAndMouseListener {
     private BuildModel model;
     private final IBuildView view;
 
     private boolean componentSelected;
-    
+
     public ConnectKeyPressGizmoListener(IBuildView view, BuildModel model) {
         this.view = view;
         this.model = model;
