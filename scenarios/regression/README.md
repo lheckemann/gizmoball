@@ -14,3 +14,15 @@ Regression test for issue #43.
 ### Expected outcome
 Each of the 4 spawners on the left and right should spawn one ball. This ball
 should fall along a straight line to the sink below it within 10 seconds.
+
+
+## absorber-side
+
+Regression test for issue #32
+
+### Instructions
+1. Load file
+2. Run simulation
+
+### Expected outcome
+All 4 balls should disappear within a second.
