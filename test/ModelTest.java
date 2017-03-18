@@ -203,7 +203,7 @@ public class ModelTest {
             emptyModel.addGizmo(new Absorber(5, 5));
             assertTrue(emptyModel.getGizmos().size() > 0);
         } catch (InvalidAbsorberWidthHeight e) {
-            e.printStackTrace();
+            fail();
         }
     }
 
@@ -215,9 +215,7 @@ public class ModelTest {
         emptyModel.select(10, 11);
         try {
             emptyModel.addGizmo(new Absorber(5, 5));
-        } catch (InvalidAbsorberWidthHeight e) {
-            e.printStackTrace();
-        }
+        } catch (InvalidAbsorberWidthHeight e) { }
 
         fail();
     }
@@ -227,9 +225,7 @@ public class ModelTest {
         emptyModel.select(10, 11);
         try {
             emptyModel.addGizmo(new Absorber(10, 10));
-        } catch (InvalidAbsorberWidthHeight e) {
-            e.printStackTrace();
-        }
+        } catch (InvalidAbsorberWidthHeight e) { }
 
         fail();
     }
@@ -377,7 +373,7 @@ public class ModelTest {
             myModel.rotateGizmo();
             assertEquals(gizmos, myModel.getGizmos());
         } catch (NonRotatableException e) {
-            e.printStackTrace();
+            fail();
         }
     }
     
@@ -399,7 +395,7 @@ public class ModelTest {
             myModel.rotateGizmo();
             assertEquals(before.nextCW(), selectedGizmo.getRotation());
         } catch (NonRotatableException e) {
-            e.printStackTrace();
+            fail();
         }
     }
 
@@ -630,12 +626,11 @@ public class ModelTest {
                 model.rotateGizmo();
                 if (model.getGizmos().size() != startModelSize) {
                     fail();
-                } 
-            } catch (NonRotatableException e1) {
-            }
-        } catch(PositionOutOfBoundsException e) {
-            
-        }
+                }
+            } catch (NonRotatableException e1) { }
+        } catch(PositionOutOfBoundsException e) { }
+
+        fail();
     }
     @Test
     public void getKeyPressToGizmoMap() {
@@ -653,17 +648,7 @@ public class ModelTest {
     }
 
     @Test
-    public void load() {
-
-    }
-
-    @Test
     public void tick() {
-
-    }
-
-    @Test
-    public void save() {
 
     }
 }

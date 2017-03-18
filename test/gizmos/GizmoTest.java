@@ -34,7 +34,7 @@ public class GizmoTest {
         try {
             myLeftFlipper.rotate();
         } catch (NonRotatableException e) {
-            e.printStackTrace();
+            fail();
         }
         assertEquals(Rotation.EAST, myLeftFlipper.getRotation());
     }
@@ -45,7 +45,7 @@ public class GizmoTest {
             myLeftFlipper.rotate();
             myLeftFlipper.rotate();
         } catch (NonRotatableException e) {
-            e.printStackTrace();
+            fail();
         }
         assertEquals(Rotation.SOUTH, myLeftFlipper.getRotation());
     }
@@ -57,7 +57,7 @@ public class GizmoTest {
             myLeftFlipper.rotate();
             myLeftFlipper.rotate();
         } catch (NonRotatableException e) {
-            e.printStackTrace();
+            fail();
         }
         assertEquals(Rotation.WEST, myLeftFlipper.getRotation());
     }
@@ -70,7 +70,7 @@ public class GizmoTest {
             myLeftFlipper.rotate();
             myLeftFlipper.rotate();
         } catch (NonRotatableException e) {
-            e.printStackTrace();
+            fail();
         }
         assertEquals(Rotation.NORTH, myLeftFlipper.getRotation());
     }
@@ -120,8 +120,7 @@ public class GizmoTest {
         try {
             myLeftFlipper.rotate();
         } catch (NonRotatableException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            fail();
         }
         AffineTransform at = new AffineTransform(0, 1, -1, 0, 6, 6);
         assertEquals(at, myLeftFlipper.getTransform());
@@ -135,7 +134,7 @@ public class GizmoTest {
             myLeftFlipper.rotate();
             myLeftFlipper.rotate();
         } catch (NonRotatableException e) {
-            e.printStackTrace();
+            fail();
         }
         AffineTransform at = new AffineTransform(-1, 0, 0, -1, 6, 8);
         assertEquals(at, myLeftFlipper.getTransform());
@@ -150,7 +149,7 @@ public class GizmoTest {
             myLeftFlipper.rotate();
             myLeftFlipper.rotate();
         } catch (NonRotatableException e) {
-            e.printStackTrace();
+            fail();
         }
         AffineTransform at = new AffineTransform(0, -1, 1, 0, 4, 8);
         assertEquals(at, myLeftFlipper.getTransform());
@@ -171,7 +170,7 @@ public class GizmoTest {
         try {
             myRightFlipper.rotate();
         } catch (NonRotatableException e) {
-            e.printStackTrace();
+            fail();
         }
         AffineTransform at = new AffineTransform(0, -1, -1, 0, 6, 8);
         assertEquals(at, myRightFlipper.getTransform());
@@ -185,7 +184,7 @@ public class GizmoTest {
             myRightFlipper.rotate();
             myRightFlipper.rotate();
         } catch (NonRotatableException e) {
-            e.printStackTrace();
+            fail();
         }
         AffineTransform at = new AffineTransform(1, 0, 0, -1, 4, 8);
         assertEquals(at, myRightFlipper.getTransform());
@@ -200,7 +199,7 @@ public class GizmoTest {
             myRightFlipper.rotate();
             myRightFlipper.rotate();
         } catch (NonRotatableException e) {
-            e.printStackTrace();
+            fail();
         }
         AffineTransform at = new AffineTransform(0, 1, 1, 0, 4, 6);
         assertEquals(at, myRightFlipper.getTransform());

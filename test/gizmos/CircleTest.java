@@ -4,7 +4,6 @@ import gizmoball.model.Ball;
 import gizmoball.model.gizmos.Circle;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.GizmoType;
-import gizmoball.model.gizmos.ReadGizmo;
 import physics.Vect;
 
 import org.junit.Before;

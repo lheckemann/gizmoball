@@ -6,7 +6,6 @@ import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.GizmoType;
 import gizmoball.model.gizmos.InvalidAbsorberWidthHeight;
 import gizmoball.model.gizmos.NonRotatableException;
-import gizmoball.model.gizmos.ReadGizmo;
 import org.junit.Before;
 import org.junit.Test;
 import physics.LineSegment;
@@ -35,8 +34,7 @@ public class AbsorberTest {
         try {
             myAbsorber = new Absorber(5, 10);
         } catch (InvalidAbsorberWidthHeight e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            fail();
         }
         myBall = new Ball();
     }
