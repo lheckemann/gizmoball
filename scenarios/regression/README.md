@@ -26,3 +26,15 @@ Regression test for issue #32
 
 ### Expected outcome
 All 4 balls should disappear within a second.
+
+
+## boxed
+
+Regression test for issue #38
+
+## Instructions
+1. Load file
+2. Run simulation
+
+## Expected outcome
+Ball that starts inside the box remains inside box for at least 20 seconds.

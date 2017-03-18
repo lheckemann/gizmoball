@@ -1,0 +1,24 @@
+Square Square0 11 8
+Square Square1 8 10
+Square Square2 9 10
+Square Square3 8 8
+Spawner Spawner4 19 0
+Square Square5 11 6
+Sink Sink6 19 19
+LeftFlipper LeftFlipper7 9 8
+Square Square8 11 9
+Square Square9 11 10
+Square Square10 8 7
+Square Square11 8 6
+Square Square12 9 6
+Square Square13 10 6
+Square Square14 10 10
+Square Square15 11 7
+Square Square16 8 9
+Ball B0 19.500000 1.468750 0.000000 0.000000
+Ball B1 10.281250 7.500000 0.000000 0.000000
+Connect Sink6 Spawner4
+Connect Sink6 LeftFlipper7
+KeyConnect key 32 down LeftFlipper7
+Gravity 25.000000
+Friction 0.025000 0.025000
