@@ -76,8 +76,8 @@ public class Absorber extends BaseGizmo {
     @Override
     public Ball ballHit(Ball ball) {
         ball.setVelocity(new Vect(0, 0));
-        ball.setPosition(new Vect(this.getX() + width - 0.25 - Ball.RADIUS,
-                                  this.getY() + height - 0.25 - Ball.RADIUS));
+        ball.setPosition(new Vect(this.getX() + width - Ball.RADIUS,
+                                  this.getY() + height - Ball.RADIUS));
         this.balls.add(ball);
         return null;
     }
