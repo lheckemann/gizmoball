@@ -39,11 +39,6 @@ public class FlipperTest {
     }
 
     @Test
-    public void tick() {
-        // TODO
-    }
-
-    @Test
     public void getWidth() {
         assertEquals(2, myLeftFlipper.getWidth());
     }
@@ -61,11 +56,6 @@ public class FlipperTest {
     @Test
     public void getTypeRight() {
         assertEquals(GizmoType.RIGHT_FLIPPER, myRightFlipper.getType());
-    }
-
-    @Test
-    public void getTransform() {
-        // TODO
     }
     
     @Test

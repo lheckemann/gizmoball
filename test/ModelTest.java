@@ -4,25 +4,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.Collections;
-import java.util.Set;
+import java.util.*;
 
+import gizmoball.model.*;
+import gizmoball.model.gizmos.*;
 import org.junit.Before;
 import org.junit.Test;
-
-import gizmoball.model.Model;
-import gizmoball.model.PositionOutOfBoundsException;
-import gizmoball.model.PositionOverlapException;
-import gizmoball.model.ReadBall;
-import gizmoball.model.gizmos.Absorber;
-import gizmoball.model.gizmos.Circle;
-import gizmoball.model.gizmos.InvalidAbsorberWidthHeight;
-import gizmoball.model.gizmos.NonRotatableException;
-import gizmoball.model.gizmos.ReadGizmo;
-import gizmoball.model.gizmos.Rotation;
-import gizmoball.model.gizmos.Square;
-import gizmoball.model.gizmos.StandardFlipper;
-import gizmoball.model.gizmos.Triangle;
+import physics.Vect;
 
 public class ModelTest {
     private Model myModel;
@@ -93,17 +81,17 @@ public class ModelTest {
 
     @Test
     public void moveAlreadyPresentGizmoToUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
-    	boolean result = false;
-    	myModel.select(15, 18);
+        boolean result = false;
+        myModel.select(15, 18);
         myModel.move(19, 19);
 
         for(ReadGizmo g :  myModel.getGizmos()) {
             if(g.getX() == 19 && g.getY() == 19) {
-            	result = true;
-            	break;
+                result = true;
+                break;
             }
         }
-        
+
         assertTrue(result);
     }
 
@@ -125,14 +113,14 @@ public class ModelTest {
 
     @Test
     public void moveNotPresent() throws PositionOverlapException, PositionOutOfBoundsException {
-    	boolean result = true;
+        boolean result = true;
         myModel.select(6, 6);
         myModel.move(10, 10);
 
         for(ReadGizmo g :  myModel.getGizmos()) {
             if(g.getX() == 10 && g.getY() == 10) {
-            	result = false;
-            	break;
+                result = false;
+                break;
             }
         }
 
@@ -141,24 +129,23 @@ public class ModelTest {
 
     @Test
     public void moveBallToUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
-    	boolean result = false;
+        boolean result = false;
         myModel.select(1.5, 1);
         myModel.move(6, 6);
 
         for(ReadBall g :  myModel.getBalls()) {
-        	System.out.println("x: " + g.getX() + " y:" + g.getY());
-        	if((g.getX() - 6.0) <= 0.01 && (g.getY() - 6.0) <= 0.01) {
-        		result = true;
-        		break;
-        	}
+            if((g.getX() - 6.0) <= 0.01 && (g.getY() - 6.0) <= 0.01) {
+                result = true;
+                break;
+            }
         }
-        
+
         assertTrue(result);
     }
-    
+
     @Test(expected=PositionOverlapException.class)
     public void moveBallToOccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
-    	myModel.select(1.5, 1);
+        myModel.select(1.5, 1);
         myModel.move(15, 18);
 
         fail();
@@ -166,31 +153,31 @@ public class ModelTest {
 
     @Test
     public void deleteNotPresent() {
-    	int size = myModel.getGizmos().size();
+        int size = myModel.getGizmos().size();
         myModel.select(6, 6);
         myModel.delete();
 
         assertEquals(size, myModel.getGizmos().size());
     }
-    
+
     @Test
     public void deleteExistingBall() {
-    	int size = myModel.getBalls().size();
+        int size = myModel.getBalls().size();
         myModel.select(1.5, 1);
         myModel.delete();
 
         assertEquals(size - 1, myModel.getBalls().size());
     }
-    
+
     @Test
     public void deleteExistingGizmoCheckNumberOfGizmosLeft() {
-    	int size = myModel.getGizmos().size();
+        int size = myModel.getGizmos().size();
         myModel.select(10, 13);
         myModel.delete();
 
         assertEquals(size - 1, myModel.getGizmos().size());
     }
-    
+
     //
     // TODO : check connections are removed from all the maps !!
     //
@@ -367,31 +354,31 @@ public class ModelTest {
 
     @Test
     public void rotateNonPresent() {
-    	Set<ReadGizmo> gizmos = myModel.getGizmos();
-    	myModel.select(6, 6);
-    	try {
+        Set<ReadGizmo> gizmos = myModel.getGizmos();
+        myModel.select(6, 6);
+        try {
             myModel.rotateGizmo();
             assertEquals(gizmos, myModel.getGizmos());
         } catch (NonRotatableException e) {
             fail();
         }
     }
-    
+
     @Test
     public void rotatePresentGizmo() {
-    	Set<ReadGizmo> gizmos = myModel.getGizmos();
-    	myModel.select(1, 10);
-    	
-    	ReadGizmo selectedGizmo = null;
-    	Rotation before = null;
-    	for(ReadGizmo g : gizmos) {
-    		if(g.getX() == 1 && g.getY() == 10) {
-    			selectedGizmo = g;
-    			before = g.getRotation();
-    		}
-    	}
-    	
-    	try {
+        Set<ReadGizmo> gizmos = myModel.getGizmos();
+        myModel.select(1, 10);
+
+        ReadGizmo selectedGizmo = null;
+        Rotation before = null;
+        for(ReadGizmo g : gizmos) {
+            if(g.getX() == 1 && g.getY() == 10) {
+                selectedGizmo = g;
+                before = g.getRotation();
+            }
+        }
+
+        try {
             myModel.rotateGizmo();
             assertEquals(before.nextCW(), selectedGizmo.getRotation());
         } catch (NonRotatableException e) {
@@ -510,18 +497,18 @@ public class ModelTest {
 
     @Test
     public void triggerOnOuterWallsNotPresentGizmo() {
-    	// not really possible to test it
-    	myModel.select(6, 6);
-    	myModel.triggerOnOuterWalls();
+        // not really possible to test it
+        myModel.select(6, 6);
+        myModel.triggerOnOuterWalls();
 
         assertTrue(true);
     }
-    
+
     @Test
     public void triggerOnOuterWallsExistingGizmo() {
-    	// not really possible to test it
-    	myModel.select(5, 18);
-    	myModel.triggerOnOuterWalls();
+        // not really possible to test it
+        myModel.select(5, 18);
+        myModel.triggerOnOuterWalls();
 
         assertTrue(true);
     }
@@ -567,33 +554,72 @@ public class ModelTest {
     }
 
     @Test
-    public void keyPressed() {
-
-    }
-
-    @Test
-    public void keyReleased() {
-
-    }
-
-    @Test
-    public void gizmoHit() {
-
-    }
-
-    @Test
-    public void wallHit() {
-
-    }
-
-    @Test
     public void getGizmos() {
+        Model model = new Model(20, 20);
+        Gizmo triangle = new Triangle();
+        Gizmo square = new Square();
+        Gizmo sink = new Sink();
 
+        try {
+            model.select(1, 1);
+            model.addGizmo(triangle);
+            model.select(2, 2);
+            model.addGizmo(square);
+            model.select(3, 3);
+            model.addGizmo(sink);
+        } catch (PositionOverlapException | PositionOutOfBoundsException e) {
+            fail();
+        }
+
+        List<ReadGizmo> gizmos = new ArrayList<ReadGizmo>();
+        gizmos.add(triangle);
+        gizmos.add(square);
+        gizmos.add(sink);
+
+        assertEquals(new HashSet<>(gizmos), model.getGizmos());
+    }
+
+    @Test
+    public void getGizmosEmptySet() {
+        Model model = new Model(20, 20);
+
+        assertEquals(Collections.EMPTY_SET, model.getGizmos());
     }
 
     @Test
     public void getBalls() {
+        Model model = new Model(20, 20);
+        Ball ball1 = new Ball();
+        Ball ball2 = new Ball();
 
+        ball1.setPosition(new Vect(1, 1));
+        ball1.setVelocity(new Vect(4, 4));
+
+        ball2.setPosition(new Vect(3, 3));
+        ball2.setVelocity(new Vect(5, 5));
+
+        try {
+            model.select(1, 1);
+            model.addBall(4, 4);
+            model.select(3, 3);
+            model.addBall(5, 5);
+        } catch (PositionOverlapException | PositionOutOfBoundsException e) {
+            fail();
+        }
+
+        List<ReadBall> balls = new ArrayList<ReadBall>();
+        balls.add(ball1);
+        balls.add(ball2);
+
+        // TODO : equality of balls !!!!!
+        //assertEquals(new HashSet<>(balls), model.getBalls());
+    }
+
+    @Test
+    public void getBallsEmptySet() {
+        Model model = new Model(20, 20);
+
+        assertEquals(Collections.EMPTY_SET, model.getBalls());
     }
 
     @Test
@@ -608,7 +634,7 @@ public class ModelTest {
 
     @Test
     public void testRotateAfterMoveDoesntDeletesGizmo() {
-        
+
         Model model = new Model(20, 20);
         int startModelSize = 0;
         try {
@@ -616,7 +642,7 @@ public class ModelTest {
             model.addGizmo(new Triangle());
             model.select(6, 6);
             model.addGizmo(new Circle());
-            
+
             startModelSize = model.getGizmos().size();
             model.select(5, 5);
             model.move(6, 6); //Intended position overlap exception is thrown here
@@ -632,23 +658,170 @@ public class ModelTest {
             } catch (NonRotatableException e1) { }
         } catch(PositionOutOfBoundsException e) { }
     }
-    @Test
-    public void getKeyPressToGizmoMap() {
 
+    @Test
+    public void getKeyPressToGizmoMapDifferentGizmoDifferentKeys() {
+        myModel.select(1, 10);
+        myModel.triggerOnKeyPress(10);
+        myModel.select(10, 13);
+        myModel.triggerOnKeyPress(11);
+
+        assertTrue(myModel.getKeyPressToGizmoMap().containsKey(10) && myModel.getKeyPressToGizmoMap().containsKey(11));
     }
 
     @Test
-    public void getKeyReleaseToGizmoMap() {
+    public void getKeyPressToGizmoMapDifferentGizmoSameKeys() {
+        Gizmo triangle = new Triangle();
+        Gizmo square = new Square();
+        try {
+            myModel.select(6, 6);
+            myModel.addGizmo(triangle);
+            myModel.triggerOnKeyPress(10);
+            myModel.select(7, 7);
+            myModel.addGizmo(square);
+            myModel.triggerOnKeyPress(10);
+        } catch (PositionOverlapException e) {
+            e.printStackTrace();
+        } catch (PositionOutOfBoundsException e) {
+            e.printStackTrace();
+        }
 
+        Set<ReadGizmo> gizmos = myModel.getKeyPressToGizmoMap().get(10);
+        assertTrue(gizmos.contains(triangle) && gizmos.contains(square));
     }
 
     @Test
-    public void getGizmoToGizmoMap() {
+    public void getKeyPressToGizmoMapSameGizmoSameKeys() {
+        myModel.select(1, 10);
+        myModel.triggerOnKeyPress(10);
+        myModel.triggerOnKeyPress(10);
 
+        assertTrue(myModel.getKeyPressToGizmoMap().containsKey(10) &&
+                myModel.getKeyPressToGizmoMap().size() == 1);
+    }
+
+    @Test
+    public void getKeyPressToGizmoMapSameGizmoDifferentKeys() {
+        myModel.select(1, 10);
+        myModel.triggerOnKeyPress(10);
+        myModel.triggerOnKeyPress(11);
+
+        assertTrue(myModel.getKeyPressToGizmoMap().containsKey(10) &&
+                myModel.getKeyPressToGizmoMap().containsKey(11) &&
+                myModel.getKeyPressToGizmoMap().size() == 2);
+    }
+
+    @Test
+    public void getKeyReleaseToGizmoMapDifferentGizmoDifferentKeys() {
+        myModel.select(1, 10);
+        myModel.triggerOnKeyRelease(10);
+        myModel.select(10, 13);
+        myModel.triggerOnKeyRelease(11);
+
+        assertTrue(myModel.getKeyReleaseToGizmoMap().containsKey(10) && myModel.getKeyReleaseToGizmoMap().containsKey(11));
+    }
+
+    @Test
+    public void getKeyReleaseToGizmoMapDifferentGizmoSameKeys() {
+        Gizmo triangle = new Triangle();
+        Gizmo square = new Square();
+        try {
+            myModel.select(6, 6);
+            myModel.addGizmo(triangle);
+            myModel.triggerOnKeyRelease(10);
+            myModel.select(7, 7);
+            myModel.addGizmo(square);
+            myModel.triggerOnKeyRelease(10);
+        } catch (PositionOverlapException e) {
+            e.printStackTrace();
+        } catch (PositionOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+
+        Set<ReadGizmo> gizmos = myModel.getKeyReleaseToGizmoMap().get(10);
+        assertTrue(gizmos.contains(triangle) && gizmos.contains(square));
+    }
+
+    @Test
+    public void getKeyReleaseToGizmoMapSameGizmoSameKeys() {
+        myModel.select(1, 10);
+        myModel.triggerOnKeyRelease(10);
+        myModel.triggerOnKeyRelease(10);
+
+        assertTrue(myModel.getKeyReleaseToGizmoMap().containsKey(10) &&
+                myModel.getKeyReleaseToGizmoMap().size() == 1);
+    }
+
+    @Test
+    public void getKeyReleaseToGizmoMapSameGizmoDifferentKeys() {
+        myModel.select(1, 10);
+        myModel.triggerOnKeyRelease(10);
+        myModel.triggerOnKeyRelease(11);
+
+        assertTrue(myModel.getKeyReleaseToGizmoMap().containsKey(10) &&
+                myModel.getKeyReleaseToGizmoMap().containsKey(11) &&
+                myModel.getKeyReleaseToGizmoMap().size() == 2);
+    }
+
+    @Test
+    public void getGizmoToGizmoMapDifferentGizmo() {
+        Gizmo source = new Triangle();
+        Gizmo dest = new Square();
+        try {
+            myModel.select(7, 7);
+            myModel.addGizmo(source);
+            myModel.select(6, 6);
+            myModel.addGizmo(dest);
+            myModel.triggerOnGizmo(source);
+        } catch (PositionOverlapException e) {
+            e.printStackTrace();
+        } catch (PositionOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+
+        assertTrue(myModel.getGizmoToGizmoMap().containsKey(source) &&
+                myModel.getGizmoToGizmoMap().get(source).contains(dest));
+    }
+
+    @Test
+    public void getGizmoToGizmoMapSameGizmo() {
+        Gizmo g = new Triangle();
+        try {
+            myModel.select(7, 7);
+            myModel.addGizmo(g);
+            myModel.triggerOnGizmo(g);
+        } catch (PositionOverlapException e) {
+            e.printStackTrace();
+        } catch (PositionOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+
+        assertTrue(myModel.getGizmoToGizmoMap().containsKey(g) &&
+                myModel.getGizmoToGizmoMap().get(g).contains(g));
     }
 
     @Test
     public void tick() {
+        // TODO
+    }
 
+    @Test
+    public void keyPressed() {
+        // TODO
+    }
+
+    @Test
+    public void keyReleased() {
+        // TODO
+    }
+
+    @Test
+    public void gizmoHit() {
+        // TODO
+    }
+
+    @Test
+    public void wallHit() {
+        // TODO
     }
 }

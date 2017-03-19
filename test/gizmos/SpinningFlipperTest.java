@@ -41,11 +41,6 @@ public class SpinningFlipperTest {
     }
 
     @Test
-    public void tick() {
-        // TODO
-    }
-
-    @Test
     public void getWidth() {
         assertEquals(2, myLeftFlipper.getWidth());
     }
@@ -66,11 +61,6 @@ public class SpinningFlipperTest {
     }
 
     @Test
-    public void getTransform() {
-        // TODO
-    }
-
-    @Test
     public void getAngularVelocityLeftFlipperNotRunning() {
         myLeftFlipper.trigger();
         assertEquals(0, myLeftFlipper.getAngularVelocity(), DELTA);
@@ -88,7 +78,7 @@ public class SpinningFlipperTest {
 
     @Test
     public void getPivot() {
-        assertEquals(new Vect(0.25, 0.25), myLeftFlipper.getPivot());
+        assertEquals(new Vect(1.25, 1.25), myLeftFlipper.getPivot());
     }
 
     @Test
