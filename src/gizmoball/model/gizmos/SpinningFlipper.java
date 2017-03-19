@@ -84,6 +84,6 @@ public class SpinningFlipper extends Flipper {
 
     @Override
     public Vect getPivot() {
-        return Geometry.transformThrough(getTransform(), new Vect(0.5, 0.5));
+        return new Vect(0.5, 0.5);
     }
 }

@@ -95,6 +95,6 @@ public class StandardFlipper extends Flipper {
 
     @Override
     public Vect getPivot() {
-        return Geometry.transformThrough(getTransform(), new Vect(0.25, 0.25));
+        return new Vect(0.25, 0.25);
     }
 }
