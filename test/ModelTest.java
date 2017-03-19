@@ -607,7 +607,7 @@ public class ModelTest {
     }
 
     @Test
-    public void testRotateAfterMoveDeletesGizmo() {
+    public void testRotateAfterMoveDoesntDeletesGizmo() {
         
         Model model = new Model(20, 20);
         int startModelSize = 0;
@@ -626,11 +626,11 @@ public class ModelTest {
                 model.rotateGizmo();
                 if (model.getGizmos().size() != startModelSize) {
                     fail();
+                } else {
+                    assertTrue(true);
                 }
             } catch (NonRotatableException e1) { }
         } catch(PositionOutOfBoundsException e) { }
-
-        fail();
     }
     @Test
     public void getKeyPressToGizmoMap() {
