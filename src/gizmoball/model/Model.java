@@ -14,6 +14,8 @@ import static gizmoball.model.CollisionFinder.Collision;
 
 
 public class Model implements BuildModel, RunModel {
+    private final static double IMMEDIATE_COLLISION = 0.000001;
+    private final static double VELOCITY_THRESHOLD = 0.1;
     private final Set<LineSegment> walls = new HashSet<>();
 
     private int width;
@@ -412,14 +414,14 @@ public class Model implements BuildModel, RunModel {
         }
     }
 
-    private void applyVelocity(Ball ball, double lapse) {
-        ball.setPosition(ball.getCircle().getCenter().plus(ball.getVelocity().times(lapse)));
+    private Vect getAppliedVelocity(Ball ball, double lapse) {
+        return ball.getCircle().getCenter().plus(ball.getVelocity().times(lapse));
     }
 
-    private void applyGlobalForces(Ball ball, double lapse) {
-        double friction = (1 - mu * lapse - mu2 * ball.getVelocity().length() * lapse);
+    private Vect getAppliedGlobalForces(Vect velocity, double lapse) {
+        double friction = (1 - mu * lapse - mu2 * velocity.length() * lapse);
         Vect gravity = this.gravity.times(lapse);
-        ball.setVelocity(ball.getVelocity().times(friction).plus(gravity));
+        return velocity.times(friction).plus(gravity);
     }
 
     @Override
@@ -441,35 +443,41 @@ public class Model implements BuildModel, RunModel {
             if (c.time > lapse) {
                 break;
             }
-            /* Do not consider immediate collisions as the cutoff point. */
-            if (c.time != 0.0) {
+            /* Ignore immediate collisions when establishing the cutoff point. */
+            if (c.time > IMMEDIATE_COLLISION) {
                 lapse = c.time;
             }
             collisions.add(c);
         }
 
         /* Compute the velocities result of the collisions before making any
-         * changes to the system: the collision handles the same instances as we
-         * do. */
-        Map<Collision,Vect> velocities = collisions.stream()
-            .collect(Collectors.toMap(c -> c, c -> finder.getCollisionVelocity(c)));
-
-        /* Balls that go through collision detection untouched -- they do not
-         * collide. */
-        Set<Ball> free = new HashSet<>(this.balls);
-
+         * changes to the system: the collision finder handles the same
+         * instances as we do.
+         *
+         * A ball can be hit multiple times simultaneously, sum up all
+         * velocities.
+         * */
+        Map<Ball,Vect> velocities = new HashMap<>();
         for (Collision c : collisions) {
-            free.remove(c.ball);
-
-            /* Ignore balls that are in a constant collision. */
-            if (c.time != 0.0) {
-                /* Set position before setting the new velocity. */
-                this.applyVelocity(c.ball, lapse);
-                c.ball.setVelocity(velocities.get(c));
-                this.applyGlobalForces(c.ball, lapse);
+            Vect v = velocities.get(c.ball);
+            if (v == null) {
+                v = new Vect(0.0, 0.0);
             }
+            velocities.put(c.ball, v.plus(finder.getCollisionVelocity(c)));
+        }
 
-            /* Fire triggers. */
+        for (Ball b : velocities.keySet()) {
+            /* Set position before setting the new velocity. */
+            Vect velocity = this.getAppliedGlobalForces(velocities.get(b), lapse);
+            /* Do not slowly change position on infinitesimal velocities. */
+            if (velocity.length() > VELOCITY_THRESHOLD) {
+                b.setPosition(this.getAppliedVelocity(b, lapse));
+            }
+            b.setVelocity(velocity);
+        }
+
+        /* Fire triggers. */
+        for (Collision c : collisions) {
             if (c.againstGizmo != null) {
                 this.gizmoHit(c.againstGizmo, c.ball);
             } else if (c.againstBall == null) {
@@ -477,9 +485,12 @@ public class Model implements BuildModel, RunModel {
             }
         }
 
+        /* Process balls which had no collisions. */
+        Set<Ball> free = new HashSet<>(this.balls);
+        free.removeAll(velocities.keySet());
         for (Ball b : free) {
-            this.applyVelocity(b, lapse);
-            this.applyGlobalForces(b, lapse);
+            b.setPosition(this.getAppliedVelocity(b, lapse));
+            b.setVelocity(this.getAppliedGlobalForces(b.getVelocity(), lapse));
         }
     }
 }
