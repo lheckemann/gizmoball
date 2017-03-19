@@ -104,8 +104,8 @@ public class LoadTest {
     
     @Test
     public void loadValidFileCheckAllDeclarationCommandsArePerformed() {
-        /*try {
-            String testString = "Ball B0 0 0 0 0\n"
+        try {
+            String testString = "Ball B0 15 15 0 0\n"
                     + "Square S0 1 1\n"
                     + "Circle C0 2 2\n"
                     + "Triangle T0 3 3\n"
@@ -177,7 +177,7 @@ public class LoadTest {
             }
             
             for (ReadBall ball: this.model.getBalls()) {
-                if (ball.getX() == 0.0 && ball.getY() == 0.0 && ball.getVelocityX() == 0 && ball.getVelocityY() == 0) {
+                if (ball.getX() == 15.0 && ball.getY() == 15.0 && ball.getVelocityX() == 0 && ball.getVelocityY() == 0) {
                 }
                 else {
                     fail();
@@ -187,7 +187,7 @@ public class LoadTest {
             assertTrue(true);
         } catch (SyntaxError e) {
             fail();
-        }*/
+        }
     }
     
     @Test
@@ -333,8 +333,8 @@ public class LoadTest {
     //Test a delete where only one object should be left
     @Test
     public void checkAllDeleteCommandsPerformedOneObjectLeft() {
-        /*try {
-            String testString = "Ball B0 0 0 0 0\n"
+        try {
+            String testString = "Ball B0 15 15 0 0\n"
                     + "Square S0 1 1\n"
                     + "Triangle T1 5 5\n"
                     + "Delete B0\n"
@@ -352,13 +352,13 @@ public class LoadTest {
             }
         } catch (SyntaxError e) {
             fail();
-        }*/
+        }
     }
     
     @Test
     public void checkLoadWhereAllDeleteCommandsResultInNoObjects() {
-        /*try {
-            String testString = "Ball B0 0.0 0.0 0.0 0.0\n"
+        try {
+            String testString = "Ball B0 15.0 15.0 0.0 0.0\n"
                     + "Square S0 1 1\n"
                     + "Triangle T1 5 5\n"
                     + "Delete B0\n"
@@ -375,7 +375,7 @@ public class LoadTest {
         } catch (SyntaxError e) {
             System.out.println(e.getMessage());
             fail();
-        }*/
+        }
     }
     
     @Test
@@ -544,8 +544,9 @@ public class LoadTest {
     
     @Test
     public void checkBallVelocityIsCorrect() {
-        /*try {
-            String testString = "Ball B0 0 0 50 -345\n";
+
+        try {
+            String testString = "Ball B0 15 15 50 -345\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
             this.model.load(testStream);
             ReadBall ball = model.getBalls().iterator().next();
@@ -556,7 +557,7 @@ public class LoadTest {
             }
         } catch (SyntaxError e) {
             fail();
-        }*/
+        }
     }
     
     @Test
