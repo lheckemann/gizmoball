@@ -20,8 +20,11 @@ public class TickListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        double elapsed = this.model.tick();
+        long pre = System.currentTimeMillis();
+        long computed = (int) (1000 * this.model.tick());
         this.view.updateBoard();
-        this.timer.setDelay((int) (1000 * elapsed));
+        /* Attempt to compensate for the time spend computing and drawing */
+        int delay = (int) Math.max(0, computed - (System.currentTimeMillis() - pre));
+        this.timer.setDelay(delay);
     }
 }
