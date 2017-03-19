@@ -425,7 +425,7 @@ public class Model implements BuildModel, RunModel {
     }
 
     @Override
-    public void tick() {
+    public double tick() {
         CollisionFinder finder = new CollisionFinder();
         finder.setWalls(this.walls, this.WALL_REFLECTION);
         finder.setGizmos(this.gizmos);
@@ -500,5 +500,7 @@ public class Model implements BuildModel, RunModel {
         for (Gizmo g : this.gizmos) {
             g.tick(lapse);
         }
+
+        return lapse;
     }
 }

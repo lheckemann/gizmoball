@@ -114,12 +114,12 @@ public class Controller {
         return new SwitchToRotateActionListener(board, view, model);
     }
 
-    public ActionListener getTickListener(RunModel model, IRunView view) {
-        return new TickListener(model, view);
+    public ActionListener getTickListener(Timer timer, RunModel model, IRunView view) {
+        return new TickListener(timer, model, view);
     }
 
-    public ActionListener getToggleRunningListener(ActionListener tickListener, IRunView view) {
-        return new ToggleRunningListener(tickListener, view);
+    public ActionListener getToggleRunningListener(Timer timer, IRunView view) {
+        return new ToggleRunningListener(timer, view);
     }
 
     public ActionListener getSwitchToConnectOuterwallListener(BuildBoardView board, BuildView buildView, BuildModel model) {

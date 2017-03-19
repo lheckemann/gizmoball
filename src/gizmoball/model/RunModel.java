@@ -5,11 +5,9 @@ public interface RunModel extends ReadModel {
 
     /**
      * Recomputes each gizmo's and each ball's state.
-     * - Notifies every gizmo a tick has happened.
-     * - Processes ball collisions against gizmos, other balls, and outer walls.
-     * - Applies gravity and friction to all balls.
+     * Returns the amount of time processed.
      */
-    void tick();
+    double tick();
 
     /**
      * Triggers all gizmos listening to the given key press.

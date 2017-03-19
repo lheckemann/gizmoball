@@ -1,6 +1,5 @@
 package gizmoball.controller.run;
 
-import gizmoball.model.RunModel;
 import gizmoball.view.IRunView;
 
 import javax.swing.*;
@@ -8,22 +7,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ToggleRunningListener implements ActionListener {
-    private final IRunView view;
     private Timer timer;
+    private final IRunView view;
 
-    public ToggleRunningListener(ActionListener tickListener, IRunView view) {
-        timer = new Timer((int) (1000* RunModel.SECONDS_PER_TICK), tickListener);
+    public ToggleRunningListener(Timer timer, IRunView view) {
+        this.timer = timer;
         this.view = view;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(timer.isRunning()) {
-                timer.stop();
-                view.changeButtonState();
+        if (timer.isRunning()) {
+            timer.stop();
+            view.changeButtonState();
         } else {
-                timer.start();
-                view.changeButtonState();
+            timer.start();
+            view.changeButtonState();
         }
     }
 }

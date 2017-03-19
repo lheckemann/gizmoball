@@ -12,7 +12,6 @@ public abstract class Flipper extends BaseGizmo {
 
     @Override
     public double getReflectionCoefficient() {
-        // TODO take angular velocity into account? Is that possible?
         return 0.95f;
     }
 

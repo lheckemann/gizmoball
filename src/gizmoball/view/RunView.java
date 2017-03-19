@@ -16,8 +16,10 @@ public class RunView extends GameView implements IRunView {
     private ActionListener toggleRunning;
 
     public RunView(RunModel model, Controller controller) {
-        ActionListener ticks = controller.getTickListener(model, this);
-        toggleRunning = controller.getToggleRunningListener(ticks, this);
+        Timer timer = new Timer((int) (1000 * RunModel.SECONDS_PER_TICK), null);
+        toggleRunning = controller.getToggleRunningListener(timer, this);
+        ActionListener ticks = controller.getTickListener(timer, model, this);
+        timer.addActionListener(ticks);
 
         stateBtn = new JButton("Run"); // either Run or Stop
         stateBtn.setFocusable(false);
