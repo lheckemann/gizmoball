@@ -34,7 +34,7 @@ public class Triangle extends BaseGizmo {
         return lines;
     }
 
-    private static final double circleSize = 0.2;
+    private static final double circleSize = 0.1;
     private static final Set<Circle> circles = Collections.unmodifiableSet(
             Stream.of(new Circle(circleSize, 2*circleSize, circleSize),
                     new Circle(circleSize, 1-circleSize, circleSize),
