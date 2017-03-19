@@ -1,0 +1,78 @@
+Square Square0 19 16
+Triangle Triangle1 17 1
+Triangle Triangle2 17 6
+Square Square3 19 13
+Triangle Triangle4 17 17
+Absorber Absorber5 18 19 19 20
+Square Square6 19 12
+Square Square7 19 9
+Square Square8 19 18
+Triangle Triangle9 17 16
+Square Square10 19 2
+Triangle Triangle11 17 0
+Triangle Triangle12 17 11
+Square Square13 19 17
+Square Square14 19 11
+Square Square15 19 5
+Square Square16 19 10
+Triangle Triangle17 17 10
+Triangle Triangle18 17 14
+Triangle Triangle19 17 19
+Triangle Triangle20 17 18
+Square Square21 19 14
+Absorber Absorber22 16 19 17 20
+Triangle Triangle23 17 13
+Square Square24 19 19
+Triangle Triangle25 17 3
+Square Square26 19 0
+Triangle Triangle27 17 4
+Square Square28 19 1
+Triangle Triangle29 17 12
+Square Square30 19 3
+Triangle Triangle31 17 7
+Square Square32 19 7
+Square Square33 19 6
+Triangle Triangle34 17 2
+Triangle Triangle35 17 5
+Square Square36 19 8
+Square Square37 19 4
+Triangle Triangle38 17 9
+Square Square39 19 15
+Triangle Triangle40 17 8
+Triangle Triangle41 17 15
+Ball B0 18.500000 0.500000 0.000000 0.000000
+Ball B1 16.500000 0.500000 0.000000 0.000000
+Rotate Triangle2
+Rotate Triangle2
+Rotate Triangle2
+Rotate Triangle9
+Rotate Triangle9
+Rotate Triangle11
+Rotate Triangle11
+Rotate Triangle12
+Rotate Triangle17
+Rotate Triangle17
+Rotate Triangle17
+Rotate Triangle18
+Rotate Triangle18
+Rotate Triangle18
+Rotate Triangle19
+Rotate Triangle20
+Rotate Triangle20
+Rotate Triangle20
+Rotate Triangle25
+Rotate Triangle27
+Rotate Triangle27
+Rotate Triangle29
+Rotate Triangle29
+Rotate Triangle31
+Rotate Triangle34
+Rotate Triangle34
+Rotate Triangle34
+Rotate Triangle40
+Rotate Triangle40
+Rotate Triangle41
+Connect Absorber22 Absorber22
+Connect Absorber5 Absorber5
+Gravity 25.000000
+Friction 0.025000 0.025000

@@ -79,3 +79,15 @@ The falling ball hits the lower ball, which does not change position.
 ### Expected outcome
 
 The ball rolls over the floor and repeatedly bounces against the two side walls.
+
+## sliding
+
+### Instructions
+
+1. Load file
+2. Run simulation
+
+### Expected outcome
+
+The balls slide against the squares and triangles without hitting any of their
+lines and circles.
