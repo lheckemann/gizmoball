@@ -450,20 +450,21 @@ public class Model implements BuildModel, RunModel {
             collisions.add(c);
         }
 
-        /* Compute the velocities result of the collisions before making any
-         * changes to the system: the collision finder handles the same
-         * instances as we do.
+        /* The collision finder keeps references to the same balls as the model
+         * does. We cannot modify the velocities of those balls before getting
+         * the current velocities for all balls, as they would otherwise suffer
+         * changes.
          *
-         * A ball can be hit multiple times simultaneously, sum up all
-         * velocities.
-         * */
+         * A ball can be hit by multiple objects simultaneously. The collision
+         * finder gives the resulting velocity for each of those hits. If we
+         * subtract the current velocity from each of the velocities the
+         * collision finder yields, and then sum them up, we will get the
+         * velocity vector result of all collisions. */
         Map<Ball,Vect> velocities = new HashMap<>();
         for (Collision c : collisions) {
-            Vect v = velocities.get(c.ball);
-            if (v == null) {
-                v = new Vect(0.0, 0.0);
-            }
-            velocities.put(c.ball, v.plus(finder.getCollisionVelocity(c)));
+            Vect v = velocities.getOrDefault(c.ball, c.ball.getVelocity());
+            v = v.plus(finder.getCollisionVelocity(c).minus(c.ball.getVelocity()));
+            velocities.put(c.ball, v);
         }
 
         for (Ball b : velocities.keySet()) {
