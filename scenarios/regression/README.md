@@ -68,3 +68,14 @@ and perpendicularly hit the outer walls repeatedly.
 ### Expected outcome
 
 The falling ball hits the lower ball, which does not change position.
+
+## rolling-ball
+
+### Instructions
+
+1. Load file
+2. Run simulation
+
+### Expected outcome
+
+The ball rolls over the floor and repeatedly bounces against the two side walls.
