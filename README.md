@@ -7,6 +7,8 @@ The specification can be found [here][specs].
 
 - Multiple balls.
 - Multiple collisions per tick.
+- Simultaneous same-ball collisions.
+- Dynamic tick spans, and a timer that adjust to them.
 - Ball sinks.
 - Ball spawners.
 - Spinning flippers.
