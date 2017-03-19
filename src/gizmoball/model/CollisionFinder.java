@@ -34,10 +34,6 @@ public class CollisionFinder {
             this.againstBall = againstBall;
             this.againstGizmo = againstGizmo;
         }
-        public String toString() {
-            return String.format("%s %f %s %s",
-                    ball, time, againstBall, againstGizmo);
-        }
     }
 
     public void setGizmos(Set<Gizmo> gizmos) {
@@ -58,7 +54,7 @@ public class CollisionFinder {
             return reflectBalls(c.ball.getCircle().getCenter(), 0.1, c.ball.getVelocity(),
                                 c.againstBall.getCircle().getCenter(), 0.1, c.againstBall.getVelocity()).v1;
         }
-        Vect v = new Vect(c.ball.getVelocityX(), c.ball.getVelocityY());
+        Vect v = c.ball.getVelocity();
         Vect p = new Vect(0, 0);
         Double av = 0d;
         double r = this.wallReflection;
