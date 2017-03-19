@@ -2,7 +2,6 @@ package gizmoball.model.gizmos;
 
 import gizmoball.model.Ball;
 import gizmoball.model.Geometry;
-import gizmoball.model.RunModel;
 import physics.LineSegment;
 import physics.Vect;
 
@@ -29,12 +28,12 @@ public class StandardFlipper extends Flipper {
     }
 
     @Override
-    public void tick() {
+    public void tick(double lapse) {
         if (active && pivotAngle < MAX_ANGLE) {
-            pivotAngle += (ANGULAR_VELOCITY * RunModel.SECONDS_PER_TICK);
+            pivotAngle += (ANGULAR_VELOCITY * lapse);
             pivotAngle = Math.min(MAX_ANGLE, pivotAngle);
         } else if (!active && pivotAngle > MIN_ANGLE) {
-            pivotAngle -= (ANGULAR_VELOCITY * RunModel.SECONDS_PER_TICK);
+            pivotAngle -= (ANGULAR_VELOCITY * lapse);
             pivotAngle = Math.max(MIN_ANGLE, pivotAngle);
         }
     }

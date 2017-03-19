@@ -2,7 +2,6 @@ package gizmoball.model.gizmos;
 
 import gizmoball.model.Ball;
 import gizmoball.model.Geometry;
-import gizmoball.model.RunModel;
 import physics.LineSegment;
 import physics.Vect;
 
@@ -27,12 +26,12 @@ public class SpinningFlipper extends Flipper {
     }
 
     @Override
-    public void tick() {
+    public void tick(double lapse) {
         if (running) {
             if (getType() == GizmoType.LEFT_SPINNING_FLIPPER)
-                pivotAngle += (ANGULAR_VELOCITY * RunModel.SECONDS_PER_TICK);
+                pivotAngle += (ANGULAR_VELOCITY * lapse);
             else
-                pivotAngle -= (ANGULAR_VELOCITY * RunModel.SECONDS_PER_TICK);
+                pivotAngle -= (ANGULAR_VELOCITY * lapse);
         }
     }
 

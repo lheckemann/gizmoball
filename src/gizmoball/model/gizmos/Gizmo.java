@@ -21,9 +21,9 @@ public interface Gizmo extends ReadGizmo {
     void setY(int y);
 
     /**
-     * Processes a tick.
+     * Processes a tick spanning the given lapse.
      */
-    void tick();
+    void tick(double lapse);
 
     /**
      * Triggers the gizmo.

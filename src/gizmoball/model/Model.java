@@ -426,8 +426,6 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void tick() {
-        this.gizmos.forEach(Gizmo::tick);
-
         CollisionFinder finder = new CollisionFinder();
         finder.setWalls(this.walls, this.WALL_REFLECTION);
         finder.setGizmos(this.gizmos);
@@ -491,6 +489,10 @@ public class Model implements BuildModel, RunModel {
         for (Ball b : free) {
             b.setPosition(this.getAppliedVelocity(b, lapse));
             b.setVelocity(this.getAppliedGlobalForces(b.getVelocity(), lapse));
+        }
+
+        for (Gizmo g : this.gizmos) {
+            g.tick(lapse);
         }
     }
 }

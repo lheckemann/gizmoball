@@ -49,7 +49,7 @@ public abstract class BaseGizmo implements Gizmo {
     }
 
     @Override
-    public void tick() {
+    public void tick(double lapse) {
     }
 
     @Override
