@@ -130,11 +130,11 @@ public class Controller {
         return new ConnectOuterwallListener(view, model);
     }
 
-    public void saveExtended(Model model, IGizmoBallView gizmoBallView) {
-        new SaveListener(model, gizmoBallView).saveExtended();
+    public Saver getExtendedSaver(BuildModel model) {
+        return new Saver(model);
     }
 
-    public void saveStandard(Model model, GizmoBallView gizmoBallView) {
-        new SaveListener(model, gizmoBallView).saveStandard();
+    public Saver getStandardSaver(BuildModel model) {
+        return new StandardSaver(model);
     }
 }

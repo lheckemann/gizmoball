@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import gizmoball.controller.Controller;
+import gizmoball.controller.save.Saver;
+import gizmoball.model.BuildModel;
 import gizmoball.model.Model;
-// FIXME: Get this out of there
-import gizmoball.controller.save.SaverType;
 
 
 public class GizmoBallView implements IGizmoBallView {
@@ -124,27 +124,13 @@ public class GizmoBallView implements IGizmoBallView {
     }
 
     @Override
-    public void promptSaveType(Model model) {
-        SaverType[] options = {SaverType.STANDARD, SaverType.EXTENDED};
-        JPanel panel = new JPanel();
-        panel.add(new JLabel("Choose saver type"));
-      
-        int result = JOptionPane.showOptionDialog(null, panel, "Select a saver to use",
+    public Saver promptSaverType(BuildModel model) {
+        String[] options = new String[] {"Standard", "Extended"};
+        int result = JOptionPane.showOptionDialog(null, "Choose saver type", "Select a saver to use",
                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, options, null);
 
-        try {   
-            switch(options[result]) {
-                case STANDARD:
-                    this.controller.saveStandard(model, this);
-                    break;
-                case EXTENDED:
-                    this.controller.saveExtended(model, this);
-                    break;
-            }
-        } catch (IndexOutOfBoundsException e) {
-           
-        }
+        return result == 1 ? controller.getStandardSaver(model) : controller.getExtendedSaver(model);
     }
 
     @Override

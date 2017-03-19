@@ -544,6 +544,7 @@ public class LoadTest {
     
     @Test
     public void checkBallVelocityIsCorrect() {
+
         try {
             String testString = "Ball B0 15 15 50 -345\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
