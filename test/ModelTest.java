@@ -177,10 +177,30 @@ public class ModelTest {
 
         assertEquals(size - 1, myModel.getGizmos().size());
     }
+    
+    @Test
+    public void deleteConnectionFromAllMaps() {
+        Gizmo source = new Triangle();
+        Gizmo dest = new Square();
+        try {
+            myModel.select(7, 7);
+            myModel.addGizmo(source);
+            myModel.select(6, 6);
+            myModel.addGizmo(dest);
+            myModel.keyPressed(10);
+            myModel.keyReleased(15);
+            myModel.triggerOnGizmo(source);
+            myModel.delete();
+        } catch (PositionOverlapException e) {
+            e.printStackTrace();
+        } catch (PositionOutOfBoundsException e) {
+            e.printStackTrace();
+        }
 
-    //
-    // TODO : check connections are removed from all the maps !!
-    //
+        assertTrue(!myModel.getKeyPressToGizmoMap().containsKey(dest) &&
+                !myModel.getKeyReleaseToGizmoMap().containsKey(dest) &&
+                !myModel.getGizmoToGizmoMap().containsKey(dest));
+    }
 
     @Test
     public void addAbsorberUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
