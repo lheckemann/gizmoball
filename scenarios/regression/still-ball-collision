@@ -1,0 +1,8 @@
+Ball Still 10.0 19.749 0.0 0.0
+Ball Hitting 10.0 1.0 0.0 0.0
+RightFlipper Switch 9 2
+Rotate Switch
+Rotate Switch
+Rotate Switch
+KeyConnect key 32 down Switch
+KeyConnect key 32 up Switch

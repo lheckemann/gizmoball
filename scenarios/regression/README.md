@@ -40,9 +40,11 @@ Regression test for issue #38
 1. Load file
 2. Run simulation
 
-## Expected outcome
+### Expected outcome
 
 Ball that starts inside the box remains inside box for at least 20 seconds.
+
+## ball-collisions
 
 ### Instructions
 
@@ -53,3 +55,16 @@ Ball that starts inside the box remains inside box for at least 20 seconds.
 
 All balls collide with each other at the same time in the centre of the arena
 and perpendicularly hit the outer walls repeatedly.
+
+## still-ball-collision
+
+### Instructions
+
+1. Load file
+2. Run simulation
+3. Wait for lower ball to stop trembling
+4. Press space
+
+### Expected outcome
+
+The falling ball hits the lower ball, which does not change position.
