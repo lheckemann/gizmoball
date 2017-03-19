@@ -437,7 +437,7 @@ public class Model implements BuildModel, RunModel {
         List<Collision> collisions = new ArrayList<>();
         /* The collisions we receive are ordered in time. */
         for (Collision c : finder.getCollisions()) {
-            /* The remainding collisions come after the cutoff point. */
+            /* The remaining collisions come after the cutoff point. */
             if (c.time > lapse) {
                 break;
             }
@@ -468,8 +468,14 @@ public class Model implements BuildModel, RunModel {
             /* Set position before setting the new velocity. */
             Vect velocity = this.getAppliedGlobalForces(velocities.get(b), lapse);
             /* Do not slowly change position on infinitesimal velocities. */
-            if (velocity.length() > VELOCITY_THRESHOLD) {
-                b.setPosition(this.getAppliedVelocity(b, lapse));
+            /* Hack: check velocity thresholds for the x and the y axes
+             * separately. It will still break if the ball moves infinitesimally
+             * on the perpendicular line of a parallel object. */
+            if (velocity.x() > VELOCITY_THRESHOLD) {
+                b.setX(this.getAppliedVelocity(b, lapse).x());
+            }
+            if (velocity.y() > VELOCITY_THRESHOLD) {
+                b.setY(this.getAppliedVelocity(b, lapse).y());
             }
             b.setVelocity(velocity);
         }
