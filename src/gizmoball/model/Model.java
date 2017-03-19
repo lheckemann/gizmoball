@@ -14,8 +14,8 @@ import static gizmoball.model.CollisionFinder.Collision;
 
 
 public class Model implements BuildModel, RunModel {
-    private final static double IMMEDIATE_COLLISION = 0.000001;
-    private final static double VELOCITY_THRESHOLD = 0.1;
+    private final static double IMMEDIATE_COLLISION = 0.0001;
+    private final static double VELOCITY_THRESHOLD = 0.001;
     private final Set<LineSegment> walls = new HashSet<>();
 
     private int width;
@@ -418,10 +418,12 @@ public class Model implements BuildModel, RunModel {
         return ball.getCircle().getCenter().plus(ball.getVelocity().times(lapse));
     }
 
-    private Vect getAppliedGlobalForces(Vect velocity, double lapse) {
-        double friction = (1 - mu * lapse - mu2 * velocity.length() * lapse);
-        Vect gravity = this.gravity.times(lapse);
-        return velocity.times(friction).plus(gravity);
+    private Vect getAppliedGravity(Vect velocity, double lapse) {
+        return velocity.plus(this.gravity.times(lapse));
+    }
+
+    private Vect getAppliedFriction(Vect velocity, double lapse) {
+        return velocity.times(1 - mu * lapse - mu2 * velocity.length() * lapse);
     }
 
     @Override
@@ -466,17 +468,13 @@ public class Model implements BuildModel, RunModel {
 
         for (Ball b : velocities.keySet()) {
             /* Set position before setting the new velocity. */
-            Vect velocity = this.getAppliedGlobalForces(velocities.get(b), lapse);
             /* Do not slowly change position on infinitesimal velocities. */
             /* Hack: check velocity thresholds for the x and the y axes
              * separately. It will still break if the ball moves infinitesimally
              * on the perpendicular line of a parallel object. */
-            if (velocity.x() > VELOCITY_THRESHOLD) {
-                b.setX(this.getAppliedVelocity(b, lapse).x());
-            }
-            if (velocity.y() > VELOCITY_THRESHOLD) {
-                b.setY(this.getAppliedVelocity(b, lapse).y());
-            }
+            Vect velocity = velocities.get(b);
+            velocity = this.getAppliedFriction(velocity, lapse);
+            b.setPosition(this.getAppliedVelocity(b, lapse));
             b.setVelocity(velocity);
         }
 
@@ -494,7 +492,7 @@ public class Model implements BuildModel, RunModel {
         free.removeAll(velocities.keySet());
         for (Ball b : free) {
             b.setPosition(this.getAppliedVelocity(b, lapse));
-            b.setVelocity(this.getAppliedGlobalForces(b.getVelocity(), lapse));
+            b.setVelocity(this.getAppliedGravity(this.getAppliedFriction(b.getVelocity(), lapse), lapse));
         }
 
         for (Gizmo g : this.gizmos) {
