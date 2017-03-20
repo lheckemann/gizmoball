@@ -77,6 +77,7 @@ public class SaveTest {
     int leftSpinningFlipperY = 12;
     int rightSpinningFlipperX = 14;
     int rightSpinningFlipperY = 14;
+    int numberOfRightSpinningFlipperRotations = 2;
     int spawnerX = 16;
     int spawnerY = 16;
     int sinkX = 18;
@@ -151,8 +152,10 @@ public class SaveTest {
         extendedTokens.add(String.format("Spawner %s %d %d", spawnerId, this.spawnerX, this.spawnerY));
         String sinkId = "Sink0";
         extendedTokens.add(String.format("Sink %s %d %d", sinkId, this.sinkX, this.sinkY));
-        extendedModel.select(sinkX, sinkY);
         
+        for (int i=0; i < this.numberOfRightSpinningFlipperRotations; i++) {
+            extendedTokens.add(String.format("Rotate %s", rightSpinningFlipperId));
+        }
         extendedTokens.add(String.format("Connect %s %s", sinkId, spawnerId));
         extendedTokens.add(String.format("KeyConnect key %d down %s", KeyEvent.VK_Q, spawnerId));
         extendedTokens.add(String.format("Connect OuterWalls %s", spawnerId));
@@ -214,6 +217,12 @@ public class SaveTest {
         extendedModel.select(rightSpinningFlipperX, rightSpinningFlipperY);
         try {
             extendedModel.addGizmo(new SpinningFlipper(false));
+            for (int i=0; i<this.numberOfRightSpinningFlipperRotations; i++) {
+                try {
+                    extendedModel.rotateGizmo();
+                } catch (NonRotatableException e) {
+                }
+            }
         } catch (PositionOverlapException e) {
         } catch (PositionOutOfBoundsException e) {
         }

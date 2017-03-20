@@ -105,7 +105,9 @@ public class Saver {
     protected void dumpRotateCommands(PrintWriter writer) {
         for (ReadGizmo gizmo: this.taggedGizmos.keySet()) {
             for (int i = 0; i < gizmo.getRotation().getTurns(); i++) {
-                writer.format("Rotate %s\n", this.taggedGizmos.get(gizmo));
+                if (this.taggedGizmos.containsKey(gizmo)) {
+                    writer.format("Rotate %s\n", this.taggedGizmos.get(gizmo));
+                }
             }
         }
     }
@@ -114,7 +116,9 @@ public class Saver {
         Map<ReadGizmo, Set<ReadGizmo>> map = this.model.getGizmoToGizmoMap();
         for (ReadGizmo from : map.keySet()) {
             for (ReadGizmo to : map.get(from)) {
-                writer.format("Connect %s %s\n", this.taggedGizmos.get(from), this.taggedGizmos.get(to));
+                if (this.taggedGizmos.containsKey(from) && this.taggedGizmos.containsKey(to)) {
+                    writer.format("Connect %s %s\n", this.taggedGizmos.get(from), this.taggedGizmos.get(to));
+                }
             }
         }
     }
@@ -123,13 +127,17 @@ public class Saver {
         Map<Integer, Set<ReadGizmo>> pressMap = this.model.getKeyPressToGizmoMap();
         for (Integer key : pressMap.keySet()) {
             for (ReadGizmo to : pressMap.get(key)) {
-                writer.format("KeyConnect key %d down %s\n", key, this.taggedGizmos.get(to));
+                if (this.taggedGizmos.containsKey(to)) {
+                    writer.format("KeyConnect key %d down %s\n", key, this.taggedGizmos.get(to));
+                }
             }
         }
         Map<Integer, Set<ReadGizmo>> releaseMap = this.model.getKeyReleaseToGizmoMap();
         for (Integer key : releaseMap.keySet()) {
             for (ReadGizmo to : releaseMap.get(key)) {
-                writer.format("KeyConnect key %d up %s\n", key, this.taggedGizmos.get(to));
+                if (this.taggedGizmos.containsKey(to)) {
+                    writer.format("KeyConnect key %d up %s\n", key, this.taggedGizmos.get(to));
+                }
             }
         }
     }
@@ -138,7 +146,9 @@ public class Saver {
         Set<ReadGizmo> outerWallGizmos = this.model.getOuterwallTriggeredGizmos();
         
         for (ReadGizmo gizmo: outerWallGizmos) {
-            writer.format("Connect OuterWalls %s\n", this.taggedGizmos.get(gizmo));
+            if (this.taggedGizmos.containsKey(gizmo)) {
+                writer.format("Connect OuterWalls %s\n", this.taggedGizmos.get(gizmo));
+            }
         }
     }
 
