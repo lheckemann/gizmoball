@@ -103,3 +103,14 @@ lines and circles.
 
 The ball forever bounces inside the arena at high speed. Ticks only display
 collisions with the outer walls.
+
+## speed
+
+### Instructions
+
+1. Load file
+2. Run simulation
+
+### Expected outcome
+
+The ball should hit a side wall every 1s.
