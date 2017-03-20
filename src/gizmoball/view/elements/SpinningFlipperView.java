@@ -11,7 +11,7 @@ public class SpinningFlipperView {
         graphics.setColor(Color.BLUE);
 
         // Draw body
-        Shape body = new RoundRectangle2D.Double(0, 0, flipper.getWidth()/4.0, flipper.getHeight()/1.5, 0.5, 0.5);
+        Shape body = new RoundRectangle2D.Double(0, 0, flipper.getWidth()/4.0, 5/4.0, 0.5, 0.5);
         graphics.fill(body);
 
         // Draw pivot
