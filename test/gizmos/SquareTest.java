@@ -58,7 +58,7 @@ public class SquareTest {
 
     @Test
     public void getCircles() {
-        final double circleSize = 0.2;
+        final double circleSize = 0.1;
         final Set<Circle> circles = Collections.unmodifiableSet(
                 Stream.of(new Circle(circleSize, circleSize, circleSize),
                         new Circle(circleSize, 1-circleSize, circleSize),

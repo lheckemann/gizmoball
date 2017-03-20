@@ -76,7 +76,7 @@ public class SpinningFlipperTest {
 
     @Test
     public void getPivot() {
-        assertEquals(new Vect(1.25, 1.25), myLeftFlipper.getPivot());
+        assertEquals(new Vect(0.5, 0.5), myLeftFlipper.getPivot());
     }
 
     @Test
