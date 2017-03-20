@@ -299,7 +299,12 @@ public class Model implements BuildModel, RunModel {
         for (Gizmo g : gizmos) {
             Ball ball = g.trigger();
             if (ball != null) {
-                this.balls.add(ball);
+                physics.Circle ballCircle = ball.getCircle();
+                if (balls.stream()
+                        .map(Ball::getCircle)
+                        .noneMatch(otherCircle -> Geometry.circlesIntersect(ballCircle, otherCircle))) {
+                    balls.add(ball);
+                }
             }
         }
     }

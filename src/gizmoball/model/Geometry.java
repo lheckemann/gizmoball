@@ -33,4 +33,10 @@ public abstract class Geometry {
         // Because of this, we just leave the shape and size unmodified, which is terrible.
         return new Circle(dest, src.getRadius());
     }
+
+    public static boolean circlesIntersect(Circle a, Circle b) {
+        double radiusSum = a.getRadius() + b.getRadius();
+        double distanceSquared = a.getCenter().distanceSquared(b.getCenter());
+        return radiusSum * radiusSum >= distanceSquared;
+    }
 }
