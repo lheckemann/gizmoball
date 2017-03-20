@@ -1,0 +1,48 @@
+LeftFlipper LeftFlipper0 8 13
+Triangle Triangle1 11 13
+Triangle Triangle2 6 12
+Triangle Triangle3 6 13
+Square Square4 7 15
+Triangle Triangle5 10 11
+Triangle Triangle6 7 12
+Triangle Triangle7 10 12
+Triangle Triangle8 8 10
+Triangle Triangle9 11 12
+Triangle Triangle10 7 13
+Triangle Triangle11 9 10
+Square Square12 10 15
+Triangle Triangle13 8 11
+Square Square14 7 14
+Triangle Triangle15 10 13
+Square Square16 10 14
+Square Square17 8 15
+Triangle Triangle18 7 11
+Square Square19 9 15
+Triangle Triangle20 9 11
+Ball B0 9.250000 12.437500 10.000000 0.000000
+Rotate LeftFlipper0
+Rotate Triangle2
+Rotate Triangle2
+Rotate Triangle3
+Rotate Triangle5
+Rotate Triangle5
+Rotate Triangle5
+Rotate Triangle7
+Rotate Triangle8
+Rotate Triangle8
+Rotate Triangle9
+Rotate Triangle9
+Rotate Triangle9
+Rotate Triangle10
+Rotate Triangle10
+Rotate Triangle10
+Rotate Triangle11
+Rotate Triangle11
+Rotate Triangle11
+Rotate Triangle15
+Rotate Triangle15
+Rotate Triangle18
+Rotate Triangle18
+Rotate Triangle20
+Gravity 25.000000
+Friction 0.025000 0.025000

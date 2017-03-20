@@ -165,3 +165,15 @@ not form a stack.
 ### Expected outcome
 
 All three balls spawned at the beginning should still be in the arena.
+
+
+## flipper-coll
+
+### Instructions
+
+1. Load file
+2. Run simulation
+
+### Expected outcome
+
+Ball should collide correctly with the circles on the end of the flipper.
