@@ -1,9 +1,8 @@
-package gizmos;
+package test.gizmos;
 
 import gizmoball.model.Ball;
 import gizmoball.model.gizmos.Gizmo;
 import gizmoball.model.gizmos.GizmoType;
-import gizmoball.model.gizmos.ReadGizmo;
 import gizmoball.model.gizmos.Triangle;
 import org.junit.Before;
 import org.junit.Test;

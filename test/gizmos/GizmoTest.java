@@ -1,4 +1,4 @@
-package gizmos;
+package test.gizmos;
 
 import java.awt.geom.AffineTransform;
 import java.util.HashSet;

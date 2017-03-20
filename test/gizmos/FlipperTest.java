@@ -1,4 +1,4 @@
-package gizmos;
+package test.gizmos;
 
 import java.util.Collections;
 import java.util.Set;

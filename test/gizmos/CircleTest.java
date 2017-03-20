@@ -1,4 +1,4 @@
-package gizmos;
+package test.gizmos;
 
 import gizmoball.model.Ball;
 import gizmoball.model.gizmos.Circle;
