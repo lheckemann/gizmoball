@@ -125,6 +125,7 @@ Rotate RightFlipper96
 Connect Sink38 Spawner60
 Connect Sink26 LeftFlipper91
 Connect Sink26 RightFlipper96
+Connect Sink26 Spawner42
 Connect Sink10 Spawner82
 Connect Sink61 LeftFlipper32
 Connect Sink61 Spawner65
@@ -140,7 +141,5 @@ Connect Sink57 LeftFlipper32
 Connect Sink57 LeftFlipper91
 Connect Sink57 RightFlipper96
 Connect Sink57 RightFlipper63
-KeyConnect key 32 down Spawner42
-KeyConnect key 81 down Spawner11
 Gravity 25.000000
 Friction 0.025000 0.025000

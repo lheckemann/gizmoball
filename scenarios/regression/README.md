@@ -9,7 +9,6 @@ Regression test for issue #43.
 ### Instructions
 1. Load file
 2. Start simulation (run)
-3. Press space
 
 ### Expected outcome
 
