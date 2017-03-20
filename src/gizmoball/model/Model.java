@@ -431,6 +431,11 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public double tick() {
+        // Ideally this predicate should never be satisfied, but experience tells us otherwise.
+        balls.removeIf(b -> b.getPosition().x() < 0
+                         || b.getPosition().x() >= width
+                         || b.getPosition().y() < 0
+                         || b.getPosition().y() > height);
         CollisionFinder finder = new CollisionFinder();
         finder.setWalls(this.walls, this.WALL_REFLECTION);
         finder.setGizmos(this.gizmos);
