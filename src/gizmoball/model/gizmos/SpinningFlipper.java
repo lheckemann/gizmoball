@@ -1,7 +1,6 @@
 package gizmoball.model.gizmos;
 
 import gizmoball.model.Ball;
-import gizmoball.model.Geometry;
 import physics.LineSegment;
 import physics.Vect;
 

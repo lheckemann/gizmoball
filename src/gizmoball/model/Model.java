@@ -2,7 +2,6 @@ package gizmoball.model;
 
 import java.io.InputStream;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import physics.LineSegment;
 import physics.Vect;
@@ -15,7 +14,6 @@ import static gizmoball.model.CollisionFinder.Collision;
 
 public class Model implements BuildModel, RunModel {
     private final static double IMMEDIATE_COLLISION = 0.0001;
-    private final static double VELOCITY_THRESHOLD = 0.001;
     private final Set<LineSegment> walls = new HashSet<>();
 
     private int width;
