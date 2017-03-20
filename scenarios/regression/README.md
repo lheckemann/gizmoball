@@ -126,3 +126,15 @@ The ball should hit a side wall every 1s.
 ### Expected outcome
 
 All balls should bounce straight up and down.
+
+
+## flipper-edge
+
+### Instructions
+
+1. Load file
+2. Run simulation
+
+### Expected outcome
+
+Both balls should bounce off the edge of the flipper and not fall straight down.
