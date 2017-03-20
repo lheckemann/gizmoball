@@ -1,0 +1,8 @@
+Square Square0 9 18
+Square Square1 9 19
+Square Square2 9 17
+Absorber Absorber3 8 19 9 20
+Ball B0 8.500000 16.531250 0.000000 0.000000
+Connect Absorber3 Absorber3
+Gravity 25.000000
+Friction 0.025000 0.025000
