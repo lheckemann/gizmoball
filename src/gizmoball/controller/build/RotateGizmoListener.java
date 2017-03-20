@@ -16,6 +16,7 @@ public class RotateGizmoListener extends MouseAdapter {
     public RotateGizmoListener(IBuildView view, BuildModel model) {
         this.model = model;
         this.view = view;
+        this.view.setDisplayLabel("Click on the gizmo you would like to rotate");
     }
 
     @Override

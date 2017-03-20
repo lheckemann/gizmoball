@@ -65,7 +65,7 @@ public class BuildView extends GameView implements IBuildView {
         addRadioButton("Trigger on gizmo", controller.getSwitchToConnectGizmosListener(this.board, this, this.model));
         addRadioButton("Trigger on keypress", controller.getSwitchToConnectKeyPressListener(this.board, this, this.model));
         addRadioButton("Trigger on keyrelease", controller.getSwitchToConnectKeyReleaseListener(this.board, this,this.model));
-        addRadioButton("trigger on outer wall", controller.getSwitchToConnectOuterwallListener(this.board, this, this.model));
+        addRadioButton("Trigger on outer wall", controller.getSwitchToConnectOuterwallListener(this.board, this, this.model));
 
         SpinnerNumberModel frictionMuModel = new SpinnerNumberModel(0.025, 0, 1.0, 0.05);
         addSpinner("Friction mu", controller.getChangeFrictionMuListener(this.model, frictionMuModel), frictionMuModel);
