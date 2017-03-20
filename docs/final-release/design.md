@@ -21,3 +21,7 @@ the user can more easily implement their own gizmos.
 - We added the extra `Sink`, `Spawner` and `SpinningFlipper` gizmos. This last one
 shares common functionality with `StandardFlipper` through the common inherited
 `Flipper` class.
+
+- Each tick processes now a variable amount of time in the range
+`(0, MINIMUM_FRAMERATE]`. The game timer is now variable, each tick being
+scheduled for `processed_time - time_spend_processing`.
