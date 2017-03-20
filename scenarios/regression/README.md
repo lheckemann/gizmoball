@@ -114,3 +114,15 @@ collisions with the outer walls.
 ### Expected outcome
 
 The ball should hit a side wall every 1s.
+
+
+## absorber-straight
+
+### Instructions
+
+1. Load file
+2. Run simulation
+
+### Expected outcome
+
+Ball should fall into absorber and get launched straight up.
