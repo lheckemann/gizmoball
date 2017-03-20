@@ -2,6 +2,7 @@ package gizmoball.main;
 
 import gizmoball.model.Model;
 import gizmoball.model.SyntaxError;
+import gizmoball.controller.load.StandardLoader;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,7 +14,7 @@ public class Validate {
         for (String filename : args) {
             File file = new File(filename);
             System.err.println("Checking " + file);
-            model.load(new FileInputStream(file));
+            model.load(new StandardLoader(), new FileInputStream(file));
         }
     }
 }

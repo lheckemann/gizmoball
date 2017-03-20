@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.junit.*;
 
+import gizmoball.controller.load.StandardLoader;
 import gizmoball.model.Model;
 import gizmoball.model.ReadBall;
 import gizmoball.model.SyntaxError;
@@ -31,7 +32,7 @@ public class LoadTest {
         try {
             String testString = "Ball 0.1 0 3 fhdjfhdjfhdf\\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -43,7 +44,7 @@ public class LoadTest {
         try {
             String testString = "LeftFlipper RF0 3\\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -55,7 +56,7 @@ public class LoadTest {
         try {
             String testString = "Square 0.1 0 3 fhdjfhdjfhdf\\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -67,7 +68,7 @@ public class LoadTest {
         try {
             String testString = "Triangle S0 0.1 0\\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -79,7 +80,7 @@ public class LoadTest {
         try {
             String testString = "Circle C0 fkfjdf jfkdjf\\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -91,7 +92,7 @@ public class LoadTest {
         try {
             String testString = "Absorber 0.1 0 3 3\\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -109,7 +110,7 @@ public class LoadTest {
                     + "RightFlipper RF0 6 6\n"
                     + "Absorber A0 0 19 20 20";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             if (this.model.getGizmos().size() != 6) {
                 fail();
             }
@@ -192,7 +193,7 @@ public class LoadTest {
             String testString = "Square S0 0 0\n"
                     + "Delete S0 fdfkjdf";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -205,7 +206,7 @@ public class LoadTest {
             String testString = "Square S0 0 0\n"
                     + "Move S0 fjdffjk";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -218,7 +219,7 @@ public class LoadTest {
             String testString = "Square S0 0 0\n"
                     + "Connect S0 S0 jfkdjff\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -231,7 +232,7 @@ public class LoadTest {
             String testString = "Square S0 0 0\n"
                     + "KeyConnect S0 djksjf fjkfjf jf";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -243,7 +244,7 @@ public class LoadTest {
         try {
             String testString = "Gravity fjdfhdf\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -255,7 +256,7 @@ public class LoadTest {
         try {
             String testString = "Fricition fdjfhdf jfjdhfd\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -267,7 +268,7 @@ public class LoadTest {
         try {
             String testString = "Delete S0\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -279,7 +280,7 @@ public class LoadTest {
         try {
             String testString = "Rotate S0\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -291,7 +292,7 @@ public class LoadTest {
         try {
             String testString = "Move C0\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -304,7 +305,7 @@ public class LoadTest {
         try {
             String testString = "Connect C0 T1\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -318,7 +319,7 @@ public class LoadTest {
             String testString = "Square S0\n"
                     + "Connect S0 LF5";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -336,7 +337,7 @@ public class LoadTest {
                     + "Delete B0\n"
                     + "Delete T1\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             if (this.model.getGizmos().size() != 1 || this.model.getBalls().size() != 0) {
                 fail();
             }
@@ -361,7 +362,7 @@ public class LoadTest {
                     + "Delete T1\n"
                     + "Delete S0";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             if (this.model.getGizmos().size() != 0 || this.model.getBalls().size() != 0) {
                 fail();
             }
@@ -380,7 +381,7 @@ public class LoadTest {
             String testString = "Triangle T0 0 0\n"
                     + "Move T0 1 1";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             
             int numberOfGizmos = model.getGizmos().size();
             ReadGizmo gizmo = model.getGizmos().iterator().next();
@@ -401,7 +402,7 @@ public class LoadTest {
             String testString = "Triangle T0 0 19\n"
                     + "Rotate T0";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             
             int numberOfGizmos = model.getGizmos().size();
             ReadGizmo gizmo = model.getGizmos().iterator().next();
@@ -422,7 +423,7 @@ public class LoadTest {
             String testString = "Absorber A0 0 19 20 20\n"
                     + "Rotate A0";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
            
             fail();
         } catch (SyntaxError e) {
@@ -436,7 +437,7 @@ public class LoadTest {
             String testString = "Ball B0 0 19 0 0\n"
                     + "Rotate B0";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -454,7 +455,7 @@ public class LoadTest {
                    + "Connect T0 LF0\n"
                    + "Connect LF0 T0\n";
            InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-           this.model.load(testStream);
+           this.model.load(new StandardLoader(), testStream);
             if (model.getGizmoToGizmoMap().size() != 3) {
                 fail();
             }
@@ -507,7 +508,7 @@ public class LoadTest {
                     + "KeyConnect key 32 up LF0\n"
                     + "KeyConnect key 128 down LF0";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             if (model.getKeyPressToGizmoMap().size() != 1) {
                 fail();
             }
@@ -544,7 +545,7 @@ public class LoadTest {
         try {
             String testString = "Ball B0 15 15 50 -345\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             ReadBall ball = model.getBalls().iterator().next();
             if (ball.getVelocityX() == 50 && ball.getVelocityY() == -345) {
                 assertTrue(true);
@@ -562,7 +563,7 @@ public class LoadTest {
             String testString = "Triangle T0 0 0\n"
                     + "Square S0 0 0";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -576,7 +577,7 @@ public class LoadTest {
                     + "Square S0 0 0\n"
                     + "Move S0 5 5";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -588,7 +589,7 @@ public class LoadTest {
         try {
             String testString = "Absorber A0 0 19 0 19\n";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             fail();
         } catch (SyntaxError e) {
             assertTrue(true);
@@ -603,7 +604,7 @@ public class LoadTest {
                     + "Gravity 20\n"
                     + "Friction 100 -90";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
-            this.model.load(testStream);
+            this.model.load(new StandardLoader(), testStream);
             if (this.model.getGravity() == 20 && this.model.getFrictionMu() == 100 && this.model.getFrictionMu2() == -90) {
                 assertTrue(true);
             }

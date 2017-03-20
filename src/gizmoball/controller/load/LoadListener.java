@@ -24,7 +24,7 @@ public class LoadListener implements ActionListener {
         try {
             File loadedFile = view.getFileByChooserLoad();
             if(loadedFile != null) {
-                model.load(new FileInputStream(loadedFile));
+                model.load(new StandardLoader(), new FileInputStream(loadedFile));
             }
             view.updateBoard();
         } catch (FileNotFoundException fnfe) {

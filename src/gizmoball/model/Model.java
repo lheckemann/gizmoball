@@ -5,8 +5,6 @@ import java.util.*;
 
 import physics.LineSegment;
 import physics.Vect;
-// FIXME: get out of here
-import gizmoball.controller.load.Loader;
 import gizmoball.model.gizmos.*;
 
 import static gizmoball.model.CollisionFinder.Collision;
@@ -390,7 +388,7 @@ public class Model implements BuildModel, RunModel {
         return Collections.unmodifiableSet(this.wallTriggers);
     }
 
-    public void load(InputStream input) throws SyntaxError {
+    public void load(Loader loader, InputStream input) throws SyntaxError {
         Vect gravity = new Vect(this.gravity.x(), this.gravity.y());
         double mu = this.mu;
         double mu2 = this.mu2;
@@ -402,7 +400,7 @@ public class Model implements BuildModel, RunModel {
         Set<Gizmo> wallTriggers = new HashSet<>(this.wallTriggers);
         this.reset();
         try {
-            new Loader(this).load(input);
+            loader.load(this, input);
         } catch (SyntaxError e) {
             this.gravity = gravity;
             this.mu = mu;

@@ -4,6 +4,7 @@ import java.io.*;
 
 import gizmoball.model.Model;
 import gizmoball.model.SyntaxError;
+import gizmoball.controller.load.StandardLoader;
 import gizmoball.view.GizmoBallView;
 
 import javax.swing.*;
@@ -13,7 +14,7 @@ public class Main {
         Model model = new Model(20, 20);
         if (args.length == 1) {
             try {
-                model.load(new FileInputStream(args[0]));
+                model.load(new StandardLoader(), new FileInputStream(args[0]));
             } catch (FileNotFoundException | SyntaxError e) {
                 System.out.println(e.getMessage());
             }

@@ -4,13 +4,14 @@ import java.io.InputStream;
 import java.util.*;
 
 import gizmoball.model.BuildModel;
+import gizmoball.model.Loader;
 import gizmoball.model.PositionOutOfBoundsException;
 import gizmoball.model.PositionOverlapException;
 import gizmoball.model.ReadBall;
 import gizmoball.model.SyntaxError;
 import gizmoball.model.gizmos.*;
 
-public class Loader {
+public class StandardLoader implements Loader {
     private static final Set<String> DEPENDENT = new HashSet<>(Arrays.asList(
             "Rotate", "Delete", "Move", "Connect", "KeyConnect"));
     private static final Set<String> GLOBAL = new HashSet<>(Arrays.asList(
@@ -20,13 +21,13 @@ public class Loader {
     private Map<String, ReadGizmo> idToGizmos;
     private Map<String, ReadBall> idToBalls;
 
-    public Loader(BuildModel model) {
-        this.model = model;
+    public StandardLoader() {
         this.idToGizmos = new HashMap<>();
         this.idToBalls = new HashMap<>();
     }
 
-    public void load(InputStream input) throws SyntaxError {
+    public void load(BuildModel model, InputStream input) throws SyntaxError {
+        this.model = model;
         int n = 0;
         Map<Integer, List<String>> dependent = new HashMap<>();
         try (Scanner scanner = new Scanner(input)) {
