@@ -29,10 +29,8 @@ public abstract class Geometry {
     public static Circle transformThrough(AffineTransform t, Circle src) {
         Point2D dest = new Point2D.Double();
         t.transform(src.getCenter().toPoint2D(), dest);
-        // NOTE: an AffineTransform will not necessarily preserve the circle-ness of a circle;
-        // As an approximation, we take the average of the X and Y scaling factor as a scaling
-        // factor for the radius.
-        double newRadius = src.getRadius() * (Math.abs(t.getScaleX()) + Math.abs(t.getScaleY())) / 2;
-        return new Circle(dest, newRadius);
+        // NOTE: an AffineTransform will not necessarily preserve the circle-ness of a circle.
+        // Because of this, we just leave the shape and size unmodified, which is terrible.
+        return new Circle(dest, src.getRadius());
     }
 }
