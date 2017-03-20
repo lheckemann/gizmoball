@@ -18,13 +18,15 @@ public class SaveListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Saver saver = view.promptSaverType(this.model);
-        try {
-            File file = view.getFileByChooserSave();
-            if(file != null) {
-                saver.save(new FileOutputStream(file));
+        if(saver != null) {
+        	try {
+                File file = view.getFileByChooserSave();
+                if(file != null) {
+                    saver.save(new FileOutputStream(file));
+                }
+            } catch (FileNotFoundException fnfe) {
+                view.displayErrorMessage(fnfe.getMessage(), "File not found");
             }
-        } catch (FileNotFoundException fnfe) {
-            view.displayErrorMessage(fnfe.getMessage(), "File not found");
         }
     }
 }

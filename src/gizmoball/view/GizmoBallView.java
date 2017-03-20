@@ -125,11 +125,13 @@ public class GizmoBallView implements IGizmoBallView {
 
     @Override
     public Saver promptSaverType(BuildModel model) {
-        String[] options = new String[] {"Standard", "Extended"};
+        String[] options = new String[] {"Standard", "Extended", "Cancel"};
         int result = JOptionPane.showOptionDialog(null, "Choose saver type", "Select a saver to use",
                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, options, null);
 
+        if(result == 2 || result == -1) // 2 for Cancel, -1 for 'X' on dialogue
+        	return null;
         return result == 1 ? controller.getStandardSaver(model) : controller.getExtendedSaver(model);
     }
 
