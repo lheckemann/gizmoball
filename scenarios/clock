@@ -48,7 +48,8 @@ Square Square53 19 4
 Sink Sink8 19 3
 Sink Sink54 15 3
 Square Square26 16 4
-Sink Sink55 10 19
+Sink ClockSink1 10 19
+Sink ClockSink2 11 19
 Sink Sink42 11 1
 Square Square43 0 3
 Square Square27 8 2
@@ -79,7 +80,8 @@ Connect Sink49 LeftFlipper21
 Connect Sink8 LeftFlipper35
 Connect Sink54 LeftFlipper25
 Connect Sink47 LeftFlipper18
-Connect Sink55 Spawner51
+Connect ClockSink1 Spawner51
+Connect ClockSink2 Spawner51
 Connect Sink42 LeftFlipper18
 Connect LeftFlipper17 Spawner10
 Connect LeftFlipper21 Spawner13

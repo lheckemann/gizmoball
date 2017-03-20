@@ -84,10 +84,16 @@ public class Absorber extends BaseGizmo {
         return null;
     }
 
+    private static final double circleOffset = 0.1;
+    private static final double circleSize = 0.09;
     @Override
     public Set<Circle> getCircles() {
-        // TODO
-        return Collections.emptySet();
+        return Collections.unmodifiableSet(
+                Stream.of(
+                    new Circle(circleOffset, circleOffset, circleSize),
+                    new Circle(circleOffset, getHeight()-circleOffset, circleSize),
+                    new Circle(getWidth()-circleOffset, getHeight()-circleOffset, circleSize),
+                    new Circle(getWidth()-circleOffset, circleOffset, circleSize)).collect(Collectors.toSet()));
     }
 
     @Override

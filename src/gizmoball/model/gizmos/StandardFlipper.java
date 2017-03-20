@@ -81,11 +81,7 @@ public class StandardFlipper extends Flipper {
 
     private static final Set<physics.Circle> circles = Collections.unmodifiableSet(Stream.of(
             new physics.Circle(0.25, 0.25, 0.25),
-            new physics.Circle(0.25, 1.75, 0.25),
-            new physics.Circle(0, 0.25, 0.05),
-            new physics.Circle(0, 1.75, 0.05),
-            new physics.Circle(0.5, 0.25, 0.05),
-            new physics.Circle(0.5, 1.75, 0.05)
+            new physics.Circle(0.25, 1.75, 0.25)
     ).collect(Collectors.toSet()));
     @Override
     public Set<physics.Circle> getCircles() {
