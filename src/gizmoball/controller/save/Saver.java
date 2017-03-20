@@ -32,13 +32,31 @@ public class Saver {
     }
 
     protected Map<ReadGizmo,String> getTaggedGizmos(Collection<ReadGizmo> gizmos) {
-        int i = 0;
+       
         Map<ReadGizmo,String> tagged = new HashMap<>();
+        Map<GizmoType, Integer> typeCounter = initTypeCounterMap();
         for (ReadGizmo gizmo : gizmos) {
-            tagged.put(gizmo, gizmo.getType().saveName() + i);
-            i++;
+            tagged.put(gizmo, gizmo.getType().saveName() + typeCounter.get(gizmo.getType()));
+            typeCounter.put(gizmo.getType(), typeCounter.get(gizmo.getType()) + 1);
         }
         return tagged;
+    }
+    
+    private Map<GizmoType, Integer> initTypeCounterMap() {
+        Map<GizmoType, Integer> typeCounter = new HashMap<>();
+        typeCounter.put(GizmoType.ABSORBER, 0);
+        typeCounter.put(GizmoType.CIRCLE, 0);
+        typeCounter.put(GizmoType.LEFT_FLIPPER, 0);
+        typeCounter.put(GizmoType.RIGHT_FLIPPER, 0);
+        typeCounter.put(GizmoType.SQUARE, 0);
+        typeCounter.put(GizmoType.TRIANGLE, 0);
+
+        typeCounter.put(GizmoType.LEFT_SPINNING_FLIPPER, 0);
+        typeCounter.put(GizmoType.RIGHT_SPINNING_FLIPPER, 0);
+        typeCounter.put(GizmoType.SINK, 0);
+        typeCounter.put(GizmoType.SPAWNER, 0);
+        
+        return typeCounter;
     }
 
     protected Map<ReadBall,String> getTaggedBalls(Collection<ReadBall> balls) {
