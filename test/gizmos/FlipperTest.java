@@ -89,6 +89,18 @@ public class FlipperTest {
     	myLeftFlipper.trigger();
     	assertNotEquals(6d * Math.PI, myLeftFlipper.getAngularVelocity(), DELTA);
     }
+    
+    @Test
+    public void getAngularVelocityLeftFlipperFewTicksAndThenGoBack() {
+    	myLeftFlipper.trigger();
+    	myLeftFlipper.tick(SECONDS_PER_TICK);
+    	myLeftFlipper.tick(SECONDS_PER_TICK);
+    	myLeftFlipper.trigger();
+    	myLeftFlipper.tick(SECONDS_PER_TICK);
+    	myLeftFlipper.tick(SECONDS_PER_TICK);
+    	assertEquals(0, myLeftFlipper.getAngularVelocity(), DELTA);
+    }
+
 
     @Test
     public void getAngularVelocityRightFlipperNoTick() {
@@ -114,6 +126,17 @@ public class FlipperTest {
     	myRightFlipper.tick(SECONDS_PER_TICK);
     	myRightFlipper.trigger();
     	assertNotEquals(-6d * Math.PI, myRightFlipper.getAngularVelocity(), DELTA);
+    }
+    
+    @Test
+    public void getAngularVelocityRightFlipperFewTicksAndThenGoBack() {
+    	myRightFlipper.trigger();
+    	myRightFlipper.tick(SECONDS_PER_TICK);
+    	myRightFlipper.tick(SECONDS_PER_TICK);
+    	myRightFlipper.trigger();
+    	myRightFlipper.tick(SECONDS_PER_TICK);
+    	myRightFlipper.tick(SECONDS_PER_TICK);
+    	assertEquals(0, myRightFlipper.getAngularVelocity(), DELTA);
     }
 
     @Test

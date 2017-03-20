@@ -16,11 +16,15 @@ import gizmoball.model.gizmos.*;
 public class GizmoTest {
     private Gizmo myLeftFlipper;
     private Gizmo myRightFlipper;
+    private Gizmo myLeftSpinningFlipper;
+    private Gizmo myRightSpinningFlipper;
 
     @Before
     public void setUp() {
         myLeftFlipper = new StandardFlipper(true);
         myRightFlipper = new StandardFlipper(false);
+        myLeftSpinningFlipper = new SpinningFlipper(true);
+        myRightSpinningFlipper = new SpinningFlipper(false);
     }
 
 
@@ -156,6 +160,56 @@ public class GizmoTest {
     }
     
     @Test
+    public void getTransformNoRotationLeftSpinningFlipper() {
+    	myLeftSpinningFlipper.setX(4);
+    	myLeftSpinningFlipper.setY(6);
+        AffineTransform at = new AffineTransform(1, 0, 0, 1, 4.75, 6.75);
+        assertEquals(at, myLeftSpinningFlipper.getTransform());
+    }
+    
+    @Test
+    public void getTransformOneRotationLeftSpinningFlipper() {
+    	myLeftSpinningFlipper.setX(4);
+    	myLeftSpinningFlipper.setY(6);
+        try {
+        	myLeftSpinningFlipper.rotate();
+        } catch (NonRotatableException e) {
+            fail();
+        }
+        AffineTransform at = new AffineTransform(0, 1, -1, 0, 5.25, 6.75);
+        assertEquals(at, myLeftSpinningFlipper.getTransform());
+    }
+    
+    @Test
+    public void getTransformTwoRotationsLeftSpinningFlipper() {
+    	myLeftSpinningFlipper.setX(4);
+    	myLeftSpinningFlipper.setY(6);
+        try {
+        	myLeftSpinningFlipper.rotate();
+        	myLeftSpinningFlipper.rotate();
+        } catch (NonRotatableException e) {
+            fail();
+        }
+        AffineTransform at = new AffineTransform(-1, 0, 0, -1, 5.25, 7.25);
+        assertEquals(at, myLeftSpinningFlipper.getTransform());
+    }
+    
+    @Test
+    public void getTransformThreeRotationsLeftSpinningFlipper() {
+    	myLeftSpinningFlipper.setX(4);
+    	myLeftSpinningFlipper.setY(6);
+        try {
+        	myLeftSpinningFlipper.rotate();
+        	myLeftSpinningFlipper.rotate();
+        	myLeftSpinningFlipper.rotate();
+        } catch (NonRotatableException e) {
+            fail();
+        }
+        AffineTransform at = new AffineTransform(0, -1, 1, 0, 4.75, 7.25);
+        assertEquals(at, myLeftSpinningFlipper.getTransform());
+    }
+    
+    @Test
     public void getTransformNoRotationRightFlipper() {
     	myRightFlipper.setX(4);
     	myRightFlipper.setY(6);
@@ -204,6 +258,56 @@ public class GizmoTest {
         AffineTransform at = new AffineTransform(0, 1, 1, 0, 4, 6);
         assertEquals(at, myRightFlipper.getTransform());
     }
+    
+    @Test
+    public void getTransformNoRotationRightSpinningFlipper() {
+    	myRightSpinningFlipper.setX(4);
+    	myRightSpinningFlipper.setY(6);
+        AffineTransform at = new AffineTransform(1, 0, 0, 1, 4.75, 6.75);
+        assertEquals(at, myRightSpinningFlipper.getTransform());
+    }
+    
+    @Test
+    public void getTransformOneRotationRightSpinningFlipper() {
+    	myRightSpinningFlipper.setX(4);
+    	myRightSpinningFlipper.setY(6);
+        try {
+        	myRightSpinningFlipper.rotate();
+        } catch (NonRotatableException e) {
+            fail();
+        }
+        AffineTransform at = new AffineTransform(0, 1, -1, 0, 5.25, 6.75);
+        assertEquals(at, myRightSpinningFlipper.getTransform());
+    }
+    
+    @Test
+    public void getTransformTwoRotationsRightSpinningFlipper() {
+    	myRightSpinningFlipper.setX(4);
+    	myRightSpinningFlipper.setY(6);
+    	try {
+    		myRightSpinningFlipper.rotate();
+    		myRightSpinningFlipper.rotate();
+        } catch (NonRotatableException e) {
+            fail();
+        }
+        AffineTransform at = new AffineTransform(-1, 0, 0, -1, 5.25, 7.25);
+        assertEquals(at, myRightSpinningFlipper.getTransform());
+    }
+    
+    @Test
+    public void getTransformThreeRotationsRightSpinningFlipper() {
+    	myRightSpinningFlipper.setX(4);
+    	myRightSpinningFlipper.setY(6);
+    	try {
+    		myRightSpinningFlipper.rotate();
+    		myRightSpinningFlipper.rotate();
+    		myRightSpinningFlipper.rotate();
+        } catch (NonRotatableException e) {
+            fail();
+        }
+        AffineTransform at = new AffineTransform(0, -1, 1, 0, 4.75, 7.25);
+        assertEquals(at, myRightSpinningFlipper.getTransform());
+    }
 
     @Test
     public void getCells() {
@@ -216,6 +320,15 @@ public class GizmoTest {
     	cells.add(new Vect(6, 7));
     	
     	assertEquals(cells, myLeftFlipper.getCells());
+    }
+    
+    @Test
+    public void tick() {
+    	// not really possible to test it here
+    	Gizmo square = new Square();
+    	square.tick(1.0/60);
+    	
+    	assertTrue(true);
     }
 
     @Test

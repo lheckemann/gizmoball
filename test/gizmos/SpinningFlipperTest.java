@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static gizmoball.model.RunModel.SECONDS_PER_TICK;
 import static org.junit.Assert.*;
 
 public class SpinningFlipperTest {
@@ -112,5 +113,67 @@ public class SpinningFlipperTest {
     public void ballHit() {
         Ball ball = new Ball();
         assertEquals(ball, myLeftFlipper.ballHit(ball));
+    }
+    
+    @Test
+    public void getAngularVelocityLeftFlipperNoTick() {
+    	myLeftFlipper.trigger();
+    	assertEquals(0, myLeftFlipper.getAngularVelocity(), DELTA);
+    }
+    
+    @Test
+    public void getAngularVelocityLeftFlipperOneTick() {
+    	myLeftFlipper.tick(SECONDS_PER_TICK);
+    	assertEquals(-6d * Math.PI, myLeftFlipper.getAngularVelocity(), DELTA);
+    }
+    
+    @Test
+    public void getAngularVelocityLeftFlipperOneTickAndThenNotActive() {
+    	myLeftFlipper.trigger();
+    	myLeftFlipper.tick(SECONDS_PER_TICK);
+    	myLeftFlipper.trigger();
+    	assertNotEquals(6d * Math.PI, myLeftFlipper.getAngularVelocity(), DELTA);
+    }
+    
+    @Test
+    public void getAngularVelocityLeftFlipperFewTicksAndThenGoBack() {
+    	myLeftFlipper.trigger();
+    	myLeftFlipper.tick(SECONDS_PER_TICK);
+    	myLeftFlipper.tick(SECONDS_PER_TICK);
+    	myLeftFlipper.trigger();
+    	myLeftFlipper.tick(SECONDS_PER_TICK);
+    	myLeftFlipper.tick(SECONDS_PER_TICK);
+    	assertEquals(-6d * Math.PI, myLeftFlipper.getAngularVelocity(), DELTA);
+    }
+    
+    @Test
+    public void getAngularVelocityRightFlipperNoTick() {
+    	myRightFlipper.trigger();
+    	assertEquals(0, myRightFlipper.getAngularVelocity(), DELTA);
+    }
+    
+    @Test
+    public void getAngularVelocityRightFlipperOneTick() {
+    	myRightFlipper.tick(SECONDS_PER_TICK);
+    	assertEquals(6d * Math.PI, myRightFlipper.getAngularVelocity(), DELTA);
+    }
+    
+    @Test
+    public void getAngularVelocityRightFlipperOneTickAndThenNotActive() {
+    	myRightFlipper.trigger();
+    	myRightFlipper.tick(SECONDS_PER_TICK);
+    	myRightFlipper.trigger();
+    	assertNotEquals(-6d * Math.PI, myRightFlipper.getAngularVelocity(), DELTA);
+    }
+    
+    @Test
+    public void getAngularVelocityRightFlipperFewTicksAndThenGoBack() {
+    	myRightFlipper.trigger();
+    	myRightFlipper.tick(SECONDS_PER_TICK);
+    	myRightFlipper.tick(SECONDS_PER_TICK);
+    	myRightFlipper.trigger();
+    	myRightFlipper.tick(SECONDS_PER_TICK);
+    	myRightFlipper.tick(SECONDS_PER_TICK);
+    	assertEquals(6d * Math.PI, myRightFlipper.getAngularVelocity(), DELTA);
     }
 }
