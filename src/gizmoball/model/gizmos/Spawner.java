@@ -39,8 +39,8 @@ public class Spawner extends BaseGizmo {
     public Ball trigger() {
         Ball ret = new Ball();
         ret.setPosition(new Vect(getX() + 0.5, getY() + 0.5));
-        ret.setVelocityX(random.nextDouble() * 1e-5 - 5e-6);
-        ret.setVelocityY(random.nextDouble() * 1e-5 - 5e-6);
+        ret.setVelocityX(random.nextDouble() * 1e-8 - 5e-9);
+        ret.setVelocityY(random.nextDouble() * 1e-8 - 5e-9);
         return ret;
     }
 }
