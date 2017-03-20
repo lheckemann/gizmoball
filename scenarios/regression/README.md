@@ -125,4 +125,4 @@ The ball should hit a side wall every 1s.
 
 ### Expected outcome
 
-Ball should fall into absorber and get launched straight up.
+All balls should bounce straight up and down.

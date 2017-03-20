@@ -1,8 +1,143 @@
-Square Square0 9 18
-Square Square1 9 19
-Square Square2 9 17
-Absorber Absorber3 8 19 9 20
-Ball B0 8.500000 16.531250 0.000000 0.000000
-Connect Absorber3 Absorber3
+Square Square0 8 5
+Square Square1 14 5
+Square Square2 8 7
+Square Square3 8 13
+Square Square4 2 6
+Square Square5 11 15
+Square Square6 2 3
+Square Square7 11 10
+Square Square8 14 11
+Square Square9 17 11
+Square Square10 5 5
+Square Square11 8 16
+Square Square12 14 19
+Absorber Absorber13 1 19 2 20
+Square Square14 5 19
+Square Square15 14 3
+Square Square16 11 3
+Square Square17 5 14
+Square Square18 5 0
+Square Square19 2 9
+Square Square20 14 17
+Square Square21 17 18
+Square Square22 8 15
+Square Square23 5 17
+Square Square24 11 1
+Square Square25 11 2
+Square Square26 2 16
+Square Square27 17 10
+Square Square28 11 7
+Square Square29 14 16
+Square Square30 11 8
+Square Square31 2 15
+Absorber Absorber32 4 19 5 20
+Square Square33 17 17
+Square Square34 8 3
+Square Square35 5 10
+Square Square36 5 4
+Square Square37 17 14
+Square Square38 17 5
+Square Square39 2 7
+Square Square40 5 12
+Square Square41 5 1
+Square Square42 14 0
+Square Square43 17 7
+Absorber Absorber44 16 19 17 20
+Square Square45 8 2
+Square Square46 2 8
+Square Square47 8 0
+Square Square48 8 10
+Square Square49 17 6
+Square Square50 11 17
+Square Square51 11 16
+Square Square52 14 18
+Square Square53 8 19
+Square Square54 5 13
+Square Square55 8 9
+Square Square56 5 8
+Square Square57 14 8
+Absorber Absorber58 7 19 8 20
+Absorber Absorber59 19 19 20 20
+Square Square60 14 12
+Square Square61 2 14
+Square Square62 5 6
+Square Square63 5 7
+Absorber Absorber64 10 19 11 20
+Square Square65 2 13
+Square Square66 5 9
+Square Square67 14 6
+Square Square68 17 12
+Square Square69 2 12
+Square Square70 5 16
+Square Square71 14 7
+Square Square72 11 12
+Square Square73 14 10
+Square Square74 2 5
+Square Square75 8 18
+Square Square76 11 5
+Square Square77 8 1
+Square Square78 17 16
+Square Square79 11 4
+Square Square80 2 18
+Square Square81 2 10
+Square Square82 2 0
+Square Square83 5 18
+Square Square84 5 3
+Square Square85 14 4
+Square Square86 17 1
+Square Square87 11 19
+Square Square88 17 9
+Square Square89 14 15
+Square Square90 8 4
+Square Square91 2 4
+Square Square92 2 19
+Square Square93 14 14
+Square Square94 8 11
+Square Square95 17 13
+Square Square96 17 0
+Square Square97 17 19
+Square Square98 11 13
+Square Square99 11 9
+Square Square100 11 11
+Square Square101 5 15
+Square Square102 14 13
+Square Square103 2 1
+Square Square104 17 8
+Square Square105 14 2
+Absorber Absorber106 13 19 14 20
+Square Square107 5 2
+Square Square108 11 6
+Square Square109 8 6
+Square Square110 2 2
+Square Square111 2 11
+Square Square112 11 0
+Square Square113 8 17
+Square Square114 8 8
+Square Square115 17 4
+Square Square116 8 12
+Square Square117 11 18
+Square Square118 14 1
+Square Square119 11 14
+Square Square120 17 2
+Square Square121 2 17
+Square Square122 17 15
+Square Square123 8 14
+Square Square124 5 11
+Square Square125 14 9
+Square Square126 17 3
+Ball B0 1.468750 17.781250 0.000000 0.000000
+Ball B1 19.531250 18.125000 0.000000 0.000000
+Ball B2 16.531250 18.187500 0.000000 0.000000
+Ball B3 10.343750 18.093750 0.000000 0.000000
+Ball B4 7.531250 18.062500 0.000000 0.000000
+Ball B5 4.437500 18.093750 0.000000 0.000000
+Ball B6 13.406250 18.125000 0.000000 0.000000
+Connect Absorber13 Absorber13
+Connect Absorber32 Absorber32
+Connect Absorber64 Absorber64
+Connect Absorber44 Absorber44
+Connect Absorber58 Absorber58
+Connect Absorber59 Absorber59
+Connect Absorber106 Absorber106
 Gravity 25.000000
 Friction 0.025000 0.025000
