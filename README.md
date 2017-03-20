@@ -12,3 +12,5 @@ The specification can be found [here][specs].
 - Ball sinks.
 - Ball spawners.
 - Spinning flippers.
+- Build mode cursors.
+- Ball velocity vectors.
