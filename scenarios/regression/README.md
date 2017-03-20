@@ -138,3 +138,17 @@ All balls should bounce straight up and down.
 ### Expected outcome
 
 Both balls should bounce off the edge of the flipper and not fall straight down.
+
+
+## nostack
+
+### Instructions
+
+1. Load file
+2. Run simulation
+3. Press space twice
+
+### Expected outcome
+
+The spawned balls should bounce apart horizontally after several collisions,
+not form a stack.
