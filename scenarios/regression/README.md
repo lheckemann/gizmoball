@@ -91,3 +91,15 @@ The ball rolls over the floor and repeatedly bounces against the two side walls.
 
 The balls slide against the squares and triangles without hitting any of their
 lines and circles.
+
+## highspeed
+
+### Instructions
+
+1. Load file
+2. Run simulation
+
+### Expected outcome
+
+The ball forever bounces inside the arena at high speed. Ticks only display
+collisions with the outer walls.
