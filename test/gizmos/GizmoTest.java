@@ -30,7 +30,7 @@ public class GizmoTest {
 
     @Test
     public void getRotationAtBeginning() {
-        Assert.assertEquals( Rotation.NORTH, myLeftFlipper.getRotation());
+        assertEquals(0, myLeftFlipper.getRotation().getTurns());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class GizmoTest {
         } catch (NonRotatableException e) {
             fail();
         }
-        assertEquals(Rotation.EAST, myLeftFlipper.getRotation());
+        assertEquals(1, myLeftFlipper.getRotation().getTurns());
     }
 
     @Test
@@ -51,7 +51,7 @@ public class GizmoTest {
         } catch (NonRotatableException e) {
             fail();
         }
-        assertEquals(Rotation.SOUTH, myLeftFlipper.getRotation());
+        assertEquals(2, myLeftFlipper.getRotation().getTurns());
     }
 
     @Test
@@ -63,7 +63,7 @@ public class GizmoTest {
         } catch (NonRotatableException e) {
             fail();
         }
-        assertEquals(Rotation.WEST, myLeftFlipper.getRotation());
+        assertEquals(3, myLeftFlipper.getRotation().getTurns());
     }
 
     @Test
@@ -76,7 +76,7 @@ public class GizmoTest {
         } catch (NonRotatableException e) {
             fail();
         }
-        assertEquals(Rotation.NORTH, myLeftFlipper.getRotation());
+        assertEquals(0, myLeftFlipper.getRotation().getTurns());
     }
 
     @Test

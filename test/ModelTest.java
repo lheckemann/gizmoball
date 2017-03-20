@@ -79,6 +79,16 @@ public class ModelTest {
 
         assertEquals(Collections.EMPTY_MAP, myModel.getGizmoToGizmoMap());
     }
+    
+    @Test
+    public void notEmptyUnoccupiedPosition() {
+    	assertTrue(myModel.notEmpty(10,  13));
+    }
+    
+    @Test
+    public void notEmptyOccupiedPosition() {
+    	assertFalse(myModel.notEmpty(6,  6));
+    }
 
     @Test
     public void moveAlreadyPresentGizmoToUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
@@ -518,20 +528,27 @@ public class ModelTest {
 
     @Test
     public void triggerOnOuterWallsNotPresentGizmo() {
-        // not really possible to test it
-        myModel.select(6, 6);
+    	myModel.select(6, 6);
         myModel.triggerOnOuterWalls();
 
-        assertTrue(true);
+        assertEquals(Collections.EMPTY_SET, myModel.getOuterwallTriggeredGizmos());
     }
 
     @Test
     public void triggerOnOuterWallsExistingGizmo() {
-        // not really possible to test it
-        myModel.select(5, 18);
-        myModel.triggerOnOuterWalls();
+    	Gizmo t = new Triangle();
+    	
+        try {
+        	myModel.select(6,  6);
+			myModel.addGizmo(t);
+			myModel.triggerOnOuterWalls();
+		} catch (PositionOverlapException | PositionOutOfBoundsException e) {
+			fail();
+		};
 
-        assertTrue(true);
+		Set<ReadGizmo> outerWalls = new HashSet<ReadGizmo>();
+		outerWalls.add(t);
+        assertEquals(outerWalls, myModel.getOuterwallTriggeredGizmos());
     }
 
     @Test
@@ -819,6 +836,11 @@ public class ModelTest {
 
         assertTrue(myModel.getGizmoToGizmoMap().containsKey(g) &&
                 myModel.getGizmoToGizmoMap().get(g).contains(g));
+    }
+    
+    @Test
+    public void triggerOnGizmoAt() {
+    	// TODO
     }
 
     @Test
