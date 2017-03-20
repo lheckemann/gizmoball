@@ -152,3 +152,16 @@ Both balls should bounce off the edge of the flipper and not fall straight down.
 
 The spawned balls should bounce apart horizontally after several collisions,
 not form a stack.
+
+
+## predictable-path
+
+### Instructions
+
+1. Load file
+2. Run simulation
+3. Wait 5 minutes
+
+### Expected outcome
+
+All three balls spawned at the beginning should still be in the arena.
