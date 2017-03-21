@@ -19,12 +19,10 @@ public class GizmoBallView implements IGizmoBallView {
     private BuildView buildView;
     private RunView runView;
     private JPanel gamePanel;
-
     private Controller controller;
 
-    public GizmoBallView(Model model) {
-        controller = new Controller();
-
+    public GizmoBallView(Model model, Controller controller) {
+        this.controller = controller;
         this.frame = new JFrame("Gizmoball");
         Box actionBar = new Box(BoxLayout.X_AXIS);
         JButton newBtn = new JButton("New");

@@ -5,6 +5,7 @@ import java.io.*;
 import gizmoball.model.Model;
 import gizmoball.model.SyntaxError;
 import gizmoball.controller.load.StandardLoader;
+import gizmoball.controller.Controller;
 import gizmoball.view.GizmoBallView;
 
 import javax.swing.*;
@@ -29,7 +30,7 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                GizmoBallView gui = new GizmoBallView(model);
+                GizmoBallView gui = new GizmoBallView(model, new Controller());
                 JFrame frame = gui.getGUI();
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setVisible(true);

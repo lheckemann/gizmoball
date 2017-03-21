@@ -6,9 +6,9 @@ The general design and component interaction remained largely unaltered.
 
 - We shielded the views from having knowledge of which concrete controllers are
 used by introducing a `Controller` factory class. This class gets instantiated
-at the top level view and is passed down to the rest of the views. It consists
-of a set of methods each of which constructs a controller. It should be trivial
-to inherit from `Controller` and return custom controllers.
+at the top level main class and is passed down to the the views. It consists of
+a set of methods each of which constructs a controller. It should be trivial to
+inherit from `Controller` and return custom controllers.
 
 - We made `Gizmo` -- which was an abstract class -- into an interface, and added
 `BaseGizmo` as the abstract class implementing much of the common functionality
