@@ -104,18 +104,6 @@ public class Model implements BuildModel, RunModel {
     }
 
     @Override
-    public boolean notEmpty(double x, double y) {
-        try {
-            Ball newBall = new Ball();
-            newBall.setPosition(new Vect(x, y));
-            checkPlacement(newBall);
-        } catch (PositionOverlapException | PositionOutOfBoundsException e) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public void move(double dX, double dY) throws PositionOverlapException, PositionOutOfBoundsException {
         Gizmo gizmo = this.getSelectedGizmo();
         if (gizmo != null) {

@@ -152,11 +152,6 @@ public interface BuildModel extends ReadModel {
     void triggerOnGizmoAt(double x, double y);
 
     /**
-     * Checks if there is some element at the given location.
-     */
-    boolean notEmpty(double x, double y);
-
-    /**
      * Resets all the state related to a particular game.
      * This includes all the gizmos, balls, connections and the gravity and
      * friction.

@@ -79,16 +79,6 @@ public class ModelTest {
 
         assertEquals(Collections.EMPTY_MAP, myModel.getGizmoToGizmoMap());
     }
-    
-    @Test
-    public void notEmptyUnoccupiedPosition() {
-    	assertTrue(myModel.notEmpty(10,  13));
-    }
-    
-    @Test
-    public void notEmptyOccupiedPosition() {
-    	assertFalse(myModel.notEmpty(6,  6));
-    }
 
     @Test
     public void moveAlreadyPresentGizmoToUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
