@@ -31,8 +31,8 @@ public class ConnectGizmosListener extends MouseAdapter {
             componentSelected = false;
             view.setDisplayLabel("Click on the gizmo you wish to trigger");
         } else {
-            if (model.notEmpty(chosenX, chosenY)) {
-                model.select(chosenX, chosenY);
+            model.select(chosenX, chosenY);
+            if (model.getSelectedGizmo() != null) {
                 componentSelected = true;
                 view.setDisplayLabel("Click on the gizmo you want to cause the trigger");
             }

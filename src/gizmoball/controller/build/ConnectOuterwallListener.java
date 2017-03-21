@@ -23,8 +23,8 @@ public class ConnectOuterwallListener extends MouseAdapter {
     public void mouseClicked(MouseEvent e) {
         double chosenX = e.getX()/(double)BoardView.L_TO_PIXELS;
         double chosenY = e.getY()/(double)BoardView.L_TO_PIXELS;
-        if (model.notEmpty(chosenX, chosenY)) {
-            model.select(chosenX, chosenY);
+        model.select(chosenX, chosenY);
+        if (model.getSelectedGizmo() != null) {
             model.triggerOnOuterWalls();
             view.updateBoard();
         }

@@ -37,8 +37,8 @@ public class ConnectKeyReleaseGizmoListener extends KeyAdapter implements KeyAnd
     public void mouseClicked(MouseEvent e) {
         double chosenX = e.getX()/BoardView.L_TO_PIXELS;
         double chosenY = e.getY()/BoardView.L_TO_PIXELS;
-        if (model.notEmpty(chosenX, chosenY)) {
-            model.select(chosenX, chosenY);
+        model.select(chosenX, chosenY);
+        if (model.getSelectedGizmo() != null) {
             componentSelected = true;
             view.setDisplayLabel("Press the key you want to trigger the gizmo");
         }

@@ -39,8 +39,8 @@ public class MoveGizmoListener extends MouseAdapter {
             view.setDisplayLabel("Click on the gizmo/ball you would like to move");
             componentSelected = false;
         } else {
-            if (model.notEmpty(chosenX, chosenY)) {
-                model.select(chosenX, chosenY);
+            model.select(chosenX, chosenY);
+            if (model.getSelectedGizmo() != null || model.getSelectedBall() != null) {
                 componentSelected = true;
                 view.setDisplayLabel("Click on the area where you would like to move the gizmo/ball to");
             }
