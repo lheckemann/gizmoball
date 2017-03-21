@@ -11,7 +11,7 @@ import static gizmoball.model.CollisionFinder.Collision;
 
 
 public class Model implements BuildModel, RunModel {
-    private final static double IMMEDIATE_COLLISION = 0.0001;
+    private final static double IMMEDIATE_COLLISION = 0.0000001;
     private final Set<LineSegment> walls = new HashSet<>();
 
     private int width;
@@ -437,7 +437,7 @@ public class Model implements BuildModel, RunModel {
         /* The collisions we receive are ordered in time. */
         for (Collision c : finder.getCollisions()) {
             /* The remaining collisions come after the cutoff point. */
-            if (c.time > lapse) {
+            if (c.time > lapse + IMMEDIATE_COLLISION) {
                 break;
             }
             /* Ignore immediate collisions when establishing the cutoff point. */
@@ -467,9 +467,6 @@ public class Model implements BuildModel, RunModel {
         for (Ball b : velocities.keySet()) {
             /* Set position before setting the new velocity. */
             /* Do not slowly change position on infinitesimal velocities. */
-            /* Hack: check velocity thresholds for the x and the y axes
-             * separately. It will still break if the ball moves infinitesimally
-             * on the perpendicular line of a parallel object. */
             Vect velocity = velocities.get(b);
             velocity = this.getAppliedFriction(velocity, lapse);
             b.setPosition(this.getAppliedVelocity(b, lapse));

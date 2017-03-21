@@ -76,6 +76,7 @@ public class GizmoBallView implements IGizmoBallView {
         this.modeBtn.setText("Run");
         gamePanel.removeAll();
         runView.pause();
+        buildView.updateBoard();
         gameView = buildView;
         gamePanel.add(gameView.getBox());
         frame.pack();
@@ -128,9 +129,11 @@ public class GizmoBallView implements IGizmoBallView {
                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, options, null);
 
-        if(result == 2 || result == -1) // 2 for Cancel, -1 for 'X' on dialogue
-        	return null;
-        return result == 1 ? controller.getStandardSaver(model) : controller.getExtendedSaver(model);
+        if (result == 0)
+            return controller.getStandardSaver(model);
+        if (result == 1)
+            return controller.getExtendedSaver(model);
+        return null;
     }
 
     @Override
