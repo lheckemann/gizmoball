@@ -1,0 +1,50 @@
+Triangle Triangle0 9 10
+Triangle Triangle1 9 0
+Triangle Triangle2 10 0
+Triangle Triangle3 9 9
+Triangle Triangle4 10 19
+Triangle Triangle5 9 19
+Triangle Triangle6 19 0
+Triangle Triangle7 0 19
+Triangle Triangle8 0 0
+Triangle Triangle9 19 9
+Triangle Triangle10 10 9
+Triangle Triangle11 0 9
+Triangle Triangle12 19 10
+Triangle Triangle13 19 19
+Triangle Triangle14 10 10
+Triangle Triangle15 0 10
+Ball B4 8.5 9.5 -20 0
+Ball B3 8.5 10.5 -20 0
+Ball B1 9.5 8.5 0 -20
+Ball B6 10.5 8.5 0 -20
+Ball B5 11.5 9.5 20 0
+Ball B0 11.5 10.5 20 0
+Ball B7 9.5 11.5 0 20
+Ball B2 10.5 11.5 0 20
+Rotate Triangle0
+Rotate Triangle1
+Rotate Triangle3
+Rotate Triangle3
+Rotate Triangle4
+Rotate Triangle4
+Rotate Triangle4
+Rotate Triangle5
+Rotate Triangle5
+Rotate Triangle6
+Rotate Triangle7
+Rotate Triangle7
+Rotate Triangle7
+Rotate Triangle9
+Rotate Triangle9
+Rotate Triangle10
+Rotate Triangle10
+Rotate Triangle10
+Rotate Triangle11
+Rotate Triangle11
+Rotate Triangle11
+Rotate Triangle12
+Rotate Triangle13
+Rotate Triangle13
+Gravity 0.000000
+Friction 0.000000 0.000000
