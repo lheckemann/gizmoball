@@ -606,9 +606,9 @@ public class ModelTest {
 
         try {
             model.select(1, 1);
-            model.addBall(new Ball(4.0, 4.0));
+            model.addBall(ball1);
             model.select(3, 3);
-            model.addBall(new Ball(5.0, 5.0));
+            model.addBall(ball2);
         } catch (PositionOverlapException | PositionOutOfBoundsException e) {
             fail();
         }
@@ -617,8 +617,7 @@ public class ModelTest {
         balls.add(ball1);
         balls.add(ball2);
 
-        // TODO : equality of balls !!!!!
-        //assertEquals(new HashSet<>(balls), model.getBalls());
+        assertEquals(new HashSet<>(balls), model.getBalls());
     }
 
     @Test
