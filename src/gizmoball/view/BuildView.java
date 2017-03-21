@@ -21,6 +21,9 @@ public class BuildView extends GameView implements IBuildView {
 
     private JPanel physicsPanel = new JPanel();
     private JLabel displayLabel = new JLabel(" ");
+    private SpinnerNumberModel frictionMuModel;
+    private SpinnerNumberModel frictionMu2Model;
+    private SpinnerNumberModel gravityModel;
 
     private void addRadioButton(String label, ActionListener controller) {
         JRadioButton button = new JRadioButton();
@@ -67,13 +70,13 @@ public class BuildView extends GameView implements IBuildView {
         addRadioButton("Trigger on keyrelease", controller.getSwitchToConnectKeyReleaseListener(this.board, this,this.model));
         addRadioButton("Trigger on outer wall", controller.getSwitchToConnectOuterwallListener(this.board, this, this.model));
 
-        SpinnerNumberModel frictionMuModel = new SpinnerNumberModel(0.025, 0, 1.0, 0.05);
+        frictionMuModel = new SpinnerNumberModel(0.025, 0, 1.0, 0.05);
         addSpinner("Friction mu", controller.getChangeFrictionMuListener(this.model, frictionMuModel), frictionMuModel);
 
-        SpinnerNumberModel frictionMu2Model = new SpinnerNumberModel(0.025, 0, 1.0, 0.05);
+        frictionMu2Model = new SpinnerNumberModel(0.025, 0, 1.0, 0.05);
         addSpinner("Friction mu2", controller.getChangeFrictionMu2Listener(this.model, frictionMu2Model), frictionMu2Model);
 
-        SpinnerNumberModel gravityModel = new SpinnerNumberModel(25, -100, 100, 1);
+        gravityModel = new SpinnerNumberModel(25, -100, 100, 1);
         addSpinner("Gravity", controller.getChangeGravityListener(this.model, gravityModel), gravityModel);
 
         physicsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -96,6 +99,10 @@ public class BuildView extends GameView implements IBuildView {
     public void updateBoard()
     {
         this.board.updateUI();
+
+        frictionMuModel.setValue(model.getFrictionMu());
+        frictionMu2Model.setValue(model.getFrictionMu2());
+        gravityModel.setValue(model.getGravity());
     }
 
     //Used to prompt the user to enter a velocity value
