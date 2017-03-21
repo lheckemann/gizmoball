@@ -7,6 +7,16 @@ import gizmoball.model.gizmos.ReadGizmo;
 
 public interface ReadModel {
     /**
+     * Return the gizmo at the specified location or null if none.
+     */
+    ReadGizmo getGizmoAt(int x, int y);
+
+    /**
+     * Return the ball at the specified location or null if none.
+     */
+    ReadBall getBallAt(double x, double y);
+
+    /**
      * Returns the set of gizmos currently in the model.
      */
     Set<ReadGizmo> getGizmos();
@@ -42,10 +52,9 @@ public interface ReadModel {
      * Returns a map from a key press to the gizmos it triggers.
      */
     Map<Integer, Set<ReadGizmo>> getKeyPressToGizmoMap();
-    
+
     /**
-     * Returns a set of all of the gizmos the Outerwalls trigger
-     * @return
+     * Returns a set of all of the gizmos the outer walls trigger.
      */
     Set<ReadGizmo> getOuterwallTriggeredGizmos();
 }
