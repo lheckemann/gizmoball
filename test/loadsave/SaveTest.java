@@ -19,7 +19,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.sun.glass.events.KeyEvent;
+import java.awt.event.KeyEvent;
 
 import gizmoball.controller.save.Saver;
 import gizmoball.controller.save.StandardSaver;
