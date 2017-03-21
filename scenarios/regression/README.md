@@ -176,3 +176,16 @@ All three balls spawned at the beginning should still be in the arena.
 ### Expected outcome
 
 Ball should collide correctly with the circles on the end of the flipper.
+
+
+## transmission
+
+### Instructions
+
+1. Load file
+2. Run simulation
+
+### Expected outcome
+
+The side balls trasmit force to one another through the ball in the middle,
+which stays stationary.
