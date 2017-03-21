@@ -133,14 +133,12 @@ public class AbsorberTest {
             myAbsorberCopy = new Absorber(width, height);
             myAbsorberCopy.rotate();
 
-            // TODO : check with equals if they are the same
             fail();
         } catch (InvalidAbsorberWidthHeight e) {
             e.printStackTrace();
         } catch (NonRotatableException e) {
             assertTrue(true);
         }
-   
     }
 
     @Test

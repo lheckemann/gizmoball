@@ -459,7 +459,7 @@ public class ModelTest {
     public void setFriction() {
         myModel.setFriction(5, 6);
 
-        // TODO
+        assertTrue(myModel.getFrictionMu() == 5 && myModel.getFrictionMu2() == 6);
     }
 
     @Test
@@ -803,35 +803,5 @@ public class ModelTest {
 
         assertTrue(myModel.getGizmoToGizmoMap().containsKey(g) &&
                 myModel.getGizmoToGizmoMap().get(g).contains(g));
-    }
-    
-    @Test
-    public void triggerOnGizmoAt() {
-    	// TODO
-    }
-
-    @Test
-    public void tick() {
-        // TODO
-    }
-
-    @Test
-    public void keyPressed() {
-        // TODO
-    }
-
-    @Test
-    public void keyReleased() {
-        // TODO
-    }
-
-    @Test
-    public void gizmoHit() {
-        // TODO
-    }
-
-    @Test
-    public void wallHit() {
-        // TODO
     }
 }
