@@ -196,15 +196,6 @@ public class Model implements BuildModel, RunModel {
     }
 
     @Override
-    public void setBallVelocity(double vX, double vY) {
-        Ball ball = this.getSelectedBall();
-        if (ball != null) {
-            ball.setVelocityX(vX);
-            ball.setVelocityY(vY);
-        }
-    }
-
-    @Override
     public double getGravity() {
         return this.gravity.y();
     }

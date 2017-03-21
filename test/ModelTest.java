@@ -435,28 +435,6 @@ public class ModelTest {
     }
 
     @Test
-    public void setBallVelocityExistingBall() {
-        myModel.select(1.5, 1);
-        myModel.setBallVelocity(4, 5);
-
-        // TODO
-    }
-
-    @Test
-    public void setBallVelocityNotExistingBall() {
-        myModel.select(6, 6);
-        myModel.setBallVelocity(4, 5);
-
-        for(ReadBall b : myModel.getBalls())
-        {
-            if(b.getVelocityX() == 4 && b.getVelocityY() == 5)
-                fail();
-        }
-
-        assertTrue(true);
-    }
-
-    @Test
     public void getGravity() {
         assertEquals(25, myModel.getGravity(), DELTA);
     }

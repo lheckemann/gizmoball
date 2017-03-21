@@ -71,14 +71,6 @@ public interface BuildModel extends ReadModel {
     void addBall(Ball ball) throws PositionOverlapException, PositionOutOfBoundsException;
 
     /**
-     * Sets the velocity of the ball at the selected location.
-     * If not set, the default initial velocity for a ball is 50L/s.
-     * If there is no selection or the selected location is not a ball, this
-     * is effectively a noop.
-     */
-    void setBallVelocity(double vX, double vY);
-
-    /**
      * Gets the global gravity constant.
      * If not set, the default global gravity is 25L/s.
      */
