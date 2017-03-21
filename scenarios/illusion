@@ -1,0 +1,6 @@
+Ball B1 5 0.5 0 20
+Ball B2 0.5 5 20 0
+Ball B3 15 19.5 0 -20
+Ball B4 19.5 15 -20 0
+Friction 0 0
+Gravity 0
