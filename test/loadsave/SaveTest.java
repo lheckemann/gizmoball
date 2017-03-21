@@ -157,10 +157,7 @@ public class SaveTest {
         initEmptyModel(standardModel);
         try {
             standardModel.select(ballX, ballY);
-            Ball ball = new Ball();
-            ball.setVelocityX(ballVelX);
-            ball.setVelocityY(ballVelY);
-            standardModel.addBall(ball);
+            standardModel.addBall(new Ball(ballVelX, ballVelY));
             standardModel.select(squareX, squareY);
             standardModel.addGizmo(new Square());
             standardModel.select(triangleX, triangleY);

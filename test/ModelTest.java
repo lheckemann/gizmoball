@@ -628,15 +628,9 @@ public class ModelTest {
 
         try {
             model.select(1, 1);
-            Ball b1 = new Ball();
-            b1.setVelocityX(4);
-            b1.setVelocityY(4);
-            model.addBall(b1);
+            model.addBall(new Ball(4.0, 4.0));
             model.select(3, 3);
-            Ball b2 = new Ball();
-            b2.setVelocityX(5);
-            b2.setVelocityY(5);
-            model.addBall(b2);
+            model.addBall(new Ball(5.0, 5.0));
         } catch (PositionOverlapException | PositionOutOfBoundsException e) {
             fail();
         }

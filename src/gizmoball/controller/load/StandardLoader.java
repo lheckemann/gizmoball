@@ -84,10 +84,9 @@ public class StandardLoader implements Loader {
                 Double x = Double.parseDouble(tokens.get(2));
                 Double y = Double.parseDouble(tokens.get(3));
                 model.select(x, y);
-                Ball ball = new Ball();
-                ball.setVelocityX(Double.parseDouble(tokens.get(4)));
-                ball.setVelocityY(Double.parseDouble(tokens.get(5)));
-                model.addBall(ball);
+                model.addBall(new Ball(
+                            Double.parseDouble(tokens.get(4)),
+                            Double.parseDouble(tokens.get(5))));
                 this.idToBalls.put(tokens.get(1), model.getSelectedBall());
                 return;
             }

@@ -26,6 +26,13 @@ public class Ball implements ReadBall {
         velocityY = src.getVelocityY();
     }
 
+    public Ball(double vX, double vY) {
+        x = 0.0;
+        y = 0.0;
+        velocityX = vX;
+        velocityY = vY;
+    }
+
     @Override
     public double getX() {
         return this.x;
