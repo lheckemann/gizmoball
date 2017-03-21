@@ -1,6 +1,7 @@
 package gizmoball.main;
 
 import gizmoball.model.Model;
+import gizmoball.model.Ball;
 import gizmoball.model.gizmos.*;
 
 public class PrototypeThree extends Main {
@@ -8,7 +9,7 @@ public class PrototypeThree extends Main {
         Model model = new Model(20, 20);
         try {
             model.select(1.5, 1);
-            model.addBall(0.0, 0.0);
+            model.addBall(new Ball());
             model.select(1, 10);
             model.addGizmo(new Triangle());
             model.rotateGizmo();

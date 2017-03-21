@@ -26,7 +26,7 @@ public class ModelTest {
 
         try {
             myModel.select(1.5, 1);
-            myModel.addBall(0.0, 0.0);
+            myModel.addBall(new Ball());
             myModel.select(1, 10);
             myModel.addGizmo(new Triangle());
             myModel.rotateGizmo();
@@ -420,7 +420,7 @@ public class ModelTest {
     @Test
     public void addBallUnoccupiedPosition() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(10, 11);
-        emptyModel.addBall(0, 0);
+        emptyModel.addBall(new Ball());
 
         assertTrue(emptyModel.getBalls().size() > 0);
     }
@@ -431,7 +431,7 @@ public class ModelTest {
         emptyModel.addGizmo(new Circle());
 
         emptyModel.select(5, 5);
-        emptyModel.addBall(0, 0);
+        emptyModel.addBall(new Ball());
 
         fail();
     }
@@ -439,7 +439,7 @@ public class ModelTest {
     @Test(expected=PositionOutOfBoundsException.class)
     public void addBallOutOfBounds() throws PositionOverlapException, PositionOutOfBoundsException {
         emptyModel.select(20, 20);
-        emptyModel.addBall(0, 0);
+        emptyModel.addBall(new Ball());
 
         fail();
     }
@@ -638,9 +638,15 @@ public class ModelTest {
 
         try {
             model.select(1, 1);
-            model.addBall(4, 4);
+            Ball b1 = new Ball();
+            b1.setVelocityX(4);
+            b1.setVelocityY(4);
+            model.addBall(b1);
             model.select(3, 3);
-            model.addBall(5, 5);
+            Ball b2 = new Ball();
+            b2.setVelocityX(5);
+            b2.setVelocityY(5);
+            model.addBall(b2);
         } catch (PositionOverlapException | PositionOutOfBoundsException e) {
             fail();
         }

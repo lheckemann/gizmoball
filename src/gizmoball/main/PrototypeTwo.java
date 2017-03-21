@@ -1,5 +1,6 @@
 package gizmoball.main;
 
+import gizmoball.model.Ball;
 import gizmoball.model.Model;
 import gizmoball.model.gizmos.*;
 
@@ -12,7 +13,7 @@ public class PrototypeTwo extends Main {
             model.addGizmo(new Absorber(20, 1));
             model.triggerOnKeyRelease(32);
             model.select(1, 1);
-            model.addBall(0.0, 0.0);
+            model.addBall(new Ball());
         } catch (Exception e) {
             e.printStackTrace();
         }

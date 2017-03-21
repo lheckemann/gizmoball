@@ -24,23 +24,8 @@ import java.awt.event.KeyEvent;
 import gizmoball.controller.save.Saver;
 import gizmoball.controller.save.StandardSaver;
 import gizmoball.main.Main;
-import gizmoball.model.Model;
-import gizmoball.model.PositionOutOfBoundsException;
-import gizmoball.model.PositionOverlapException;
-import gizmoball.model.ReadModel;
-import gizmoball.model.SyntaxError;
-import gizmoball.model.gizmos.Absorber;
-import gizmoball.model.gizmos.Circle;
-import gizmoball.model.gizmos.Flipper;
-import gizmoball.model.gizmos.GizmoType;
-import gizmoball.model.gizmos.InvalidAbsorberWidthHeight;
-import gizmoball.model.gizmos.NonRotatableException;
-import gizmoball.model.gizmos.Square;
-import gizmoball.model.gizmos.StandardFlipper;
-import gizmoball.model.gizmos.Triangle;
-import gizmoball.model.gizmos.SpinningFlipper;
-import gizmoball.model.gizmos.Spawner;
-import gizmoball.model.gizmos.Sink;
+import gizmoball.model.*;
+import gizmoball.model.gizmos.*;
 
 public class SaveTest {
 
@@ -172,7 +157,10 @@ public class SaveTest {
         initEmptyModel(standardModel);
         try {
             standardModel.select(ballX, ballY);
-            standardModel.addBall(ballVelX, ballVelY);
+            Ball ball = new Ball();
+            ball.setVelocityX(ballVelX);
+            ball.setVelocityY(ballVelY);
+            standardModel.addBall(ball);
             standardModel.select(squareX, squareY);
             standardModel.addGizmo(new Square());
             standardModel.select(triangleX, triangleY);

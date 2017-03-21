@@ -200,12 +200,9 @@ public class Model implements BuildModel, RunModel {
     }
 
     @Override
-    public void addBall(double velocityX, double velocityY) throws PositionOverlapException, PositionOutOfBoundsException {
-        Ball ball = new Ball();
+    public void addBall(Ball ball) throws PositionOverlapException, PositionOutOfBoundsException {
         ball.setX(this.selX);
         ball.setY(this.selY);
-        ball.setVelocityX(velocityX);
-        ball.setVelocityY(velocityY);
         this.checkPlacement(ball);
         this.balls.add(ball);
     }

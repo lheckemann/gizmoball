@@ -62,14 +62,13 @@ public interface BuildModel extends ReadModel {
     void rotateGizmo() throws NonRotatableException;
 
     /**
-     * Creates a new ball at the selected location.
-     * If there is no selection this is effectively a noop.
+     * Puts the given ball at the selected location.
      * @throws PositionOutOfBoundsException if the selected location is occupied
      * by another element.
      * @throws PositionOutOfBoundsException if the selected location is outside
      * of the arena.
      */
-    void addBall(double vX, double vY) throws PositionOverlapException, PositionOutOfBoundsException;
+    void addBall(Ball ball) throws PositionOverlapException, PositionOutOfBoundsException;
 
     /**
      * Sets the velocity of the ball at the selected location.

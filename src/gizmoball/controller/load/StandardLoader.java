@@ -3,12 +3,7 @@ package gizmoball.controller.load;
 import java.io.InputStream;
 import java.util.*;
 
-import gizmoball.model.BuildModel;
-import gizmoball.model.Loader;
-import gizmoball.model.PositionOutOfBoundsException;
-import gizmoball.model.PositionOverlapException;
-import gizmoball.model.ReadBall;
-import gizmoball.model.SyntaxError;
+import gizmoball.model.*;
 import gizmoball.model.gizmos.*;
 
 public class StandardLoader implements Loader {
@@ -89,7 +84,10 @@ public class StandardLoader implements Loader {
                 Double x = Double.parseDouble(tokens.get(2));
                 Double y = Double.parseDouble(tokens.get(3));
                 model.select(x, y);
-                model.addBall(Double.parseDouble(tokens.get(4)), Double.parseDouble(tokens.get(5)));
+                Ball ball = new Ball();
+                ball.setVelocityX(Double.parseDouble(tokens.get(4)));
+                ball.setVelocityY(Double.parseDouble(tokens.get(5)));
+                model.addBall(ball);
                 this.idToBalls.put(tokens.get(1), model.getSelectedBall());
                 return;
             }
