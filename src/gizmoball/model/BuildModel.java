@@ -14,6 +14,16 @@ public interface BuildModel extends ReadModel {
     void select(double x, double y);
 
     /**
+     * Returns the currently selected gizmo, if any.
+     */
+    Gizmo getSelectedGizmo();
+
+    /**
+     * Returns the currently selected ball, if any.
+     */
+    Ball getSelectedBall();
+
+    /**
      * Moves the selected element to the given location.
      * Gizmos are selected by their bounding boxes. The cell that contains the
      * given destination is their new anchor point.

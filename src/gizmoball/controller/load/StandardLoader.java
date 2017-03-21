@@ -90,7 +90,7 @@ public class StandardLoader implements Loader {
                 Double y = Double.parseDouble(tokens.get(3));
                 model.select(x, y);
                 model.addBall(Double.parseDouble(tokens.get(4)), Double.parseDouble(tokens.get(5)));
-                this.idToBalls.put(tokens.get(1), this.getBallAt(x, y));
+                this.idToBalls.put(tokens.get(1), model.getSelectedBall());
                 return;
             }
 
@@ -105,7 +105,7 @@ public class StandardLoader implements Loader {
                         throw error;
                     }
                     model.addGizmo(new Circle());
-                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
+                    this.idToGizmos.put(tokens.get(1), model.getSelectedGizmo());
                     return;
 
                 case "Triangle":
@@ -114,7 +114,7 @@ public class StandardLoader implements Loader {
                         throw error;
                     }
                     model.addGizmo(new Triangle());
-                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
+                    this.idToGizmos.put(tokens.get(1), model.getSelectedGizmo());
                     return;
 
                 case "Square":
@@ -123,7 +123,7 @@ public class StandardLoader implements Loader {
                         throw error;
                     }
                     model.addGizmo(new Square());
-                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
+                    this.idToGizmos.put(tokens.get(1), model.getSelectedGizmo());
                     return;
 
                 case "LeftFlipper":
@@ -132,7 +132,7 @@ public class StandardLoader implements Loader {
                         throw error;
                     }
                     model.addGizmo(new StandardFlipper(true));
-                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
+                    this.idToGizmos.put(tokens.get(1), model.getSelectedGizmo());
                     return;
 
                 case "RightFlipper":
@@ -141,7 +141,7 @@ public class StandardLoader implements Loader {
                         throw error;
                     }
                     model.addGizmo(new StandardFlipper(false));
-                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
+                    this.idToGizmos.put(tokens.get(1), model.getSelectedGizmo());
                     return;
 
                 case "Absorber":
@@ -152,7 +152,7 @@ public class StandardLoader implements Loader {
                     Integer x1 = Integer.parseInt(tokens.get(4));
                     Integer y1 = Integer.parseInt(tokens.get(5));
                     model.addGizmo(new Absorber(x1 - x, y1 - y));
-                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
+                    this.idToGizmos.put(tokens.get(1), model.getSelectedGizmo());
                     return;
                 case "LeftSpinningFlipper":
                     error.setMessage("LeftSpinningFlipper <identifier> <int> <int>");
@@ -160,7 +160,7 @@ public class StandardLoader implements Loader {
                         throw error;
                     }
                     model.addGizmo(new SpinningFlipper(true));
-                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
+                    this.idToGizmos.put(tokens.get(1), model.getSelectedGizmo());
                     return;
                 case "RightSpinningFlipper":
                     error.setMessage("RightSpinningFlipper <identifier> <int> <int>");
@@ -168,7 +168,7 @@ public class StandardLoader implements Loader {
                         throw error;
                     }
                     model.addGizmo(new SpinningFlipper(false));
-                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
+                    this.idToGizmos.put(tokens.get(1), model.getSelectedGizmo());
                     return;
                 case "Sink":
                     error.setMessage("Sink <identifier> <int> <int>");
@@ -176,7 +176,7 @@ public class StandardLoader implements Loader {
                         throw error;
                     }
                     model.addGizmo(new Sink());
-                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
+                    this.idToGizmos.put(tokens.get(1), model.getSelectedGizmo());
                     return;
                 case "Spawner":
                     error.setMessage("Spawner <identifier> <int> <int>");
@@ -184,7 +184,7 @@ public class StandardLoader implements Loader {
                         throw error;
                     }
                     model.addGizmo(new Spawner());
-                    this.idToGizmos.put(tokens.get(1), this.getGizmoAt(x, y));
+                    this.idToGizmos.put(tokens.get(1), model.getSelectedGizmo());
                     return;
                 default:
                     throw error;
@@ -338,19 +338,4 @@ public class StandardLoader implements Loader {
             throw error;
         }
     }
-
-    private ReadGizmo getGizmoAt(int x, int y) {
-        Collection<ReadGizmo> gizmos = this.model.getGizmos();
-        return gizmos.stream()
-                .filter(g -> (g.getX() == x) && (g.getY() == y))
-                .findFirst().orElse(null);
-    }
-
-    private ReadBall getBallAt(double x, double y) {
-        Collection<ReadBall> balls = this.model.getBalls();
-        return balls.stream()
-                .filter(b -> (b.getX() == x) && (b.getY() == y))
-                .findFirst().orElse(null);
-    }
-
 }
