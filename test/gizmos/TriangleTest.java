@@ -55,11 +55,12 @@ public class TriangleTest {
 
     @Test
     public void getCircles() {
-        final double circleSize = 0.1;
+        final double circleOffset = 0.1;
+        final double circleSize = 0.09;
         final Set<Circle> circles = Collections.unmodifiableSet(
-                Stream.of(new Circle(circleSize, 2*circleSize, circleSize),
-                        new Circle(circleSize, 1-circleSize, circleSize),
-                        new Circle(1-2*circleSize, circleSize, circleSize)).collect(Collectors.toSet())
+                Stream.of(new Circle(circleOffset, 2*circleOffset, circleSize),
+                        new Circle(circleOffset, 1-circleOffset, circleSize),
+                        new Circle(1-2*circleOffset, circleOffset, circleSize)).collect(Collectors.toSet())
         );
 
         assertEquals(circles, myTriangle.getCircles());

@@ -58,6 +58,7 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public Gizmo getSelectedGizmo() {
+        System.out.println("x: " + selX + " y: " + selY);
         return this.gizmos.stream()
                 .filter(g -> g.getCells().contains(new Vect((int) this.selX, (int) this.selY)))
                 .findFirst().orElse(null);
@@ -248,11 +249,14 @@ public class Model implements BuildModel, RunModel {
     @Override
     public void triggerOnGizmo(ReadGizmo gizmo) {
         Gizmo destination = this.getSelectedGizmo();
+
         if (destination == null) {
             return;
         }
         for (Gizmo source : this.gizmos) {
             if (source.equals(gizmo)) {
+                System.out.println("Dest:" + destination.getType());
+                System.out.println("Surce:" + source.getType());
                 this.gizmoMap.computeIfAbsent(source, s -> new HashSet<>()).add(destination);
                 return;
             }
@@ -261,7 +265,11 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void triggerOnGizmoAt(double x, double y) {
+        double oldX = selX;
+        double oldY = selY;
+        select(x, y);
         Gizmo gizmo = this.getSelectedGizmo();
+        select(oldX, oldY);
         if (gizmo != null) {
             this.triggerOnGizmo(gizmo);
         }

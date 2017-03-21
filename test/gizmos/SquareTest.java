@@ -58,13 +58,15 @@ public class SquareTest {
 
     @Test
     public void getCircles() {
-        final double circleSize = 0.1;
+        final double circleOffset = 0.1;
+        final double circleSize = 0.09;
         final Set<Circle> circles = Collections.unmodifiableSet(
-                Stream.of(new Circle(circleSize, circleSize, circleSize),
-                        new Circle(circleSize, 1-circleSize, circleSize),
-                        new Circle(1-circleSize, 1-circleSize, circleSize),
-                        new Circle(1-circleSize, circleSize, circleSize)).collect(Collectors.toSet())
+                Stream.of(new Circle(circleOffset, circleOffset, circleSize),
+                        new Circle(circleOffset, 1-circleOffset, circleSize),
+                        new Circle(1-circleOffset, 1-circleOffset, circleSize),
+                        new Circle(1-circleOffset, circleOffset, circleSize)).collect(Collectors.toSet())
         );
+
         assertEquals(circles, mySquare.getCircles());
     }
 

@@ -8,6 +8,7 @@ import gizmoball.model.gizmos.InvalidAbsorberWidthHeight;
 import gizmoball.model.gizmos.NonRotatableException;
 import org.junit.Before;
 import org.junit.Test;
+import physics.Circle;
 import physics.LineSegment;
 import physics.Vect;
 
@@ -69,7 +70,16 @@ public class AbsorberTest {
 
     @Test
     public void getCircles() {
-        assertEquals(Collections.emptySet(), myAbsorber.getCircles());
+        final double circleOffset = 0.1;
+        final double circleSize = 0.09;
+        final Set<Circle> circles = Collections.unmodifiableSet(
+                Stream.of(
+                        new Circle(circleOffset, circleOffset, circleSize),
+                        new Circle(circleOffset, myAbsorber.getHeight()-circleOffset, circleSize),
+                        new Circle(myAbsorber.getWidth()-circleOffset, myAbsorber.getHeight()-circleOffset, circleSize),
+                        new Circle(myAbsorber.getWidth()-circleOffset, circleOffset, circleSize)).collect(Collectors.toSet()));
+
+        assertEquals(circles, myAbsorber.getCircles());
     }
 
     @Test

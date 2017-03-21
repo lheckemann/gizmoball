@@ -151,13 +151,9 @@ public class FlipperTest {
 
     @Test
     public void getCircles() {
-        final Set<Circle> circles = Collections.unmodifiableSet(Stream.of(
-                new Circle(0.25, 0.25, 0.25),
-                new Circle(0.25, 1.75, 0.25),
-                new Circle(0, 0.25, 0.05),
-                new Circle(0, 1.75, 0.05),
-                new Circle(0.5, 0.25, 0.05),
-                new Circle(0.5, 1.75, 0.05)
+        final Set<physics.Circle> circles = Collections.unmodifiableSet(Stream.of(
+                new physics.Circle(0.25, 0.25, 0.25),
+                new physics.Circle(0.25, 1.75, 0.25)
         ).collect(Collectors.toSet()));
 
         assertEquals(circles, myLeftFlipper.getCircles());
