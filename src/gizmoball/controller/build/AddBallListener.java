@@ -27,9 +27,13 @@ public class AddBallListener extends MouseAdapter {
         try {
             this.model.addBall(ball);
             view.setDisplayLabel("Enter the desired ball velocity");
-            view.promptVelocity();
-            ball.setVelocityX(view.getPromptedVelocityX());
-            ball.setVelocityY(view.getPromptedVelocityY());
+            if (view.promptVelocity()) {
+                ball.setVelocityX(view.getPromptedVelocityX());
+                ball.setVelocityY(view.getPromptedVelocityY());
+            } else {
+                this.model.delete();
+            }
+            
             view.updateBoard();
             view.setDisplayLabel("Click on a grid location to add a ball");
         } catch (PositionOverlapException e1) {
