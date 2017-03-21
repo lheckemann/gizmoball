@@ -191,8 +191,17 @@ public class Model implements BuildModel, RunModel {
     public void addBall(Ball ball) throws PositionOverlapException, PositionOutOfBoundsException {
         ball.setX(this.selX);
         ball.setY(this.selY);
-        this.checkPlacement(ball);
-        this.balls.add(ball);
+        
+        try {
+            this.checkPlacement(ball);
+            this.balls.add(ball);
+        } catch (PositionOverlapException e) {
+            Gizmo g = this.getSelectedGizmo();
+            if (g == null || ! g.getType().equals(GizmoType.ABSORBER)) {
+                throw e;
+            }
+            this.gizmoHit(g, ball);
+        }
     }
 
     @Override
