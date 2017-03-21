@@ -11,7 +11,7 @@ import static gizmoball.model.CollisionFinder.Collision;
 
 
 public class Model implements BuildModel, RunModel {
-    private final static double IMMEDIATE_COLLISION = 0.0001;
+    private final static double IMMEDIATE_COLLISION = 0.0000001;
     private final Set<LineSegment> walls = new HashSet<>();
 
     private int width;
