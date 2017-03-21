@@ -22,26 +22,22 @@ public class AddBallListener extends MouseAdapter {
     public void mouseClicked(MouseEvent e) {
         double ballX = e.getX() / (double) BoardView.L_TO_PIXELS;
         double ballY = e.getY() / (double) BoardView.L_TO_PIXELS;
-
-        if(!model.notEmpty(ballX, ballY)) {
-        
-            model.select(ballX, ballY);
-            try {
-                view.setDisplayLabel("Enter the desired ball velocity");
-                view.promptVelocity();
-                Ball ball = new Ball();
-                ball.setVelocityX(view.getPromptedVelocityX());
-                ball.setVelocityY(view.getPromptedVelocityY());
-                this.model.addBall(ball);
-                view.updateBoard();
-                view.setDisplayLabel("Click on a grid location to add a ball");
-            } catch (PositionOverlapException e1) {
-                view.displayErrorMessage("Can't place a ball on top of another ball or gizmo", "Position overlap");
-                view.setDisplayLabel("Click on a grid location to add a ball");
-            } catch (PositionOutOfBoundsException e1) {
-                view.displayErrorMessage("Can't place a ball out of the bounds of the arena", "Position out of bounds");
-                view.setDisplayLabel("Click on a grid location to add a ball");
-            }
+        model.select(ballX, ballY);
+        Ball ball = new Ball();
+        try {
+            this.model.addBall(ball);
+            view.setDisplayLabel("Enter the desired ball velocity");
+            view.promptVelocity();
+            ball.setVelocityX(view.getPromptedVelocityX());
+            ball.setVelocityY(view.getPromptedVelocityY());
+            view.updateBoard();
+            view.setDisplayLabel("Click on a grid location to add a ball");
+        } catch (PositionOverlapException e1) {
+            view.displayErrorMessage("Can't place a ball on top of another ball or gizmo", "Position overlap");
+            view.setDisplayLabel("Click on a grid location to add a ball");
+        } catch (PositionOutOfBoundsException e1) {
+            view.displayErrorMessage("Can't place a ball out of the bounds of the arena", "Position out of bounds");
+            view.setDisplayLabel("Click on a grid location to add a ball");
         }
     }
 
