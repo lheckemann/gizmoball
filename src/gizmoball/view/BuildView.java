@@ -109,13 +109,17 @@ public class BuildView extends GameView implements IBuildView {
         
         
         if (optionChosen == JOptionPane.OK_OPTION) {
-            this.promptedVelocityX = Double.parseDouble(velocityXField.getText());
-            this.promptedVelocityY = Double.parseDouble(velocityYField.getText());
-            return true;
-        } 
-        
+            try
+            {
+                this.promptedVelocityX = Double.parseDouble(velocityXField.getText());
+                this.promptedVelocityY = Double.parseDouble(velocityYField.getText());
+                return true;
+            } catch(NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Value must numeric.", "Velocity value error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
         return false;
-        
     }
 
     //Gets the x value for velocity entered by the user
