@@ -56,28 +56,19 @@ public class Model implements BuildModel, RunModel {
         mu2 = 0.025;
     }
 
-    private Gizmo _getGizmoAt(int x, int y) {
+    private Gizmo getGizmoAt(int x, int y) {
         return this.gizmos.stream()
                 .filter(g -> g.getCells().contains(new Vect(x, y)))
                 .findFirst().orElse(null);
     }
 
-    @Override
-    public ReadGizmo getGizmoAt(int x, int y) {
-        return _getGizmoAt(x, y);
-    }
 
     /* ATTENTION: Multiple balls could be at the same position e.g. inside an
      * absorber */
-    private Ball _getBallAt(double x, double y) {
+    private Ball getBallAt(double x, double y) {
         return this.balls.stream()
                 .filter(b -> b.contains(x, y))
                 .findFirst().orElse(null);
-    }
-
-    @Override
-    public ReadBall getBallAt(double x, double y) {
-        return _getBallAt(x, y);
     }
 
     private void checkPlacement(double x, double y) throws PositionOverlapException, PositionOutOfBoundsException {
@@ -125,7 +116,7 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void move(double dX, double dY) throws PositionOverlapException, PositionOutOfBoundsException {
-        Gizmo gizmo = this._getGizmoAt((int) this.selX, (int) this.selY);
+        Gizmo gizmo = this.getGizmoAt((int) this.selX, (int) this.selY);
         if (gizmo != null) {
             this.gizmos.remove(gizmo);
             int x = gizmo.getX();
@@ -145,7 +136,7 @@ public class Model implements BuildModel, RunModel {
             }
             return;
         }
-        Ball ball = this._getBallAt(this.selX, this.selY);
+        Ball ball = this.getBallAt(this.selX, this.selY);
         if (ball != null) {
             this.balls.remove(ball);
             double x = ball.getX();
@@ -169,8 +160,8 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void delete() {
-        Gizmo gizmo = this._getGizmoAt((int)this.selX, (int)this.selY);
-        Ball ball = this._getBallAt(this.selX, this.selY);
+        Gizmo gizmo = this.getGizmoAt((int)this.selX, (int)this.selY);
+        Ball ball = this.getBallAt(this.selX, this.selY);
         if (ball != null) {
             this.balls.remove(ball);
             return;
@@ -201,7 +192,7 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void rotateGizmo() throws NonRotatableException {
-        Gizmo gizmo = this._getGizmoAt((int)this.selX, (int)this.selY);
+        Gizmo gizmo = this.getGizmoAt((int)this.selX, (int)this.selY);
         if (gizmo != null) {
             gizmo.rotate();
         }
@@ -220,7 +211,7 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void setBallVelocity(double vX, double vY) {
-        Ball ball = this._getBallAt(this.selX, this.selY);
+        Ball ball = this.getBallAt(this.selX, this.selY);
         if (ball != null) {
             ball.setVelocityX(vX);
             ball.setVelocityY(vY);
@@ -255,7 +246,7 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void triggerOnKeyPress(int key) {
-        Gizmo gizmo = this._getGizmoAt((int)this.selX, (int)this.selY);
+        Gizmo gizmo = this.getGizmoAt((int)this.selX, (int)this.selY);
         if (gizmo != null) {
             this.keyPressMap.computeIfAbsent(key, k -> new HashSet<>()).add(gizmo);
         }
@@ -263,7 +254,7 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void triggerOnKeyRelease(int key) {
-        Gizmo gizmo = this._getGizmoAt((int)this.selX, (int)this.selY);
+        Gizmo gizmo = this.getGizmoAt((int)this.selX, (int)this.selY);
         if (gizmo != null) {
             this.keyReleaseMap.computeIfAbsent(key, k -> new HashSet<>()).add(gizmo);
         }
@@ -271,7 +262,7 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void triggerOnOuterWalls() {
-        Gizmo gizmo = this._getGizmoAt((int)this.selX, (int)this.selY);
+        Gizmo gizmo = this.getGizmoAt((int)this.selX, (int)this.selY);
         if (gizmo != null) {
             this.wallTriggers.add(gizmo);
         }
@@ -279,7 +270,7 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void triggerOnGizmo(ReadGizmo gizmo) {
-        Gizmo destination = this._getGizmoAt((int)this.selX, (int)this.selY);
+        Gizmo destination = this.getGizmoAt((int)this.selX, (int)this.selY);
         if (destination == null) {
             return;
         }
@@ -293,7 +284,7 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void triggerOnGizmoAt(double x, double y) {
-        Gizmo gizmo = this._getGizmoAt((int)x, (int)y);
+        Gizmo gizmo = this.getGizmoAt((int)x, (int)y);
         if (gizmo != null) {
             this.triggerOnGizmo(gizmo);
         }
