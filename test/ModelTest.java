@@ -1,4 +1,4 @@
-package test;
+
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -373,6 +373,18 @@ public class ModelTest {
         fail();
     }
 
+    @Test(expected=NonRotatableException.class)
+    public void rotateBall() throws NonRotatableException {
+        try {
+            emptyModel.select(4, 4);
+            emptyModel.addBall(new Ball());
+            emptyModel.rotateGizmo();
+            fail();
+        } catch (PositionOverlapException | PositionOutOfBoundsException e) {
+            fail();
+        }
+    }
+    
     @Test
     public void rotateNonPresent() {
         Set<ReadGizmo> gizmos = myModel.getGizmos();

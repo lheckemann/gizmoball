@@ -184,6 +184,12 @@ public class Model implements BuildModel, RunModel {
         Gizmo gizmo = this.getSelectedGizmo();
         if (gizmo != null) {
             gizmo.rotate();
+            return;
+        }
+      
+        Ball ball = this.getSelectedBall();
+        if (ball != null) {
+            throw new NonRotatableException("Balls cannot be rotated");
         }
     }
 
