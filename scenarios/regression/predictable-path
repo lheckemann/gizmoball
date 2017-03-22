@@ -1,46 +1,45 @@
 Sink Sink0 1 13
-Sink Sink1 12 19
-Sink Sink2 9 19
-Sink Sink3 2 13
-Square Square4 11 13
-Square Square5 10 13
-Sink Sink6 16 19
-Spawner Spawner7 1 14
-Sink Sink8 5 19
-Sink Sink9 1 19
-Sink Sink10 6 19
-Spawner Spawner11 0 0
-Sink Sink12 0 19
-Sink Sink13 3 19
-Sink Sink14 0 13
-Sink Sink15 18 19
-Sink Sink16 3 15
-Sink Sink17 11 19
-Triangle Triangle18 0 6
-Sink Sink19 4 19
-Sink Sink20 3 17
-Sink Sink21 3 13
-Sink Sink22 3 18
-Sink Sink23 19 19
-Sink Sink24 17 19
-Spawner Spawner25 2 14
-Sink Sink26 10 19
-Sink Sink27 2 19
-Sink Sink28 3 14
-Sink Sink29 13 19
-Sink Sink30 3 16
-Sink Sink31 7 19
-Sink Sink32 8 19
-Ball B0 0.500000 14.500000 0.000000 0.000000
-Rotate Triangle18
-Rotate Triangle18
-Rotate Triangle18
-Connect Sink12 Spawner7
-Connect Sink12 Spawner11
-Connect Sink6 Spawner11
-Connect Sink9 Spawner25
-Connect Sink9 Spawner11
-Connect Sink27 Spawner11
-KeyConnect key 32 down Spawner11
+Sink Sink1 5 19
+Sink Sink2 11 19
+Sink Sink3 3 17
+Sink Sink4 0 19
+Sink Sink5 2 13
+Sink Sink6 0 13
+Sink Sink7 12 19
+Square Square0 9 12
+Sink Sink8 18 19
+Sink Sink9 4 19
+Sink Sink10 8 19
+Sink Sink11 3 15
+Sink Sink12 6 19
+Sink Sink13 3 13
+Sink Sink14 17 19
+Sink Sink15 14 19
+Sink Sink16 19 19
+Sink Sink17 9 19
+Spawner Spawner0 0 0
+Sink Sink18 3 14
+Spawner Spawner1 1 14
+Spawner Spawner2 2 14
+Sink Sink19 3 18
+Triangle Triangle0 10 12
+Sink Sink20 2 19
+Sink Sink21 3 16
+Sink Sink22 13 19
+Sink Sink23 3 19
+Triangle Triangle1 0 6
+Sink Sink24 1 19
+Ball B0 0.468750 14.500000 0.000000 0.000000
+Rotate Triangle1
+Rotate Triangle1
+Rotate Triangle1
+Connect Sink20 Spawner0
+Connect Sink4 Spawner1
+Connect Sink4 Spawner0
+Connect Sink10 Spawner0
+Connect Sink17 Spawner0
+Connect Sink24 Spawner2
+Connect Sink24 Spawner0
+KeyConnect key 32 down Spawner0
 Gravity 25.000000
 Friction 0.025000 0.025000
