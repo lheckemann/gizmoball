@@ -1,6 +1,8 @@
-% Design changes
-% since preliminary release
-% JS8
+---
+title: Test validation
+author: JS8
+documentclass: scrartcl
+...
 
 The general design and component interaction remained largely unaltered.
 
