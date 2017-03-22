@@ -473,19 +473,11 @@ public class Model implements BuildModel, RunModel {
             velocities.put(c.ball, v);
         }
 
-        for (Ball b : velocities.keySet()) {
-            /* Set position before setting the new velocity. */
-            /* Do not slowly change position on infinitesimal velocities. */
-            Vect velocity = velocities.get(b);
-            velocity = this.getAppliedFriction(velocity, lapse);
-            b.setPosition(this.getAppliedVelocity(b, lapse));
-            b.setVelocity(velocity);
-        }
-
         // Apply gravity and velocity to balls.
         for (Ball b : balls) {
-            if (!velocities.containsKey(b))
-                b.setPosition(this.getAppliedVelocity(b, lapse));
+            b.setPosition(this.getAppliedVelocity(b, lapse));
+            if (velocities.containsKey(b))
+                b.setVelocity(velocities.get(b));
 
             b.setVelocity(this.getAppliedFriction(b.getVelocity(), lapse));
 
