@@ -434,6 +434,7 @@ public class Model implements BuildModel, RunModel {
                          || b.getPosition().x() >= width
                          || b.getPosition().y() < 0
                          || b.getPosition().y() > height);
+
         CollisionFinder finder = new CollisionFinder();
         finder.setWalls(this.walls, this.WALL_REFLECTION);
         finder.setGizmos(this.gizmos);
@@ -473,15 +474,19 @@ public class Model implements BuildModel, RunModel {
             velocities.put(c.ball, v);
         }
 
-        // Apply gravity and velocity to balls.
         for (Ball b : balls) {
+            /* Move the ball to the collision point. */
             b.setPosition(this.getAppliedVelocity(b, lapse));
+
+            /* If the ball collides, set the post-collision velocity. */
             if (velocities.containsKey(b))
                 b.setVelocity(velocities.get(b));
 
+            /* Apply friction. */
             b.setVelocity(this.getAppliedFriction(b.getVelocity(), lapse));
 
-            // Only apply gravity if this does not result in an immediate collision.
+            /* Only apply gravity if this does not result in an immediate collision.
+             * This enables balls to come to a complete halt. */
             Vect oldVel = b.getVelocity();
             b.setVelocity(this.getAppliedGravity(oldVel, lapse));
             finder.setBalls(Collections.singleton(b));
