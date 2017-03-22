@@ -1,4 +1,217 @@
 
+# Testing strategy
+
+We have decided to support JUnit testing with a pool of regression tests (scenarios).
+This decision was made due to the diffculty to test a running simulation with the JUnit
+framework.
+
+We have a total of XXX JUnit tests that target our Model, with a coverage percentage of:
+- Absorber
+- BaseGizmo
+- Circle
+- Flipper
+- GizmoType
+- InvalidAbsorberWidthHeight
+- NonRotatableException
+- Rotation
+- Sink
+- Spawner
+- SpinningFlipper
+- Square
+- StandardFlipper
+- Triangle
+- Ball - 100%
+- CollisionFinder
+- Geometry
+- Model - 73%
+- PositionOutOfBoundsException
+- PositionOverlapException
+- SyntaxError
+
+This is not as high as we wanted due to the previously mentioned issue.
+Below are are all regression tests we currently have:
+
+## Flipper-pivot
+
+    Purpose: Regression test for issue #43
+    Input:   Load -> "../scenarios/regression/flipper-pivot" -> Start simulation if not already
+    
+    Expected: Each of the 4 spawners on the left and right should spawn one ball.
+              This ball should fall along a straight line to the sink below it within 10 seconds.
+    Actual:   Each of the 4 spawners on the left and right should spawn one ball.
+              This ball should fall along a straight line to the sink below it within 10 seconds.
+    Result:   PASS
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+
+## Absorber-side
+
+    Purpose: Regression test for issue #32
+    Input:   Load -> "../scenarios/regression/absorber-side" -> Start simulation if not already
+    
+    Expected: All 4 balls should disappear within a second.
+    Actual:   All 4 balls should disappear within a second.
+    Result:   PASS
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+
+## Boxed
+
+    Purpose: Regression test for issue #38
+    Input:   Load -> "../scenarios/regression/boxed" -> Start simulation if not already
+    
+    Expected: Ball that starts inside the box remains inside box for at least 20 seconds.
+    Actual:   Ball that starts inside the box remains inside box for at least 20 seconds.
+    Result:   PASS
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+    
+## Ball-collisions
+
+    Purpose: 
+    Input:   Load -> "../scenarios/regression/ball-collisions" -> Start simulation if not already
+    
+    Expected: All balls collide with each other at the same time in the centre of the arena
+              and perpendicularly hit the outer walls repeatedly.
+    Actual:   All balls collide with each other at the same time in the centre of the arena
+              and perpendicularly hit the outer walls repeatedly.
+    Result:   PASS
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+    
+## Still-ball-collision
+
+    Purpose: Regression test for issue #38
+    Input:   Load -> "../scenarios/regression/still-ball-collision"
+                  -> Start simulation if not already
+                  -> Wait for lower ball to stop trembling
+                  -> Press space
+    
+    Expected: The falling ball hits the lower ball, which does not change position.
+    Actual:   The falling ball hits the lower ball, which does not change position.
+    Result:   PASS
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+    
+## Rolling-ball
+
+    Purpose: 
+    Input:   Load -> "../scenarios/regression/rolling-ball" -> Start simulation if not already
+    
+    Expected: The ball rolls over the floor and repeatedly bounces against the two side walls.
+    Actual:   The ball rolls over the floor and repeatedly bounces against the two side walls.
+    Result:   PASS
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+    
+## Sliding
+
+    Purpose: 
+    Input:   Load -> "../scenarios/regression/sliding" -> Start simulation if not already
+    
+    Expected: The balls slide against the squares and triangles without hitting any of their
+              lines and circles.
+    Actual:   The balls slide against the squares and triangles without hitting any of their
+              lines and circles.
+    Result:   PASS
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+    
+## Highspeed
+
+    Purpose: 
+    Input:   Load -> "../scenarios/regression/highspeed" -> Start simulation if not already
+    
+    Expected: The ball forever bounces inside the arena at high speed. Ticks only display
+              collisions with the outer walls.
+    Actual:   The ball forever bounces inside the arena at high speed. Ticks only display
+              collisions with the outer walls.
+    Result:   PASS
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+    
+## Speed
+
+    Purpose: 
+    Input:   Load -> "../scenarios/regression/speed" -> Start simulation if not already
+    
+    Expected: The ball should hit a side wall every 1s.
+    Actual:   The ball should hit a side wall every 1s.
+    Result:   PASS
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+    
+## Absorber-straight
+
+    Purpose: 
+    Input:   Load -> "../scenarios/regression/absorber-straight"
+                  -> Start simulation if not already
+    
+    Expected: All balls should bounce straight up and down.
+    Actual:   All balls should bounce straight up and down.
+    Result:   PASS
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+    
+## Flipper-edge
+
+    Purpose: 
+    Input:   Load -> "../scenarios/regression/flipper-edge" -> Start simulation if not already
+    
+    Expected: Both balls should bounce off the edge of the flipper and not fall straight down.
+    Actual:   Both balls should bounce off the edge of the flipper and not fall straight down.
+    Result:   PASS
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+    
+## Nostack
+
+    Purpose: 
+    Input:   Load -> "../scenarios/regression/nostack"
+                  -> Start simulation if not already
+                  -> Press space twice
+    
+    Expected: The spawned balls should bounce apart horizontally after several collisions,
+not form a stack.
+    Actual:   The spawned balls should bounce apart horizontally after several collisions,
+not form a stack.
+    Result:   PASS
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+    
+## Predictable-path
+
+    Purpose: 
+    Input:   Load -> "../scenarios/regression/predictable-path"
+                  -> Start simulation if not already
+                  -> Wait 5 minutes
+    
+    Expected: All three balls spawned at the beginning should still be in the arena.
+    Actual:   All three balls spawned at the beginning should still be in the arena.
+    Result:   PASS
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+  
+## Flipper-coll
+
+    Purpose: 
+    Input:   Load -> "../scenarios/regression/flipper-coll" -> Start simulation if not already
+    
+    Expected: Ball should collide correctly with the circles on the end of the flipper.
+    Actual:   Ball should collide correctly with the circles on the end of the flipper.
+    Result:   PASS
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+  
+## Transmission
+
+    Purpose: 
+    Input:   Load -> "../scenarios/regression/transmission" -> Start simulation if not already
+    
+    Expected: The side balls trasmit force to one another through the ball in the middle,
+which stays stationary.
+    Actual:   The side balls trasmit force to one another through the ball in the middle,
+which stays stationary.
+    Result:   PASS
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+
+## Settle
+
+    Purpose: 
+    Input:   Load -> "../scenarios/regression/settle" -> Start simulation if not already
+    
+    Expected: Each ball should settle and stop moving in the space below it.
+    Actual:   Each ball should settle and stop moving in the space below it.
+    Result:   PASS
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+
+
 # Validation Testing Strategy Results
 
 ## MOVE
@@ -11,7 +224,7 @@
     Expected: Selected Gizmo/Ball is now on the new position
     Actual:   Selected Gizmo/Ball is now on the new position
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 2
 
@@ -22,7 +235,7 @@
     Expected: Error - "Can't move on top of another gizmo or ball"
     Actual:   Error - "Can't move on top of another gizmo or ball"
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 3
 
@@ -33,7 +246,7 @@
     Expected: No changes
     Actual:   No changes
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 4
 
@@ -44,7 +257,7 @@
     Expected: Destination Gizmo is waiting for a move operation
     Actual:   Destination Gizmo is waiting for a move operation
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## DELETE    
 ## Number:  Test 5
@@ -55,7 +268,7 @@
     Expected: Selected Gizmo/Ball is removed from the game
     Actual:   Selected Gizmo/Ball is removed from the game
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 6
 
@@ -65,7 +278,7 @@
     Expected: No changes
     Actual:   No changes
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## ROTATE   
 ## Number:  Test 7
@@ -76,7 +289,7 @@
     Expected: Error - "Absorbers cannot be rotated"
     Actual:   Error - "Absorbers cannot be rotated"
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 8
 
@@ -86,7 +299,7 @@
     Expected: Error - "Ball cannot be rotated"
     Actual:   Error - "Ball cannot be rotated"
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 9
 
@@ -96,7 +309,7 @@
     Expected: Selected gizmo rotates
     Actual:   Selected gizmo rotates
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
     
 ## Number:  Test 10
 
@@ -106,7 +319,7 @@
     Expected: Selected gizmo does not rotate
     Actual:   Selected gizmo does not rotate
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## ADD
 ## Number:  Test 11
@@ -120,7 +333,7 @@
     Expected: Absorber appears on the selected area on the board.
     Actual:   Absorber appears on the selected area on the board.
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 12
 
@@ -133,7 +346,7 @@
     Expected: You are not allowed to drag occupied areas.
     Actual:   You are not allowed to drag occupied areas.
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 13
 
@@ -143,7 +356,7 @@
     Expected: Correct gizmo appears on the selected area on the board.
     Actual:   Correct gizmo appears on the selected area on the board.
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 14
 
@@ -154,7 +367,7 @@
     Expected: Error - "Can't place a gizmo on top of another gizmo or ball"
     Actual:   Error - "Can't place a gizmo on top of another gizmo or ball"
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 15
 
@@ -165,7 +378,7 @@
     Expected: Ball appears on the selected area on the board.
     Actual:   Ball appears on the selected area on the board.
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 16
 
@@ -174,7 +387,7 @@
     Expected: Error - "Can't place a ball on top of another gizmo or ball"
     Actual:   Error - "Can't place a ball on top of another gizmo or ball"
     Result:   PASS
-    Checked by "William Macdonald" on "f8e539d704d151b31201" at "22/03/2017"
+    Checked by "William Macdonald" on "f8e539d704d151b3120185a1a1950a8624ed3213" at "22/03/2017"
 
 
 ## Number:  Test 17
@@ -186,7 +399,7 @@
     Expected: The board is the same with ball not placed
     Actual:   The board is the same with ball not placed
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Triggers
 ## Number:  Test 18
@@ -198,7 +411,7 @@
     Expected: Nothing changes and no connection has been made
     Actual:   Nothing changes and no connection has been made
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
  
 ## Number:  Test 19
 
@@ -209,18 +422,19 @@
     Expected: Connection has been added (run game to check)
     Actual:   Connection has been added (run game to check)
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 20
 
-    Purpose: Trigger on gizmo - Empty cell (or Ball) as source and empty cell (or Ball) as destination
+    Purpose: Trigger on gizmo - Empty cell (or Ball) as source and empty cell (or Ball)
+                                as destination
     Input:   Build Mode -> Trigger on gizmo -> Click on the board
                                             -> Click on destination position
 
     Expected: Nothing changes and no connection has been made
     Actual:   Nothing changes and no connection has been made
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 21
 
@@ -231,7 +445,7 @@
     Expected: Destination Gizmo is waiting for a trigger operation
     Actual:   Destination Gizmo is waiting for a trigger operation
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 22
 
@@ -242,7 +456,7 @@
     Expected: Connection has been added (run game to check)
     Actual:   Connection has been added (run game to check)
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 23
 
@@ -253,7 +467,7 @@
     Expected: Nothing happens
     Actual:   Nothing happens
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 24
 
@@ -263,7 +477,7 @@
     Expected: Connection has been added (run game to check)
     Actual:   Connection has been added (run game to check)
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 25
 
@@ -273,7 +487,7 @@
     Expected: Nothing happens
     Actual:   Nothing happens
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Physics - Friction mu, friction mu2 and gravity
 ## Number:  Test 26
@@ -284,7 +498,7 @@
     Expected: New friction mu value is applied to the game
     Actual:   New friction mu value is applied to the game
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 27
 
@@ -294,7 +508,7 @@
     Expected: Old friction mu value is still applied to the game
     Actual:   Old friction mu value is still applied to the game
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 28
 
@@ -304,7 +518,7 @@
     Expected: New gravity value is applied to the game
     Actual:   New gravity value is applied to the game
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 29
 
@@ -314,7 +528,7 @@
     Expected: Old gravity value is still applied to the game
     Actual:   Old gravity value is still applied to the game
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 30
 
@@ -324,7 +538,7 @@
     Expected: New friction mu2 value is applied to the game
     Actual:   New friction mu2 value is applied to the game
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 31
 
@@ -334,7 +548,7 @@
     Expected: Old friction mu2 value is still applied to the game
     Actual:   Old friction mu2 value is still applied to the game
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Switch between modes
 ## Number:  Test 32
@@ -345,7 +559,7 @@
     Expected: No gizmos are present and game is empty
     Actual:   No gizmos are present and game is empty
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 33
 
@@ -355,7 +569,7 @@
     Expected: Scenario is still present
     Actual:   Scenario is still present
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 34
 
@@ -365,7 +579,7 @@
     Expected: No gizmos are present and game is empty
     Actual:   No gizmos are present and game is empty
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 35
 
@@ -375,7 +589,7 @@
     Expected: Scenario is still present
     Actual:   Scenario is still present
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Run game
 ## Number:  Test 36
@@ -388,7 +602,7 @@
     Expected: The game stops (i.e. no balls are moving and triggers are disabled)
     Actual:   The game stops (i.e. no balls are moving and triggers are disabled)
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 37
 
@@ -398,7 +612,7 @@
     Expected: The game runs (i.e. balls are moving and triggers are enabled)
     Actual:   The game stops (i.e. balls are moving and triggers are enabled)
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 38
 
@@ -409,7 +623,7 @@
     Expected: The game runs for only one tick
     Actual:   The game runs for only one tick
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 39
 
@@ -419,7 +633,7 @@
     Expected: Any gizmos connected to the key are triggered.
     Actual:   Any gizmos connected to the key are triggered.
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 40
 
@@ -429,7 +643,7 @@
     Expected: No Gizmos are being triggered by the key press/release
     Actual:   No Gizmos are being triggered by the key press/release
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 41
 
@@ -439,7 +653,7 @@
     Expected: Collision between flipper and ball(s) and change of their velocity
     Actual:   Collision between flipper and ball(s) and change of their velocity
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Other functionalities
 ## Number:  Test 42
@@ -450,7 +664,7 @@
     Expected: Scenario is fully and correctly loaded
     Actual:   Scenario is fully and correctly loaded
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 43
 
@@ -460,7 +674,7 @@
     Expected: Error with meaninful description of the issue
     Actual:   Error with meaninful description of the issue
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 44
 
@@ -470,7 +684,7 @@
     Expected: Nothing changes
     Actual:   Nothing changes
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 45
 
@@ -480,7 +694,7 @@
     Expected: In the background, the game normally runs
     Actual:   In the background, the game normally runs
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 46
 
@@ -491,7 +705,7 @@
     Expected: File is saved (load to double check)
     Actual:   File is saved (load to double check)
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 47
 
@@ -502,7 +716,7 @@
     Expected: File is saved and overwrite occured (load to double check)
     Actual:   File is saved and overwrite occured (load to double check)
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 48
 
@@ -513,7 +727,7 @@
     Expected: File is saved (load to double check)
     Actual:   File is saved (load to double check)
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 49
 
@@ -524,7 +738,7 @@
     Expected: File is saved and overwrite occured (load to double check)
     Actual:   File is saved and overwrite occured (load to double check)
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 50
 
@@ -536,7 +750,7 @@
     Expected: No saving occured
     Actual:   No saving occured
     RESULT:   PASS
-    Checked by "William Macdonald" on "f8e539d704d151b31201" at "22/03/2017"
+    Checked by "William Macdonald" on "f8e539d704d151b3120185a1a1950a8624ed3213" at "22/03/2017"
 
 ## Number:  Test 51
 
@@ -546,7 +760,7 @@
     Expected: In the background, the game normally runs
     Actual:   In the background, the game normally runs
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 52
 
@@ -556,7 +770,7 @@
     Expected: It creates a new empty board
     Actual:   It creates a new empty board
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number:  Test 53
 
@@ -566,7 +780,7 @@
     Expected: It exits the system
     Actual:   It exits the system
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
 ## Number: Test 54
 
@@ -575,7 +789,7 @@
     Expected: Ball is consumed by absorber & can be fired by absorber trigger
     Actual: Ball is consumed by absorber & can be fired by absorber trigger (run game to check)
     Result: PASS
-    Checked by "William Macdonald" on "f8e539d704d151b31201" at "22/03/2017"
+    Checked by "William Macdonald" on "f8e539d704d151b3120185a1a1950a8624ed3213" at "22/03/2017"
 
 ## Number: Test 55
     Purpose: Add ball - Enter non numeric velocity values
@@ -584,4 +798,4 @@
     Expected: Error - "Velocity value error - value must be numeric"
     Actual: Error - "Velocity value error - Value must be numeric"
     Result: PASS
-    Checked by "William Macdonald" on "f8e539d704d151b31201" at 22/03/2017
+    Checked by "William Macdonald" on "f8e539d704d151b3120185a1a1950a8624ed3213" at 22/03/2017
