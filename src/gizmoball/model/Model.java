@@ -2,6 +2,8 @@ package gizmoball.model;
 
 import java.io.InputStream;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import physics.LineSegment;
 import physics.Vect;
@@ -198,7 +200,7 @@ public class Model implements BuildModel, RunModel {
     public void addBall(Ball ball) throws PositionOverlapException, PositionOutOfBoundsException {
         ball.setX(this.selX);
         ball.setY(this.selY);
-        
+
         try {
             this.checkPlacement(ball);
             this.balls.add(ball);
@@ -480,6 +482,20 @@ public class Model implements BuildModel, RunModel {
             b.setVelocity(velocity);
         }
 
+        // Apply gravity and velocity to balls.
+        for (Ball b : balls) {
+            if (!velocities.containsKey(b))
+                b.setPosition(this.getAppliedVelocity(b, lapse));
+
+            // Only apply gravity and friction if this does not result in an immediate collision.
+            Vect oldVel = b.getVelocity();
+            b.setVelocity(this.getAppliedGravity(this.getAppliedFriction(b.getVelocity(), lapse), lapse));
+            finder.setBalls(Collections.singleton(b));
+            List<Collision> thisBallCollisions = finder.getCollisions();
+            if (!thisBallCollisions.isEmpty() && thisBallCollisions.get(0).time < IMMEDIATE_COLLISION)
+                b.setVelocity(oldVel);
+        }
+
         /* Fire triggers. */
         for (Collision c : collisions) {
             if (c.againstGizmo != null) {
@@ -487,14 +503,6 @@ public class Model implements BuildModel, RunModel {
             } else if (c.againstBall == null) {
                 this.wallHit();
             }
-        }
-
-        /* Process balls which had no collisions. */
-        Set<Ball> free = new HashSet<>(this.balls);
-        free.removeAll(velocities.keySet());
-        for (Ball b : free) {
-            b.setPosition(this.getAppliedVelocity(b, lapse));
-            b.setVelocity(this.getAppliedGravity(this.getAppliedFriction(b.getVelocity(), lapse), lapse));
         }
 
         for (Gizmo g : this.gizmos) {
