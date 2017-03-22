@@ -5,28 +5,25 @@ We have decided to support JUnit testing with a pool of regression tests (scenar
 This decision was made due to the diffculty to test a running simulation with the JUnit
 framework.
 
-We have a total of XXX JUnit tests that target our Model, with a coverage percentage of:
-- Absorber
-- BaseGizmo
-- Circle
-- Flipper
-- GizmoType
-- InvalidAbsorberWidthHeight
-- NonRotatableException
-- Rotation
-- Sink
-- Spawner
-- SpinningFlipper
-- Square
-- StandardFlipper
-- Triangle
-- Ball - 100%
-- CollisionFinder
-- Geometry
-- Model - 73%
-- PositionOutOfBoundsException
-- PositionOverlapException
-- SyntaxError
+We have a total of 338 JUnit tests that target our Model, with a coverage percentage of:
+- Absorber        - 100%
+- BaseGizmo       - 100%
+- Circle          - 100%
+- Flipper         - 100%
+- GizmoType       - 87.3%
+- Rotation        - 92.6%
+- Sink            - 100%
+- Spawner         - 100%
+- SpinningFlipper - 100%
+- Square          - 100%
+- StandardFlipper - 100%
+- Triangle        - 100%
+- Ball            - 100%
+- CollisionFinder - Regression tests
+- Geometry        - Regression tests
+- Model           - 73.4% + Regression tests
+- Saver           - 96.8%
+- StandardLoader  - 97.6%
 
 This is not as high as we wanted due to the previously mentioned issue.
 Below are are all regression tests we currently have:
