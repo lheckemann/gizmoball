@@ -102,7 +102,7 @@ public class BuildView extends GameView implements IBuildView {
 
         frictionMuModel.setValue(model.getFrictionMu());
         frictionMu2Model.setValue(model.getFrictionMu2());
-        gravityModel.setValue(model.getGravity());
+        gravityModel.setValue((int) model.getGravity());
     }
 
     //Used to prompt the user to enter a velocity value
@@ -113,8 +113,8 @@ public class BuildView extends GameView implements IBuildView {
         Object[] message = {"Enter the velocity x value: ", velocityXField,
                             "Enter the velocity y value: ", velocityYField};
         int optionChosen = JOptionPane.showConfirmDialog(null, message, "Set ball velocity", JOptionPane.OK_CANCEL_OPTION);
-        
-        
+
+
         if (optionChosen == JOptionPane.OK_OPTION) {
             try
             {
