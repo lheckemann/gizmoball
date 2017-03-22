@@ -181,12 +181,13 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void rotateGizmo() throws NonRotatableException {
+        
         Gizmo gizmo = this.getSelectedGizmo();
         if (gizmo != null) {
             gizmo.rotate();
             return;
         }
-      
+        
         Ball ball = this.getSelectedBall();
         if (ball != null) {
             throw new NonRotatableException("Balls cannot be rotated");

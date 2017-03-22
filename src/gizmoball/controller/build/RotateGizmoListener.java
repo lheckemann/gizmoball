@@ -21,8 +21,8 @@ public class RotateGizmoListener extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        double chosenX = e.getX()/BoardView.L_TO_PIXELS;
-        double chosenY = e.getY()/BoardView.L_TO_PIXELS;
+        double chosenX = e.getX()/(double)BoardView.L_TO_PIXELS;
+        double chosenY = e.getY()/(double)BoardView.L_TO_PIXELS;
 
         model.select(chosenX, chosenY);
         try {
