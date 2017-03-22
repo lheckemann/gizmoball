@@ -31,182 +31,181 @@ Below are are all regression tests we currently have:
 ## Flipper-pivot
 
     Purpose: Regression test for issue #43
-    Input:   Load -> "../scenarios/regression/flipper-pivot" -> Start simulation if not already
-    
+    Input:   Load -> "scenarios/regression/flipper-pivot" -> Start simulation if not already
+
     Expected: Each of the 4 spawners on the left and right should spawn one ball.
               This ball should fall along a straight line to the sink below it within 10 seconds.
-    Actual:   Each of the 4 spawners on the left and right should spawn one ball.
+    Actual:   Each of the 4 spawners on the left and right spawn one ball.
               This ball should fall along a straight line to the sink below it within 10 seconds.
     Result:   PASS
-    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+    Checked by "Linus Heckemann" on "c23f20c7d61b657aa6bc5ba0b8c66fbdc9d92d9f" at "22/03/2017"
 
 ## Absorber-side
 
     Purpose: Regression test for issue #32
-    Input:   Load -> "../scenarios/regression/absorber-side" -> Start simulation if not already
-    
+    Input:   Load -> "scenarios/regression/absorber-side" -> Start simulation if not already
+
     Expected: All 4 balls should disappear within a second.
     Actual:   All 4 balls should disappear within a second.
     Result:   PASS
-    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+    Checked by "Linus Heckemann" on "c23f20c7d61b657aa6bc5ba0b8c66fbdc9d92d9f" at "22/03/2017"
 
 ## Boxed
 
     Purpose: Regression test for issue #38
-    Input:   Load -> "../scenarios/regression/boxed" -> Start simulation if not already
-    
+    Input:   Load -> "scenarios/regression/boxed" -> Start simulation if not already
+
     Expected: Ball that starts inside the box remains inside box for at least 20 seconds.
-    Actual:   Ball that starts inside the box remains inside box for at least 20 seconds.
-    Result:   PASS
-    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
-    
+    Actual:   Ball that starts inside the box exits box after approx. 11 seconds.
+    Result:   FAIL
+    Checked by "Linus Heckemann" on "c23f20c7d61b657aa6bc5ba0b8c66fbdc9d92d9f" at "22/03/2017"
+
 ## Ball-collisions
 
-    Purpose: 
-    Input:   Load -> "../scenarios/regression/ball-collisions" -> Start simulation if not already
-    
+    Purpose:
+    Input:   Load -> "scenarios/regression/ball-collisions" -> Start simulation if not already
+
     Expected: All balls collide with each other at the same time in the centre of the arena
               and perpendicularly hit the outer walls repeatedly.
     Actual:   All balls collide with each other at the same time in the centre of the arena
               and perpendicularly hit the outer walls repeatedly.
     Result:   PASS
-    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
-    
+    Checked by "Linus Heckemann" on "c23f20c7d61b657aa6bc5ba0b8c66fbdc9d92d9f" at "22/03/2017"
+
 ## Still-ball-collision
 
     Purpose: Regression test for issue #38
-    Input:   Load -> "../scenarios/regression/still-ball-collision"
+    Input:   Load -> "scenarios/regression/still-ball-collision"
                   -> Start simulation if not already
                   -> Wait for lower ball to stop trembling
                   -> Press space
-    
+
     Expected: The falling ball hits the lower ball, which does not change position.
     Actual:   The falling ball hits the lower ball, which does not change position.
     Result:   PASS
-    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
-    
+    Checked by "Linus Heckemann" on "c23f20c7d61b657aa6bc5ba0b8c66fbdc9d92d9f" at "22/03/2017"
+
 ## Rolling-ball
 
-    Purpose: 
-    Input:   Load -> "../scenarios/regression/rolling-ball" -> Start simulation if not already
-    
+    Purpose:
+    Input:   Load -> "scenarios/regression/rolling-ball" -> Start simulation if not already
+
     Expected: The ball rolls over the floor and repeatedly bounces against the two side walls.
     Actual:   The ball rolls over the floor and repeatedly bounces against the two side walls.
     Result:   PASS
-    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
-    
+    Checked by "Linus Heckemann" on "c23f20c7d61b657aa6bc5ba0b8c66fbdc9d92d9f" at "22/03/2017"
+
 ## Sliding
 
-    Purpose: 
-    Input:   Load -> "../scenarios/regression/sliding" -> Start simulation if not already
-    
+    Purpose:
+    Input:   Load -> "scenarios/regression/sliding" -> Start simulation if not already
+
     Expected: The balls slide against the squares and triangles without hitting any of their
               lines and circles.
     Actual:   The balls slide against the squares and triangles without hitting any of their
               lines and circles.
     Result:   PASS
-    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
-    
+    Checked by "Linus Heckemann" on "c23f20c7d61b657aa6bc5ba0b8c66fbdc9d92d9f" at "22/03/2017"
+
 ## Highspeed
 
-    Purpose: 
-    Input:   Load -> "../scenarios/regression/highspeed" -> Start simulation if not already
-    
+    Purpose:
+    Input:   Load -> "scenarios/regression/highspeed" -> Start simulation if not already
+
     Expected: The ball forever bounces inside the arena at high speed. Ticks only display
               collisions with the outer walls.
     Actual:   The ball forever bounces inside the arena at high speed. Ticks only display
               collisions with the outer walls.
     Result:   PASS
-    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
-    
+    Checked by "Linus Heckemann" on "c23f20c7d61b657aa6bc5ba0b8c66fbdc9d92d9f" at "22/03/2017"
+
 ## Speed
 
-    Purpose: 
-    Input:   Load -> "../scenarios/regression/speed" -> Start simulation if not already
-    
+    Purpose:
+    Input:   Load -> "scenarios/regression/speed" -> Start simulation if not already
+
     Expected: The ball should hit a side wall every 1s.
     Actual:   The ball should hit a side wall every 1s.
     Result:   PASS
-    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
-    
+    Checked by "Linus Heckemann" on "c23f20c7d61b657aa6bc5ba0b8c66fbdc9d92d9f" at "22/03/2017"
+
 ## Absorber-straight
 
-    Purpose: 
-    Input:   Load -> "../scenarios/regression/absorber-straight"
+    Purpose:
+    Input:   Load -> "scenarios/regression/absorber-straight"
                   -> Start simulation if not already
-    
+
     Expected: All balls should bounce straight up and down.
     Actual:   All balls should bounce straight up and down.
     Result:   PASS
-    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
-    
+    Checked by "Linus Heckemann" on "c23f20c7d61b657aa6bc5ba0b8c66fbdc9d92d9f" at "22/03/2017"
+
 ## Flipper-edge
 
-    Purpose: 
-    Input:   Load -> "../scenarios/regression/flipper-edge" -> Start simulation if not already
-    
+    Purpose:
+    Input:   Load -> "scenarios/regression/flipper-edge" -> Start simulation if not already
+
     Expected: Both balls should bounce off the edge of the flipper and not fall straight down.
     Actual:   Both balls should bounce off the edge of the flipper and not fall straight down.
     Result:   PASS
-    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
-    
+    Checked by "Linus Heckemann" on "c23f20c7d61b657aa6bc5ba0b8c66fbdc9d92d9f" at "22/03/2017"
+
 ## Nostack
 
-    Purpose: 
-    Input:   Load -> "../scenarios/regression/nostack"
+    Purpose:
+    Input:   Load -> "scenarios/regression/nostack"
                   -> Start simulation if not already
                   -> Press space twice
-    
+
     Expected: The spawned balls should bounce apart horizontally after several collisions,
 not form a stack.
-    Actual:   The spawned balls should bounce apart horizontally after several collisions,
-not form a stack.
+    Actual:   The spawned balls bounce apart horizontally after several collisions, and do not form a stack.
     Result:   PASS
-    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
-    
+    Checked by "Linus Heckemann" on "c23f20c7d61b657aa6bc5ba0b8c66fbdc9d92d9f" at "22/03/2017"
+
 ## Predictable-path
 
-    Purpose: 
-    Input:   Load -> "../scenarios/regression/predictable-path"
+    Purpose:
+    Input:   Load -> "scenarios/regression/predictable-path"
                   -> Start simulation if not already
                   -> Wait 5 minutes
-    
+
     Expected: All three balls spawned at the beginning should still be in the arena.
-    Actual:   All three balls spawned at the beginning should still be in the arena.
-    Result:   PASS
-    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
-  
+    Actual:   At least one ball disappears within a minute.
+    Result:   FAIL
+    Checked by "Linus Heckemann" on "c23f20c7d61b657aa6bc5ba0b8c66fbdc9d92d9f" at "22/03/2017"
+
 ## Flipper-coll
 
-    Purpose: 
-    Input:   Load -> "../scenarios/regression/flipper-coll" -> Start simulation if not already
-    
+    Purpose:
+    Input:   Load -> "scenarios/regression/flipper-coll" -> Start simulation if not already
+
     Expected: Ball should collide correctly with the circles on the end of the flipper.
-    Actual:   Ball should collide correctly with the circles on the end of the flipper.
+    Actual:   Ball collides correctly with the circles on the end of the flipper.
     Result:   PASS
-    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
-  
+    Checked by "Linus Heckemann" on "c23f20c7d61b657aa6bc5ba0b8c66fbdc9d92d9f" at "22/03/2017"
+
 ## Transmission
 
-    Purpose: 
-    Input:   Load -> "../scenarios/regression/transmission" -> Start simulation if not already
-    
+    Purpose:
+    Input:   Load -> "scenarios/regression/transmission" -> Start simulation if not already
+
     Expected: The side balls trasmit force to one another through the ball in the middle,
 which stays stationary.
     Actual:   The side balls trasmit force to one another through the ball in the middle,
 which stays stationary.
     Result:   PASS
-    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+    Checked by "Linus Heckemann" on "c23f20c7d61b657aa6bc5ba0b8c66fbdc9d92d9f" at "22/03/2017"
 
 ## Settle
 
-    Purpose: 
-    Input:   Load -> "../scenarios/regression/settle" -> Start simulation if not already
-    
+    Purpose:
+    Input:   Load -> "scenarios/regression/settle" -> Start simulation if not already
+
     Expected: Each ball should settle and stop moving in the space below it.
-    Actual:   Each ball should settle and stop moving in the space below it.
-    Result:   PASS
-    Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
+    Actual:   Some balls do not settle.
+    Result:   FAIL
+    Checked by "Linus Heckemann" on "c23f20c7d61b657aa6bc5ba0b8c66fbdc9d92d9f" at "22/03/2017"
 
 
 # Validation Testing Strategy Results
@@ -256,7 +255,7 @@ which stays stationary.
     Result:   PASS
     Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
-## DELETE    
+## DELETE
 ## Number:  Test 5
 
     Purpose: Delete Gizmos or Ball
@@ -277,7 +276,7 @@ which stays stationary.
     Result:   PASS
     Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
 
-## ROTATE   
+## ROTATE
 ## Number:  Test 7
 
     Purpose: Rotate Absorber
@@ -307,7 +306,7 @@ which stays stationary.
     Actual:   Selected gizmo rotates
     Result:   PASS
     Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
-    
+
 ## Number:  Test 10
 
     Purpose: Rotate any other Gizmo
@@ -409,7 +408,7 @@ which stays stationary.
     Actual:   Nothing changes and no connection has been made
     Result:   PASS
     Checked by "Francesco Meggetto" on "3efd86a2d250a8be8e0c65b5bc39ca01cd67e6dd" at "22/03/2017"
- 
+
 ## Number:  Test 19
 
     Purpose: Trigger on gizmo - Gizmo as source and Gizmo as destination
@@ -709,7 +708,7 @@ which stays stationary.
     Purpose: Save game board to file - Standard - Existing file
     Input:   Save -> Standard ->
              Select location and name
-    
+
     Expected: File is saved and overwrite occured (load to double check)
     Actual:   File is saved and overwrite occured (load to double check)
     RESULT:   PASS
