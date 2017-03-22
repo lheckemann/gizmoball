@@ -189,3 +189,15 @@ Ball should collide correctly with the circles on the end of the flipper.
 
 The side balls trasmit force to one another through the ball in the middle,
 which stays stationary.
+
+
+## settle
+
+### Instructions
+
+1. Load file
+2. Run simulation
+
+### Expected outcome
+
+Each ball should settle and stop moving in the space below it.

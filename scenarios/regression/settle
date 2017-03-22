@@ -1,0 +1,86 @@
+Square Square0 8 8
+Square Square1 10 1
+Circle Circle0 6 7
+Square Square2 8 3
+Square Square3 3 7
+Square Square4 2 3
+Square Square5 10 2
+Triangle Triangle0 8 7
+Square Square6 4 6
+Square Square7 1 4
+Square Square8 7 6
+Circle Circle1 8 5
+Square Square9 4 5
+Triangle Triangle1 9 5
+Square Square10 10 8
+Square Square11 5 8
+Square Square12 10 6
+Square Square13 10 0
+Square Square14 9 8
+Square Square15 4 1
+Square Square16 6 8
+Triangle Triangle2 2 7
+Triangle Triangle3 9 3
+Square Square17 2 8
+Square Square18 1 0
+Square Square19 7 4
+Square Square20 3 3
+Square Square21 1 2
+Circle Circle2 2 5
+Square Square22 7 0
+Square Square23 10 3
+Square Square24 4 8
+Square Square25 5 3
+Square Square26 7 8
+Circle Circle3 6 5
+Square Square27 4 2
+Square Square28 7 7
+Square Square29 1 6
+Square Square30 10 5
+Triangle Triangle4 5 7
+Square Square31 3 5
+Square Square32 4 3
+Square Square33 7 5
+Square Square34 1 1
+Square Square35 1 8
+Square Square36 10 7
+Square Square37 1 7
+Square Square38 10 4
+Square Square39 4 7
+Square Square40 4 0
+Square Square41 7 1
+Square Square42 4 4
+Square Square43 7 2
+Triangle Triangle5 9 7
+Square Square44 1 5
+Circle Circle4 6 3
+Circle Circle5 5 5
+Square Square45 1 3
+Square Square46 3 8
+Square Square47 7 3
+Ball B0 5.937500 6.718750 0.000000 0.000000
+Ball B1 2.750000 4.687500 0.000000 0.000000
+Ball B2 3.000000 2.093750 0.000000 0.000000
+Ball B3 2.968750 6.406250 0.000000 0.000000
+Ball B4 8.906250 6.562500 0.000000 0.000000
+Ball B5 6.093750 2.062500 0.000000 0.000000
+Ball B6 9.187500 2.250000 0.000000 0.000000
+Ball B7 6.031250 4.718750 0.000000 0.000000
+Ball B8 9.000000 4.656250 0.000000 0.000000
+Rotate Triangle0
+Rotate Triangle0
+Rotate Triangle0
+Rotate Triangle1
+Rotate Triangle1
+Rotate Triangle2
+Rotate Triangle2
+Rotate Triangle2
+Rotate Triangle3
+Rotate Triangle3
+Rotate Triangle4
+Rotate Triangle4
+Rotate Triangle4
+Rotate Triangle5
+Rotate Triangle5
+Gravity 25.000000
+Friction 0.025000 0.025000
