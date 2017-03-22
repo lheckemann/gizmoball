@@ -1,0 +1,60 @@
+Spawner Spawner0 10 5
+Square Square0 17 4
+Square Square1 17 6
+Spawner Spawner1 19 0
+Triangle Triangle0 18 4
+Square Square2 5 2
+Square Square3 2 1
+Triangle Triangle1 16 4
+Square Square4 16 5
+Square Square5 1 1
+Sink Sink0 5 8
+Square Square6 0 1
+Sink Sink1 16 1
+Sink Sink2 10 8
+Square Square7 5 1
+RightFlipper RightFlipper0 4 6
+Square Square8 2 4
+Square Square9 1 4
+Square Square10 1 2
+Triangle Triangle2 18 6
+Square Square11 6 1
+Square Square12 4 1
+Square Square13 4 4
+LeftFlipper LeftFlipper0 0 6
+RightFlipper RightFlipper1 17 2
+Spawner Spawner2 0 5
+Square Square14 18 5
+Sink Sink3 0 8
+Square Square15 0 4
+Square Square16 1 3
+Triangle Triangle3 5 4
+Square Square17 5 3
+Spawner Spawner3 5 5
+Sink Sink4 16 3
+Triangle Triangle4 19 1
+Triangle Triangle5 16 6
+Rotate Triangle0
+Rotate Triangle0
+Rotate Triangle0
+Rotate Triangle1
+Rotate Triangle1
+Rotate RightFlipper0
+Rotate RightFlipper0
+Rotate RightFlipper0
+Rotate LeftFlipper0
+Rotate Triangle4
+Rotate Triangle4
+Rotate Triangle5
+Connect Sink0 RightFlipper1
+Connect Sink2 RightFlipper0
+Connect Sink2 LeftFlipper0
+Connect Sink4 RightFlipper1
+KeyConnect key 32 down Spawner0
+KeyConnect key 32 down RightFlipper0
+KeyConnect key 32 down LeftFlipper0
+KeyConnect key 82 down Spawner1
+KeyConnect key 73 down Spawner2
+KeyConnect key 74 down Spawner3
+Gravity 25.000000
+Friction 0.025000 0.025000
