@@ -863,13 +863,14 @@ public class LoadTest {
     @Test
     public void rotateCorrectBallThrowsError() {
         try {
-            String testString = "Ball B0 0 19 20 20\n"
+            String testString = "Ball B0 4 4 20 20\n"
                     + "Rotate B0";
             InputStream testStream = new ByteArrayInputStream(testString.getBytes(StandardCharsets.UTF_8));
             this.model.load(new StandardLoader(), testStream);
            
             fail();
         } catch (SyntaxError e) {
+            System.out.println(e.getMessage());
             assertTrue(true);
         }
     }
