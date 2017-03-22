@@ -183,13 +183,13 @@ public class Model implements BuildModel, RunModel {
 
     @Override
     public void rotateGizmo() throws NonRotatableException {
-        
+
         Gizmo gizmo = this.getSelectedGizmo();
         if (gizmo != null) {
             gizmo.rotate();
             return;
         }
-        
+
         Ball ball = this.getSelectedBall();
         if (ball != null) {
             throw new NonRotatableException("Balls cannot be rotated");
@@ -487,12 +487,14 @@ public class Model implements BuildModel, RunModel {
             if (!velocities.containsKey(b))
                 b.setPosition(this.getAppliedVelocity(b, lapse));
 
-            // Only apply gravity and friction if this does not result in an immediate collision.
+            b.setVelocity(this.getAppliedFriction(b.getVelocity(), lapse));
+
+            // Only apply gravity if this does not result in an immediate collision.
             Vect oldVel = b.getVelocity();
-            b.setVelocity(this.getAppliedGravity(this.getAppliedFriction(b.getVelocity(), lapse), lapse));
+            b.setVelocity(this.getAppliedGravity(oldVel, lapse));
             finder.setBalls(Collections.singleton(b));
             List<Collision> thisBallCollisions = finder.getCollisions();
-            if (!thisBallCollisions.isEmpty() && thisBallCollisions.get(0).time < IMMEDIATE_COLLISION)
+            if (!thisBallCollisions.isEmpty() && thisBallCollisions.get(0).time < 1e-2)
                 b.setVelocity(oldVel);
         }
 
