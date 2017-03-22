@@ -169,20 +169,19 @@
 
 ## Number:  Test 16
 
-    Purpose: Add ball - Overlapping other Gizmos
-    Input:   Build Mode -> Add -> Ball -> Click on the board -> Specify
-                 initial velocity on displayed message box
-
+    Purpose: Add ball - Overlapping non absorber Gizmos
+    Input:   Build Mode -> Add -> Ball -> Click on non absorber gizmo
     Expected: Error - "Can't place a ball on top of another gizmo or ball"
     Actual:   Error - "Can't place a ball on top of another gizmo or ball"
     Result:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "William Macdonald" on "f8e539d704d151b31201" at "22/03/2017"
+
 
 ## Number:  Test 17
 
     Purpose: Add ball - Cancel action
     Input:   Build Mode -> Add -> Ball -> Click on the board -> Close
-             "set ball vleocity" dialog
+             "set ball velocity" dialog
 
     Expected: The board is the same with ball not placed
     Actual:   The board is the same with ball not placed
@@ -534,10 +533,10 @@
              OR
              Save -> Standard/Extended -> Cancel or "X"
 
-    Expected: No saving occured and scenario still loaded
-    Actual:   No saving occured and scenario still loaded
+    Expected: No saving occured
+    Actual:   No saving occured
     RESULT:   PASS
-    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    Checked by "William Macdonald" on "f8e539d704d151b31201" at "22/03/2017"
 
 ## Number:  Test 51
 
@@ -568,3 +567,21 @@
     Actual:   It exits the system
     RESULT:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+
+## Number: Test 54
+
+    Purpose: Add ball - Inside absorber
+    Input:   BuildMode -> Add Ball -> Click on absorber -> Specify initial velocity
+    Expected: Ball is consumed by absorber & can be fired by absorber trigger
+    Actual: Ball is consumed by absorber & can be fired by absorber trigger (run game to check)
+    Result: PASS
+    Checked by "William Macdonald" on "f8e539d704d151b31201" at "22/03/2017"
+
+## Number: Test 55
+    Purpose: Add ball - Enter non numeric velocity values
+    Input:   BuildMode -> Add Ball -> Click on empty location ->
+             Enter alphanumeric strings into velocity prompt
+    Expected: Error - "Velocity value error - value must be numeric"
+    Actual: Error - "Velocity value error - Value must be numeric"
+    Result: PASS
+    Checked by "William Macdonald" on "f8e539d704d151b31201" at 22/03/2017
