@@ -127,7 +127,7 @@ public class GizmoBallView implements IGizmoBallView {
         String[] options = new String[] {"Standard", "Extended", "Cancel"};
         int result = JOptionPane.showOptionDialog(null, "Choose saver type", "Select a saver to use",
                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
-                null, options, null);
+                null, options, options[1]);
 
         if (result == 0)
             return controller.getStandardSaver(model);
