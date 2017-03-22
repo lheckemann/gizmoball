@@ -9,7 +9,7 @@ design.pdf: design.md
 	pandoc -f markdown -t latex design.md -o design.pdf
 
 source.zip:
-	git archive --format=zip > source.zip
+	git archive --format zip > source.zip
 
 gizmoball-0.0.1.jar:
 	cd ../../ && make jars
