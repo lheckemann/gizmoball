@@ -81,7 +81,7 @@
 ## Number:  Test 8
 
     Purpose: Rotate Ball
-    Input:   Build Mode -> Rotate -> Click on an Ball on the board
+    Input:   Build Mode -> Rotate -> Click on a Ball on the board
 
     Expected: Error - "Ball cannot be rotated"
     Actual:   Error - "Ball cannot be rotated"
@@ -90,16 +90,26 @@
 
 ## Number:  Test 9
 
-    Purpose: Rotate any other Gizmo
-    Input:   Build Mode -> Rotate -> Click on any other Gizmo on the board
+    Purpose: Rotate Triangle and Flipper
+    Input:   Build Mode -> Rotate -> Click on a Triangle or Flipper on the board
 
-    Expected: Gzmo rotates, if possible
-    Actual:   Gzmo rotates, if possible
+    Expected: Selected gizmo rotates
+    Actual:   Selected gizmo rotates
+    Result:   PASS
+    Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
+    
+## Number:  Test 10
+
+    Purpose: Rotate any other Gizmo
+    Input:   Build Mode -> Rotate -> Click on any other gizmo on the board
+
+    Expected: Selected gizmo does not rotate
+    Actual:   Selected gizmo does not rotate
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
 ## ADD
-## Number:  Test 10
+## Number:  Test 11
 
     Purpose: Add absorber
     Input:   Build Mode -> Add absorber
@@ -112,7 +122,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 11
+## Number:  Test 12
 
     Purpose: Add absorber - Overlapping other Gizmos
     Input:   Build Mode -> Add absorber
@@ -125,7 +135,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 12
+## Number:  Test 13
 
     Purpose: Add other Gizmos
     Input:   Build Mode -> Add {any gizmo} -> Click on the board
@@ -135,7 +145,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 13
+## Number:  Test 14
 
     Purpose: Add other Gizmos - Overlapping other Gizmos
     Input:   Build Mode -> Add {any gizmo} -> Click on the board
@@ -146,7 +156,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 14
+## Number:  Test 15
 
     Purpose: Add ball
     Input:   Build Mode -> Add -> Ball -> Click on the board -> Specify
@@ -157,7 +167,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 15
+## Number:  Test 16
 
     Purpose: Add ball - Overlapping other Gizmos
     Input:   Build Mode -> Add -> Ball -> Click on the board -> Specify
@@ -168,7 +178,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 16
+## Number:  Test 17
 
     Purpose: Add ball - Cancel action
     Input:   Build Mode -> Add -> Ball -> Click on the board -> Close
@@ -180,7 +190,7 @@
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
 ## Triggers
-## Number:  Test 17
+## Number:  Test 18
 
     Purpose: Trigger on gizmo - Gizmo as source and empty cell (or Ball) as destination
     Input:   Build Mode -> Trigger on gizmo -> Click on the board
@@ -191,7 +201,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
  
-## Number:  Test 18
+## Number:  Test 19
 
     Purpose: Trigger on gizmo - Gizmo as source and Gizmo as destination
     Input:   Build Mode -> Trigger on gizmo -> Click on the board
@@ -202,7 +212,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 19
+## Number:  Test 20
 
     Purpose: Trigger on gizmo - Empty cell (or Ball) as source and empty cell (or Ball) as destination
     Input:   Build Mode -> Trigger on gizmo -> Click on the board
@@ -213,7 +223,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 20
+## Number:  Test 21
 
     Purpose: Trigger on gizmo - Empty cell (or Ball) as source and Gizmo as destination
     Input:   Build Mode -> Trigger on gizmo -> Click on the board
@@ -224,7 +234,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 21
+## Number:  Test 22
 
     Purpose: Trigger on keypress - Gizmo as source and key as destination
     Input:   Build Mode -> Trigger on keypress -> Click on the board
@@ -235,7 +245,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 22
+## Number:  Test 23
 
     Purpose: Trigger on keypress - Empty cell as source (or Ball) and key as destination
     Input:   Build Mode -> Trigger on keypress -> Click on the board
@@ -246,7 +256,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 23
+## Number:  Test 24
 
     Purpose: Trigger on outer wall - Gizmo as source
     Input:   Build Mode -> Trigger on outer wall -> Click on the board
@@ -256,7 +266,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 24
+## Number:  Test 25
 
     Purpose: Trigger on outer wall - Empty cell as source (or Ball)
     Input:   Build Mode -> Trigger on outer wall -> Click on the board
@@ -267,7 +277,7 @@
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
 ## Physics - Friction mu, friction mu2 and gravity
-## Number:  Test 25
+## Number:  Test 26
 
     Purpose: Modify friction MU
     Input:   Build Mode -> Modify input field next to label "Friction mu"
@@ -277,7 +287,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 26
+## Number:  Test 27
 
     Purpose: Modify friction MU with wrong type (e.g. string) or out of range
     Input:   Build Mode -> Modify input field next to label "Friction mu"
@@ -287,7 +297,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 27
+## Number:  Test 28
 
     Purpose: Modify gravity
     Input:   Build Mode -> Modify input field next to label "Gravity"
@@ -297,7 +307,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 28
+## Number:  Test 29
 
     Purpose: Modify gravity with wrong type (e.g. string) or out of range
     Input:   Build Mode -> Modify input field next to label "Gravity"
@@ -307,7 +317,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 29
+## Number:  Test 30
 
     Purpose: Modify friction MU2
     Input:   Build Mode -> Modify input field next to label "Friction mu2"
@@ -317,7 +327,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 30
+## Number:  Test 31
 
     Purpose: Modify friction MU2 with wrong type (e.g. string) or out of range
     Input:   Build Mode -> Modify input field next to label "Friction mu2"
@@ -328,7 +338,7 @@
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
 ## Switch between modes
-## Number:  Test 31
+## Number:  Test 32
 
     Purpose: Switch to run mode with a blank scenario
     Input:   Build Mode -> Run
@@ -338,7 +348,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 32
+## Number:  Test 33
 
     Purpose: Switch to run mode with a scenario
     Input:   Build Mode -> Run
@@ -348,7 +358,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 33
+## Number:  Test 34
 
     Purpose: Switch to build mode with a blank scenario
     Input:   Run Mode -> Build
@@ -358,7 +368,7 @@
     Result:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 34
+## Number:  Test 35
 
     Purpose: Switch to build mode with a scenario
     Input:   Run Mode -> Build
@@ -369,7 +379,7 @@
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
 ## Run game
-## Number:  Test 35
+## Number:  Test 36
 
     Purpose: Press stop button
     Input:   Run Mode -> Run -> Stop
@@ -381,7 +391,7 @@
     RESULT:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 36
+## Number:  Test 37
 
     Purpose: Press run button
     Input:   Run Mode -> Run
@@ -391,7 +401,7 @@
     RESULT:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 37
+## Number:  Test 38
 
     Purpose: Press tick button
     Input:   Run Mode -> Stop (default state when switching to Run Mode)
@@ -402,7 +412,7 @@
     RESULT:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 38
+## Number:  Test 39
 
     Purpose: Press/Release key to trigger connected gizmo
     Input:   Run Mode -> Run -> Press/Release Key
@@ -412,7 +422,7 @@
     RESULT:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 39
+## Number:  Test 40
 
     Purpose: Press/Release key to trigger connected gizmo
     Input:   Run Mode -> Run -> Press/Release a key not connected to any Gizmos
@@ -422,7 +432,7 @@
     RESULT:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 40
+## Number:  Test 41
 
     Purpose: Hit ball(s) with flipper
     Input:   Run Mode -> Run -> Press/Release Key to trigger flippers
@@ -433,7 +443,7 @@
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
 ## Other functionalities
-## Number:  Test 41
+## Number:  Test 42
 
     Purpose: Load game board from file - Valid file
     Input:   Load -> Select file
@@ -443,7 +453,7 @@
     RESULT:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 42
+## Number:  Test 43
 
     Purpose: Load game board from file - Invalid file
     Input:   Load -> Select file
@@ -453,7 +463,7 @@
     RESULT:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 43
+## Number:  Test 44
 
     Purpose: Load game board from file - Abort operation
     Input:   Load -> Select file -> Close dialog to abort
@@ -463,7 +473,7 @@
     RESULT:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 44
+## Number:  Test 45
 
     Purpose: Load game board from file - Game runs in the background
     Input:   Run Mode (and on Run state)-> Load -> Select file
@@ -473,7 +483,7 @@
     RESULT:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 45
+## Number:  Test 46
 
     Purpose: Save game board to file - Standard - New file
     Input:   Save -> Standard ->
@@ -484,7 +494,7 @@
     RESULT:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 46
+## Number:  Test 47
 
     Purpose: Save game board to file - Standard - Existing file
     Input:   Save -> Standard ->
@@ -495,7 +505,7 @@
     RESULT:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 47
+## Number:  Test 48
 
     Purpose: Save game board to file - Extended - New file
     Input:   Save -> Extended ->
@@ -506,7 +516,7 @@
     RESULT:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 48
+## Number:  Test 49
 
     Purpose: Save game board to file - Extended - Existing file
     Input:   Save -> Extended ->
@@ -517,7 +527,7 @@
     RESULT:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 49
+## Number:  Test 50
 
     Purpose: Save game board to file - Abort
     Input:   Save -> Cancel or "X"
@@ -529,7 +539,7 @@
     RESULT:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 50
+## Number:  Test 51
 
     Purpose: Save game board to file - Game runs in the background
     Input:   Run Mode (and on Run state)-> Save -> Select saver, location and name
@@ -539,7 +549,7 @@
     RESULT:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 51
+## Number:  Test 52
 
     Purpose: New game
     Input:   New
@@ -549,7 +559,7 @@
     RESULT:   PASS
     Checked by "Francesco Meggetto" on "7f592778" at "22/03/2017"
 
-## Number:  Test 52
+## Number:  Test 53
 
     Purpose: Quit system
     Input:   Exit
