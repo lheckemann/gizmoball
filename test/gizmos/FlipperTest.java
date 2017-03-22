@@ -87,7 +87,7 @@ public class FlipperTest {
     	myLeftFlipper.trigger();
     	myLeftFlipper.tick(SECONDS_PER_TICK);
     	myLeftFlipper.trigger();
-    	assertNotEquals(6d * Math.PI, myLeftFlipper.getAngularVelocity(), DELTA);
+    	assertEquals(6d * Math.PI, myLeftFlipper.getAngularVelocity(), DELTA);
     }
     
     @Test
@@ -125,7 +125,7 @@ public class FlipperTest {
     	myRightFlipper.trigger();
     	myRightFlipper.tick(SECONDS_PER_TICK);
     	myRightFlipper.trigger();
-    	assertNotEquals(-6d * Math.PI, myRightFlipper.getAngularVelocity(), DELTA);
+    	assertEquals(-6d * Math.PI, myRightFlipper.getAngularVelocity(), DELTA);
     }
     
     @Test
