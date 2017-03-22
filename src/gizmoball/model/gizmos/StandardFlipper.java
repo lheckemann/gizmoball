@@ -65,7 +65,7 @@ public class StandardFlipper extends Flipper {
     @Override
     public Double getAngularVelocity() {
         if (MIN_ANGLE < pivotAngle && pivotAngle < MAX_ANGLE) {
-            return isLeftFlipper ? -ANGULAR_VELOCITY : ANGULAR_VELOCITY;
+            return isLeftFlipper ^ active ? ANGULAR_VELOCITY : -ANGULAR_VELOCITY;
         }
         return 0.0;
     }
