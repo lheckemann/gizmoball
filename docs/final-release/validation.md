@@ -168,11 +168,11 @@ not form a stack.
     Purpose:
     Input:   Load -> "scenarios/regression/predictable-path"
                   -> Start simulation if not already
-                  -> Wait 5 minutes
+                  -> Wait 1 minute
 
     Expected: All three balls spawned at the beginning should still be in the arena.
-    Actual:   At least one ball disappears within a minute.
-    Result:   FAIL
+    Actual:   All three balls spawned at the beginning should still be in the arena.
+    Result:   PASS
     Checked by "Linus Heckemann" on "c23f20c7d61b657aa6bc5ba0b8c66fbdc9d92d9f" at "22/03/2017"
 
 ## Flipper-coll

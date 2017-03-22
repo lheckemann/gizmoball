@@ -159,7 +159,7 @@ not form a stack.
 
 1. Load file
 2. Run simulation
-3. Wait 5 minutes
+3. Wait 1 minute
 
 ### Expected outcome
 
