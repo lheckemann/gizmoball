@@ -18,15 +18,14 @@ public class TickListener implements ActionListener {
         this.view = view;
     }
 
-    private long sinceLastRedraw = 0;
+    private long lastRedraw = 0;
     @Override
     public void actionPerformed(ActionEvent e) {
         long pre = System.currentTimeMillis();
         long computed = (int) (1000 * this.model.tick());
-        sinceLastRedraw += computed;
-        if (sinceLastRedraw >= 1000 * RunModel.SECONDS_PER_TICK) {
+        if (pre >= lastRedraw + 1000/60) {
             this.view.updateBoard();
-            sinceLastRedraw = 0;
+            lastRedraw = pre;
         }
         /* Attempt to compensate for the time spend computing and drawing */
         int delay = (int) Math.max(0, computed - (System.currentTimeMillis() - pre));
