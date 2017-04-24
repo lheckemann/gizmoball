@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>class.cs308.js8</groupId>
   <artifactId>gizmoball</artifactId>
-  <version>0.0.1</version>
+  <version>1.0.0</version>
 
   <!-- Include JUnit as a test dependency -->
   <dependencies>
